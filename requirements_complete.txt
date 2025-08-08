@@ -1,0 +1,61 @@
+# Core Flask & Web Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.0.5
+Flask-Dance==7.0.0
+Werkzeug==2.3.7
+Jinja2==3.1.2
+gunicorn==21.2.0
+gevent==23.7.0
+
+# Database
+SQLAlchemy==2.0.21
+psycopg2-binary==2.9.7
+redis==4.6.0
+
+# Data Processing & Analytics
+pandas==2.1.1
+numpy==1.25.2
+scikit-learn==1.3.0
+ta==0.10.2
+xgboost==1.7.6
+
+# AI & Machine Learning
+openai==0.28.1
+tensorflow==2.13.0
+
+# HTTP Requests & APIs
+requests==2.31.0
+aiohttp==3.8.5
+urllib3==2.0.4
+
+# Authentication & Security
+PyJWT==2.8.0
+oauthlib==3.2.2
+python-dotenv==1.0.0
+
+# Telegram Bot
+python-telegram-bot==20.5
+
+# News & Content Processing
+feedparser==6.0.10
+trafilatura==1.6.1
+
+# Data Validation
+pydantic==2.3.0
+
+# Testing & Development
+pytest==7.4.2
+pytest-flask==1.2.0
+
+# Optional Dependencies (install if needed)
+# shap==0.42.1
+# plotly==5.15.0
+# matplotlib==3.7.2
+# seaborn==0.12.2
+
+# System & Utils
+python-dateutil==2.8.2
+pytz==2023.3
+click==8.1.7

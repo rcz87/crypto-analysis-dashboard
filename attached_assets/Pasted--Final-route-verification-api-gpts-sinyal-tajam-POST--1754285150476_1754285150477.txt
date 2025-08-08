@@ -1,0 +1,80 @@
+📋 Final route verification:
+  /api/gpts/sinyal/tajam -> POST
+
+==========================================
+🎯 ENDPOINT READY FOR CHATGPT CUSTOM GPTS
+==========================================
+Production URLs:
+  GET:  http://212.26.36.253:5050/api/gpts/sinyal/tajam?symbol=BTCUSDT&timeframe=1H
+  POST: http://212.26.36.253:5050/api/gpts/sinyal/tajam
+==========================================
+root@srv795356:~/crypto-analysis-dashboard# # Jalankan direct fix di VPS
+cat > direct-fix-in-container.sh << 'EOF'
+#!/bin/bash
+echo "🔧 DIRECT FIX IN RUNNING CONTAINER"
+echo "================================="
+
+# Check current file in container
+echo "📋 Current routing in container:"
+docker exec crypto_trading_app grep -A 10 "def post_sharp_signal" /app/gpts_api_simple.py
+
+# Apply simple fix - backup and create new file
+echo "🛠️ Creating corrected file..."
+docker exec crypto_trading_app cp /app/gpts_api_simple.py /app/gpts_api_simple.py.backup
+
+# Create fixed version with proper GET/POST handling
+docker exec crypto_trading_app bash -c 'python3 -c "
+import re
+with open(\"/app/gpts_api_simple.py\", \"r\") as f:
+    content = f.read()
+
+# Fix the function to handle both GET and POST
+pattern = r\"\"\"(def post_sharp_signal\(\):\s*\"\"\"[^\"]*\"\"\"\s*try:\s*)
+        # Handle both GET and POST requests.*?
+        if request\.method == '\''GET'\'':\s*
+            symbol = request\.args\.get.*?
+            timeframe = request\.args\.get.*?
+        else:\s*
+            data = request\.get_json.*?
+            symbol = data\.get.*?
+            timeframe = data\.get.*?\"\"\"
+
+replacement = r\"\"\"\\1
+        # Handle both GET and POST requests
+        if request.method == '\''GET'\'':
+            symbol = request.args.get('\''symbol'\'', '\''BTCUSDT'\'')
+            timeframe = request.args.get('\''timeframe'\'', '\''1H'\'')
+        else:
+            data = request.get_json() or {}
+            symbol = data.get('\''symbol'\'', '\''BTCUSDT'\'')
+            timeframe = data.get('\''timeframe'\'', '\''1H'\'')\"\"\"
+
+# If pattern not found, insert after try:
+if \"request.method == '\''GET'\''\" not in content:
+    content = re.sub(
+        r\"(def post_sharp_signal\(\):[^{]*try:\s*)(\s*)(.*?)(symbol = data\.get\([^)]+\).*?timeframe = data\.get\([^)]+\))\",
+        r\"\\1\\2# Handle both GET and POST requests\\n\\2if request.method == '\''GET'\'':\\n\\2    symbol = request.args.get('\''symbol'\'', '\''BTCUSDT'\'')\\n\\2    timeframe = request.args.get('\''timeframe'\'', '\''1H'\'')\\n\\2else:\\n\\2    data = request.get_json() or {}\\n\\2    \\4\",
+        content,
+        flags=re.DOTALL
+    )
+
+./direct-fix-in-container.shiner.sh====" "1H"}' \al/tajam" \BTCUSDT&timeframe=1H" | head -100
+🔧 DIRECT FIX IN RUNNING CONTAINER
+=================================
+📋 Current routing in container:
+🛠️ Creating corrected file...
+  File "<string>", line 7
+    pattern = r"""(def post_sharp_signal\(\):\s*"""[^"]*"""\s*try:\s*)
+                                                    ^
+SyntaxError: invalid syntax
+🔄 Restarting container for clean reload...
+crypto_trading_app
+🧪 Testing GET method:
+{"api_version":"1.0.0","error":"HTTP_405","error_code":405,"message":"The method is not allowed for the requested URL.","timestamp":"2025-08-04T05:24:33.400914"}
+
+🧪 Testing POST method:
+{"api_version":"1.0.0","data_source":"OKX_AUTHENTICATED_SMC_WITH_XAI","server_time":"2025-08-04T05:24:39.962488","signal":{"action":"NEUTRAL","ai_adjustment":0,"ai_reasoning":"- **Bias Utama**: NEUTRAL; harga saat ini bergerak dalam range sempit, menunjukkan ketidakpastian pasar.\n- **Entry Point Optimal**: Pertimbangkan entry di sekitar support $113,500 atau resistance $115,000 untuk konfirmasi breakout.\n- **Stop Loss**: Tempatkan stop loss ketat di bawah $113,000 untuk mengelola risiko downside.\n- **Take Profit**: Targetkan take profit di sekitar $116,500 jika terjadi breakout ke atas.\n- **Confidence Level**: \ud83d\udd35 2/5; volatilitas rendah dan sinyal teknikal belum menunj","confidence":60.6,"confidence_emoji":"\u26a0\ufe0f","confidence_level":"LOW","current_price":114303.1,"entry_price":114303.1,"indicators_triggered":"\u2022 Order Blocks: 6 Active","mtf_analysis":{"confluence_details":"Strong bullish confluence (2/3 timeframes)","confluence_score":74.5,"recommendation":{"action":"BUY","confidence":79.5,"divergence":null,"optimal_entry":{"suggested_zone":{"resistance":115016.0,"support":113577.4},"wait_for_pullback":false},"reasoning":"Strong bullish confluence (2/3 timeframes)"},"timeframe_alignment":{"15M":{"momentum":"NEUTRAL","price_vs_sma20":0.05,"price_vs_sma50":0.54,"resistance":115016.0,"rsi":57.7,"support":113577.4,"timeframe":"15M","trend":"BULLISH","trend_strength":85},"1H":{"momentum":"NEUTRAL","price_vs_sma20":0.04,"price_vs_sma50":0.53,"resistance":115016.0,"rsi":57.3,"support":113577.4,"timeframe":"1H","trend":"BULLISH","trend_strength":85},"4H":{"momentum":"NEUTRAL","price_vs_sma20":0.29,"price_vs_sma50":-1.86,"resistance":116063.2,"rsi":59.75,"support":111903.1,"timeframe":"4H","trend":"NEUTRAL","trend_strength":50}}},"raw_score":60.6,"risk_level":"MEDIUM","risk_reward_ratio":1.5000000000000098,"smc_analysis":{"bos_count":0,"choch_count":0,"derivatives_data":{"funding_rate":null,"open_interest":null},"fvg_count":0,"market_structure":"neutral","order_blocks":6,"smc_indicators":["Order Blocks: 6 Active"]},"stop_loss":113550.6142857143,"symbol":"BTC-USDT","take_profit_1":115431.82857142857,"take_profit_2":116184.31428571428,"timeframe":"1H","timestamp":"2025-08-04T05:24:39.962369","volume_profile":{"imbalance":null,"insights":{"price_position":"BELOW_VALUE","risk_level":"MODERATE","support_resistance":[{"level":118322.269,"strength":"STRONG","type":"RESISTANCE"},{"level":118005.273,"strength":"STRONG","type":"RESISTANCE"},{"level":118163.771,"strength":"STRONG","type":"RESISTANCE"},{"level":111982.349,"strength":"MODERATE","type":"BREAKOUT_LEVEL"},{"level":119748.751,"strength":"MODERATE","type":"BREAKOUT_LEVEL"}],"trade_recommendation":"Look for bounce from value area low for short entries"},"poc":{"price":118322.269,"strength":"STRONG","volume":1711.55},"skew":null,"value_area":{"vah":null,"val":null,"volume_percentage":null}},"xai_explanation":{"confidence":60.65,"decision":"NEUTRAL","explanation":"Signal: NEUTRAL dengan confidence 60.6%","risk_level":"MEDIUM","top_factors":[]}}}
+=================================
+🎯 DIRECT FIX COMPLETED
+=================================
+root@srv795356:~/crypto-analysis-dashboard# 

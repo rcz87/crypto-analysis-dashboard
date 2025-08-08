@@ -1,0 +1,81 @@
+===============================
+🛑 Stopping problematic container...
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Stopping 1/1
+ ✔ Container crypto_trading_app  Stopped                                                                                                                                                                                 0.0s 
+🗑️ Removing container for clean rebuild...
+crypto_trading_app
+📋 Verifying requirements-prod.txt contains gunicorn...
+⚠️ Gunicorn not found in requirements!
+🚀 Rebuilding app container with clean install...
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+WARN[0000] Docker Compose is configured to build using Bake, but buildx isn't installed 
+[+] Building 8.9s (24/24) FINISHED                                                                                                                                                                             docker:default
+ => [crypto-app internal] load build definition from Dockerfile                                                                                                                                                          0.0s
+ => => transferring dockerfile: 3.38kB                                                                                                                                                                                   0.0s
+ => WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 4)                                                                                                                                           0.0s
+ => [crypto-app internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                           0.0s
+ => [crypto-app internal] load .dockerignore                                                                                                                                                                             0.0s
+ => => transferring context: 1.59kB                                                                                                                                                                                      0.0s
+ => CACHED [crypto-app builder 1/4] FROM docker.io/library/python:3.11-slim                                                                                                                                              0.0s
+ => [crypto-app internal] load build context                                                                                                                                                                             0.0s
+ => => transferring context: 11.52kB                                                                                                                                                                                     0.0s
+ => [crypto-app stage-1  2/15] RUN apt-get update && apt-get install -y --no-install-recommends     postgresql-client     curl     && apt-get clean     && rm -rf /var/lib/apt/lists/*     && rm -rf /var/cache/apt/*    7.2s
+ => CACHED [crypto-app builder 2/4] WORKDIR /build                                                                                                                                                                       0.0s
+ => [crypto-app builder 3/4] COPY requirements-prod.txt .                                                                                                                                                                0.0s
+ => [crypto-app builder 4/4] RUN mkdir -p /root/.local     && pip install --no-cache-dir --user -r requirements-prod.txt     && find /root/.local -name "*.pyc" -delete 2>/dev/null || true     && find /root/.local -n  2.3s
+ => [crypto-app stage-1  3/15] COPY --from=builder /root/.local /usr/local                                                                                                                                               0.0s 
+ => [crypto-app stage-1  4/15] WORKDIR /app                                                                                                                                                                              0.0s 
+ => [crypto-app stage-1  5/15] COPY wsgi_production.py .                                                                                                                                                                 0.0s 
+ => [crypto-app stage-1  6/15] COPY main.py .                                                                                                                                                                            0.0s 
+ => [crypto-app stage-1  7/15] COPY gpts_api_simple.py .                                                                                                                                                                 0.0s 
+ => [crypto-app stage-1  8/15] COPY gunicorn.conf.py .                                                                                                                                                                   0.0s 
+ => [crypto-app stage-1  9/15] COPY start-production.sh .                                                                                                                                                                0.0s 
+ => [crypto-app stage-1 10/15] COPY models.py .                                                                                                                                                                          0.0s 
+ => [crypto-app stage-1 11/15] COPY core/ ./core/                                                                                                                                                                        0.0s 
+ => [crypto-app stage-1 12/15] COPY api/ ./api/                                                                                                                                                                          0.1s 
+ => [crypto-app stage-1 13/15] RUN echo "=== Verifying .dockerignore exclusions ==="     && echo "Checking if heavy directories were excluded..."     && test ! -d ".pythonlibs" || (echo "ERROR: .pythonlibs was copie  0.2s
+ => [crypto-app stage-1 14/15] RUN mkdir -p logs tmp     && find . -name "*.pyc" -delete     && find . -name "__pycache__" -type d -exec rm -rf {} + || true     && find /usr/local -name "*.pyc" -delete     && find /  0.4s
+ => [crypto-app stage-1 15/15] RUN useradd --create-home --shell /bin/bash app && chown -R app:app /app                                                                                                                  0.4s 
+ => [crypto-app] exporting to image                                                                                                                                                                                      0.4s 
+ => => exporting layers                                                                                                                                                                                                  0.4s
+ => => writing image sha256:fed407c167be3aafc4d634c55384dbae0281bf052fc75b14f4e025bfce20d0c8                                                                                                                             0.0s
+ => => naming to docker.io/library/crypto-analysis-dashboard-crypto-app                                                                                                                                                  0.0s
+ => [crypto-app] resolving provenance for metadata file                                                                                                                                                                  0.0s
+[+] Building 1/1
+ ✔ crypto-app  Built                                                                                                                                                                                                     0.0s 
+▶️ Starting all containers...
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Running 3/3
+ ✔ Container crypto_postgres     Running                                                                                                                                                                                 0.0s 
+ ✔ Container crypto_trading_app  Started                                                                                                                                                                                 0.3s 
+ ✔ Container crypto_nginx        Running                                                                                                                                                                                 0.0s 
+⏳ Waiting for containers to stabilize...
+📊 Container status:
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED          STATUS                           PORTS                                                                      NAMES
+8c42b89155be   crypto-analysis-dashboard-crypto-app   "./start-production.…"   30 seconds ago   Up 1 second (health: starting)   0.0.0.0:5050->5000/tcp, [::]:5050->5000/tcp                                crypto_trading_app
+5c31190887ce   nginx:alpine                           "/docker-entrypoint.…"   13 minutes ago   Up 13 minutes                    0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   crypto_nginx
+bedc32947bf3   postgres:16-alpine                     "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes                    0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                  crypto_postgres
+🔍 Verifying gunicorn installation in container...
+❌ Gunicorn still not found
+Traceback (most recent call last):
+  File "/usr/local/bin/pip", line 5, in <module>
+    from pip._internal.cli.main import main
+ModuleNotFoundError: No module named 'pip'
+❌ Gunicorn not in pip list
+📋 Container logs (last 10 lines):
+/usr/local/bin/python3: No module named flask
+🚀 Starting Crypto Trading AI - Production Mode
+✅ Starting production server...
+⚠️ Gunicorn not found, using Flask development server
+/usr/local/bin/python3: No module named flask
+🚀 Starting Crypto Trading AI - Production Mode
+✅ Starting production server...
+⚠️ Gunicorn not found, using Flask development server
+/usr/local/bin/python3: No module named flask
+🚀 Starting Crypto Trading AI - Production Mode
+🧪 Testing endpoint after fix...
+===============================
+🎯 GUNICORN FIX COMPLETED
+===============================
+root@srv795356:~/crypto-analysis-dashboard# 

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Money Concept - Dashboard Analisis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin: 10px 0;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .control-group label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            opacity: 0.8;
+        }
+        
+        select, button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        select:hover, button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        .refresh-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            font-weight: bold;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .analysis-panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #ffd700;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 500px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+        
+        .analysis-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .analysis-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        
+        .analysis-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .analysis-label {
+            opacity: 0.8;
+        }
+        
+        .analysis-value {
+            font-weight: 500;
+        }
+        
+        .signal-buy { color: #4CAF50; }
+        .signal-sell { color: #f44336; }
+        .signal-neutral { color: #ff9800; }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .insight-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .insight-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-align: center;
+        }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .timestamp {
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Smart Money Concept Dashboard</h1>
+            <p>Analisis mendalam struktur pasar dan pergerakan Smart Money</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Symbol:</label>
+                <select id="symbolSelect">
+                    <option value="BTCUSDT">BTC/USDT</option>
+                    <option value="ETHUSDT">ETH/USDT</option>
+                    <option value="SOLUSDT">SOL/USDT</option>
+                    <option value="ADAUSDT">ADA/USDT</option>
+                    <option value="DOGEUSDT">DOGE/USDT</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Timeframe:</label>
+                <select id="timeframeSelect">
+                    <option value="15m">15 Menit</option>
+                    <option value="1h" selected>1 Jam</option>
+                    <option value="4h">4 Jam</option>
+                    <option value="1d">1 Hari</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Aksi:</label>
+                <button class="refresh-btn" onclick="loadAnalysis()">🔄 Refresh Analysis</button>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="chart-section">
+                <div class="section-title">📊 TradingView Chart</div>
+                <div class="chart-placeholder" id="chartContainer">
+                    <div id="tradingview_chart">Loading TradingView Chart...</div>
+                </div>
+            </div>
+            
+            <div class="analysis-panel">
+                <div class="section-title">🎯 SMC Analysis</div>
+                <div id="analysisContent">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Loading Smart Money Analysis...
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-title">📈 Market Structure</div>
+                <div id="marketStructure">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Analyzing market structure...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">🎯 Order Blocks</div>
+                <div id="orderBlocks">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Detecting order blocks...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">💧 Liquidity Analysis</div>
+                <div id="liquidityAnalysis">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Analyzing liquidity...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-title">⚡ Risk Management</div>
+                <div id="riskManagement">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Calculating risk parameters...
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timestamp" id="lastUpdate">Last updated: Loading...</div>
+    </div>
+
+    <!-- TradingView Widget Script -->
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+    {
+        "autosize": true,
+        "symbol": "OKX:BTCUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "enable_publishing": false,
+        "backgroundColor": "rgba(0, 0, 0, 0.5)",
+        "gridColor": "rgba(255, 255, 255, 0.1)",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "save_image": false,
+        "container_id": "tradingview_chart",
+        "studies": [
+            "RSI@tv-basicstudies",
+            "MACD@tv-basicstudies",
+            "Volume@tv-basicstudies"
+        ],
+        "overrides": {
+            "paneProperties.background": "rgba(0, 0, 0, 0.3)",
+            "paneProperties.vertGridProperties.color": "rgba(255, 255, 255, 0.1)",
+            "paneProperties.horzGridProperties.color": "rgba(255, 255, 255, 0.1)",
+            "symbolWatermarkProperties.transparency": 90,
+            "scalesProperties.textColor": "#ffffff"
+        }
+    }
+    </script>
+
+    <script>
+        let currentSymbol = 'BTCUSDT';
+        let currentTimeframe = '1h';
+        
+        // Load SMC Analysis
+        async function loadAnalysis() {
+            try {
+                showLoading();
+                
+                const response = await fetch(`/api/gpts/sinyal/tajam?symbol=${currentSymbol}&tf=${currentTimeframe}&format=json`);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    renderAnalysis(data.data);
+                    updateTimestamp();
+                } else {
+                    showError('Failed to load SMC analysis: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error loading analysis:', error);
+                showError('Network error loading analysis');
+            }
+        }
+        
+        function showLoading() {
+            const sections = ['analysisContent', 'marketStructure', 'orderBlocks', 'liquidityAnalysis', 'riskManagement'];
+            sections.forEach(id => {
+                document.getElementById(id).innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Loading...
+                    </div>
+                `;
+            });
+        }
+        
+        function showError(message) {
+            document.getElementById('analysisContent').innerHTML = `
+                <div class="analysis-section">
+                    <div class="analysis-title" style="color: #f44336;">Error</div>
+                    <div class="analysis-item">
+                        <span class="analysis-value">${message}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function renderAnalysis(data) {
+            // Main Analysis Panel
+            const signalClass = data.signal === 'BUY' ? 'signal-buy' : 
+                              data.signal === 'SELL' ? 'signal-sell' : 'signal-neutral';
+            
+            document.getElementById('analysisContent').innerHTML = `
+                <div class="analysis-section">
+                    <div class="analysis-title">Trading Signal</div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">Signal:</span>
+                        <span class="analysis-value ${signalClass}">${data.signal || 'NEUTRAL'}</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">Confidence:</span>
+                        <span class="analysis-value">${(data.confidence || 0).toFixed(1)}%</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">Current Price:</span>
+                        <span class="analysis-value">$${(data.current_price || 0).toLocaleString()}</span>
+                    </div>
+                </div>
+                
+                <div class="analysis-section">
+                    <div class="analysis-title">Technical Indicators</div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">RSI:</span>
+                        <span class="analysis-value">${data.technical_indicators?.rsi?.toFixed(1) || 'N/A'}</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">MACD:</span>
+                        <span class="analysis-value">${data.technical_indicators?.macd_signal || 'N/A'}</span>
+                    </div>
+                    <div class="analysis-item">
+                        <span class="analysis-label">Volume Trend:</span>
+                        <span class="analysis-value">${data.technical_indicators?.volume_trend || 'N/A'}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Market Structure
+            document.getElementById('marketStructure').innerHTML = `
+                <div class="analysis-item">
+                    <span class="analysis-label">Trend:</span>
+                    <span class="analysis-value">${data.smc_analysis?.trend || 'N/A'}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">CHoCH:</span>
+                    <span class="analysis-value">${data.smc_analysis?.change_of_character ? 'Detected' : 'None'}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">BOS:</span>
+                    <span class="analysis-value">${data.smc_analysis?.break_of_structure ? 'Detected' : 'None'}</span>
+                </div>
+            `;
+            
+            // Order Blocks
+            document.getElementById('orderBlocks').innerHTML = `
+                <div class="analysis-item">
+                    <span class="analysis-label">Bullish OB:</span>
+                    <span class="analysis-value">${data.smc_analysis?.order_blocks?.bullish?.length || 0}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">Bearish OB:</span>
+                    <span class="analysis-value">${data.smc_analysis?.order_blocks?.bearish?.length || 0}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">FVG:</span>
+                    <span class="analysis-value">${data.smc_analysis?.fair_value_gaps?.length || 0}</span>
+                </div>
+            `;
+            
+            // Liquidity Analysis
+            document.getElementById('liquidityAnalysis').innerHTML = `
+                <div class="analysis-item">
+                    <span class="analysis-label">Sweep Type:</span>
+                    <span class="analysis-value">${data.smc_analysis?.liquidity_sweep?.type || 'None'}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">Strength:</span>
+                    <span class="analysis-value">${data.smc_analysis?.liquidity_sweep?.strength || 'N/A'}</span>
+                </div>
+            `;
+            
+            // Risk Management
+            document.getElementById('riskManagement').innerHTML = `
+                <div class="analysis-item">
+                    <span class="analysis-label">Entry:</span>
+                    <span class="analysis-value">$${(data.risk_management?.entry_price || 0).toLocaleString()}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">Stop Loss:</span>
+                    <span class="analysis-value">$${(data.risk_management?.stop_loss || 0).toLocaleString()}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">Take Profit:</span>
+                    <span class="analysis-value">$${(data.risk_management?.take_profit || 0).toLocaleString()}</span>
+                </div>
+                <div class="analysis-item">
+                    <span class="analysis-label">R/R Ratio:</span>
+                    <span class="analysis-value">${(data.risk_management?.risk_reward_ratio || 0).toFixed(2)}</span>
+                </div>
+            `;
+        }
+        
+        function updateTimestamp() {
+            document.getElementById('lastUpdate').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        function changeSymbol() {
+            currentSymbol = document.getElementById('symbolSelect').value;
+            loadAnalysis();
+        }
+        
+        function changeTimeframe() {
+            currentTimeframe = document.getElementById('timeframeSelect').value;
+            loadAnalysis();
+        }
+        
+        // Event listeners
+        document.getElementById('symbolSelect').addEventListener('change', changeSymbol);
+        document.getElementById('timeframeSelect').addEventListener('change', changeTimeframe);
+        
+        // Auto refresh every 30 seconds
+        setInterval(loadAnalysis, 30000);
+        
+        // Load initial data
+        window.addEventListener('load', () => {
+            setTimeout(loadAnalysis, 2000);
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey || event.metaKey) {
+                switch(event.key) {
+                    case 'r':
+                        event.preventDefault();
+                        loadAnalysis();
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

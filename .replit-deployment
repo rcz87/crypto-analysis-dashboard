@@ -1,0 +1,27 @@
+# Replit Deployment Configuration
+
+# RECOMMENDED: Use Reserved VM instead of Autoscale
+# Reason: Your app has background processes and real-time features
+
+# Deploy Configuration:
+# 1. Change deployment type to "Reserved VM" 
+# 2. Use these settings:
+
+# Build Command: 
+pip install -r requirements-prod.txt
+
+# Run Command:
+gunicorn --bind 0.0.0.0:$PORT wsgi_production:application --workers 2 --worker-class gevent
+
+# Environment Variables needed:
+# - OKX_API_KEY
+# - OKX_SECRET_KEY  
+# - OKX_PASSPHRASE
+# - OPENAI_API_KEY
+# - DATABASE_URL (auto-provided by Replit)
+
+# Port: 
+# Use $PORT (auto-provided by Replit)
+
+# Domain:
+# Will be provided automatically

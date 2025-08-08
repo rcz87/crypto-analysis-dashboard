@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMC Analysis - TradingView Widget</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0d1421;
+            color: #ffffff;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .chart-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        .smc-panel {
+            width: 350px;
+            background: #131722;
+            border-left: 1px solid #2a2e39;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .smc-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #1e222d;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .smc-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .smc-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        
+        .smc-label {
+            color: #b2b5be;
+        }
+        
+        .smc-value {
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .bullish { color: #4caf50; }
+        .bearish { color: #f44336; }
+        .neutral { color: #ff9800; }
+        
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #b2b5be;
+        }
+        
+        .refresh-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .refresh-btn:hover {
+            background: #1976d2;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #787b86;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- TradingView Chart -->
+        <div class="chart-container">
+            <div id="tradingview_chart"></div>
+        </div>
+        
+        <!-- SMC Analysis Panel -->
+        <div class="smc-panel">
+            <button class="refresh-btn" onclick="loadSMCAnalysis()">🔄 Refresh SMC Analysis</button>
+            <div class="timestamp" id="lastUpdate">Loading...</div>
+            
+            <div id="smcContent">
+                <div class="loading">Loading SMC Analysis...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TradingView Widget Script -->
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+    {
+        "autosize": true,
+        "symbol": "OKX:BTCUSDT",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "enable_publishing": false,
+        "backgroundColor": "rgba(13, 20, 33, 1)",
+        "gridColor": "rgba(42, 46, 57, 0.5)",
+        "hide_top_toolbar": false,
+        "hide_legend": false,
+        "save_image": false,
+        "container_id": "tradingview_chart",
+        "studies": [
+            "RSI@tv-basicstudies",
+            "MACD@tv-basicstudies",
+            "Volume@tv-basicstudies"
+        ],
+        "overrides": {
+            "paneProperties.background": "#0d1421",
+            "paneProperties.vertGridProperties.color": "#2a2e39",
+            "paneProperties.horzGridProperties.color": "#2a2e39",
+            "symbolWatermarkProperties.transparency": 90,
+            "scalesProperties.textColor": "#b2b5be"
+        },
+        "enabled_features": [
+            "study_templates",
+            "use_localstorage_for_settings"
+        ],
+        "disabled_features": [
+            "volume_force_overlay"
+        ]
+    }
+    </script>
+
+    <script>
+        let currentSymbol = 'BTCUSDT';
+        let currentTimeframe = '1H';
+        
+        // Load SMC Analysis from our API
+        async function loadSMCAnalysis() {
+            try {
+                document.getElementById('smcContent').innerHTML = '<div class="loading">Loading SMC Analysis...</div>';
+                
+                const response = await fetch(`/api/gpts/sinyal/tajam?symbol=${currentSymbol}&tf=${currentTimeframe}&format=json`);
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    renderSMCAnalysis(data.data);
+                    document.getElementById('lastUpdate').textContent = `Last Update: ${new Date().toLocaleTimeString()}`;
+                } else {
+                    throw new Error(data.message || 'Failed to load SMC analysis');
+                }
+            } catch (error) {
+                console.error('Error loading SMC analysis:', error);
+                document.getElementById('smcContent').innerHTML = `
+                    <div class="smc-section">
+                        <div class="smc-title" style="color: #f44336;">Error Loading SMC Analysis</div>
+                        <div class="smc-item">
+                            <span class="smc-label">Error:</span>
+                            <span class="smc-value">${error.message}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderSMCAnalysis(data) {
+            const content = document.getElementById('smcContent');
+            
+            const signalClass = data.signal === 'BUY' ? 'bullish' : 
+                              data.signal === 'SELL' ? 'bearish' : 'neutral';
+            
+            content.innerHTML = `
+                <!-- Trading Signal -->
+                <div class="smc-section">
+                    <div class="smc-title">Trading Signal</div>
+                    <div class="smc-item">
+                        <span class="smc-label">Signal:</span>
+                        <span class="smc-value ${signalClass}">${data.signal || 'NEUTRAL'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Confidence:</span>
+                        <span class="smc-value">${(data.confidence || 0).toFixed(1)}%</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Price:</span>
+                        <span class="smc-value">$${(data.current_price || 0).toLocaleString()}</span>
+                    </div>
+                </div>
+
+                <!-- Market Structure -->
+                <div class="smc-section">
+                    <div class="smc-title">Market Structure</div>
+                    <div class="smc-item">
+                        <span class="smc-label">Trend:</span>
+                        <span class="smc-value">${data.smc_analysis?.trend || 'N/A'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">CHoCH:</span>
+                        <span class="smc-value">${data.smc_analysis?.change_of_character ? 'Detected' : 'None'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">BOS:</span>
+                        <span class="smc-value">${data.smc_analysis?.break_of_structure ? 'Detected' : 'None'}</span>
+                    </div>
+                </div>
+
+                <!-- Order Blocks -->
+                <div class="smc-section">
+                    <div class="smc-title">Order Blocks</div>
+                    <div class="smc-item">
+                        <span class="smc-label">Bullish OB:</span>
+                        <span class="smc-value">${data.smc_analysis?.order_blocks?.bullish?.length || 0}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Bearish OB:</span>
+                        <span class="smc-value">${data.smc_analysis?.order_blocks?.bearish?.length || 0}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">FVG:</span>
+                        <span class="smc-value">${data.smc_analysis?.fair_value_gaps?.length || 0}</span>
+                    </div>
+                </div>
+
+                <!-- Liquidity Analysis -->
+                <div class="smc-section">
+                    <div class="smc-title">Liquidity</div>
+                    <div class="smc-item">
+                        <span class="smc-label">Sweep Type:</span>
+                        <span class="smc-value">${data.smc_analysis?.liquidity_sweep?.type || 'None'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Strength:</span>
+                        <span class="smc-value">${data.smc_analysis?.liquidity_sweep?.strength || 'N/A'}</span>
+                    </div>
+                </div>
+
+                <!-- Technical Indicators -->
+                <div class="smc-section">
+                    <div class="smc-title">Technical Indicators</div>
+                    <div class="smc-item">
+                        <span class="smc-label">RSI:</span>
+                        <span class="smc-value">${data.technical_indicators?.rsi?.toFixed(1) || 'N/A'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">MACD:</span>
+                        <span class="smc-value">${data.technical_indicators?.macd_signal || 'N/A'}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Volume:</span>
+                        <span class="smc-value">${data.technical_indicators?.volume_trend || 'N/A'}</span>
+                    </div>
+                </div>
+
+                <!-- Risk Management -->
+                <div class="smc-section">
+                    <div class="smc-title">Risk Management</div>
+                    <div class="smc-item">
+                        <span class="smc-label">Entry:</span>
+                        <span class="smc-value">$${(data.risk_management?.entry_price || 0).toLocaleString()}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Stop Loss:</span>
+                        <span class="smc-value">$${(data.risk_management?.stop_loss || 0).toLocaleString()}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Take Profit:</span>
+                        <span class="smc-value">$${(data.risk_management?.take_profit || 0).toLocaleString()}</span>
+                    </div>
+                    <div class="smc-item">
+                        <span class="smc-label">Risk/Reward:</span>
+                        <span class="smc-value">${(data.risk_management?.risk_reward_ratio || 0).toFixed(2)}</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Change symbol function
+        function changeSymbol(symbol) {
+            currentSymbol = symbol;
+            loadSMCAnalysis();
+            
+            // Update TradingView chart (if widget supports it)
+            if (window.tvWidget) {
+                window.tvWidget.chart().setSymbol(`OKX:${symbol}`);
+            }
+        }
+        
+        // Change timeframe function
+        function changeTimeframe(tf) {
+            currentTimeframe = tf;
+            loadSMCAnalysis();
+            
+            // Map timeframes for TradingView
+            const tvTimeframes = {
+                '15m': '15',
+                '1h': '60', 
+                '4h': '240',
+                '1d': 'D'
+            };
+            
+            if (window.tvWidget && tvTimeframes[tf]) {
+                window.tvWidget.chart().setResolution(tvTimeframes[tf]);
+            }
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadSMCAnalysis, 30000);
+        
+        // Load initial data
+        window.addEventListener('load', () => {
+            setTimeout(loadSMCAnalysis, 2000); // Wait for TradingView to load
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (event.ctrlKey || event.metaKey) {
+                switch(event.key) {
+                    case 'r':
+                        event.preventDefault();
+                        loadSMCAnalysis();
+                        break;
+                    case '1':
+                        event.preventDefault();
+                        changeTimeframe('15m');
+                        break;
+                    case '2':
+                        event.preventDefault();
+                        changeTimeframe('1h');
+                        break;
+                    case '3':
+                        event.preventDefault();
+                        changeTimeframe('4h');
+                        break;
+                    case '4':
+                        event.preventDefault();
+                        changeTimeframe('1d');
+                        break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
