@@ -143,6 +143,17 @@ def create_app():
 # Create Flask app instance
 app = create_app()
 
+# Import blueprints
+from gpts_routes import gpts_api
+from smc_routes import smc_api
+from signal_routes import signal_api, enhanced_api
+
+# Register blueprints
+app.register_blueprint(gpts_api)
+app.register_blueprint(smc_api)
+app.register_blueprint(signal_api)
+app.register_blueprint(enhanced_api)
+
 if __name__ == "__main__":
     try:
         port = int(os.environ.get('PORT', 5000))
