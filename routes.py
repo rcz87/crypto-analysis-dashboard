@@ -22,6 +22,8 @@ def index():
             "/api/gpts/smc-analysis",
             "/api/gpts/ticker/<symbol>",
             "/api/gpts/orderbook/<symbol>",
+            "/api/gpts/smc-zones/<symbol>",
+            "/api/smc/zones",
             "/health"
         ]
     })
@@ -48,6 +50,10 @@ def health():
 # Import and register the enhanced GPTs blueprint
 from gpts_routes import gpts_api
 
+# Import SMC zones blueprint
+from api.smc_zones_endpoints import smc_zones_bp
+
 # Register blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
+app.register_blueprint(smc_zones_bp)  # Register SMC zones endpoint

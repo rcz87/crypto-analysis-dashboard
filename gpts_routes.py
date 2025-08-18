@@ -246,6 +246,111 @@ def get_smc_analysis():
             "message": str(e)
         }), 500
 
+@gpts_api.route('/smc-zones/<symbol>', methods=['GET'])
+def get_smc_zones_alias(symbol):
+    """SMC Zones endpoint alias for GPTs compatibility"""
+    try:
+        import requests
+        
+        # Normalize symbol
+        symbol = normalize_symbol(symbol)
+        timeframe = request.args.get('timeframe', '1H')
+        
+        # Get current price from ticker - use direct API call
+        current_price = 0
+        try:
+            # Make direct call to ticker endpoint for current price
+            import requests
+            ticker_response = requests.get(f'http://localhost:5000/api/gpts/ticker/{symbol}')
+            if ticker_response.status_code == 200:
+                ticker_json = ticker_response.json()
+                if ticker_json.get('status') == 'success':
+                    ticker_info = ticker_json.get('ticker', {})
+                    current_price = float(ticker_info.get('last_price', 0))
+        except Exception as e:
+            logger.warning(f"Failed to get current price for {symbol}: {e}")
+            # Fallback to direct OKX fetcher
+            try:
+                ticker_data = okx_fetcher.get_ticker(symbol)
+                if ticker_data.get('status') == 'success':
+                    ticker_info = ticker_data.get('ticker', {})
+                    current_price = float(ticker_info.get('last_price', 0))
+            except:
+                pass
+        
+        # Forward request to the actual SMC zones endpoint
+        response = requests.get(f'http://localhost:5000/api/smc/zones?symbol={symbol}&tf={timeframe}')
+        
+        if response.status_code == 200:
+            data = response.json()
+            zones_data = data.get('zones', {})
+            
+            # Enhanced SMC zones structure for GPTs
+            smc_zones = {
+                "order_blocks": {
+                    "bullish": zones_data.get('bullish_ob', []),
+                    "bearish": zones_data.get('bearish_ob', []),
+                    "total_count": len(zones_data.get('bullish_ob', [])) + len(zones_data.get('bearish_ob', []))
+                },
+                "fair_value_gaps": {
+                    "gaps": zones_data.get('fvg', []),
+                    "unfilled_count": len([gap for gap in zones_data.get('fvg', []) if gap.get('fill_status') == 'unfilled']),
+                    "total_count": len(zones_data.get('fvg', []))
+                },
+                "change_of_character": [],  # Will be populated when data is available
+                "break_of_structure": [],   # Will be populated when data is available
+                "liquidity_zones": {
+                    "equal_highs": [],
+                    "equal_lows": [],
+                    "relative_highs": [],
+                    "relative_lows": []
+                },
+                "premium_discount_zones": {
+                    "premium_zone": "above 70%",
+                    "discount_zone": "below 30%", 
+                    "equilibrium": "30-70%"
+                }
+            }
+            
+            # Add market context
+            market_context = {
+                "active_zones": data.get('zone_analysis', {}).get('active_zones', 0),
+                "untested_zones": data.get('zone_analysis', {}).get('untested_zones', 0),
+                "proximity_alerts": data.get('zone_analysis', {}).get('proximity_alerts', [])
+            }
+            
+            return jsonify({
+                "status": "success",
+                "symbol": symbol,
+                "timeframe": timeframe,
+                "current_price": current_price,
+                "smc_zones": smc_zones,
+                "market_context": market_context,
+                "data_source": "authentic_okx_data",
+                "timestamp": data.get('server_time', ''),
+                "api_info": {
+                    "version": "2.0.0",
+                    "service": "GPTs SMC Zones API",
+                    "endpoint": f"/api/gpts/smc-zones/{symbol}"
+                }
+            })
+        else:
+            return jsonify({
+                "status": "error",
+                "message": "SMC zones data temporarily unavailable",
+                "symbol": symbol,
+                "timeframe": timeframe,
+                "current_price": current_price
+            }), 404
+            
+    except Exception as e:
+        logger.error(f"SMC zones alias error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": "Failed to retrieve SMC zones data",
+            "details": str(e)
+        }), 500
+
 @gpts_api.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint for VPS monitoring"""
