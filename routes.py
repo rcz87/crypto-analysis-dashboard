@@ -125,6 +125,14 @@ except ImportError as e:
     smc_context_available = False
     smc_context_bp = None
 
+try:
+    from api.enhanced_signal_endpoints import enhanced_signals_bp
+    enhanced_signals_available = True
+except ImportError as e:
+    logger.warning(f"Enhanced signals blueprint not available: {e}")
+    enhanced_signals_available = False
+    enhanced_signals_bp = None
+
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
@@ -150,3 +158,7 @@ if missing_gpts_available and missing_gpts_bp:
 if smc_context_available and smc_context_bp:
     app.register_blueprint(smc_context_bp)
     logger.info("✅ SMC context blueprint registered")
+
+if enhanced_signals_available and enhanced_signals_bp:
+    app.register_blueprint(enhanced_signals_bp)
+    logger.info("✅ Enhanced signals blueprint registered")
