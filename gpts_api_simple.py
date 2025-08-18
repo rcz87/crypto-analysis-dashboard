@@ -132,6 +132,14 @@ def create_app():
         logger.info("✅ CoinGlass integration endpoints registered")
     except ImportError as e:
         logger.warning(f"⚠️ CoinGlass endpoints not available: {e}")
+    
+    # Register TradingView webhook blueprint
+    try:
+        from api.webhook_endpoints import webhook_bp
+        app.register_blueprint(webhook_bp)
+        logger.info("✅ TradingView webhook endpoints registered")
+    except ImportError as e:
+        logger.warning(f"⚠️ Webhook endpoints not available: {e}")
 
     # Initialize CORS if needed
     try:
