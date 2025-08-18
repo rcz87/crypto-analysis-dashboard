@@ -1,12 +1,12 @@
-# gpts_routes_fixed.py - Production Ready for VPS Hostinger
+# gpts_routes.py - Production Ready for VPS Hostinger
 from flask import Blueprint, jsonify, request
 import os
 from sqlalchemy import create_engine, text
 import logging
-from core.okx_fetcher_fixed import OKXFetcher
+from core.okx_fetcher import OKXFetcher
 from core.ai_engine import get_ai_engine
-from core.professional_smc_analyzer_fixed import ProfessionalSMCAnalyzer
-from core.signal_generator_fixed import SignalGenerator
+from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
+from core.signal_generator import SignalGenerator
 import time
 
 gpts_api = Blueprint('gpts_api', __name__, url_prefix='/api/gpts')
