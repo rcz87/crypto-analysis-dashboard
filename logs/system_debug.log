@@ -19,3 +19,237 @@
 2025-08-12 11:40:21 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
 2025-08-12 11:40:21 - werkzeug - WARNING - _log:96 -  * Debugger is active!
 2025-08-12 11:40:21 - werkzeug - INFO - _log:96 -  * Debugger PIN: 742-303-438
+2025-08-18 11:45:08 - root - INFO - log_system_health:155 - SYSTEM_HEALTH: {"timestamp": "2025-08-18T11:45:08.437791", "status": "startup", "details": {"component": "logging_setup"}, "memory_usage": {"memory_info": "psutil not available"}, "uptime": "728s"}
+2025-08-18 11:45:08 - root - INFO - log_system_health:155 - SYSTEM_HEALTH: {"timestamp": "2025-08-18T11:45:08.437974", "status": "startup", "details": {"component": "logging_setup"}, "memory_usage": {"memory_info": "psutil not available"}, "uptime": "728s"}
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_logging:131 - ✅ Enhanced logging system initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_logging:135 - ✅ Logging setup completed
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_logging:131 - ✅ Enhanced logging system initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_logging:135 - ✅ Logging setup completed
+2025-08-18 11:45:08 - config.app_setup - WARNING - setup_database:44 - Database table creation warning: Table 'signal_history' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_database:46 - ✅ Database setup completed
+2025-08-18 11:45:08 - core.security_hardening - INFO - init_app:56 - 🔒 Security hardening applied to Flask app
+2025-08-18 11:45:08 - core.security_hardening - INFO - __init__:41 - 🔒 Security Hardening Engine initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_security:70 - ✅ Security hardening initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_security:74 - ✅ Security setup completed
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_cors:97 - ✅ Development CORS: All origins allowed
+2025-08-18 11:45:08 - config.app_setup - WARNING - setup_database:44 - Database table creation warning: Table 'signal_history' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_routes:379 - ✅ Core routes setup completed
+2025-08-18 11:45:08 - main - INFO - create_app:64 - 🔒 Setting up API protection...
+2025-08-18 11:45:08 - config.api_protection - INFO - setup_protected_endpoints:129 - ✅ API protection setup for 8 endpoint patterns
+2025-08-18 11:45:08 - main - INFO - create_app:73 - 📋 Registering blueprints...
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_database:46 - ✅ Database setup completed
+2025-08-18 11:45:08 - core.security_hardening - INFO - init_app:56 - 🔒 Security hardening applied to Flask app
+2025-08-18 11:45:08 - core.security_hardening - INFO - __init__:41 - 🔒 Security Hardening Engine initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_security:70 - ✅ Security hardening initialized
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_security:74 - ✅ Security setup completed
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_cors:97 - ✅ Development CORS: All origins allowed
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_routes:379 - ✅ Core routes setup completed
+2025-08-18 11:45:08 - main - INFO - create_app:64 - 🔒 Setting up API protection...
+2025-08-18 11:45:08 - config.api_protection - INFO - setup_protected_endpoints:129 - ✅ API protection setup for 8 endpoint patterns
+2025-08-18 11:45:08 - main - INFO - create_app:73 - 📋 Registering blueprints...
+2025-08-18 11:45:08 - config.app_setup - ERROR - setup_blueprints:297 - ❌ Blueprint registration error: GPTs API Simple - View function mapping is overwriting an existing endpoint function: gpts_simple.get_trading_signal
+Traceback (most recent call last):
+  File "/home/runner/workspace/config/app_setup.py", line 284, in setup_blueprints
+    app.register_blueprint(blueprint)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/app.py", line 595, in register_blueprint
+    blueprint.register(self, options)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 335, in register
+    deferred(state)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 434, in <lambda>
+    lambda s: s.add_url_rule(
+              ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 110, in add_url_rule
+    self.app.add_url_rule(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: gpts_simple.get_trading_signal
+2025-08-18 11:45:08 - config.app_setup - ERROR - setup_blueprints:297 - ❌ Blueprint registration error: GPTs API Simple - View function mapping is overwriting an existing endpoint function: gpts_simple.get_trading_signal
+Traceback (most recent call last):
+  File "/home/runner/workspace/config/app_setup.py", line 284, in setup_blueprints
+    app.register_blueprint(blueprint)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/app.py", line 595, in register_blueprint
+    blueprint.register(self, options)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 335, in register
+    deferred(state)
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 434, in <lambda>
+    lambda s: s.add_url_rule(
+              ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/blueprints.py", line 110, in add_url_rule
+    self.app.add_url_rule(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/scaffold.py", line 47, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/sansio/app.py", line 657, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: gpts_simple.get_trading_signal
+2025-08-18 11:45:08 - gpts_api_minimal - INFO - <module>:1357 - 🚀 Minimal GPTs API initialized successfully
+2025-08-18 11:45:08 - gpts_api_minimal - INFO - <module>:1357 - 🚀 Minimal GPTs API initialized successfully
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_blueprints:287 - ✅ GPTs API Minimal blueprint registered
+2025-08-18 11:45:08 - config.app_setup - INFO - setup_blueprints:287 - ✅ GPTs API Minimal blueprint registered
+2025-08-18 11:45:08 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-18 11:45:08 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-18 11:45:10 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-18 11:45:10 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:10 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:10 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-18 11:45:10 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:10 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:10 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-18 11:45:10 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Modular Endpoints blueprint registered
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Modular Endpoints blueprint registered
+2025-08-18 11:45:10 - config.app_setup - ERROR - setup_blueprints:297 - ❌ Blueprint registration error: OpenAPI Schema - unexpected indent (openapi_schema.py, line 1054)
+Traceback (most recent call last):
+  File "/home/runner/workspace/config/app_setup.py", line 269, in setup_blueprints
+    module = __import__(config['import_path'], fromlist=[''])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/openapi_schema.py", line 1054
+    "/api/performance/": {
+IndentationError: unexpected indent
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Prompt Book blueprint registered
+2025-08-18 11:45:10 - config.app_setup - ERROR - setup_blueprints:297 - ❌ Blueprint registration error: OpenAPI Schema - unexpected indent (openapi_schema.py, line 1054)
+Traceback (most recent call last):
+  File "/home/runner/workspace/config/app_setup.py", line 269, in setup_blueprints
+    module = __import__(config['import_path'], fromlist=[''])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/openapi_schema.py", line 1054
+    "/api/performance/": {
+IndentationError: unexpected indent
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Prompt Book blueprint registered
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Context Endpoints blueprint registered
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Context Endpoints blueprint registered
+2025-08-18 11:45:10 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-18 11:45:10 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Enhanced GPTs Endpoints blueprint registered
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Enhanced GPTs Endpoints blueprint registered
+2025-08-18 11:45:10 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Pattern Endpoints blueprint registered
+2025-08-18 11:45:10 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Pattern Endpoints blueprint registered
+2025-08-18 11:45:10 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Zones Endpoints blueprint registered
+2025-08-18 11:45:10 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-18 11:45:10 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ SMC Zones Endpoints blueprint registered
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Signal Top Endpoints blueprint registered
+2025-08-18 11:45:10 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-18 11:45:10 - config.app_setup - INFO - setup_blueprints:287 - ✅ Signal Top Endpoints blueprint registered
+2025-08-18 11:45:11 - root - WARNING - <module>:19 - SHAP not available. Install with: pip install shap
+2025-08-18 11:45:11 - root - WARNING - <module>:19 - SHAP not available. Install with: pip install shap
+2025-08-18 11:45:30 - api.performance_endpoints - INFO - init_performance_endpoints:315 - ✅ Performance tracking endpoints initialized
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:276 - ✅ Performance Endpoints initialized via function
+2025-08-18 11:45:30 - api.performance_endpoints - INFO - init_performance_endpoints:315 - ✅ Performance tracking endpoints initialized
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:276 - ✅ Performance Endpoints initialized via function
+2025-08-18 11:45:30 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-18 11:45:30 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Advanced Performance API blueprint registered
+2025-08-18 11:45:30 - core.okx_fetcher - INFO - __init__:40 - OKX API initialized with authentication credentials
+2025-08-18 11:45:30 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:30 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:30 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-18 11:45:30 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Advanced Performance API blueprint registered
+2025-08-18 11:45:30 - core.okx_fetcher - INFO - __init__:40 - OKX API initialized with authentication credentials
+2025-08-18 11:45:30 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:30 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:30 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-18 11:45:30 - api.chart_endpoints - INFO - __init__:32 - 📊 Chart Data Provider initialized
+2025-08-18 11:45:30 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-18 11:45:30 - api.chart_endpoints - INFO - __init__:32 - 📊 Chart Data Provider initialized
+2025-08-18 11:45:30 - api.chart_endpoints - INFO - <module>:231 - 📊 Chart endpoints initialized
+2025-08-18 11:45:30 - api.chart_endpoints - INFO - <module>:231 - 📊 Chart endpoints initialized
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Chart Endpoints blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Chart Endpoints blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Missing Endpoints blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Missing Endpoints blueprint registered
+2025-08-18 11:45:30 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-18 11:45:30 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-18 11:45:30 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-18 11:45:30 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ State Endpoints blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ State Endpoints blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Self-Learning Signal Engine blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Self-Learning Signal Engine blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Enhanced Signal Engine Endpoint blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Enhanced Signal Engine Endpoint blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Sharp Signal Engine Endpoint blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:301 - 📊 Blueprints Summary: 16 loaded, 2 failed, 0 skipped
+2025-08-18 11:45:30 - main - INFO - create_app:79 - 📊 Blueprint Summary:
+2025-08-18 11:45:30 - main - INFO - create_app:80 -    ✅ Loaded: 16
+2025-08-18 11:45:30 - main - INFO - create_app:81 -    ❌ Failed: 2
+2025-08-18 11:45:30 - main - INFO - create_app:82 -    ⚠️ Skipped: 0
+2025-08-18 11:45:30 - main - ERROR - create_app:85 - ❌ Critical blueprint failures: ['GPTs API Simple', 'OpenAPI Schema']
+2025-08-18 11:45:30 - main - INFO - create_app:92 - 🤖 Setting up Telegram integration...
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:287 - ✅ Sharp Signal Engine Endpoint blueprint registered
+2025-08-18 11:45:30 - config.app_setup - INFO - setup_blueprints:301 - 📊 Blueprints Summary: 16 loaded, 2 failed, 0 skipped
+2025-08-18 11:45:30 - main - INFO - create_app:79 - 📊 Blueprint Summary:
+2025-08-18 11:45:30 - main - INFO - create_app:80 -    ✅ Loaded: 16
+2025-08-18 11:45:30 - main - INFO - create_app:81 -    ❌ Failed: 2
+2025-08-18 11:45:30 - main - INFO - create_app:82 -    ⚠️ Skipped: 0
+2025-08-18 11:45:30 - main - ERROR - create_app:85 - ❌ Critical blueprint failures: ['GPTs API Simple', 'OpenAPI Schema']
+2025-08-18 11:45:30 - main - INFO - create_app:92 - 🤖 Setting up Telegram integration...
+2025-08-18 11:45:31 - telegram.Bot - DEBUG - __init__:333 - Set Bot API URL: https://api.telegram.org/bot7659990721:AAFmX7iRu4Azxs27kNE9QkAYJA6fiwQHwpc
+2025-08-18 11:45:31 - telegram.Bot - DEBUG - __init__:333 - Set Bot API URL: https://api.telegram.org/bot7659990721:AAFmX7iRu4Azxs27kNE9QkAYJA6fiwQHwpc
+2025-08-18 11:45:31 - telegram.Bot - DEBUG - __init__:334 - Set Bot API File URL: https://api.telegram.org/file/bot7659990721:AAFmX7iRu4Azxs27kNE9QkAYJA6fiwQHwpc
+2025-08-18 11:45:31 - telegram.Bot - DEBUG - __init__:334 - Set Bot API File URL: https://api.telegram.org/file/bot7659990721:AAFmX7iRu4Azxs27kNE9QkAYJA6fiwQHwpc
+2025-08-18 11:45:31 - core.telegram_bot - INFO - __init__:40 - 🤖 Telegram Bot initialized
+2025-08-18 11:45:31 - core.telegram_bot - ERROR - start_bot:165 - Failed to start telegram bot: name 'Updater' is not defined
+2025-08-18 11:45:31 - config.app_setup - INFO - setup_telegram_integration:392 - ✅ Telegram Bot integration: active
+2025-08-18 11:45:31 - main - INFO - create_app:96 - 🤖 Telegram status: active
+2025-08-18 11:45:31 - main - INFO - create_app:102 - ⏰ Setting up keep-alive system...
+2025-08-18 11:45:31 - config.keep_alive - ERROR - setup_keep_alive:117 - ❌ Keep-alive setup failed: 'Flask' object has no attribute 'before_first_request'
+2025-08-18 11:45:31 - main - INFO - create_app:111 - 🔧 Initializing enhanced systems...
+2025-08-18 11:45:31 - root - INFO - log_success:303 - SUCCESS: Enhanced Logging System initialized in main app | Context: None
+2025-08-18 11:45:31 - root - INFO - log_success:303 - SUCCESS: Enhanced Auth System initialized in main app | Context: None
+2025-08-18 11:45:31 - root - INFO - log_info:283 - Refactored Flask app created | Context: {'components': ['logging', 'database', 'security', 'cors', 'routes', 'api_protection', 'blueprints', 'telegram', 'keep_alive']}
+2025-08-18 11:45:31 - main - INFO - create_app:129 - 🎯 Application Setup Complete:
+2025-08-18 11:45:31 - main - INFO - create_app:130 -    ✅ Successful: 10/10 components
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Logging
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Database
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Security
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Cors
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Routes
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Api Protection
+2025-08-18 11:45:31 - core.telegram_bot - INFO - __init__:40 - 🤖 Telegram Bot initialized
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Blueprints
+2025-08-18 11:45:31 - core.telegram_bot - ERROR - start_bot:165 - Failed to start telegram bot: name 'Updater' is not defined
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Telegram
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Keep Alive
+2025-08-18 11:45:31 - config.app_setup - INFO - setup_telegram_integration:392 - ✅ Telegram Bot integration: active
+2025-08-18 11:45:31 - main - INFO - create_app:96 - 🤖 Telegram status: active
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Enhanced Systems
+2025-08-18 11:45:31 - main - INFO - create_app:102 - ⏰ Setting up keep-alive system...
+2025-08-18 11:45:31 - main - INFO - create_app:139 - 🚀 All components initialized successfully!
+2025-08-18 11:45:31 - config.keep_alive - ERROR - setup_keep_alive:117 - ❌ Keep-alive setup failed: 'Flask' object has no attribute 'before_first_request'
+2025-08-18 11:45:31 - main - INFO - create_app:111 - 🔧 Initializing enhanced systems...
+2025-08-18 11:45:31 - root - INFO - log_success:303 - SUCCESS: Enhanced Logging System initialized in main app | Context: None
+2025-08-18 11:45:31 - root - INFO - log_success:303 - SUCCESS: Enhanced Auth System initialized in main app | Context: None
+2025-08-18 11:45:31 - root - INFO - log_info:283 - Refactored Flask app created | Context: {'components': ['logging', 'database', 'security', 'cors', 'routes', 'api_protection', 'blueprints', 'telegram', 'keep_alive']}
+2025-08-18 11:45:31 - main - INFO - create_app:129 - 🎯 Application Setup Complete:
+2025-08-18 11:45:31 - main - INFO - create_app:130 -    ✅ Successful: 10/10 components
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Logging
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Database
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Security
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Cors
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Routes
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Api Protection
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Blueprints
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Telegram
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Keep Alive
+2025-08-18 11:45:31 - main - INFO - create_app:134 -    ✅ Enhanced Systems
+2025-08-18 11:45:31 - main - INFO - create_app:139 - 🚀 All components initialized successfully!
+2025-08-18 11:45:31 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:31 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:31 - core.professional_smc_analyzer - INFO - __init__:364 - 🧠 SMC Memory integration enabled
+2025-08-18 11:45:31 - core.professional_smc_analyzer - INFO - __init__:370 - 🚀 Professional SMC Analyzer initialized with enhanced features
+2025-08-18 11:45:31 - core.signal_generator - INFO - __init__:14 - Signal Generator initialized
+2025-08-18 11:45:31 - core.signal_generator - INFO - __init__:14 - Signal Generator initialized
