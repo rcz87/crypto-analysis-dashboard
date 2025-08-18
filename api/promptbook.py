@@ -78,12 +78,32 @@ def init_gpt_context():
     except Exception as e:
         logger.error(f"GPT context initialization error: {e}")
         return add_cors_headers(jsonify({
-            "status": "error", 
+            "status": "error",
             "message": f"Failed to initialize GPT context: {str(e)}",
             "api_info": {
                 "version": "1.0.0",
-                "server_time": datetime.now().isoformat()
+                "server_time": datetime.now().isoformat(),
+                "service": "Cryptocurrency Trading Signals API"
             }
+        })), 500
+
+@promptbook_bp.route('/context', methods=['GET'])
+@cross_origin() 
+def get_context():
+    """Get current context data"""
+    try:
+        return add_cors_headers(jsonify({
+            "status": "success", 
+            "context": {
+                "message": "Context endpoint is available",
+                "timestamp": datetime.now().isoformat(),
+                "version": "1.0.0"
+            }
+        }))
+    except Exception as e:
+        return add_cors_headers(jsonify({
+            "status": "error",
+            "message": str(e)
         })), 500
 
 @promptbook_bp.route('/update', methods=['POST'])
@@ -92,6 +112,39 @@ def update_promptbook():
     """Update prompt book configuration"""
     try:
         from core.prompt_book_manager import prompt_book_manager
+        
+        updates = request.get_json() or {}
+        updated_book = prompt_book_manager.update_prompt_book(updates)
+        
+        response = {
+            "status": "success",
+            "message": "Prompt Book updated successfully",
+            "updated_config": {
+                "version": updated_book.get("version"),
+                "last_updated": updated_book.get("last_updated"),
+                "language": updated_book.get("user_preferences", {}).get("language"),
+                "style": updated_book.get("user_preferences", {}).get("style")
+            },
+            "api_info": {
+                "version": "1.0.0",
+                "server_time": datetime.now().isoformat(),
+                "service": "Cryptocurrency Trading Signals API"
+            }
+        }
+        
+        logger.info("📝 Prompt Book updated via dedicated blueprint")
+        return add_cors_headers(jsonify(response))
+        
+    except Exception as e:
+        logger.error(f"Prompt Book update error: {e}")
+        return add_cors_headers(jsonify({
+            "status": "error",
+            "message": f"Failed to initialize GPT context: {str(e)}",
+            "api_info": {
+                "version": "1.0.0",
+                "server_time": datetime.now().isoformat()
+            }
+        })), 500
         
         updates = request.get_json() or {}
         updated_book = prompt_book_manager.update_prompt_book(updates)

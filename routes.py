@@ -48,6 +48,12 @@ def health():
         "version": "2.0.0"
     })
 
+@main_bp.route('/openapi.json')
+def openapi_schema():
+    """OpenAPI schema for ChatGPT Custom GPT"""
+    from openapi_schema import get_openapi_schema
+    return jsonify(get_openapi_schema())
+
 # Enhanced GPTs API will be imported from gpts_routes.py
 
 # Import and register the enhanced GPTs blueprint
@@ -60,20 +66,26 @@ from api.smc_zones_endpoints import smc_zones_bp
 try:
     from api.promptbook import promptbook_bp
     promptbook_available = True
-except ImportError:
+except ImportError as e:
+    logger.warning(f"Promptbook blueprint not available: {e}")
     promptbook_available = False
+    promptbook_bp = None
 
 try:
     from api.performance_endpoints import performance_bp
     performance_available = True
-except ImportError:
+except ImportError as e:
+    logger.warning(f"Performance blueprint not available: {e}")
     performance_available = False
+    performance_bp = None
 
 try:
     from api.news_endpoints import news_api
     news_available = True
-except ImportError:
+except ImportError as e:
+    logger.warning(f"News API blueprint not available: {e}")
     news_available = False
+    news_api = None
 
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
@@ -81,14 +93,14 @@ app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
 app.register_blueprint(smc_zones_bp)  # Register SMC zones endpoint
 
 # Register additional blueprints if available
-if promptbook_available:
+if promptbook_available and promptbook_bp:
     app.register_blueprint(promptbook_bp)
     logger.info("✅ Promptbook blueprint registered")
 
-if performance_available:
+if performance_available and performance_bp:
     app.register_blueprint(performance_bp)
     logger.info("✅ Performance blueprint registered")
 
-if news_available:
+if news_available and news_api:
     app.register_blueprint(news_api)
     logger.info("✅ News API blueprint registered")
