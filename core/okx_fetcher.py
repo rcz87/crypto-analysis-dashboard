@@ -66,10 +66,10 @@ class OKXFetcher:
             elif '-' not in symbol:
                 symbol = f"{symbol}-USDT"
             
-            # Map timeframe - Maksimal support semua OKX timeframes
+            # Map timeframe - Maksimal support semua OKX timeframes (8H tidak didukung OKX)
             tf_map = {
                 '1m': '1m', '3m': '3m', '5m': '5m', '15m': '15m', '30m': '30m',
-                '1H': '1H', '2H': '2H', '4H': '4H', '6H': '6H', '8H': '8H', '12H': '12H',
+                '1H': '1H', '2H': '2H', '4H': '4H', '6H': '6H', '12H': '12H',
                 '1D': '1D', '2D': '2D', '3D': '3D', '1W': '1W', '1M': '1M', '3M': '3M'
             }
             okx_tf = tf_map.get(timeframe, '1H')
@@ -137,7 +137,7 @@ class OKXFetcher:
             logger.error(f"Unexpected error fetching {symbol}: {e}")
             return self._get_fallback_data(symbol, timeframe, error=str(e))
     
-    def _get_fallback_data(self, symbol: str, timeframe: str, error: str = None) -> Dict[str, Any]:
+    def _get_fallback_data(self, symbol: str, timeframe: str, error: str = "") -> Dict[str, Any]:
         """Generate fallback data when API fails"""
         logger.warning(f"Using fallback data for {symbol} due to error: {error}")
         

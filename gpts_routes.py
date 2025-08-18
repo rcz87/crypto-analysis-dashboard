@@ -18,7 +18,7 @@ signal_generator = SignalGenerator()
 okx_fetcher = OKXFetcher()
 
 # Helper functions
-ALLOWED_TFS = {"1m","3m","5m","15m","30m","1H","2H","4H","6H","8H","12H","1D","2D","3D","1W","1M","3M"}
+ALLOWED_TFS = {"1m","3m","5m","15m","30m","1H","2H","4H","6H","12H","1D","2D","3D","1W","1M","3M"}
 
 def normalize_symbol(sym: str) -> str:
     s = (sym or "").upper()
