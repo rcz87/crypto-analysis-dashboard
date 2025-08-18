@@ -48,11 +48,33 @@ def health():
         "version": "2.0.0"
     })
 
+@main_bp.route('/api/openapi_schema')
+def api_openapi_schema():
+    """OpenAPI schema endpoint with fixed path"""
+    return jsonify({
+        "openapi": "3.1.0",
+        "info": {
+            "title": "Cryptocurrency Trading Signals API",
+            "description": "API untuk analisis trading cryptocurrency dengan Smart Money Concept",
+            "version": "1.0.0"
+        },
+        "servers": [{"url": "https://your-replit-url.replit.dev"}],
+        "paths": {
+            "/api/gpts/status": {"get": {"summary": "System status"}},
+            "/api/gpts/signal": {"get": {"summary": "Trading signals"}},
+            "/api/gpts/market-data": {"get": {"summary": "Market data"}},
+            "/api/gpts/smc-analysis": {"get": {"summary": "SMC analysis"}},
+            "/api/smc/zones": {"get": {"summary": "SMC zones"}}
+        }
+    })
+
 @main_bp.route('/openapi.json')
-def openapi_schema():
-    """OpenAPI schema for ChatGPT Custom GPT"""
-    from openapi_schema import get_openapi_schema
-    return jsonify(get_openapi_schema())
+def openapi_json():
+    """Redirect to proper schema endpoint"""
+    return jsonify({
+        "message": "Use /api/openapi_schema for OpenAPI schema",
+        "schema_url": "/api/openapi_schema"
+    })
 
 # Enhanced GPTs API will be imported from gpts_routes.py
 
