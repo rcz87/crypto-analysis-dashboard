@@ -109,6 +109,22 @@ except ImportError as e:
     news_available = False
     news_api = None
 
+try:
+    from api.missing_gpts_endpoints import missing_gpts_bp
+    missing_gpts_available = True
+except ImportError as e:
+    logger.warning(f"Missing GPTs endpoints not available: {e}")
+    missing_gpts_available = False
+    missing_gpts_bp = None
+
+try:
+    from api.smc_endpoints import smc_context_bp
+    smc_context_available = True
+except ImportError as e:
+    logger.warning(f"SMC context blueprint not available: {e}")
+    smc_context_available = False
+    smc_context_bp = None
+
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
@@ -126,3 +142,11 @@ if performance_available and performance_bp:
 if news_available and news_api:
     app.register_blueprint(news_api)
     logger.info("✅ News API blueprint registered")
+
+if missing_gpts_available and missing_gpts_bp:
+    app.register_blueprint(missing_gpts_bp)
+    logger.info("✅ Missing GPTs endpoints registered")
+
+if smc_context_available and smc_context_bp:
+    app.register_blueprint(smc_context_bp)
+    logger.info("✅ SMC context blueprint registered")
