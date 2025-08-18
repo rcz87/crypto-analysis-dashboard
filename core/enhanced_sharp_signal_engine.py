@@ -12,6 +12,7 @@ from core.scoring_service import ScoringService
 from core.execution_guard import ExecutionGuard 
 from core.circuit_breaker import CircuitBreaker
 from core.trade_logger import TradeLogger
+from core.data_sanity_checker import DataSanityChecker
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class EnhancedSharpSignalEngine:
         self.execution_guard = ExecutionGuard()
         self.circuit_breaker = CircuitBreaker()
         self.trade_logger = TradeLogger()
+        self.data_sanity = DataSanityChecker()
         
         logger.info("Enhanced Sharp Signal Engine initialized with all quality components")
     

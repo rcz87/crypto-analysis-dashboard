@@ -69,6 +69,61 @@ def create_app():
 
     # Register the blueprint with the app
     app.register_blueprint(gpts_simple)
+    
+    # Register enhanced blueprints if available
+    try:
+        from api.enhanced_signal_endpoints import enhanced_bp
+        from api.institutional_endpoints import institutional_bp 
+        
+        app.register_blueprint(enhanced_bp)
+        app.register_blueprint(institutional_bp)
+        logger.info("✅ Enhanced API blueprints registered")
+        
+        # Add improvement endpoints directly to gpts_simple blueprint
+        from core.data_sanity_checker import DataSanityChecker
+        from core.self_improvement_engine import SelfImprovementEngine
+        
+        data_sanity_checker = DataSanityChecker()
+        improvement_engine = SelfImprovementEngine()
+        
+        @gpts_simple.route('/improvement/status', methods=['GET'])
+        def improvement_status():
+            """Self-improvement system status"""
+            try:
+                status = improvement_engine.get_improvement_status()
+                return jsonify({'status': 'success', 'improvement_status': status})
+            except Exception as e:
+                return jsonify({'status': 'error', 'message': str(e)}), 500
+        
+        @gpts_simple.route('/improvement/data-quality', methods=['POST'])
+        def validate_data_quality():
+            """Validate data quality"""
+            try:
+                data = request.get_json() or {}
+                market_data = data.get('data', {})
+                data_source = data.get('data_source', 'unknown')
+                
+                quality_report = data_sanity_checker.validate_market_data(market_data, data_source)
+                should_block, reason = data_sanity_checker.should_block_signal(quality_report)
+                
+                return jsonify({
+                    'status': 'success',
+                    'quality_report': {
+                        'quality_score': quality_report.quality_score,
+                        'issues': quality_report.issues,
+                        'is_stale': quality_report.is_stale,
+                        'has_nans': quality_report.has_nans,
+                        'has_gaps': quality_report.has_gaps
+                    },
+                    'signal_blocking': {'should_block': should_block, 'reason': reason}
+                })
+            except Exception as e:
+                return jsonify({'status': 'error', 'message': str(e)}), 500
+        
+        logger.info("✅ Improvement endpoints added directly")
+        
+    except ImportError as e:
+        logger.warning(f"⚠️ Enhanced API blueprints not available: {e}")
 
     # Initialize CORS if needed
     try:
