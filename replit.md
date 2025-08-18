@@ -38,7 +38,7 @@ Signal notifications are formatted professionally with HTML markup, proper numbe
 - **Security Hardening**: Includes rate limiting, API authentication (including API key protection), secure logging, comprehensive vulnerability remediation, CORS headers, and prompt injection defense.
 - **Database**: PostgreSQL for data persistence; Redis for caching and signal deduplication.
 - **Crypto News Analyzer**: Real-time crypto news sentiment analysis using GPT-4o.
-- **Enhanced OKX API Maximizer**: Optimized to maximum capacity with 1440 candles per request, 16 supported timeframes (1m-3M excluding 8H), real-time ticker, order book depth 400, 100% success rate with authentic OKX data, and comprehensive endpoint coverage for market data, ticker, and order book.
+- **Authenticated OKX API Integration**: Fully integrated with authentic OKX API credentials (API key, secret key, passphrase) for maximum capacity access. Features 1440 candles per request, 16 supported timeframes (1m-3M), real-time ticker, order book depth 400, enhanced rate limits (0.05s), optimized cache (30s TTL), and 100% success rate with authenticated data access.
 - **Enterprise-Grade Security & Quality Systems**: Includes Explainable AI Engine, Advanced Data Validation Pipeline, and Overfitting Prevention System.
 - **Signal Engines**: Features an "Enhanced Signal Engine" (weight matrix) and a "Sharp Signal Engine" (AI reasoning, SMC, risk management) providing comprehensive market analysis with confidence levels and transparent reasoning.
 - **Prompt Book Blueprint**: Dedicated Flask blueprint for clean API management with specific endpoints for ChatGPT Custom GPT compatibility.

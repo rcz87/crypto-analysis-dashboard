@@ -6,6 +6,9 @@ Fixed compatibility issues and optimized for server deployment
 import requests
 import pandas as pd
 import logging
+import hmac
+import hashlib
+import base64
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, Any, List
 import time
@@ -19,24 +22,101 @@ class OKXFetcher:
     
     def __init__(self):
         self.base_url = "https://www.okx.com"
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Linux x86_64) AppleWebKit/537.36',
-            'Accept': 'application/json'
-        })
-        self.cache = {}
-        self.cache_ttl = 60  # 1 minute cache
-        self.last_request_time = 0
-        self.min_request_interval = 0.1  # 100ms between requests
         
-        logger.info("OKX Fetcher initialized for VPS deployment")
+        # Load API credentials
+        self.api_key = os.getenv('OKX_API_KEY')
+        self.secret_key = os.getenv('OKX_SECRET_KEY')
+        self.passphrase = os.getenv('OKX_PASSPHRASE')
+        
+        # Initialize session
+        self.session = requests.Session()
+        
+        # Set headers for authenticated requests
+        if self.api_key and self.passphrase:
+            self.session.headers.update({
+                'OK-ACCESS-KEY': self.api_key,
+                'OK-ACCESS-PASSPHRASE': self.passphrase,
+                'Content-Type': 'application/json',
+                'User-Agent': 'OKX-Trading-Bot/1.0'
+            })
+            self.authenticated = True
+            logger.info("OKX Fetcher initialized with authenticated API")
+        else:
+            self.session.headers.update({
+                'User-Agent': 'Mozilla/5.0 (Linux x86_64) AppleWebKit/537.36',
+                'Accept': 'application/json'
+            })
+            self.authenticated = False
+            logger.info("OKX Fetcher initialized with public API")
+        
+        self.cache = {}
+        self.cache_ttl = 30 if self.authenticated else 60  # Shorter cache for authenticated
+        self.last_request_time = 0
+        self.min_request_interval = 0.05 if self.authenticated else 0.1  # Faster for authenticated
+    
+    def _generate_signature(self, timestamp, method, request_path, body=''):
+        """Generate signature for authenticated requests"""
+        if not self.secret_key:
+            return None
+            
+        message = timestamp + method + request_path + body
+        signature = base64.b64encode(
+            hmac.new(
+                self.secret_key.encode('utf-8'),
+                message.encode('utf-8'),
+                hashlib.sha256
+            ).digest()
+        ).decode('utf-8')
+        return signature
     
     def _rate_limit(self):
-        """Simple rate limiting"""
+        """Rate limiting with better handling for authenticated API"""
         elapsed = time.time() - self.last_request_time
         if elapsed < self.min_request_interval:
             time.sleep(self.min_request_interval - elapsed)
         self.last_request_time = time.time()
+    
+    def _make_authenticated_request(self, method, endpoint, params=None):
+        """Make authenticated request to OKX API"""
+        if not self.authenticated:
+            # Fall back to public API
+            return self._make_public_request(method, endpoint, params)
+        
+        timestamp = str(int(time.time() * 1000))
+        request_path = endpoint
+        
+        if params and method == 'GET':
+            query_string = '&'.join([f"{k}={v}" for k, v in params.items()])
+            request_path += f"?{query_string}"
+        
+        body = json.dumps(params) if params and method == 'POST' else ''
+        signature = self._generate_signature(timestamp, method, request_path, body)
+        
+        headers = {
+            'OK-ACCESS-TIMESTAMP': timestamp,
+            'OK-ACCESS-SIGN': signature
+        }
+        
+        self.session.headers.update(headers)
+        
+        try:
+            if method == 'GET':
+                response = self.session.get(f"{self.base_url}{request_path}")
+            else:
+                response = self.session.post(f"{self.base_url}{request_path}", data=body)
+            
+            return response
+        except Exception as e:
+            logger.error(f"Authenticated request failed: {e}")
+            return self._make_public_request(method, endpoint, params)
+    
+    def _make_public_request(self, method, endpoint, params=None):
+        """Make public request (fallback)"""
+        url = f"{self.base_url}{endpoint}"
+        if method == 'GET':
+            return self.session.get(url, params=params)
+        else:
+            return self.session.post(url, json=params)
     
     def _is_cached(self, cache_key: str) -> bool:
         """Check if data is cached and still valid"""
@@ -82,9 +162,17 @@ class OKXFetcher:
                 'limit': min(limit, 1440)  # OKX maksimal limit untuk candles
             }
             
-            logger.info(f"Fetching {symbol} {okx_tf} data from OKX")
+            logger.info(f"Fetching {symbol} {okx_tf} data from OKX ({'authenticated' if self.authenticated else 'public'} API)")
             
-            response = self.session.get(url, params=params, timeout=10)
+            # Use authenticated request if available
+            if self.authenticated:
+                response = self._make_authenticated_request('GET', '/api/v5/market/candles', params)
+            else:
+                response = self._make_public_request('GET', '/api/v5/market/candles', params)
+            
+            if response is None:
+                raise Exception("Failed to get response from OKX API")
+                
             response.raise_for_status()
             
             data = response.json()
@@ -179,10 +267,13 @@ class OKXFetcher:
             elif '-' not in symbol:
                 symbol = f"{symbol}-USDT"
             
-            url = f"{self.base_url}/api/v5/market/ticker"
             params = {'instId': symbol}
             
-            response = self.session.get(url, params=params, timeout=10)
+            # Use authenticated request if available
+            if self.authenticated:
+                response = self._make_authenticated_request('GET', '/api/v5/market/ticker', params)
+            else:
+                response = self._make_public_request('GET', '/api/v5/market/ticker', params)
             response.raise_for_status()
             data = response.json()
             
@@ -217,10 +308,13 @@ class OKXFetcher:
             elif '-' not in symbol:
                 symbol = f"{symbol}-USDT"
             
-            url = f"{self.base_url}/api/v5/market/books"
             params = {'instId': symbol, 'sz': min(depth, 400)}
             
-            response = self.session.get(url, params=params, timeout=10)
+            # Use authenticated request if available  
+            if self.authenticated:
+                response = self._make_authenticated_request('GET', '/api/v5/market/books', params)
+            else:
+                response = self._make_public_request('GET', '/api/v5/market/books', params)
             response.raise_for_status()
             data = response.json()
             
