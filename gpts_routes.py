@@ -200,13 +200,18 @@ def get_market_data():
             "message": str(e)
         }), 500
 
-@gpts_api.route('/smc-analysis', methods=['POST'])
+@gpts_api.route('/smc-analysis', methods=['GET', 'POST'])
 def get_smc_analysis():
     """Get SMC analysis for market data"""
     try:
-        data = request.get_json() or {}
-        symbol = normalize_symbol(data.get('symbol', 'BTC-USDT'))
-        timeframe = data.get('timeframe', '1H')
+        # Support both GET and POST requests
+        if request.method == 'GET':
+            symbol = normalize_symbol(request.args.get('symbol', 'BTC-USDT'))
+            timeframe = request.args.get('timeframe', '1H')
+        else:
+            data = request.get_json() or {}
+            symbol = normalize_symbol(data.get('symbol', 'BTC-USDT'))
+            timeframe = data.get('timeframe', '1H')
         
         if not validate_tf(timeframe):
             return jsonify({
