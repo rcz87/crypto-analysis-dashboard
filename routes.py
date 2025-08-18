@@ -24,6 +24,9 @@ def index():
             "/api/gpts/orderbook/<symbol>",
             "/api/gpts/smc-zones/<symbol>",
             "/api/smc/zones",
+            "/api/promptbook/",
+            "/api/performance/stats",
+            "/api/news/status",
             "/health"
         ]
     })
@@ -53,7 +56,39 @@ from gpts_routes import gpts_api
 # Import SMC zones blueprint
 from api.smc_zones_endpoints import smc_zones_bp
 
-# Register blueprints with the app
+# Import additional blueprints for comprehensive API coverage
+try:
+    from api.promptbook import promptbook_bp
+    promptbook_available = True
+except ImportError:
+    promptbook_available = False
+
+try:
+    from api.performance_endpoints import performance_bp
+    performance_available = True
+except ImportError:
+    performance_available = False
+
+try:
+    from api.news_endpoints import news_api
+    news_available = True
+except ImportError:
+    news_available = False
+
+# Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
 app.register_blueprint(smc_zones_bp)  # Register SMC zones endpoint
+
+# Register additional blueprints if available
+if promptbook_available:
+    app.register_blueprint(promptbook_bp)
+    logger.info("✅ Promptbook blueprint registered")
+
+if performance_available:
+    app.register_blueprint(performance_bp)
+    logger.info("✅ Performance blueprint registered")
+
+if news_available:
+    app.register_blueprint(news_api)
+    logger.info("✅ News API blueprint registered")
