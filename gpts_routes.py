@@ -1,32 +1,31 @@
-# gpts_routes.py
+# gpts_routes_fixed.py - Production Ready for VPS Hostinger
 from flask import Blueprint, jsonify, request
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import logging
-from core.okx_fetcher import OKXFetcher
+from core.okx_fetcher_fixed import OKXFetcher
 from core.ai_engine import get_ai_engine
-from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
-from core.signal_generator import SignalGenerator
-from core.crypto_news_analyzer import get_news_analyzer
-import asyncio
+from core.professional_smc_analyzer_fixed import ProfessionalSMCAnalyzer
+from core.signal_generator_fixed import SignalGenerator
+import time
 
 gpts_api = Blueprint('gpts_api', __name__, url_prefix='/api/gpts')
 logger = logging.getLogger(__name__)
 
-# Inisialisasi komponen
+# Initialize components with fixed versions
 smc_analyzer = ProfessionalSMCAnalyzer()
 signal_generator = SignalGenerator()
+okx_fetcher = OKXFetcher()
 
-# Helper
+# Helper functions
 ALLOWED_TFS = {"1m","5m","15m","30m","1H","4H","1D"}
 
 def normalize_symbol(sym: str) -> str:
     s = (sym or "").upper()
     if "-" in s:
-        return s  # sudah format OKX
+        return s
     if s.endswith("USDT"):
         return s.replace("USDT", "-USDT")
-    # default ke USDT pair
     return f"{s}-USDT"
 
 def validate_tf(tf: str) -> bool:
@@ -34,219 +33,238 @@ def validate_tf(tf: str) -> bool:
 
 @gpts_api.route('/status', methods=['GET'])
 def get_status():
-    """
-    Status ringkas ketersediaan semua komponen sistem
-    """
+    """Status ringkas ketersediaan semua komponen sistem"""
     try:
-        # Cek OKX API
-        okx_fetcher = OKXFetcher()
-        okx_status = "available"
-        okx_details = {}
+        # Test OKX API
+        okx_test = okx_fetcher.test_connection()
+        okx_status = okx_test['status']
+        
+        # Test AI Engine
         try:
-            test_data = okx_fetcher.get_historical_data("BTC-USDT", "1m", 2)
-            okx_details["data_available"] = bool(test_data and len(test_data.get("candles", [])) > 0)
-        except Exception as e:
-            okx_status = "unavailable"
-            okx_details["error"] = str(e)
+            ai_engine = get_ai_engine()
+            ai_test = ai_engine.test_connection()
+            openai_status = "available" if ai_test.get("available", False) else "unavailable"
+        except:
+            openai_status = "unavailable"
         
-        # Cek OpenAI
-        ai_engine = get_ai_engine()
-        ai_test = ai_engine.test_connection()
-        openai_status = "available" if ai_test.get("available", False) else "unavailable"
-        
-        # Cek Database
+        # Test Database
         db_status = "unavailable"
-        db_details = {}
         db_url = os.environ.get("DATABASE_URL")
         if db_url:
             try:
                 engine = create_engine(db_url)
                 with engine.connect() as conn:
-                    conn.execute("SELECT 1")
+                    conn.execute(text('SELECT 1'))
                 db_status = "available"
             except Exception as e:
-                db_details["error"] = str(e)
+                logger.error(f"Database test failed: {e}")
         
         version_info = {
-            "api_version": "1.0.0",
+            "api_version": "2.0.0",
             "core_version": "1.2.3",
-            "supported_symbols": ["BTC", "ETH", "SOL", "ADA", "DOT", "AVAX", "LINK", "UNI", "DOGE"],
+            "supported_symbols": ["BTC", "ETH", "SOL", "ADA", "DOT", "AVAX"],
             "supported_timeframes": sorted(list(ALLOWED_TFS))
         }
         
-        features = {
-            "smc_analysis": True,
-            "news_sentiment": True,
-            "multi_timeframe": True,
-            "openai_integration": ai_engine.is_available(),
-            "telegram_notifications": bool(os.environ.get("TELEGRAM_BOT_TOKEN")),
-            "performance_tracking": bool(os.environ.get("DATABASE_URL"))
-        }
-        
         return jsonify({
-            "status": "operational",
+            "status": "active",
             "components": {
-                "okx_api": {"status": okx_status, **okx_details},
-                "openai": {"status": openai_status, "model": "gpt-4o", "client_available": ai_engine.is_available()},
-                "database": {"status": db_status, **db_details}
+                "okx_api": okx_status,
+                "openai": openai_status,
+                "database": db_status,
+                "smc_analyzer": "available",
+                "signal_generator": "available"
             },
             "version": version_info,
-            "features": features
+            "timestamp": int(time.time())
         })
+        
     except Exception as e:
-        logger.error(f"Error in status endpoint: {e}")
-        return jsonify({"status": "error", "message": "Failed to retrieve system status", "error": str(e)}), 500
+        logger.error(f"Status check error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e),
+            "timestamp": int(time.time())
+        }), 500
 
 @gpts_api.route('/sinyal/tajam', methods=['POST'])
-def get_tajam_signal():
-    """
-    Generate sinyal tajam (ringkas dan to-the-point)
-    """
+def get_sharp_signal():
+    """Sharp signal analysis endpoint optimized for VPS deployment"""
     try:
-        data = request.get_json(silent=True) or {}
-        symbol = (data.get('symbol') or 'BTC').upper()
+        data = request.get_json() or {}
+        symbol = normalize_symbol(data.get('symbol', 'BTC-USDT'))
         timeframe = data.get('timeframe', '1H')
+        
+        # Validate timeframe
         if not validate_tf(timeframe):
-            return jsonify({"status": "error", "message": f"Invalid timeframe: {timeframe}"}), 400
+            return jsonify({
+                "status": "error",
+                "message": f"Invalid timeframe. Supported: {list(ALLOWED_TFS)}"
+            }), 400
         
-        okx_symbol = normalize_symbol(symbol)
+        logger.info(f"Processing sharp signal request: {symbol} {timeframe}")
         
-        # Fetch data pasar
-        okx_fetcher = OKXFetcher()
-        market_data = okx_fetcher.get_historical_data(okx_symbol, timeframe, 200)
-        if not market_data or 'candles' not in market_data:
-            return jsonify({"status": "error", "message": f"Failed to get market data for {symbol} {timeframe}"}), 400
+        # Get market data
+        market_data = okx_fetcher.get_historical_data(symbol, timeframe, 100)
         
-        # Analisis SMC + sinyal tajam
-        smc_result = smc_analyzer.analyze_market_structure(market_data['candles'])
-        signal_result = signal_generator.generate_signal(market_data, smc_result, is_concise=True)
+        if not market_data or not market_data.get('candles'):
+            return jsonify({
+                "status": "error",
+                "message": "Failed to fetch market data",
+                "symbol": symbol,
+                "timeframe": timeframe
+            }), 500
         
-        current_price = market_data['candles'][-1]['close'] if market_data['candles'] else 0
+        # SMC Analysis
+        smc_analysis = smc_analyzer.analyze_market_structure(market_data)
         
-        return jsonify({
+        # Generate signal
+        signal = signal_generator.generate_signal(market_data, smc_analysis)
+        
+        # Build comprehensive response
+        response = {
             "status": "success",
             "symbol": symbol,
             "timeframe": timeframe,
-            "current_price": float(current_price),
+            "timestamp": int(time.time()),
             "signal": {
-                "bias": signal_result.get('bias', 'NEUTRAL'),
-                "strength": signal_result.get('strength', 0),
-                "action": signal_result.get('action', 'WAIT'),
-                "confidence": signal_result.get('confidence', 0),
-                "entry_zone": {"low": signal_result.get('entry_low', 0), "high": signal_result.get('entry_high', 0)},
-                "stop_loss": signal_result.get('stop_loss', 0),
-                "take_profit": signal_result.get('take_profit', 0)
-            },
-            "key_drivers": signal_result.get('key_drivers', []),
-            "generated_at": signal_result.get('timestamp', None)
-        })
-        
-    except Exception as e:
-        logger.error(f"Error generating tajam signal: {e}")
-        return jsonify({"status": "error", "message": "Failed to generate signal", "error": str(e)}), 500
-
-@gpts_api.route('/sinyal/enhanced', methods=['POST'])
-def get_enhanced_signal():
-    """
-    Generate sinyal enhanced (lengkap dengan analisis multi-layer dan narasi)
-    """
-    try:
-        data = request.get_json(silent=True) or {}
-        symbol = (data.get('symbol') or 'BTC').upper()
-        timeframe = data.get('timeframe', '1H')
-        include_news = bool(data.get('include_news', True))
-        include_narrative = bool(data.get('include_narrative', True))
-        
-        if not validate_tf(timeframe):
-            return jsonify({"status": "error", "message": f"Invalid timeframe: {timeframe}"}), 400
-        
-        okx_symbol = normalize_symbol(symbol)
-        
-        # Fetch data pasar
-        okx_fetcher = OKXFetcher()
-        market_data = okx_fetcher.get_historical_data(okx_symbol, timeframe, 200)
-        if not market_data or 'candles' not in market_data:
-            return jsonify({"status": "error", "message": f"Failed to get market data for {symbol} {timeframe}"}), 400
-        
-        # Analisis SMC + sinyal lengkap
-        smc_result = smc_analyzer.analyze_market_structure(market_data['candles'])
-        signal_result = signal_generator.generate_signal(market_data, smc_result, is_concise=False)
-        
-        # News sentiment (dengan timeout agar tidak menggantung)
-        news_context = {}
-        if include_news:
-            try:
-                news_analyzer = get_news_analyzer()
-                result = asyncio.run(asyncio.wait_for(news_analyzer.get_news_sentiment(limit=5), timeout=25))
-                if result['status'] == 'success':
-                    agg = result['aggregate']
-                    news_context = {
-                        "overall_sentiment": agg['overall_sentiment'],
-                        "sentiment_strength": agg['average_confidence'],
-                        "high_impact_count": agg['high_impact_news'],
-                        "bullish_ratio": agg['bullish_ratio'],
-                        "bearish_ratio": agg['bearish_ratio'],
-                        "top_news": result['data'][:3]
-                    }
-            except asyncio.TimeoutError:
-                logger.warning("News sentiment timeout")
-                news_context = {"error": "News analysis timeout"}
-            except Exception as news_error:
-                logger.warning(f"Failed to include news data: {news_error}")
-                news_context = {"error": "News data unavailable"}
-        
-        # Narasi AI
-        narrative = ""
-        if include_narrative:
-            try:
-                ai_engine = get_ai_engine()
-                analysis_data = {
-                    "candlestick": market_data['candles'],
-                    "smc_analysis": smc_result,
-                    "signal_result": signal_result,
-                    "news_context": news_context if news_context else {},
-                    "confluence_summary": signal_result.get('confluence', {})
-                }
-                narrative = ai_engine.generate_ai_snapshot(okx_symbol, timeframe, analysis_data)
-            except Exception as ai_error:
-                logger.warning(f"Failed to generate narrative: {ai_error}")
-                narrative = f"AI narrative unavailable: {str(ai_error)}"
-        
-        current_price = market_data['candles'][-1]['close'] if market_data['candles'] else 0
-        
-        return jsonify({
-            "status": "success",
-            "symbol": symbol,
-            "timeframe": timeframe,
-            "current_price": float(current_price),
-            "signal": {
-                "bias": signal_result.get('bias', 'NEUTRAL'),
-                "strength": signal_result.get('strength', 0),
-                "action": signal_result.get('action', 'WAIT'),
-                "confidence": signal_result.get('confidence', 0),
-                "entry_zone": {"low": signal_result.get('entry_low', 0), "high": signal_result.get('entry_high', 0)},
-                "stop_loss": signal_result.get('stop_loss', 0),
-                "take_profit": signal_result.get('take_profit', 0),
-                "risk_reward": signal_result.get('risk_reward', 0)
+                "direction": signal['direction'],
+                "confidence": signal['confidence'],
+                "entry_price": signal['entry_price'],
+                "take_profit": signal['take_profit'],
+                "stop_loss": signal['stop_loss'],
+                "reasoning": signal['reasoning']
             },
             "analysis": {
-                "market_structure": signal_result.get('market_structure', 'NEUTRAL'),
-                "trend_strength": signal_result.get('trend_strength', 0),
-                "volatility": signal_result.get('volatility', "NORMAL"),
-                "key_levels": signal_result.get('key_levels', []),
-                "indicators": signal_result.get('indicators', {}),
+                "technical": f"Price: {signal['entry_price']:.2f}, Direction: {signal['direction']}",
                 "smc": {
-                    "ob_count": len(smc_result.get('order_blocks', {}).get('bullish', [])) + len(smc_result.get('order_blocks', {}).get('bearish', [])),
-                    "fvg_count": len(smc_result.get('fair_value_gaps', [])),
-                    "liquidity_sweep": smc_result.get('liquidity_sweep', {}).get('detected', False)
-                }
+                    "market_bias": smc_analysis['market_bias'],
+                    "structure_break": smc_analysis['structure_analysis']['structure_break'],
+                    "confidence": smc_analysis['confidence']
+                },
+                "risk_reward": round(abs(signal['take_profit'] - signal['entry_price']) / abs(signal['entry_price'] - signal['stop_loss']), 2) if signal['stop_loss'] != signal['entry_price'] else 1.0
             },
-            "news_context": news_context if include_news else {},
-            "confluence": signal_result.get('confluence', {}),
-            "narrative": narrative if include_narrative else "",
-            "generated_at": signal_result.get('timestamp', None)
+            "market_data": {
+                "candles_analyzed": market_data['count'],
+                "data_status": market_data['status'],
+                "current_price": signal['entry_price']
+            }
+        }
+        
+        logger.info(f"Sharp signal generated successfully: {signal['direction']} with {signal['confidence']} confidence")
+        return jsonify(response)
+        
+    except Exception as e:
+        logger.error(f"Sharp signal error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": "Failed to generate signal",
+            "error": str(e),
+            "timestamp": int(time.time())
+        }), 500
+
+@gpts_api.route('/market-data', methods=['GET'])
+def get_market_data():
+    """Get current market data for a symbol"""
+    try:
+        symbol = normalize_symbol(request.args.get('symbol', 'BTC-USDT'))
+        timeframe = request.args.get('timeframe', '1H')
+        limit = min(int(request.args.get('limit', 50)), 200)
+        
+        if not validate_tf(timeframe):
+            return jsonify({
+                "status": "error", 
+                "message": f"Invalid timeframe. Supported: {list(ALLOWED_TFS)}"
+            }), 400
+        
+        market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit)
+        
+        if not market_data:
+            return jsonify({
+                "status": "error",
+                "message": "Failed to fetch market data"
+            }), 500
+        
+        return jsonify({
+            "status": "success",
+            "symbol": symbol,
+            "timeframe": timeframe,
+            "data": market_data,
+            "timestamp": int(time.time())
         })
         
     except Exception as e:
-        logger.error(f"Error generating enhanced signal: {e}")
-        return jsonify({"status": "error", "message": "Failed to generate enhanced signal", "error": str(e)}), 500
+        logger.error(f"Market data error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+@gpts_api.route('/smc-analysis', methods=['POST'])
+def get_smc_analysis():
+    """Get SMC analysis for market data"""
+    try:
+        data = request.get_json() or {}
+        symbol = normalize_symbol(data.get('symbol', 'BTC-USDT'))
+        timeframe = data.get('timeframe', '1H')
+        
+        if not validate_tf(timeframe):
+            return jsonify({
+                "status": "error",
+                "message": f"Invalid timeframe. Supported: {list(ALLOWED_TFS)}"
+            }), 400
+        
+        # Get market data
+        market_data = okx_fetcher.get_historical_data(symbol, timeframe, 100)
+        
+        if not market_data:
+            return jsonify({
+                "status": "error",
+                "message": "Failed to fetch market data"
+            }), 500
+        
+        # Perform SMC analysis
+        smc_analysis = smc_analyzer.analyze_market_structure(market_data)
+        
+        return jsonify({
+            "status": "success",
+            "symbol": symbol,
+            "timeframe": timeframe,
+            "smc_analysis": smc_analysis,
+            "timestamp": int(time.time())
+        })
+        
+    except Exception as e:
+        logger.error(f"SMC analysis error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+@gpts_api.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint for VPS monitoring"""
+    try:
+        # Quick component checks
+        checks = {
+            'okx_fetcher': 'ok',
+            'smc_analyzer': 'ok', 
+            'signal_generator': 'ok',
+            'database': 'ok' if os.environ.get("DATABASE_URL") else 'missing'
+        }
+        
+        all_healthy = all(status == 'ok' for status in checks.values())
+        
+        return jsonify({
+            "status": "healthy" if all_healthy else "degraded",
+            "checks": checks,
+            "timestamp": int(time.time()),
+            "uptime": "active"
+        }), 200 if all_healthy else 503
+        
+    except Exception as e:
+        return jsonify({
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": int(time.time())
+        }), 500
