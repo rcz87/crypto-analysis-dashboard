@@ -59,6 +59,11 @@ QUERY_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "/api/news/sentiment": {"symbol": DEFAULTS["symbol"]},
     "/api/performance/equity-curve": {"symbol": DEFAULTS["symbol"]},
     "/api/performance/detailed-report": {"symbol": DEFAULTS["symbol"]},
+    
+    # NEW: CoinGlass endpoints dengan query parameters
+    "/api/gpts/coinglass/liquidation-preview": {"symbol": "BTCUSDT"},
+    "/api/gpts/coinglass/market-structure": {"symbol": "BTCUSDT"},
+    "/api/ext/coinglass/funding": {"symbol": "SOL-USDT"},
 }
 
 PAYLOAD_OVERRIDES: Dict[str, Dict[str, Any]] = {
@@ -68,6 +73,37 @@ PAYLOAD_OVERRIDES: Dict[str, Dict[str, Any]] = {
     "/api/gpts/smc-analysis": {"symbol": DEFAULTS["symbol"], "tfs": DEFAULTS["tfs"],
                                "features": ["BOS","CHOCH","OB","FVG","LIQ_SWEEP"]},
     "/api/performance/backtest": {"symbol": DEFAULTS["symbol"], "tf": "1h", "lookback": 300},
+    
+    # NEW: LuxAlgo webhook payload simulation
+    "/api/webhooks/tradingview": {
+        "symbol": "BTCUSDT",
+        "action": "BUY", 
+        "price": 50000,
+        "strategy": "LuxAlgo Premium",
+        "timeframe": "1h",
+        "indicator": "Confirmation",
+        "confidence": 85
+    },
+    "/api/webhooks/tradingview/test": {
+        "symbol": "ETHUSDT",
+        "action": "SELL",
+        "price": 2500,
+        "strategy": "LuxAlgo Premium",
+        "indicator": "Trend Catcher"
+    },
+    
+    # NEW: Sharp scoring test payloads
+    "/api/gpts/sharp-scoring/test": {
+        "smc_confidence": 0.8,
+        "ob_imbalance": 0.7,
+        "momentum_signal": 0.6,
+        "vol_regime": 0.5,
+        "lux_signal": "BUY",
+        "bias": "long",
+        "funding_rate_abs": 0.03,
+        "oi_delta_pos": True,
+        "long_short_extreme": False
+    },
 }
 
 FALLBACK_ALL: Dict[str, List[str]] = {
@@ -99,6 +135,22 @@ FALLBACK_ALL: Dict[str, List[str]] = {
     "/api/smc/context": ["get"],
     "/api/smc/status": ["get"],
     "/api/smc/summary": ["get"],
+    
+    # NEW: LuxAlgo webhook endpoints
+    "/api/webhooks/status": ["get"],
+    "/api/webhooks/setup-guide": ["get"],
+    "/api/webhooks/tradingview": ["post"],
+    "/api/webhooks/tradingview/test": ["get", "post"],
+    
+    # NEW: CoinGlass integration endpoints  
+    "/api/gpts/coinglass/status": ["get"],
+    "/api/gpts/coinglass/liquidation-preview": ["get"],
+    "/api/gpts/coinglass/market-structure": ["get"],
+    "/api/ext/coinglass/funding": ["get"],
+    
+    # NEW: Sharp scoring system
+    "/api/gpts/sharp-scoring/test": ["get", "post"],
+    
     "/": ["get"],
 }
 

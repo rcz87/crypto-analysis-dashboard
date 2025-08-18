@@ -288,6 +288,129 @@ def create_app():
             
         except Exception as e:
             return jsonify({'success': False, 'error': str(e)}), 500
+    
+    @gpts_simple.route('/sharp-scoring/test', methods=['GET', 'POST'])
+    def sharp_scoring_test():
+        """Test sharp scoring system dengan berbagai scenarios"""
+        try:
+            from datetime import datetime
+            
+            # Import sharp scoring system
+            try:
+                from core.sharp_scoring_system import calculate_sharp_score_simple
+            except ImportError:
+                return jsonify({
+                    'success': False,
+                    'error': 'Sharp scoring system not available',
+                    'timestamp': datetime.now().isoformat()
+                }), 500
+            
+            if request.method == 'GET':
+                # Demo scenarios for testing
+                scenarios = {
+                    'excellent_setup': {
+                        'description': 'Perfect alignment - LuxAlgo BUY + Long bias + Strong SMC',
+                        'factors': {
+                            'smc_confidence': 0.85,
+                            'ob_imbalance': 0.8,
+                            'momentum_signal': 0.7,
+                            'vol_regime': 0.6,
+                            'lux_signal': 'BUY',
+                            'bias': 'long',
+                            'funding_rate_abs': 0.03,
+                            'oi_delta_pos': True,
+                            'long_short_extreme': False
+                        }
+                    },
+                    'poor_setup': {
+                        'description': 'Multiple penalties - Misaligned + Extreme funding + Crowded',
+                        'factors': {
+                            'smc_confidence': 0.4,
+                            'ob_imbalance': 0.3,
+                            'momentum_signal': 0.2,
+                            'vol_regime': 0.3,
+                            'lux_signal': 'SELL',
+                            'bias': 'long',
+                            'funding_rate_abs': 0.08,
+                            'oi_delta_pos': False,
+                            'long_short_extreme': True
+                        }
+                    },
+                    'marginal_setup': {
+                        'description': 'Right at threshold - Testing 70 point boundary',
+                        'factors': {
+                            'smc_confidence': 0.7,
+                            'ob_imbalance': 0.5,
+                            'momentum_signal': 0.5,
+                            'vol_regime': 0.4,
+                            'lux_signal': 'BUY',
+                            'bias': 'long',
+                            'funding_rate_abs': 0.02,
+                            'oi_delta_pos': False,
+                            'long_short_extreme': False
+                        }
+                    }
+                }
+                
+                results = {}
+                for scenario_name, scenario_data in scenarios.items():
+                    score_result = calculate_sharp_score_simple(**scenario_data['factors'])
+                    results[scenario_name] = {
+                        'description': scenario_data['description'],
+                        'factors': scenario_data['factors'],
+                        'score': score_result['sharp_score'],
+                        'is_sharp': score_result['is_sharp_signal'],
+                        'quality': score_result['quality_rating'],
+                        'recommendation': score_result['recommendation'],
+                        'enhancement': score_result['enhancement_summary']
+                    }
+                
+                return jsonify({
+                    'success': True,
+                    'sharp_threshold': 70,
+                    'test_scenarios': results,
+                    'summary': {
+                        'excellent_score': results['excellent_setup']['score'],
+                        'poor_score': results['poor_setup']['score'],
+                        'marginal_score': results['marginal_setup']['score'],
+                        'sharp_signals_count': sum(1 for r in results.values() if r['is_sharp'])
+                    },
+                    'timestamp': datetime.now().isoformat()
+                })
+            
+            else:  # POST request - custom scoring
+                data = request.get_json() or {}
+                
+                # Extract factors with defaults
+                factors = {
+                    'smc_confidence': float(data.get('smc_confidence', 0.5)),
+                    'ob_imbalance': float(data.get('ob_imbalance', 0.5)),
+                    'momentum_signal': float(data.get('momentum_signal', 0.5)),
+                    'vol_regime': float(data.get('vol_regime', 0.5)),
+                    'lux_signal': data.get('lux_signal'),
+                    'bias': data.get('bias', 'neutral'),
+                    'funding_rate_abs': float(data.get('funding_rate_abs', 0.0)),
+                    'oi_delta_pos': bool(data.get('oi_delta_pos', False)),
+                    'long_short_extreme': bool(data.get('long_short_extreme', False))
+                }
+                
+                # Calculate score
+                score_result = calculate_sharp_score_simple(**factors)
+                
+                return jsonify({
+                    'success': True,
+                    'custom_scoring_result': score_result,
+                    'input_factors': factors,
+                    'timestamp': datetime.now().isoformat()
+                })
+                
+        except Exception as e:
+            logger.error(f"Sharp scoring test error: {e}")
+            return jsonify({
+                'success': False,
+                'error': f'Sharp scoring test failed: {str(e)}',
+                'timestamp': datetime.now().isoformat()
+            }), 500
 
     return app
 
