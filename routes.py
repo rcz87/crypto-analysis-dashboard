@@ -133,6 +133,14 @@ except ImportError as e:
     enhanced_signals_available = False
     enhanced_signals_bp = None
 
+try:
+    from api.institutional_endpoints import institutional_bp
+    institutional_available = True
+except ImportError as e:
+    logger.warning(f"Institutional blueprint not available: {e}")
+    institutional_available = False
+    institutional_bp = None
+
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
@@ -162,3 +170,7 @@ if smc_context_available and smc_context_bp:
 if enhanced_signals_available and enhanced_signals_bp:
     app.register_blueprint(enhanced_signals_bp)
     logger.info("✅ Enhanced signals blueprint registered")
+
+if institutional_available and institutional_bp:
+    app.register_blueprint(institutional_bp)
+    logger.info("✅ Institutional blueprint registered")

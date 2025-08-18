@@ -1,0 +1,37 @@
+{
+  "BTC-USDT_1H": {
+    "symbol": "BTC-USDT",
+    "timeframe": "1H",
+    "last_updated": 1755527393.433336,
+    "trend_direction": "neutral",
+    "last_structure_break": null,
+    "swing_highs": [
+      {
+        "timestamp": 1755527352.331839,
+        "price": 45900.0,
+        "swing_type": "SwingType.HH",
+        "confirmed": true
+      }
+    ],
+    "swing_lows": [],
+    "bullish_ob": [],
+    "bearish_ob": [],
+    "fvg_zones": [
+      {
+        "type": "bullish",
+        "high": 45200.0,
+        "low": 45150.0,
+        "timestamp": 1755527352.331851,
+        "filled": false
+      },
+      {
+        "type": "bullish",
+        "high": 45200.0,
+        "low": 45150.0,
+        "timestamp": 1755527393.4333286,
+        "filled": false
+      }
+    ],
+    "liquidity_sweeps": []
+  }
+}
