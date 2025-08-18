@@ -66,10 +66,11 @@ class OKXFetcher:
             elif '-' not in symbol:
                 symbol = f"{symbol}-USDT"
             
-            # Map timeframe
+            # Map timeframe - Maksimal support semua OKX timeframes
             tf_map = {
-                '1m': '1m', '5m': '5m', '15m': '15m', '30m': '30m',
-                '1H': '1H', '4H': '4H', '1D': '1D'
+                '1m': '1m', '3m': '3m', '5m': '5m', '15m': '15m', '30m': '30m',
+                '1H': '1H', '2H': '2H', '4H': '4H', '6H': '6H', '8H': '8H', '12H': '12H',
+                '1D': '1D', '2D': '2D', '3D': '3D', '1W': '1W', '1M': '1M', '3M': '3M'
             }
             okx_tf = tf_map.get(timeframe, '1H')
             
@@ -78,7 +79,7 @@ class OKXFetcher:
             params = {
                 'instId': symbol,
                 'bar': okx_tf,
-                'limit': min(limit, 300)  # OKX limit
+                'limit': min(limit, 1440)  # OKX maksimal limit untuk candles
             }
             
             logger.info(f"Fetching {symbol} {okx_tf} data from OKX")
@@ -166,6 +167,77 @@ class OKXFetcher:
             'error': error,
             'timestamp': datetime.now().isoformat()
         }
+    
+    def get_ticker_data(self, symbol: str) -> Dict[str, Any]:
+        """Get real-time ticker data from OKX"""
+        try:
+            self._rate_limit()
+            
+            # Convert symbol format
+            if '-' not in symbol and symbol.endswith('USDT'):
+                symbol = symbol.replace('USDT', '-USDT')
+            elif '-' not in symbol:
+                symbol = f"{symbol}-USDT"
+            
+            url = f"{self.base_url}/api/v5/market/ticker"
+            params = {'instId': symbol}
+            
+            response = self.session.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data['code'] != '0' or not data.get('data'):
+                return {'error': 'No ticker data available'}
+            
+            ticker = data['data'][0]
+            return {
+                'symbol': symbol,
+                'last_price': float(ticker['last']),
+                'bid_price': float(ticker.get('bidPx', ticker['last'])),
+                'ask_price': float(ticker.get('askPx', ticker['last'])),
+                'volume_24h': float(ticker.get('vol24h', 0)),
+                'change_24h': float(ticker.get('chg24h', ticker.get('chgUtc24h', 0))),
+                'high_24h': float(ticker.get('high24h', ticker['last'])),
+                'low_24h': float(ticker.get('low24h', ticker['last'])),
+                'timestamp': int(ticker['ts'])
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting ticker for {symbol}: {e}")
+            return {'error': str(e)}
+    
+    def get_order_book(self, symbol: str, depth: int = 20) -> Dict[str, Any]:
+        """Get order book data from OKX"""
+        try:
+            self._rate_limit()
+            
+            # Convert symbol format
+            if '-' not in symbol and symbol.endswith('USDT'):
+                symbol = symbol.replace('USDT', '-USDT')
+            elif '-' not in symbol:
+                symbol = f"{symbol}-USDT"
+            
+            url = f"{self.base_url}/api/v5/market/books"
+            params = {'instId': symbol, 'sz': min(depth, 400)}
+            
+            response = self.session.get(url, params=params, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+            
+            if data['code'] != '0' or not data.get('data'):
+                return {'error': 'No order book data available'}
+            
+            book = data['data'][0]
+            return {
+                'symbol': symbol,
+                'bids': [[float(bid[0]), float(bid[1])] for bid in book['bids']],
+                'asks': [[float(ask[0]), float(ask[1])] for ask in book['asks']],
+                'timestamp': int(book['ts'])
+            }
+            
+        except Exception as e:
+            logger.error(f"Error getting order book for {symbol}: {e}")
+            return {'error': str(e)}
     
     def get_current_price(self, symbol: str) -> float:
         """Get current price for a symbol"""

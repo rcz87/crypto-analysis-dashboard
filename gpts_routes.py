@@ -18,7 +18,7 @@ signal_generator = SignalGenerator()
 okx_fetcher = OKXFetcher()
 
 # Helper functions
-ALLOWED_TFS = {"1m","5m","15m","30m","1H","4H","1D"}
+ALLOWED_TFS = {"1m","3m","5m","15m","30m","1H","2H","4H","6H","8H","12H","1D","2D","3D","1W","1M","3M"}
 
 def normalize_symbol(sym: str) -> str:
     s = (sym or "").upper()
@@ -169,7 +169,7 @@ def get_market_data():
     try:
         symbol = normalize_symbol(request.args.get('symbol', 'BTC-USDT'))
         timeframe = request.args.get('timeframe', '1H')
-        limit = min(int(request.args.get('limit', 50)), 200)
+        limit = min(int(request.args.get('limit', 50)), 1440)  # Maksimal OKX limit
         
         if not validate_tf(timeframe):
             return jsonify({
@@ -267,4 +267,58 @@ def health_check():
             "status": "unhealthy",
             "error": str(e),
             "timestamp": int(time.time())
+        }), 500
+
+@gpts_api.route('/ticker/<symbol>', methods=['GET'])
+def get_ticker(symbol):
+    """Get real-time ticker data for a symbol"""
+    try:
+        symbol = normalize_symbol(symbol)
+        ticker_data = okx_fetcher.get_ticker_data(symbol)
+        
+        if 'error' in ticker_data:
+            return jsonify({
+                "status": "error",
+                "message": ticker_data['error']
+            }), 500
+        
+        return jsonify({
+            "status": "success",
+            "ticker": ticker_data,
+            "timestamp": int(time.time())
+        })
+        
+    except Exception as e:
+        logger.error(f"Ticker error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
+@gpts_api.route('/orderbook/<symbol>', methods=['GET'])
+def get_orderbook(symbol):
+    """Get order book data for a symbol"""
+    try:
+        symbol = normalize_symbol(symbol)
+        depth = min(int(request.args.get('depth', 20)), 400)
+        
+        orderbook_data = okx_fetcher.get_order_book(symbol, depth)
+        
+        if 'error' in orderbook_data:
+            return jsonify({
+                "status": "error",
+                "message": orderbook_data['error']
+            }), 500
+        
+        return jsonify({
+            "status": "success",
+            "orderbook": orderbook_data,
+            "timestamp": int(time.time())
+        })
+        
+    except Exception as e:
+        logger.error(f"Order book error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
         }), 500
