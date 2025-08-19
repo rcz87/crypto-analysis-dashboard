@@ -7,17 +7,27 @@ from flask import Blueprint, jsonify
 
 openapi_bp = Blueprint('openapi_ultra', __name__)
 
-def _relax_responses(schema: dict) -> dict:
-    """Add additionalProperties: True to bare object schemas"""
-    for p in schema.get("paths", {}).values():
-        for m in p.values():
-            resp = m.get("responses", {}).get("200", {})
-            content = resp.get("content", {}).get("application/json", {})
-            sch = content.get("schema")
-            if isinstance(sch, dict) and sch.get("type") == "object":
-                if not sch.get("properties") and not sch.get("additionalProperties"):
-                    sch["additionalProperties"] = True
+def _relax_all_responses(schema: dict) -> dict:
+    """Tambah fallback untuk SEMUA response JSON yang hanya {type: object}"""
+    for path_item in schema.get("paths", {}).values():
+        for method_name, method in list(path_item.items()):
+            if method_name.lower() not in ("get", "post", "put", "delete", "patch", "options", "head"):
+                continue
+            responses = method.get("responses", {})
+            for _, resp in responses.items():
+                content = resp.setdefault("content", {}).setdefault("application/json", {})
+                sch = content.setdefault("schema", {"type": "object"})
+                if isinstance(sch, dict):
+                    if (
+                        sch.get("type") == "object"
+                        and not any(k in sch for k in ("properties", "additionalProperties", "$ref", "oneOf", "anyOf", "allOf"))
+                    ):
+                        sch["additionalProperties"] = True
     return schema
+
+def _relax_responses(schema: dict) -> dict:
+    """Add additionalProperties: True to bare object schemas - Legacy function"""
+    return _relax_all_responses(schema)
 
 def get_ultra_complete_openapi_schema():
     """Generate ultra-complete OpenAPI 3.1.0 schema for ALL available endpoints"""
@@ -876,12 +886,15 @@ def get_ultra_complete_openapi_schema():
         }
     }
     
-    return _relax_responses(schema)
+    # Schema akan di-relax oleh handler endpoint, tidak perlu di sini
+    return schema
 
 @openapi_bp.route('/openapi.json')
 def openapi_schema():
     """Main OpenAPI schema endpoint"""
-    return jsonify(get_ultra_complete_openapi_schema())
+    schema = get_ultra_complete_openapi_schema()
+    schema = _relax_all_responses(schema)
+    return jsonify(schema)
 
 @openapi_bp.route('/.well-known/openapi.json') 
 def well_known_openapi():
