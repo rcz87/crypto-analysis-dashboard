@@ -48,38 +48,15 @@ def health():
         "version": "2.0.0"
     })
 
-@main_bp.route('/api/openapi_schema')
-def api_openapi_schema():
-    """OpenAPI schema endpoint with fixed path"""
-    return jsonify({
-        "openapi": "3.1.0",
-        "info": {
-            "title": "Cryptocurrency Trading Signals API",
-            "description": "API untuk analisis trading cryptocurrency dengan Smart Money Concept",
-            "version": "1.0.0"
-        },
-        "servers": [{"url": "https://your-replit-url.replit.dev"}],
-        "paths": {
-            "/api/gpts/status": {"get": {"summary": "System status"}},
-            "/api/gpts/signal": {"get": {"summary": "Trading signals"}},
-            "/api/gpts/market-data": {"get": {"summary": "Market data"}},
-            "/api/gpts/smc-analysis": {"get": {"summary": "SMC analysis"}},
-            "/api/smc/zones": {"get": {"summary": "SMC zones"}}
-        }
-    })
-
-@main_bp.route('/openapi.json')
-def openapi_json():
-    """Redirect to proper schema endpoint"""
-    return jsonify({
-        "message": "Use /api/openapi_schema for OpenAPI schema",
-        "schema_url": "/api/openapi_schema"
-    })
+# OpenAPI schema will be handled by the dedicated blueprint
 
 # Enhanced GPTs API will be imported from gpts_routes.py
 
 # Import and register the enhanced GPTs blueprint
 from gpts_routes import gpts_api
+
+# Import OpenAPI schema blueprint
+from gpts_openapi_ultra_complete import openapi_bp
 
 # Import SMC zones blueprint
 from api.smc_zones_endpoints import smc_zones_bp
@@ -168,9 +145,107 @@ except ImportError as e:
     telegram_available = False
     telegram_bp = None
 
+# Import ALL missing blueprint endpoints
+try:
+    from api.backtest_endpoints import backtest_api
+    backtest_available = True
+except ImportError as e:
+    logger.warning(f"Backtest blueprint not available: {e}")
+    backtest_available = False
+    backtest_api = None
+
+try:
+    from api.chart_endpoints import chart_bp
+    chart_available = True
+except ImportError as e:
+    logger.warning(f"Chart blueprint not available: {e}")
+    chart_available = False
+    chart_bp = None
+
+try:
+    from api.enhanced_gpts_endpoints import enhanced_gpts
+    enhanced_gpts_available = True
+except ImportError as e:
+    logger.warning(f"Enhanced GPTs blueprint not available: {e}")
+    enhanced_gpts_available = False
+    enhanced_gpts = None
+
+try:
+    from api.gpts_coinglass_endpoints import gpts_coinglass_bp
+    gpts_coinglass_available = True
+except ImportError as e:
+    logger.warning(f"GPTs CoinGlass blueprint not available: {e}")
+    gpts_coinglass_available = False
+    gpts_coinglass_bp = None
+
+try:
+    from api.improvement_endpoints import improvement_bp
+    improvement_available = True
+except ImportError as e:
+    logger.warning(f"Improvement blueprint not available: {e}")
+    improvement_available = False
+    improvement_bp = None
+
+try:
+    from api.missing_endpoints import missing_bp
+    missing_endpoints_available = True
+except ImportError as e:
+    logger.warning(f"Missing endpoints blueprint not available: {e}")
+    missing_endpoints_available = False
+    missing_bp = None
+
+try:
+    from api.modular_endpoints import modular_bp
+    modular_available = True
+except ImportError as e:
+    logger.warning(f"Modular blueprint not available: {e}")
+    modular_available = False
+    modular_bp = None
+
+try:
+    from api.sharp_signal_endpoint import sharp_signal_bp
+    sharp_signal_available = True
+except ImportError as e:
+    logger.warning(f"Sharp signal blueprint not available: {e}")
+    sharp_signal_available = False
+    sharp_signal_bp = None
+
+try:
+    from api.signal_engine_endpoint import signal_bp
+    signal_engine_available = True
+except ImportError as e:
+    logger.warning(f"Signal engine blueprint not available: {e}")
+    signal_engine_available = False
+    signal_bp = None
+
+try:
+    from api.signal_top_endpoints import signal_top_bp
+    signal_top_available = True
+except ImportError as e:
+    logger.warning(f"Signal top blueprint not available: {e}")
+    signal_top_available = False
+    signal_top_bp = None
+
+try:
+    from api.smc_pattern_endpoints import smc_pattern
+    smc_pattern_available = True
+except ImportError as e:
+    logger.warning(f"SMC pattern blueprint not available: {e}")
+    smc_pattern_available = False
+    smc_pattern = None
+
+try:
+    from api.state_endpoints import state_api
+    state_available = True
+except ImportError as e:
+    logger.warning(f"State blueprint not available: {e}")
+    state_available = False
+    state_api = None
+
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
+app.register_blueprint(openapi_bp)  # Register OpenAPI schema blueprint
 app.register_blueprint(smc_zones_bp)  # Register SMC zones endpoint
 
 # Register additional blueprints if available
@@ -213,3 +288,52 @@ if sharp_scoring_available and sharp_scoring_bp:
 if telegram_available and telegram_bp:
     app.register_blueprint(telegram_bp)
     logger.info("✅ Telegram blueprint registered")
+
+# Register ALL missing blueprints
+if backtest_available and backtest_api:
+    app.register_blueprint(backtest_api)
+    logger.info("✅ Backtest API blueprint registered")
+
+if chart_available and chart_bp:
+    app.register_blueprint(chart_bp)
+    logger.info("✅ Chart blueprint registered")
+
+if enhanced_gpts_available and enhanced_gpts:
+    app.register_blueprint(enhanced_gpts)
+    logger.info("✅ Enhanced GPTs blueprint registered")
+
+if gpts_coinglass_available and gpts_coinglass_bp:
+    app.register_blueprint(gpts_coinglass_bp)
+    logger.info("✅ GPTs CoinGlass blueprint registered")
+
+if improvement_available and improvement_bp:
+    app.register_blueprint(improvement_bp)
+    logger.info("✅ Improvement blueprint registered")
+
+if missing_endpoints_available and missing_bp:
+    app.register_blueprint(missing_bp)
+    logger.info("✅ Missing endpoints blueprint registered")
+
+if modular_available and modular_bp:
+    app.register_blueprint(modular_bp)
+    logger.info("✅ Modular blueprint registered")
+
+if sharp_signal_available and sharp_signal_bp:
+    app.register_blueprint(sharp_signal_bp)
+    logger.info("✅ Sharp signal blueprint registered")
+
+if signal_engine_available and signal_bp:
+    app.register_blueprint(signal_bp)
+    logger.info("✅ Signal engine blueprint registered")
+
+if signal_top_available and signal_top_bp:
+    app.register_blueprint(signal_top_bp)
+    logger.info("✅ Signal top blueprint registered")
+
+if smc_pattern_available and smc_pattern:
+    app.register_blueprint(smc_pattern)
+    logger.info("✅ SMC pattern blueprint registered")
+
+if state_available and state_api:
+    app.register_blueprint(state_api)
+    logger.info("✅ State API blueprint registered")
