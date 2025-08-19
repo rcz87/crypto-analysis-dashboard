@@ -7,22 +7,19 @@ from flask import Blueprint, jsonify
 
 openapi_bp = Blueprint('openapi_ultra', __name__)
 
+# --- OpenAPI relaxer: tambahkan additionalProperties untuk semua response object yang kosong ---
 def _relax_all_responses(schema: dict) -> dict:
-    """Tambah fallback untuk SEMUA response JSON yang hanya {type: object}"""
     for path_item in schema.get("paths", {}).values():
-        for method_name, method in list(path_item.items()):
-            if method_name.lower() not in ("get", "post", "put", "delete", "patch", "options", "head"):
+        for mname, method in list(path_item.items()):
+            if mname.lower() not in ("get", "post", "put", "delete", "patch", "options", "head"):
                 continue
-            responses = method.get("responses", {})
-            for _, resp in responses.items():
-                content = resp.setdefault("content", {}).setdefault("application/json", {})
-                sch = content.setdefault("schema", {"type": "object"})
-                if isinstance(sch, dict):
-                    if (
-                        sch.get("type") == "object"
-                        and not any(k in sch for k in ("properties", "additionalProperties", "$ref", "oneOf", "anyOf", "allOf"))
-                    ):
-                        sch["additionalProperties"] = True
+            for resp in method.get("responses", {}).values():
+                cj = resp.setdefault("content", {}).setdefault("application/json", {})
+                sch = cj.setdefault("schema", {"type": "object"})
+                if isinstance(sch, dict) and sch.get("type") == "object" and not any(
+                    k in sch for k in ("properties","additionalProperties","$ref","oneOf","anyOf","allOf")
+                ):
+                    sch["additionalProperties"] = True
     return schema
 
 def _relax_responses(schema: dict) -> dict:
