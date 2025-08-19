@@ -190,3 +190,37 @@ AttributeError: 'OKXFetcher' object has no attribute 'get_candles'
 2025-08-19 15:16:09 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
 2025-08-19 15:16:15 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
 2025-08-19 15:16:15 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:21:38 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:21:38 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:22:54 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:22:55 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:01 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:02 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:09 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:09 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:10 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:16 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:16 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:29 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:29 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:38 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:23:38 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:24:04 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:24:05 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:24:10 - api.ai_reasoning_endpoints - ERROR - analyze_trading_opportunity:199 - SMC analysis error: 'ProfessionalSMCAnalyzer' object has no attribute 'analyze'
+2025-08-19 15:24:16 - core.enhanced_error_handler - ERROR - _log_error:280 - Exception traceback for 39437fda-d646-40bc-a445-0dd0b06d8b17:
+Traceback (most recent call last):
+  File "/home/runner/workspace/api/ai_reasoning_endpoints.py", line 676, in get_system_performance
+    cache_hit_rate = float(cache_stats.get('overall_hit_rate', '0%').replace('%', ''))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'float' object has no attribute 'replace'
+2025-08-19 15:24:40 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:24:40 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:24:42 - api.ai_reasoning_endpoints - ERROR - analyze_trading_opportunity:199 - SMC analysis error: 'ProfessionalSMCAnalyzer' object has no attribute 'analyze'
+2025-08-19 15:25:08 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:25:14 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:25:14 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:25:27 - api.ai_reasoning_endpoints - ERROR - analyze_trading_opportunity:199 - SMC analysis error: 'ProfessionalSMCAnalyzer' object has no attribute 'analyze'
+2025-08-19 15:26:12 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:26:18 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:26:18 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.

@@ -16,6 +16,11 @@ from core.okx_fetcher import OKXFetcher
 from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
 # from core.indicator_calculator import IndicatorCalculator  # Will create basic implementation
 
+# Import enhanced systems for improved performance
+from core.advanced_cache_manager import get_cache_manager
+from core.response_compression import compress_large_response, compress_json_response
+from core.enhanced_error_handler import get_error_handler, handle_api_error
+
 # Setup logging
 logger = logging.getLogger(__name__)
 
@@ -27,6 +32,10 @@ ai_integrator = get_ai_reasoning_integrator()
 reasoning_engine = get_enhanced_reasoning_engine()
 okx_fetcher = OKXFetcher()
 smc_analyzer = ProfessionalSMCAnalyzer()
+
+# Initialize enhanced systems
+cache_manager = get_cache_manager()
+error_handler = get_error_handler()
 
 def calculate_basic_technical_indicators(candles: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Calculate basic technical indicators from candles data"""
@@ -117,6 +126,7 @@ def calculate_basic_technical_indicators(candles: List[Dict[str, Any]]) -> Dict[
         return {}
 
 @ai_reasoning_bp.route('/analyze', methods=['POST'])
+@compress_large_response
 def analyze_trading_opportunity():
     """
     Comprehensive trading opportunity analysis dengan enhanced reasoning
@@ -144,14 +154,26 @@ def analyze_trading_opportunity():
         
         logger.info(f"🔍 Starting AI reasoning analysis for {symbol} {timeframe}")
         
-        # 1. Fetch market data
-        market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=100)
-        if not market_data or 'candles' not in market_data:
-            return jsonify({
-                'error': 'Failed to fetch market data',
-                'symbol': symbol,
-                'timeframe': timeframe
-            }), 400
+        # 1. Check cache first for market data
+        cache_key_params = {'symbol': symbol, 'timeframe': timeframe, 'limit': 100}
+        cached_data = cache_manager.get('market_data', f"{symbol}_{timeframe}", cache_key_params)
+        
+        if cached_data:
+            logger.info(f"🗄️ Cache hit for {symbol} {timeframe}")
+            market_data = cached_data
+        else:
+            # Fetch market data from OKX
+            market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=100)
+            if not market_data or 'candles' not in market_data:
+                return handle_api_error(
+                    'DATA_FETCH_FAILED',
+                    f'Gagal mengambil data market untuk {symbol}',
+                    {'symbol': symbol, 'timeframe': timeframe},
+                    status_code=400
+                )
+            
+            # Cache the successful data
+            cache_manager.set('market_data', f"{symbol}_{timeframe}", market_data, ttl=30, params=cache_key_params)
         
         # 2. Prepare analysis data
         analysis_data = {
@@ -246,6 +268,7 @@ def analyze_trading_opportunity():
         }), 500
 
 @ai_reasoning_bp.route('/quick-analysis', methods=['POST'])
+@compress_large_response
 def quick_analysis():
     """
     Quick trading analysis dengan basic reasoning
@@ -266,14 +289,26 @@ def quick_analysis():
         
         logger.info(f"⚡ Starting quick analysis for {symbol} {timeframe}")
         
-        # Fetch basic market data
-        market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=50)
-        if not market_data or 'candles' not in market_data:
-            return jsonify({
-                'error': 'Failed to fetch market data',
-                'symbol': symbol,
-                'timeframe': timeframe
-            }), 400
+        # Check cache first for quick analysis
+        cache_key_params = {'symbol': symbol, 'timeframe': timeframe, 'limit': 50}
+        cached_data = cache_manager.get('market_data', f"quick_{symbol}_{timeframe}", cache_key_params)
+        
+        if cached_data:
+            logger.info(f"🗄️ Quick analysis cache hit for {symbol} {timeframe}")
+            market_data = cached_data
+        else:
+            # Fetch basic market data
+            market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=50)
+            if not market_data or 'candles' not in market_data:
+                return handle_api_error(
+                    'DATA_FETCH_FAILED',
+                    f'Gagal mengambil data untuk quick analysis {symbol}',
+                    {'symbol': symbol, 'timeframe': timeframe},
+                    status_code=400
+                )
+            
+            # Cache with shorter TTL for quick analysis
+            cache_manager.set('market_data', f"quick_{symbol}_{timeframe}", market_data, ttl=15, params=cache_key_params)
         
         # Basic technical indicators
         try:
@@ -314,10 +349,13 @@ def quick_analysis():
         
     except Exception as e:
         logger.error(f"Error in quick analysis: {e}")
-        return jsonify({
-            'error': 'Quick analysis failed',
-            'message': str(e)
-        }), 500
+        return handle_api_error(
+            'AI_ANALYSIS_FAILED',
+            f'Quick analysis gagal untuk {symbol}',
+            {'symbol': symbol, 'timeframe': timeframe, 'error_detail': str(e)},
+            exception=e,
+            status_code=500
+        )
 
 @ai_reasoning_bp.route('/reasoning-stats', methods=['GET'])
 def get_reasoning_statistics():
@@ -565,5 +603,150 @@ def internal_error(error):
         'error': 'Internal server error',
         'message': 'An unexpected error occurred in AI reasoning service'
     }), 500
+
+# Performance and monitoring endpoints
+@ai_reasoning_bp.route('/cache-stats', methods=['GET'])
+def get_cache_statistics():
+    """Get comprehensive cache statistics"""
+    try:
+        stats = cache_manager.get_comprehensive_stats()
+        return compress_json_response({
+            'success': True,
+            'cache_stats': stats,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return handle_api_error(
+            'SYSTEM_ERROR',
+            'Gagal mengambil statistik cache',
+            {'error_detail': str(e)},
+            exception=e
+        )
+
+@ai_reasoning_bp.route('/compression-stats', methods=['GET']) 
+def get_compression_statistics():
+    """Get response compression statistics"""
+    try:
+        from core.response_compression import get_compression_stats
+        stats = get_compression_stats()
+        return compress_json_response({
+            'success': True,
+            'compression_stats': stats,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return handle_api_error(
+            'SYSTEM_ERROR',
+            'Gagal mengambil statistik kompresi',
+            {'error_detail': str(e)},
+            exception=e
+        )
+
+@ai_reasoning_bp.route('/error-stats', methods=['GET'])
+def get_error_statistics():
+    """Get error handling statistics"""
+    try:
+        stats = error_handler.get_error_stats()
+        return compress_json_response({
+            'success': True,
+            'error_stats': stats,
+            'timestamp': datetime.now().isoformat()
+        })
+    except Exception as e:
+        return handle_api_error(
+            'SYSTEM_ERROR',
+            'Gagal mengambil statistik error',
+            {'error_detail': str(e)},
+            exception=e
+        )
+
+@ai_reasoning_bp.route('/system-performance', methods=['GET'])
+def get_system_performance():
+    """Get comprehensive system performance metrics"""
+    try:
+        # Get all stats
+        cache_stats = cache_manager.get_comprehensive_stats()
+        
+        from core.response_compression import get_compression_stats
+        compression_stats = get_compression_stats()
+        
+        error_stats = error_handler.get_error_stats()
+        
+        # Calculate overall performance score
+        cache_hit_rate_str = cache_stats.get('overall_hit_rate', '0%')
+        if isinstance(cache_hit_rate_str, str):
+            cache_hit_rate = float(cache_hit_rate_str.replace('%', ''))
+        else:
+            cache_hit_rate = float(cache_hit_rate_str)
+            
+        compression_rate_str = compression_stats.get('compression_rate', '0%')
+        if isinstance(compression_rate_str, str):
+            compression_rate = float(compression_rate_str.replace('%', ''))
+        else:
+            compression_rate = float(compression_rate_str)
+            
+        error_rate = error_stats.get('total_errors', 0)
+        
+        performance_score = min(100, 
+            (cache_hit_rate * 0.4) + 
+            (compression_rate * 0.3) + 
+            (max(0, 100 - error_rate) * 0.3)
+        )
+        
+        return compress_json_response({
+            'success': True,
+            'performance_overview': {
+                'performance_score': f"{performance_score:.1f}/100",
+                'cache_efficiency': cache_stats.get('overall_hit_rate', '0%'),
+                'compression_efficiency': compression_stats.get('compression_rate', '0%'),
+                'total_errors': error_stats.get('total_errors', 0),
+                'system_status': 'optimal' if performance_score > 80 else 'good' if performance_score > 60 else 'needs_attention'
+            },
+            'detailed_stats': {
+                'cache': cache_stats,
+                'compression': compression_stats,
+                'errors': error_stats
+            },
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return handle_api_error(
+            'SYSTEM_ERROR',
+            'Gagal mengambil performa sistem',
+            {'error_detail': str(e)},
+            exception=e
+        )
+
+@ai_reasoning_bp.route('/cache-clear', methods=['POST'])
+def clear_cache():
+    """Clear cache pools with optional pool selection"""
+    try:
+        data = request.get_json() or {}
+        pool_name = data.get('pool', 'all')
+        
+        if pool_name == 'all':
+            cache_manager.clear_all()
+            cleared_pools = 'all pools'
+        else:
+            cache_manager.clear_pool(pool_name)
+            cleared_pools = f'pool: {pool_name}'
+        
+        logger.info(f"🗑️ Cache cleared - {cleared_pools}")
+        
+        return compress_json_response({
+            'success': True,
+            'message': f'Cache berhasil dihapus: {cleared_pools}',
+            'cleared_pools': cleared_pools,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        return handle_api_error(
+            'SYSTEM_ERROR',
+            'Gagal menghapus cache',
+            {'error_detail': str(e)},
+            exception=e
+        )
 
 logger.info("🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis")

@@ -419,6 +419,9 @@ Format your response as JSON:
     "summary_indonesian": "summary in Indonesian"
 }}"""
 
+            if self.openai_client is None:
+                return self._generate_rule_based_analysis(factors)
+                
             response = self.openai_client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
@@ -430,7 +433,12 @@ Format your response as JSON:
                 response_format={"type": "json_object"}
             )
             
-            ai_result = json.loads(response.choices[0].message.content)
+            content = response.choices[0].message.content
+            if content is None:
+                logger.error("OpenAI response content is None")
+                return self._generate_rule_based_analysis(factors)
+            
+            ai_result = json.loads(content)
             
             # Validate AI response
             return self._validate_ai_response(ai_result, evidence)
