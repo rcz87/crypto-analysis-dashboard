@@ -1051,7 +1051,7 @@ def get_openapi_schema():
                 }
             }
         },
-            "/api/performance/": {
+        "/api/performance/": {
                 "get": {
                     "operationId": "getPerformanceMetrics",
                     "summary": "Dapatkan metrik performa trading lengkap",

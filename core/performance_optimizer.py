@@ -296,10 +296,10 @@ class AsyncTaskProcessor:
         self.max_workers = max_workers
         self.task_queue = queue.Queue()
         self.result_cache = {}
+        self.running = True  # Set this first before starting thread
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=max_workers)
         self.background_thread = threading.Thread(target=self._process_tasks, daemon=True)
         self.background_thread.start()
-        self.running = True
         
         self.logger = logging.getLogger(__name__)
         self.logger.info(f"🔄 Async Task Processor initialized with {max_workers} workers")
@@ -320,7 +320,7 @@ class AsyncTaskProcessor:
     
     def _process_tasks(self):
         """Background task processing"""
-        while self.running:
+        while getattr(self, 'running', True):  # Safe attribute access
             try:
                 if not self.task_queue.empty():
                     task_id, future = self.task_queue.get(timeout=1)
@@ -340,7 +340,9 @@ class AsyncTaskProcessor:
             except queue.Empty:
                 continue
             except Exception as e:
-                self.logger.error(f"Error in task processor: {e}")
+                if hasattr(self, 'logger'):
+                    self.logger.error(f"Error in task processor: {e}")
+                continue  # Don't break the loop on error
 
 class ResponseOptimizer:
     """

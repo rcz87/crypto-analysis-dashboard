@@ -44,5 +44,6 @@ with app.app_context():
     
     db.create_all()
     
-# Import routes after app is created
-import routes  # noqa: F401
+# Import and initialize routes using application factory pattern
+from routes import init_routes
+init_routes(app, db)

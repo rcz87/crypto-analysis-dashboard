@@ -12,22 +12,31 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Critical Fixes (August 19, 2025)
 
-### Security & Code Quality Improvements
+### Architecture & Routes Refactoring (COMPLETED - August 19, 2025)
+- **Circular Import Resolution**: Completely eliminated circular imports using application factory pattern with `init_routes(app, db)` function
+- **Blueprint Registration Fix**: Moved all blueprint registrations from import-time to application initialization, preventing double registration errors
+- **URL Prefix Standardization**: Implemented consistent `/api` prefix across all endpoints for better organization
+- **Enhanced Health Check Logic**: Health endpoint now properly returns `degraded`/`unhealthy` status when components fail, not just `healthy` with error details
+- **API Key Protection System**: Added `@require_api_key` decorator with `X-API-KEY` header support for abuse prevention (configurable via `API_KEY_REQUIRED` env var)
+- **Import Cleanup**: Removed unused imports (`TradingSignal`, `TelegramUser`) and organized code structure for maintainability
+- **Application Factory Pattern**: Complete refactoring to modern Flask patterns, eliminating module-level app dependencies
+
+### Security & Code Quality Improvements (COMPLETED)
 - **CORS Security Enhancement**: Implemented whitelist-based CORS with restricted origins (ChatGPT, OpenAI platform, guardiansofthetoken.id)
 - **Duplicate Endpoint Removal**: Eliminated duplicate definitions for `/signal`, `/chart`, `/sinyal/tajam` endpoints that could override previous definitions
 - **Data Validation Enhancement**: Added `validate_minimum_bars()` function with 60-bar minimum requirement to prevent NaN errors in SMA50/ATR14 calculations
 - **Fallback Validation**: Implemented `fallback_validation()` as backup when core.validators module unavailable
 - **Input Validation Layer**: Enhanced signal endpoint with dual-layer validation (core + fallback) for robust error handling
 
-### Error Handling Standardization (Completed)
+### Error Handling Standardization (COMPLETED)
 - **Consistent Status Codes**: Standardized all HTTP error responses using error_response helper function
 - **422 for Invalid Input**: Implemented consistent 422 status codes for validation failures across all endpoints
 - **Status Code Standards**: Applied consistent error codes (400/401/403/404/422/429/500) throughout API
 - **Error Response Helper**: Centralized error response formatting with metadata and CORS headers
 - **Data Validation Integration**: Added minimum bars validation to prevent calculation errors
 
-### Parameter & Data Quality Improvements (Completed)
-- **Symbol Normalization**: Created normalize_symbol() function handling BTCUSDT → BTC-USDT, BTC/USDT → BTC-USDT formats
+### Parameter & Data Quality Improvements (COMPLETED)
+- **Symbol Normalization**: Enhanced normalize_symbol() function handling BTCUSDT → BTC-USDT, BTC/USDT → BTC-USDT, URL-encoded formats
 - **Parameter Consistency**: Standardized to 'timeframe' parameter (with 'tf' backward compatibility) across all endpoints
 - **OHLCV Data Validation**: Added validate_ohlcv_data() with pd.to_numeric coercion and NaN detection
 - **Security Headers**: Added X-Content-Type-Options: nosniff, Cache-Control: no-store to all responses
