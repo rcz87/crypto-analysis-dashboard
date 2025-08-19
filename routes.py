@@ -1,39 +1,42 @@
-from flask import Blueprint, jsonify, request, g
+from flask import Blueprint, jsonify, request, current_app
 import logging
 import os
-from functools import wraps
+from typing import Optional
 
-# Create a main blueprint for core routes
-main_bp = Blueprint('main', __name__)
 logger = logging.getLogger(__name__)
 
-# API Key Authentication Decorator
-def require_api_key(f):
-    """Simple API key protection to prevent scraping/abuse"""
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        # Check if API key protection is enabled
-        api_key_required = os.environ.get('API_KEY_REQUIRED', 'false').lower() == 'true'
-        expected_api_key = os.environ.get('API_KEY')
-        
-        if api_key_required and expected_api_key:
-            provided_key = request.headers.get('X-API-KEY')
-            if not provided_key or provided_key != expected_api_key:
-                return jsonify({
-                    "error": "UNAUTHORIZED",
-                    "message": "Valid API key required in X-API-KEY header",
-                    "status_code": 401
-                }), 401
-        
-        return f(*args, **kwargs)
-    return decorated_function
+# Core blueprint (no circular import, no global app)
+core_bp = Blueprint("core", __name__)
 
-@main_bp.route('/')
+def _require_api_key() -> Optional[tuple]:
+    """Return a Flask response tuple if unauthorized, else None."""
+    api_key_required = os.environ.get('API_KEY_REQUIRED', 'false').lower() == 'true'
+    expected_key = os.environ.get("API_KEY")
+    
+    if not api_key_required or not expected_key:
+        return None  # gate disabled
+    
+    provided_key = request.headers.get("X-API-KEY")
+    if provided_key != expected_key:
+        payload = {
+            "success": False, 
+            "error": "UNAUTHORIZED",
+            "message": "Valid API key required in X-API-KEY header"
+        }
+        return jsonify(payload), 401
+    return None
+
+@core_bp.route("/", methods=["GET"])
 def index():
-    """Main index route"""
+    """Main index route with API information"""
+    gate = _require_api_key()
+    if gate: 
+        return gate
+        
     return jsonify({
         "message": "Advanced Cryptocurrency GPTs & Telegram Bot API",
-        "version": "2.0.0",
+        "version": current_app.config.get("API_VERSION", "2.0.0"),
+        "service": "crypto-trading-suite",
         "status": "active",
         "endpoints": [
             "/api/gpts/status",
@@ -43,21 +46,17 @@ def index():
             "/api/gpts/ticker/<symbol>",
             "/api/gpts/orderbook/<symbol>",
             "/api/gpts/smc-zones/<symbol>",
-            "/api/smc/zones",
-            "/api/promptbook/",
-            "/api/performance/stats",
-            "/api/news/status",
-            "/api/v1/ai-reasoning/health",
-            "/api/v1/ai-reasoning/test-reasoning",
-            "/api/v1/ai-reasoning/analyze-market",
             "/health"
         ]
     })
 
-@main_bp.route('/health')
-@require_api_key
-def health():
-    """Enhanced health check endpoint with proper status determination"""
+@core_bp.route("/health", methods=["GET"])
+def health_check():
+    """Enhanced health check with component status determination"""
+    gate = _require_api_key()
+    if gate: 
+        return gate
+
     from datetime import datetime
     
     health_status = "healthy"
@@ -65,15 +64,22 @@ def health():
     
     # Test database connection
     try:
-        from sqlalchemy import text
-        from flask import current_app
-        
-        with current_app.app_context():
-            from app import db
-            db.session.execute(text('SELECT 1'))
+        # Safe database access using current_app
+        if hasattr(current_app, 'extensions') and 'sqlalchemy' in current_app.extensions:
+            db = current_app.extensions['sqlalchemy'].db
+            from sqlalchemy import text
+            db.session.execute(text("SELECT 1"))
             db.session.commit()
-        components["database"] = {"status": "healthy", "message": "Connected"}
+            components["database"] = {"status": "healthy", "message": "Connected"}
+        else:
+            # Fallback to direct import
+            from app import db
+            from sqlalchemy import text
+            db.session.execute(text("SELECT 1"))
+            db.session.commit()
+            components["database"] = {"status": "healthy", "message": "Connected"}
     except Exception as e:
+        logger.warning(f"Database health check failed: {e}")
         components["database"] = {"status": "unhealthy", "message": f"Error: {str(e)}"}
         health_status = "degraded"
     
@@ -86,7 +92,10 @@ def health():
             "status": "healthy" if test_result.get('status') == 'connected' else "degraded",
             "message": test_result.get('message', 'Unknown')
         }
+        if components["okx_api"]["status"] == "degraded" and health_status == "healthy":
+            health_status = "degraded"
     except Exception as e:
+        logger.warning(f"OKX API health check failed: {e}")
         components["okx_api"] = {"status": "degraded", "message": f"Error: {str(e)}"}
         if health_status == "healthy":
             health_status = "degraded"
@@ -103,50 +112,69 @@ def health():
     return jsonify({
         "status": health_status,
         "components": components,
-        "version": "2.0.0",
+        "version": current_app.config.get("API_VERSION", "2.0.0"),
         "timestamp": datetime.now().isoformat(),
-        "uptime": "N/A"  # Could be enhanced with actual uptime tracking
+        "uptime": "N/A"
     }), status_code
 
-@main_bp.route('/api/gpts/health')
-@require_api_key
+@core_bp.route("/api/gpts/health", methods=["GET"])
 def gpts_health():
     """GPTs Health check endpoint - standardized under /api prefix"""
-    # Redirect to main health check for consistency
-    return health()
+    return health_check()
 
-# Application Factory Pattern Implementation
-def init_routes(app, db):
+def _register_optional_blueprint(app, import_path: str, attr: str, url_prefix: Optional[str] = None):
+    """Safely import and register a blueprint once, preventing duplicates."""
+    try:
+        mod = __import__(import_path, fromlist=[attr])
+        bp = getattr(mod, attr)
+        name = getattr(bp, "name", attr)
+
+        # Prevent duplicate registration
+        if name in app.blueprints:
+            logger.debug(f"↺ Blueprint already registered: {name}")
+            return False
+
+        app.register_blueprint(bp, url_prefix=url_prefix)
+        logger.info(f"✅ Registered blueprint: {name} (prefix={url_prefix})")
+        return True
+
+    except ImportError as e:
+        logger.debug(f"⚠️ Optional blueprint not available: {import_path}.{attr}")
+    except Exception as e:
+        logger.error(f"❌ Error registering blueprint {import_path}.{attr}: {e}")
+    return False
+
+def init_routes(app, db=None):
     """
     Initialize and register all blueprints safely using application factory pattern.
-    This prevents circular imports and double registration issues.
+    Call this inside create_app() after app and db initialization.
     
     Args:
         app: Flask application instance
-        db: Database instance
+        db: Database instance (optional)
     """
     
-    # Store db in app context for health checks
-    app.db = db
+    # Set API version configuration
+    app.config.setdefault("API_VERSION", "2.0.0")
     
+    # Store db reference if provided
+    if db:
+        app.db = db
+
     # Register core blueprint first
-    app.register_blueprint(main_bp)
-    logger.info("✅ Main blueprint registered")
-    
-    # Standard API prefix for consistency: /api/
+    if "core" not in app.blueprints:
+        app.register_blueprint(core_bp)
+        logger.info("✅ Core routes registered")
+
+    # Standard API prefix for consistency
     api_prefix = "/api"
     
-    # Register GPTs API blueprint (primary functionality)
-    try:
-        from gpts_routes import gpts_api
-        app.register_blueprint(gpts_api, url_prefix=f"{api_prefix}/gpts")
-        logger.info("✅ GPTs API blueprint registered with standardized prefix")
-    except ImportError as e:
-        logger.error(f"❌ Failed to import GPTs routes: {e}")
+    # Register primary GPTs API blueprint
+    _register_optional_blueprint(app, "gpts_routes", "gpts_api", url_prefix=f"{api_prefix}/gpts")
     
-    # Register optional blueprints with consistent prefixes and error handling
+    # Register core functionality blueprints
     optional_blueprints = [
-        # Core functionality blueprints
+        # Core OpenAPI and SMC
         ("openapi_schema", "openapi_bp", f"{api_prefix}/schema"),
         ("api.smc_zones_endpoints", "smc_zones_bp", f"{api_prefix}/smc"),
         
@@ -162,26 +190,18 @@ def init_routes(app, db):
         ("api.news_endpoints", "news_api", f"{api_prefix}/news"),
         ("api.telegram_endpoints", "telegram_bp", f"{api_prefix}/telegram"),
         ("api.webhook_endpoints", "webhook_bp", f"{api_prefix}/webhook"),
+        
+        # Enhanced trading features
+        ("api.enhanced_signals_endpoints", "enhanced_signals_bp", f"{api_prefix}/enhanced"),
+        ("api.institutional_endpoints", "institutional_bp", f"{api_prefix}/institutional"),
+        ("api.coinglass_endpoints", "coinglass_bp", f"{api_prefix}/coinglass"),
     ]
     
-    for module_name, blueprint_name, url_prefix in optional_blueprints:
-        try:
-            module = __import__(module_name, fromlist=[blueprint_name])
-            blueprint = getattr(module, blueprint_name)
-            
-            # Handle duplicate blueprint name errors
-            try:
-                app.register_blueprint(blueprint, url_prefix=url_prefix)
-                logger.info(f"✅ {blueprint_name} registered at {url_prefix}")
-            except ValueError as ve:
-                if "already registered" in str(ve):
-                    logger.warning(f"⚠️ {blueprint_name} already registered, skipping")
-                else:
-                    raise ve
-                    
-        except ImportError:
-            logger.debug(f"⚠️ Optional blueprint {blueprint_name} not available")
-        except Exception as e:
-            logger.error(f"❌ Error registering {blueprint_name}: {e}")
+    # Register all optional blueprints
+    successful_registrations = 0
+    for import_path, attr, url_prefix in optional_blueprints:
+        if _register_optional_blueprint(app, import_path, attr, url_prefix):
+            successful_registrations += 1
     
-    logger.info("🚀 All available blueprints registered successfully with standardized /api prefix")
+    logger.info(f"🚀 Routes initialized: {successful_registrations}/{len(optional_blueprints)} optional blueprints registered")
+    logger.info("🎯 Application factory pattern successfully implemented")
