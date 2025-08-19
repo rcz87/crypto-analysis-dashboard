@@ -10,6 +10,15 @@ The platform serves as both a web API and ChatGPT Custom GPT integration, provid
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Critical Fixes (August 19, 2025)
+
+### Security & Code Quality Improvements
+- **CORS Security Enhancement**: Implemented whitelist-based CORS with restricted origins (ChatGPT, OpenAI platform, guardiansofthetoken.id)
+- **Duplicate Endpoint Removal**: Eliminated duplicate definitions for `/signal`, `/chart`, `/sinyal/tajam` endpoints that could override previous definitions
+- **Data Validation Enhancement**: Added `validate_minimum_bars()` function with 60-bar minimum requirement to prevent NaN errors in SMA50/ATR14 calculations
+- **Fallback Validation**: Implemented `fallback_validation()` as backup when core.validators module unavailable
+- **Input Validation Layer**: Enhanced signal endpoint with dual-layer validation (core + fallback) for robust error handling
+
 ## System Architecture
 
 ### Backend Architecture

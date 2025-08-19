@@ -11,7 +11,7 @@ import logging
 import pandas as pd
 from datetime import datetime
 from flask import Flask, Blueprint, request, jsonify
-from flask_cors import cross_origin
+from flask_cors import cross_origin, CORS
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -58,6 +58,29 @@ def create_app():
 
     # Create Flask app
     app = Flask(__name__)
+
+    # 🔒 CORS SECURITY FIX: Implementasi whitelist domain
+    allowed_origins = [
+        'https://chat.openai.com',
+        'https://chatgpt.com', 
+        'https://platform.openai.com',
+        'https://guardiansofthetoken.id',
+        'http://localhost:3000',  # development
+        'http://localhost:5000',  # development
+        'https://*.replit.app',   # replit domains
+        'https://*.replit.dev'    # replit dev domains
+    ]
+    
+    # Configure CORS with strict whitelist
+    CORS(app, 
+         origins=allowed_origins,
+         methods=['GET', 'POST', 'OPTIONS'],
+         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
+         expose_headers=['X-API-Version', 'X-Rate-Limit'],
+         supports_credentials=False,
+         max_age=3600)
+    
+    logger.info(f"🔒 CORS configured with {len(allowed_origins)} whitelisted origins")
 
     # Apply feature flags from environment
     app.config.update(
@@ -532,20 +555,35 @@ def get_trading_signal():
             timeframe = data.get('timeframe', '1H')
             confidence_threshold = float(data.get('confidence_threshold', 0.75))
 
-        # Input validation if available
+        # 🔧 ENHANCED INPUT VALIDATION with fallback
         if system_enhancements_available:
             try:
                 if request.method == 'POST':
                     from core.validators import SignalRequest, validate_request
                     validate_request(SignalRequest, data)
+                logger.info("✅ Core validation passed")
             except Exception as validation_error:
                 return add_cors_headers(jsonify({
-                    "error": "VALIDATION_ERROR",
+                    "error": "VALIDATION_ERROR", 
                     "message": "Input validation failed",
                     "details": str(validation_error),
                     "api_version": "1.0.0",
                     "server_time": datetime.now().isoformat()
                 })), 422
+        else:
+            # 🔧 FALLBACK VALIDATION when core validators unavailable
+            validation_data = data if request.method == 'POST' else {
+                'symbol': symbol, 'timeframe': timeframe, 'confidence_threshold': confidence_threshold
+            }
+            is_valid, validation_message = fallback_validation(validation_data, 'signal')
+            if not is_valid:
+                return add_cors_headers(jsonify({
+                    "error": "FALLBACK_VALIDATION_ERROR",
+                    "message": validation_message,
+                    "api_version": "1.0.0",
+                    "server_time": datetime.now().isoformat()
+                })), 422
+            logger.info("✅ Fallback validation passed")
 
         logger.info(f"GPTs signal request: {symbol} {timeframe}")
 
@@ -1031,171 +1069,7 @@ def get_chart_data():
             "server_time": datetime.now().isoformat()
         })), 500
 
-@gpts_simple.route('/signal', methods=['GET', 'POST'])
-@cross_origin()
-def get_trading_signal():
-    """Main trading signal endpoint for GPTs"""
-    try:
-        # Handle both GET and POST requests
-        if request.method == 'GET':
-            symbol = request.args.get('symbol', 'BTCUSDT')
-            timeframe = request.args.get('tf', '1H')
-            confidence_threshold = float(request.args.get('confidence', 0.75))
-        else:
-            data = request.get_json() or {}
-            symbol = data.get('symbol', 'BTCUSDT')
-            timeframe = data.get('timeframe', '1H')
-            confidence_threshold = float(data.get('confidence_threshold', 0.75))
-        
-        # Input validation if available
-        if system_enhancements_available:
-            try:
-                if request.method == 'POST':
-                    validate_request(SignalRequest, data)
-            except Exception as validation_error:
-                return add_cors_headers(jsonify({
-                    "error": "VALIDATION_ERROR",
-                    "message": "Input validation failed",
-                    "details": str(validation_error),
-                    "api_version": "1.0.0",
-                    "server_time": datetime.now().isoformat()
-                })), 422
-        
-        logger.info(f"GPTs signal request: {symbol} {timeframe}")
-        
-        # Initialize services
-        initialize_core_services()
-        
-        # Convert symbol format for OKX
-        if '/' in symbol:
-            okx_symbol = symbol.replace('/', '-')
-        elif symbol.endswith('USDT') and '-' not in symbol:
-            base = symbol.replace('USDT', '')
-            okx_symbol = f"{base}-USDT"
-        else:
-            okx_symbol = symbol
-            
-        if not okx_fetcher:
-            return add_cors_headers(jsonify({
-                "error": "Market data service unavailable",
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 503
-        
-        # Get market data
-        df = okx_fetcher.get_candles(okx_symbol, timeframe, limit=100)
-        if df is None or df.empty:
-            return add_cors_headers(jsonify({
-                "error": "Market data not available",
-                "symbol": symbol,
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 404
-        
-        # Generate signal
-        current_price = float(df['close'].iloc[-1])
-        
-        # Simple signal logic for demonstration
-        sma_20 = df['close'].rolling(20).mean().iloc[-1]
-        sma_50 = df['close'].rolling(50).mean().iloc[-1]
-        
-        if current_price > sma_20 > sma_50:
-            direction = "BUY"
-            confidence = min(85, confidence_threshold * 100 + 15)
-        elif current_price < sma_20 < sma_50:
-            direction = "SELL" 
-            confidence = min(80, confidence_threshold * 100 + 10)
-        else:
-            direction = "HOLD"
-            confidence = 60
-            
-        # Calculate levels
-        atr = df['high'].rolling(14).max() - df['low'].rolling(14).min()
-        current_atr = float(atr.iloc[-1]) if not atr.empty else current_price * 0.02
-        
-        if direction == "BUY":
-            take_profit = current_price + (current_atr * 2)
-            stop_loss = current_price - (current_atr * 1)
-        elif direction == "SELL":
-            take_profit = current_price - (current_atr * 2) 
-            stop_loss = current_price + (current_atr * 1)
-        else:
-            take_profit = None
-            stop_loss = None
-        
-        signal_data = {
-            "signal": {
-                "symbol": symbol,
-                "direction": direction,
-                "confidence": round(confidence, 1),
-                "entry_price": round(current_price, 6),
-                "take_profit": round(take_profit, 6) if take_profit else None,
-                "stop_loss": round(stop_loss, 6) if stop_loss else None,
-                "timeframe": timeframe
-            },
-            "market_data": {
-                "current_price": round(current_price, 6),
-                "sma_20": round(float(sma_20), 6),
-                "sma_50": round(float(sma_50), 6),
-                "atr": round(current_atr, 6)
-            },
-            "indicators": {
-                "trend": "BULLISH" if current_price > sma_20 > sma_50 else "BEARISH" if current_price < sma_20 < sma_50 else "SIDEWAYS",
-                "momentum": "STRONG" if confidence > 75 else "MODERATE" if confidence > 60 else "WEAK"
-            },
-            "data_source": "OKX_REAL_TIME_DATA"
-        }
-        
-        # Send Telegram notification if confidence is high enough
-        if telegram_notifier and redis_manager and confidence >= (confidence_threshold * 100):
-            try:
-                # Generate signal ID for deduplication
-                signal_key = f"{symbol}:{direction}:{int(current_price*1000)}:{datetime.now().strftime('%Y%m%d%H')}"
-                
-                # Check if signal already sent
-                if not redis_manager.is_signal_sent(signal_key):
-                    take_profit_str = f"${take_profit:,.6f}" if take_profit else "N/A"
-                    stop_loss_str = f"${stop_loss:,.6f}" if stop_loss else "N/A"
-
-                    message = f"""
-🚨 <b>TRADING SIGNAL - {direction}</b>
-
-📊 <b>{symbol}</b> ({timeframe})
-💰 <b>Entry:</b> ${current_price:,.6f}
-🎯 <b>Take Profit:</b> {take_profit_str}
-🛡️ <b>Stop Loss:</b> {stop_loss_str}
-📈 <b>Confidence:</b> {confidence:.1f}%
-
-<i>Generated by GPTs API</i>
-"""
-                    
-                    # Get admin chat ID from environment
-                    admin_chat_id = os.environ.get('ADMIN_CHAT_ID', '5899681906')
-                    success = telegram_notifier.send_message(admin_chat_id, message)
-                    
-                    if success:
-                        logger.info(f"✅ Telegram signal sent for {symbol}")
-                        # Mark signal as sent
-                        redis_manager.mark_signal_sent(signal_key)
-                        logger.info(f"✅ Signal marked as sent in Redis: {signal_key}")
-                    else:
-                        logger.warning(f"❌ Telegram notification failed for {symbol}")
-                else:
-                    logger.info(f"📋 Signal already sent: {signal_key}, skipping notification")
-                    
-            except Exception as telegram_error:
-                logger.error(f"Telegram notification error: {telegram_error}")
-        
-        return add_cors_headers(jsonify(add_api_metadata(signal_data)))
-        
-    except Exception as e:
-        logger.error(f"Signal generation error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Signal generation failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+# DUPLICATE ENDPOINT REMOVED - Combined with first /signal definition
 
 def generate_telegram_message(signal_result, symbol, timeframe, current_price):
     """Generate concise Telegram-optimized message"""
@@ -1234,25 +1108,7 @@ def generate_telegram_message(signal_result, symbol, timeframe, current_price):
     except Exception as e:
         return f"📊 {symbol} ({timeframe}) - Error generating message: {str(e)}"
 
-@gpts_simple.route('/chart', methods=['GET'])
-@cross_origin() 
-def get_chart_data():
-    """Chart data endpoint for trading view integration"""
-    try:
-        symbol = request.args.get('symbol', 'BTC-USDT')
-        timeframe = request.args.get('tf', '1H')
-        limit = int(request.args.get('limit', 100))
-
-        logger.info(f"Chart data request: {symbol} {timeframe}")
-
-        initialize_core_services()
-
-        if not okx_fetcher:
-            return add_cors_headers(jsonify({
-                "error": "Chart data service unavailable",
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 503
+# DUPLICATE CHART ENDPOINT REMOVED - Combined with first /chart definition
 
         # Get candlestick data
         df = okx_fetcher.get_candles(symbol, timeframe, limit=limit)
@@ -1499,209 +1355,7 @@ def post_sharp_signal():
             "server_time": datetime.now().isoformat()
         })), 500
 
-@gpts_simple.route('/sinyal/tajam', methods=['POST', 'GET'])
-@cross_origin()
-def post_sharp_signal():
-    """Enhanced trading signal dengan natural language narrative untuk Telegram/ChatGPT"""
-    try:
-        # Handle both GET and POST requests
-        if request.method == 'GET':
-            symbol = request.args.get('symbol', 'BTCUSDT')
-            timeframe = request.args.get('timeframe', '1H')
-            format_type = request.args.get('format', 'both')  # json, narrative, both
-        else:
-            data = request.get_json() or {}
-            symbol = data.get('symbol', 'BTCUSDT')
-            timeframe = data.get('timeframe', '1H')
-            format_type = data.get('format', 'both')
-        
-        logger.info(f"🎯 Sharp Signal Request: {symbol} {timeframe} format={format_type}")
-        
-        # Import SignalEngine
-        from core.signal_engine import SignalEngine
-        import pandas as pd
-        
-        # Initialize services untuk data real jika ada
-        initialize_core_services()
-        
-        # Coba dapatkan data real dari OKX jika tersedia
-        df = None
-        if okx_fetcher:
-            try:
-                # Convert symbol format untuk OKX
-                okx_symbol = symbol
-                if '/' in symbol:
-                    okx_symbol = symbol.replace('/', '-')
-                elif symbol.endswith('USDT') and '-' not in symbol:
-                    base = symbol.replace('USDT', '')
-                    okx_symbol = f"{base}-USDT"
-                
-                df = okx_fetcher.get_candles(okx_symbol, timeframe, limit=200)
-                logger.info(f"✅ Real market data obtained from OKX for {okx_symbol}")
-            except Exception as okx_error:
-                logger.warning(f"OKX data failed, using sample data: {okx_error}")
-        
-        # Fallback ke sample data jika real data tidak tersedia
-        if df is None or (hasattr(df, 'empty') and df.empty):
-            logger.info("📊 Using sample data for signal generation")
-            df = pd.DataFrame([{
-                "open": 100 + i,
-                "high": 101 + i,
-                "low": 99 + i,
-                "close": 100.5 + i,
-                "volume": 1000 + i * 10,
-                "timestamp": pd.Timestamp.now() - pd.Timedelta(hours=50-i)
-            } for i in range(50)])
-        
-        # Initialize SignalEngine dan generate signals
-        engine = SignalEngine()
-        result = engine.generate_comprehensive_signals(df, symbol=symbol, timeframe=timeframe)
-        
-        # Tambahkan XAI explanation jika tidak ada
-        if 'xai_explanation' not in result and 'final_signal' in result:
-            final_signal = result['final_signal']
-            result['xai_explanation'] = {
-                "decision": final_signal.get('action', 'NEUTRAL'),
-                "confidence": final_signal.get('confidence', 0),
-                "explanation": f"Sinyal {final_signal.get('action', 'NEUTRAL')} untuk {symbol} berdasarkan analisis komprehensif SMC, technical indicators, dan volume analysis",
-                "risk_level": result.get('risk_assessment', {}).get('risk_level', 'MEDIUM'),
-                "top_factors": [
-                    {
-                        "feature": "SMC Analysis",
-                        "impact": f"+{result.get('component_signals', {}).get('smc_analysis', {}).get('confidence', 0)}%",
-                        "description": "Smart Money Concept analysis dengan pattern detection"
-                    },
-                    {
-                        "feature": "Technical Indicators", 
-                        "impact": f"+{result.get('component_signals', {}).get('technical_indicators', {}).get('confidence', 0)}%",
-                        "description": "Multiple technical indicators confluence"
-                    },
-                    {
-                        "feature": "Volume Analysis",
-                        "impact": f"+{result.get('component_signals', {}).get('volume_analysis', {}).get('confidence', 0)}%", 
-                        "description": "Volume profile dan market structure analysis"
-                    }
-                ]
-            }
-        
-        # Get current price for narrative
-        current_price = 0
-        if df is not None and not df.empty:
-            current_price = float(df['close'].iloc[-1])
-        elif 'trade_setup' in result:
-            current_price = result['trade_setup'].get('entry_price', 0)
-        
-        # Generate natural language narrative
-        narrative = generate_natural_language_narrative(
-            {"signal": result, "market_analysis": result.get("market_analysis", {})}, 
-            symbol, 
-            timeframe, 
-            current_price
-        )
-        
-        # Generate shorter telegram-optimized message
-        telegram_message = generate_telegram_message(result, symbol, timeframe, current_price)
-        
-        # Format response based on format type
-        if format_type == 'narrative':
-            return add_cors_headers(jsonify(add_api_metadata({
-                "narrative": narrative,
-                "human_readable": narrative,
-                "telegram_message": telegram_message,
-                "symbol": symbol,
-                "timeframe": timeframe,
-                "format": "natural_language"
-            })))
-        elif format_type == 'json':
-            # Extract essential trading fields from result for compatibility
-            trade_setup = result.get('trade_setup', {})
-            final_signal = result.get('final_signal', {})
-            
-            # Ensure essential fields are at signal root level
-            enhanced_result = result.copy()
-            enhanced_result.update({
-                'entry_price': trade_setup.get('entry_price', current_price),
-                'take_profit_1': trade_setup.get('take_profit_1', trade_setup.get('take_profit', current_price * 1.02 if current_price > 0 else 0)),
-                'stop_loss': trade_setup.get('stop_loss', current_price * 0.98 if current_price > 0 else 0),
-                'confidence_level': final_signal.get('confidence', result.get('confidence_score', 0)),
-                'signal_strength': final_signal.get('strength', result.get('confidence_score', 0)),
-                'direction': final_signal.get('action', final_signal.get('signal', 'NEUTRAL')),
-                'current_price': current_price
-            })
-            
-            response_data = {
-                "signal": enhanced_result,
-                "human_readable": narrative,
-                "telegram_message": telegram_message,
-                "format": "json_only"
-            }
-            return add_cors_headers(jsonify(add_api_metadata(response_data)))
-        else:  # format_type == 'both'  
-            # Extract essential trading fields for both format
-            trade_setup = result.get('trade_setup', {})
-            final_signal = result.get('final_signal', {})
-            
-            # Ensure essential fields are at signal root level
-            enhanced_result = result.copy()
-            enhanced_result.update({
-                'entry_price': trade_setup.get('entry_price', current_price),
-                'take_profit_1': trade_setup.get('take_profit_1', trade_setup.get('take_profit', current_price * 1.02 if current_price > 0 else 0)),
-                'stop_loss': trade_setup.get('stop_loss', current_price * 0.98 if current_price > 0 else 0),
-                'confidence_level': final_signal.get('confidence', result.get('confidence_score', 0)),
-                'signal_strength': final_signal.get('strength', result.get('confidence_score', 0)),
-                'direction': final_signal.get('action', final_signal.get('signal', 'NEUTRAL')),
-                'current_price': current_price
-            })
-            
-            response_data = {
-                "signal": enhanced_result,
-                "narrative": narrative,
-                "human_readable": narrative,
-                "telegram_message": telegram_message,
-                "format": "json_with_narrative"
-            }
-            return add_cors_headers(jsonify(add_api_metadata(response_data)))
-        
-        # Send Telegram notification untuk high-confidence signals
-        if (telegram_notifier and 'final_signal' in result and 
-            result['final_signal'].get('confidence', 0) >= 75):
-            try:
-                final_signal = result['final_signal']
-                trade_setup = result.get('trade_setup', {})
-                
-                message = f"""🎯 <b>SHARP SIGNAL - {final_signal.get('action', 'NEUTRAL')}</b>
-
-📊 <b>{symbol}</b> ({timeframe})
-💰 <b>Entry:</b> {trade_setup.get('entry_price', 'N/A')}
-🎯 <b>TP:</b> {trade_setup.get('take_profit', 'N/A')}
-🛡️ <b>SL:</b> {trade_setup.get('stop_loss', 'N/A')}
-📈 <b>Confidence:</b> {final_signal.get('confidence', 0)}%
-
-🤖 <b>Analysis Summary:</b>
-{result.get('xai_explanation', {}).get('explanation', 'Comprehensive signal analysis')[:150]}...
-
-<i>Full analysis available via API</i>
-"""
-                
-                admin_chat_id = os.environ.get('ADMIN_CHAT_ID', '5899681906')
-                success = telegram_notifier.send_message(admin_chat_id, message)
-                
-                if success:
-                    logger.info(f"✅ Comprehensive signal sent to Telegram: {symbol}")
-                    
-            except Exception as telegram_error:
-                logger.error(f"Telegram notification error: {telegram_error}")
-        
-        return add_cors_headers(jsonify(add_api_metadata(response_data)))
-        
-    except Exception as e:
-        logger.error(f"Sharp signal endpoint error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Signal generation failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+# DUPLICATE SINYAL/TAJAM ENDPOINT REMOVED - Combined with first /sinyal/tajam definition
 
 # ============================================================================
 # TRADING VIEW ENDPOINTS (PRESERVED)
