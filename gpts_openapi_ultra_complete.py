@@ -18,12 +18,12 @@ def get_ultra_complete_openapi_schema():
             "version": "3.0.0",
             "contact": {
                 "name": "GPTs Trading API",
-                "url": "https://workspace.ricozap87.replit.dev"
+                "url": "https://gpts.guardiansofthetoken.id/openapi.json"
             }
         },
         "servers": [
             {
-                "url": "https://workspace.ricozap87.replit.dev",
+                "url": "https://gpts.guardiansofthetoken.id",
                 "description": "Production API Server"
             }
         ],
@@ -761,7 +761,7 @@ def api_docs():
         "total_operations": len(operations),
         "categories": {k: [f"{op['method']} {op['path']}" for op in v] for k, v in categories.items()},
         "chatgpt_setup": {
-            "schema_url": "https://workspace.ricozap87.replit.dev/openapi.json",
+            "schema_url": "https://gpts.guardiansofthetoken.id/openapi.json",
             "instructions": "Import this schema to ChatGPT Custom GPT Actions for complete trading analysis capabilities"
         }
     })
