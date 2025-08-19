@@ -496,6 +496,68 @@ def add_api_metadata(data):
         data['api_version'] = '1.0.0'
         data['server_time'] = datetime.now().isoformat()
     return data
+
+def error_response(status_code, message, details=None, error_type=None):
+    """🚨 STANDARDIZED ERROR RESPONSE HELPER
+    
+    Standard HTTP status codes:
+    - 400: BAD_REQUEST (client error, malformed request)
+    - 401: UNAUTHORIZED (authentication required)
+    - 403: FORBIDDEN (permission denied)
+    - 404: NOT_FOUND (resource not found)
+    - 422: VALIDATION_ERROR (input validation failed)
+    - 429: RATE_LIMIT_EXCEEDED (too many requests)
+    - 500: INTERNAL_SERVER_ERROR (server error)
+    - 503: SERVICE_UNAVAILABLE (service temporarily down)
+    
+    Args:
+        status_code (int): HTTP status code
+        message (str): User-friendly error message
+        details (str, optional): Technical details for debugging
+        error_type (str, optional): Error categorization override
+    
+    Returns:
+        tuple: (response, status_code)
+    """
+    # Map status codes to error types
+    error_type_mapping = {
+        400: "BAD_REQUEST",
+        401: "UNAUTHORIZED", 
+        403: "FORBIDDEN",
+        404: "NOT_FOUND",
+        422: "VALIDATION_ERROR",
+        429: "RATE_LIMIT_EXCEEDED",
+        500: "INTERNAL_SERVER_ERROR",
+        503: "SERVICE_UNAVAILABLE"
+    }
+    
+    if error_type is None:
+        error_type = error_type_mapping.get(status_code, "UNKNOWN_ERROR")
+    
+    error_data = {
+        "error": error_type,
+        "message": message,
+        "status_code": status_code,
+        "api_version": "1.0.0",
+        "server_time": datetime.now().isoformat()
+    }
+    
+    if details:
+        error_data["details"] = details
+    
+    # Add request context for debugging (if request context available)
+    try:
+        if request:
+            error_data["request_info"] = {
+                "method": request.method,
+                "endpoint": request.endpoint or "unknown",
+                "path": request.path
+            }
+    except RuntimeError:
+        # No request context available (outside request context)
+        pass
+    
+    return add_cors_headers(jsonify(error_data)), status_code
 # ============================================================================
 # CORE GPTs ENDPOINTS
 # ============================================================================
@@ -532,12 +594,7 @@ def get_api_status():
 
     except Exception as e:
         logger.error(f"Status check error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Status check failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+        return error_response(500, "Status check failed", str(e))
 
 @gpts_simple.route('/signal', methods=['GET', 'POST'])
 @cross_origin()
@@ -563,13 +620,7 @@ def get_trading_signal():
                     validate_request(SignalRequest, data)
                 logger.info("✅ Core validation passed")
             except Exception as validation_error:
-                return add_cors_headers(jsonify({
-                    "error": "VALIDATION_ERROR", 
-                    "message": "Input validation failed",
-                    "details": str(validation_error),
-                    "api_version": "1.0.0",
-                    "server_time": datetime.now().isoformat()
-                })), 422
+                return error_response(422, "Input validation failed", str(validation_error))
         else:
             # 🔧 FALLBACK VALIDATION when core validators unavailable
             validation_data = data if request.method == 'POST' else {
@@ -577,12 +628,7 @@ def get_trading_signal():
             }
             is_valid, validation_message = fallback_validation(validation_data, 'signal')
             if not is_valid:
-                return add_cors_headers(jsonify({
-                    "error": "FALLBACK_VALIDATION_ERROR",
-                    "message": validation_message,
-                    "api_version": "1.0.0",
-                    "server_time": datetime.now().isoformat()
-                })), 422
+                return error_response(422, validation_message, error_type="FALLBACK_VALIDATION_ERROR")
             logger.info("✅ Fallback validation passed")
 
         logger.info(f"GPTs signal request: {symbol} {timeframe}")
@@ -600,25 +646,23 @@ def get_trading_signal():
             okx_symbol = symbol
 
         if not okx_fetcher:
-            return add_cors_headers(jsonify({
-                "error": "Market data service unavailable",
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 503
+            return error_response(503, "Market data service unavailable")
 
-        # Get market data
+        # Get market data with validation
         df = okx_fetcher.get_candles(okx_symbol, timeframe, limit=100)
         if df is None or df.empty:
-            return add_cors_headers(jsonify({
-                "error": "Market data not available",
-                "symbol": symbol,
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 404
+            return error_response(404, "Market data not available", f"Symbol: {symbol}")
+        
+        # Minimum bars validation to prevent NaN errors
+        is_valid, validation_message = validate_minimum_bars(df, min_bars=60)
+        if not is_valid:
+            return error_response(400, validation_message, f"Available: {len(df)} bars, Required: 60")
+        
+        logger.info(f"Data validation passed: {len(df)} bars available")
 
         # Generate signal
         current_price = float(df['close'].iloc[-1])
-
+        
         # Simple signal logic for demonstration
         sma_20 = df['close'].rolling(20).mean().iloc[-1]
         sma_50 = df['close'].rolling(50).mean().iloc[-1]
@@ -714,18 +758,13 @@ def get_trading_signal():
 
     except Exception as e:
         logger.error(f"Signal generation error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Signal generation failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+        return error_response(500, "Signal generation failed", str(e))
 
 def generate_telegram_message(signal_result, symbol, timeframe, current_price):
     """Generate concise Telegram-optimized message"""
     try:
         if not signal_result or 'final_signal' not in signal_result:
-            return f"📊 {symbol} ({timeframe}) - Analisis tidak tersedia"
+            return f"{symbol} ({timeframe}) - Analysis not available"
 
         final_signal = signal_result['final_signal']
         trade_setup = signal_result.get('trade_setup', {})
@@ -886,12 +925,8 @@ Berdasarkan analisis mendalam menggunakan Smart Money Concept (SMC), technical i
             return add_cors_headers(jsonify({
                 "error": "Market data service unavailable",
                 "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 503
-
-        # Get market data
-        df = okx_fetcher.get_candles(okx_symbol, timeframe, limit=100)
-        if df is None or df.empty:
+        if not okx_fetcher:
+            return error_response(503, "Market data service unavailable")
             return add_cors_headers(jsonify({
                 "error": "Market data not available",
                 "symbol": symbol,
@@ -997,12 +1032,7 @@ Berdasarkan analisis mendalam menggunakan Smart Money Concept (SMC), technical i
 
     except Exception as e:
         logger.error(f"Signal generation error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Signal generation failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+        return error_response(500, "Signal generation failed", str(e))
 
 # ============================================================================
 # TRADING VIEW ENDPOINTS
@@ -1022,23 +1052,20 @@ def get_chart_data():
         initialize_core_services()
 
         if not okx_fetcher:
-            return add_cors_headers(jsonify({
-                "error": "Chart data service unavailable",
-                "api_version": "1.0.0",
-                "server_time": datetime.now().isoformat()
-            })), 503
+            return error_response(503, "Chart data service unavailable")
 
         # Get candlestick data
         df = okx_fetcher.get_candles(symbol, timeframe, limit=limit)
         if df is None or df.empty:
             return add_cors_headers(jsonify({
                 "error": "Chart data not available",
-                "symbol": symbol,
-                "api_version": "1.0.0", 
-                "server_time": datetime.now().isoformat()
-            })), 404
-
-        # Format for trading view
+        if df is None or df.empty:
+            return error_response(404, "Chart data not available", f"Symbol: {symbol}")
+        
+        # Add minimum bars validation for chart data
+        is_valid, validation_message = validate_minimum_bars(df, min_bars=20)
+        if not is_valid:
+            return error_response(400, validation_message, f"Available: {len(df)} bars")
         chart_data = []
         for _, row in df.iterrows():
             chart_data.append({
@@ -1063,12 +1090,7 @@ def get_chart_data():
     except Exception as e:
         logger.error(f"Chart data error: {e}")
         return add_cors_headers(jsonify({
-            "error": "Chart data retrieval failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
-
+        return error_response(500, "Chart data retrieval failed", str(e))
 # DUPLICATE ENDPOINT REMOVED - Combined with first /signal definition
 
 def generate_telegram_message(signal_result, symbol, timeframe, current_price):
@@ -1110,15 +1132,15 @@ def generate_telegram_message(signal_result, symbol, timeframe, current_price):
 
 # DUPLICATE CHART ENDPOINT REMOVED - Combined with first /chart definition
 
-        # Get candlestick data
+        # Get candlestick data with validation
         df = okx_fetcher.get_candles(symbol, timeframe, limit=limit)
         if df is None or df.empty:
-            return add_cors_headers(jsonify({
-                "error": "Chart data not available",
-                "symbol": symbol,
-                "api_version": "1.0.0", 
-                "server_time": datetime.now().isoformat()
-            })), 404
+            return error_response(404, "Chart data not available", f"Symbol: {symbol}")
+        
+        # Add minimum bars validation for chart data
+        is_valid, validation_message = validate_minimum_bars(df, min_bars=20)
+        if not is_valid:
+            return error_response(400, validation_message, f"Available: {len(df)} bars")
 
         # Format for trading view
         chart_data = []
@@ -1140,12 +1162,9 @@ def generate_telegram_message(signal_result, symbol, timeframe, current_price):
             "data_source": "OKX_TRADING_VIEW_DATA"
         }
 
-        return add_cors_headers(jsonify(add_api_metadata(response)))
-
     except Exception as e:
         logger.error(f"Chart data error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Chart data retrieval failed",
+        return error_response(500, "Chart data retrieval failed", str(e))
             "details": str(e),
             "api_version": "1.0.0",
             "server_time": datetime.now().isoformat()
@@ -1348,12 +1367,7 @@ def post_sharp_signal():
 
     except Exception as e:
         logger.error(f"Sharp signal endpoint error: {e}")
-        return add_cors_headers(jsonify({
-            "error": "Signal generation failed",
-            "details": str(e),
-            "api_version": "1.0.0",
-            "server_time": datetime.now().isoformat()
-        })), 500
+        return error_response(500, "Signal generation failed", str(e))
 
 # DUPLICATE SINYAL/TAJAM ENDPOINT REMOVED - Combined with first /sinyal/tajam definition
 

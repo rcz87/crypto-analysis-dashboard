@@ -19,6 +19,13 @@ Preferred communication style: Simple, everyday language.
 - **Fallback Validation**: Implemented `fallback_validation()` as backup when core.validators module unavailable
 - **Input Validation Layer**: Enhanced signal endpoint with dual-layer validation (core + fallback) for robust error handling
 
+### Error Handling Standardization (Completed)
+- **Consistent Status Codes**: Standardized all HTTP error responses using error_response helper function
+- **422 for Invalid Input**: Implemented consistent 422 status codes for validation failures across all endpoints
+- **Status Code Standards**: Applied consistent error codes (400/401/403/404/422/429/500) throughout API
+- **Error Response Helper**: Centralized error response formatting with metadata and CORS headers
+- **Data Validation Integration**: Added minimum bars validation to prevent calculation errors
+
 ## System Architecture
 
 ### Backend Architecture
