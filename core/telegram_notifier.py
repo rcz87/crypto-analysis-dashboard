@@ -6,6 +6,17 @@ from typing import Dict, Any, Optional
 
 logger = logging.getLogger(__name__)
 
+class TelegramNotifier:
+    """Telegram notification service"""
+    
+    def __init__(self):
+        self.bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+        self.chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+        
+    def send_message(self, message: str, override_chat_id: Optional[str] = None) -> Dict[str, Any]:
+        """Send message to Telegram"""
+        return send_telegram_message(message, override_chat_id)
+
 def send_telegram_message(message: str, override_chat_id: Optional[str] = None) -> Dict[str, Any]:
     """
     Send message to Telegram

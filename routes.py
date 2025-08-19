@@ -141,6 +141,33 @@ except ImportError as e:
     institutional_available = False
     institutional_bp = None
 
+# Import webhook endpoints
+try:
+    from api.webhook_endpoints import webhook_bp
+    webhook_available = True
+except ImportError as e:
+    logger.warning(f"Webhook blueprint not available: {e}")
+    webhook_available = False
+    webhook_bp = None
+
+# Import sharp scoring endpoints
+try:
+    from api.sharp_scoring_endpoints import sharp_scoring_bp
+    sharp_scoring_available = True
+except ImportError as e:
+    logger.warning(f"Sharp scoring blueprint not available: {e}")
+    sharp_scoring_available = False
+    sharp_scoring_bp = None
+
+# Import telegram endpoints
+try:
+    from api.telegram_endpoints import telegram_bp
+    telegram_available = True
+except ImportError as e:
+    logger.warning(f"Telegram blueprint not available: {e}")
+    telegram_available = False
+    telegram_bp = None
+
 # Register core blueprints with the app
 app.register_blueprint(main_bp)
 app.register_blueprint(gpts_api)  # Use enhanced GPTs API from gpts_routes.py
@@ -174,3 +201,15 @@ if enhanced_signals_available and enhanced_signals_bp:
 if institutional_available and institutional_bp:
     app.register_blueprint(institutional_bp)
     logger.info("✅ Institutional blueprint registered")
+
+if webhook_available and webhook_bp:
+    app.register_blueprint(webhook_bp)
+    logger.info("✅ Webhook blueprint registered")
+
+if sharp_scoring_available and sharp_scoring_bp:
+    app.register_blueprint(sharp_scoring_bp)
+    logger.info("✅ Sharp scoring blueprint registered")
+
+if telegram_available and telegram_bp:
+    app.register_blueprint(telegram_bp)
+    logger.info("✅ Telegram blueprint registered")
