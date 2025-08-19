@@ -7,12 +7,15 @@ Sistem reasoning yang jelas, tidak halusinasi, dan berdasarkan data faktual
 import logging
 import time
 import os
-from typing import Dict, List, Optional, Any, Tuple
+import threading
+from typing import Dict, List, Optional, Any, Tuple, TypedDict
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from enum import Enum
 import json
 import hashlib
+from collections import deque
+import math
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +38,40 @@ class ReasoningResult:
     reasoning_chain: List[str]
     uncertainty_factors: List[str]
     timestamp: float
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary with proper JSON serialization"""
+        return {
+            'conclusion': self.conclusion,
+            'confidence': self.confidence.value,  # Enum to string
+            'confidence_score': self.confidence_score,
+            'evidence': self.evidence,
+            'data_sources': self.data_sources,
+            'reasoning_chain': self.reasoning_chain,
+            'uncertainty_factors': self.uncertainty_factors,
+            'timestamp': datetime.fromtimestamp(self.timestamp).isoformat()  # Timestamp to ISO
+        }
+
+# TypedDict for better type safety
+class PriceDataType(TypedDict):
+    open: float
+    high: float
+    low: float
+    close: float
+    volume: float
+
+class TechnicalIndicatorsType(TypedDict, total=False):
+    rsi: float
+    macd: float
+    macd_signal: float
+    ema_20: float
+    sma_50: float
+    bb_upper: float
+    bb_lower: float
 
 @dataclass
 class MarketFactors:
-    """Market factors yang akan dianalisis"""
+    """Market factors yang akan dianalisis dengan type safety"""
     price_data: Dict[str, Any]
     volume_data: Dict[str, Any]
     technical_indicators: Dict[str, Any]
@@ -118,10 +151,14 @@ class EnhancedReasoningEngine:
     
     def __init__(self):
         self.fact_validator = FactValidator()
-        self.reasoning_history = []
+        
+        # Thread-safe reasoning history using deque and lock
+        self._history_lock = threading.RLock()
+        self.reasoning_history = deque(maxlen=100)  # Ring buffer with max 100 entries
+        
         self.confidence_threshold = 50.0  # Minimum confidence untuk actionable signals
         
-        # OpenAI client untuk advanced reasoning (opsional)
+        # OpenAI client dengan improved retry logic
         self.openai_client = None
         openai_api_key = os.getenv("OPENAI_API_KEY")
         if openai_api_key:
@@ -129,8 +166,8 @@ class EnhancedReasoningEngine:
                 from openai import OpenAI
                 self.openai_client = OpenAI(
                     api_key=openai_api_key,
-                    timeout=20.0,
-                    max_retries=1
+                    timeout=30.0,
+                    max_retries=3  # Increased retries dengan exponential backoff
                 )
                 logger.info("🧠 Enhanced Reasoning Engine initialized with OpenAI support")
             except ImportError:
@@ -172,10 +209,9 @@ class EnhancedReasoningEngine:
                 rule_based_analysis, ai_analysis, evidence, symbol, timeframe
             )
             
-            # 6. Store reasoning history
-            self.reasoning_history.append(final_result)
-            if len(self.reasoning_history) > 100:
-                self.reasoning_history.pop(0)
+            # 6. Store reasoning history (thread-safe)
+            with self._history_lock:
+                self.reasoning_history.append(final_result)
             
             return final_result
             
@@ -197,17 +233,51 @@ class EnhancedReasoningEngine:
         else:
             errors.append("Price data is required")
         
-        # Validate technical indicators
+        # Enhanced validation untuk technical indicators
         if market_factors.technical_indicators:
+            current_price = market_factors.price_data.get('close', 1) if market_factors.price_data else 1
+            
             for indicator, value in market_factors.technical_indicators.items():
-                if indicator.lower() in ['rsi', 'stoch', 'williams_r']:
-                    # These should be 0-100
+                indicator_lower = indicator.lower()
+                
+                # Oscillators (0-100 range)
+                if indicator_lower in ['rsi', 'stoch', 'williams_r']:
                     if not isinstance(value, (int, float)) or value < 0 or value > 100:
                         errors.append(f"Invalid {indicator} value: {value} (should be 0-100)")
-                elif indicator.lower() in ['macd', 'ema', 'sma']:
-                    # These should be reasonable numbers
+                
+                # Moving averages - should be reasonable relative to price
+                elif indicator_lower in ['ema', 'sma', 'ema_20', 'sma_50', 'sma_200']:
                     if not isinstance(value, (int, float)):
                         errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
+                    elif value <= 0:
+                        errors.append(f"Invalid {indicator} value: {value} (should be positive)")
+                    elif abs(value - current_price) > current_price * 10:  # More than 10x price difference
+                        errors.append(f"Suspicious {indicator} value: {value} (too far from current price {current_price})")
+                
+                # MACD - should be reasonable relative to price
+                elif indicator_lower in ['macd', 'macd_signal', 'macd_histogram']:
+                    if not isinstance(value, (int, float)):
+                        errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
+                    elif abs(value) > current_price * 0.5:  # MACD shouldn't be > 50% of price
+                        errors.append(f"Suspicious {indicator} value: {value} (magnitude too large relative to price {current_price})")
+                
+                # Bollinger Bands
+                elif indicator_lower in ['bb_upper', 'bb_lower', 'bb_middle']:
+                    if not isinstance(value, (int, float)) or value <= 0:
+                        errors.append(f"Invalid {indicator} value: {value} (should be positive)")
+                    elif abs(value - current_price) > current_price * 2:  # More than 2x price difference
+                        errors.append(f"Suspicious {indicator} value: {value} (too far from current price {current_price})")
+                
+                # Volume indicators
+                elif indicator_lower in ['volume_sma', 'volume_ema']:
+                    if not isinstance(value, (int, float)) or value < 0:
+                        errors.append(f"Invalid {indicator} value: {value} (should be non-negative)")
+                
+                # Generic numeric validation for other indicators
+                elif not isinstance(value, (int, float)):
+                    errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
+                elif math.isnan(value) or math.isinf(value):
+                    errors.append(f"Invalid {indicator} value: {value} (NaN or Infinity)")
         
         return {
             'valid': len(errors) == 0,
@@ -382,35 +452,45 @@ class EnhancedReasoningEngine:
         
         return analysis
     
+    def _truncate_large_data(self, data: Any, max_chars: int = 500) -> str:
+        """Truncate large data untuk prevent token bloat"""
+        try:
+            data_str = json.dumps(data, indent=None)
+            if len(data_str) <= max_chars:
+                return data_str
+            
+            # Truncate and add indicator
+            truncated = data_str[:max_chars-20] + "...[truncated]"
+            return truncated
+        except:
+            return str(data)[:max_chars]
+
     def _perform_ai_enhanced_reasoning(self, market_factors: MarketFactors,
                                      evidence: List[str], symbol: str, 
                                      timeframe: str) -> Optional[Dict[str, Any]]:
-        """AI-enhanced reasoning menggunakan OpenAI dengan fact-checking"""
+        """AI-enhanced reasoning dengan prompt size management dan error handling"""
         try:
-            # Prepare factual context untuk AI
-            context = self._prepare_ai_context(market_factors, evidence, symbol, timeframe)
+            # Build concise context dengan size limits
+            evidence_summary = "\n".join(evidence[:10])  # Limit to top 10 evidence items
             
-            # Create structured prompt
-            prompt = f"""You are a professional cryptocurrency trading analyst. Analyze the following FACTUAL data for {symbol} on {timeframe} timeframe.
+            # Prepare truncated technical data
+            price_data_str = self._truncate_large_data(market_factors.price_data, 300)
+            indicators_str = self._truncate_large_data(market_factors.technical_indicators, 400)
+            smc_str = self._truncate_large_data(market_factors.smc_analysis, 300)
+            
+            prompt = f"""Analyze {symbol} {timeframe} trading opportunity based on FACTUAL DATA ONLY.
 
-IMPORTANT: Base your analysis ONLY on the provided factual data. Do not make assumptions or add information not present in the data.
+CRITICAL: Base analysis ONLY on provided data. No assumptions or external info.
 
-FACTUAL EVIDENCE:
-{chr(10).join(evidence)}
+EVIDENCE:
+{evidence_summary}
 
-TECHNICAL DATA:
-- Price Data: {json.dumps(market_factors.price_data, indent=2) if market_factors.price_data else 'Not available'}
-- Technical Indicators: {json.dumps(market_factors.technical_indicators, indent=2) if market_factors.technical_indicators else 'Not available'}
-- SMC Analysis: {json.dumps(market_factors.smc_analysis, indent=2) if market_factors.smc_analysis else 'Not available'}
+DATA:
+Price: {price_data_str}
+Indicators: {indicators_str}
+SMC: {smc_str}
 
-Please provide:
-1. Your trading conclusion (BUY/SELL/NEUTRAL) based ONLY on provided data
-2. Confidence level (0-100) for your conclusion
-3. Three most important supporting factors from the provided data
-4. Any contradictory signals or uncertainty factors from the data
-5. One-sentence summary in Indonesian
-
-Format your response as JSON:
+Provide JSON response:
 {{
     "conclusion": "BUY/SELL/NEUTRAL",
     "confidence": 0-100,
@@ -420,7 +500,7 @@ Format your response as JSON:
 }}"""
 
             if self.openai_client is None:
-                return self._generate_rule_based_analysis(factors)
+                return None  # Return None for consistency with function signature
                 
             response = self.openai_client.chat.completions.create(
                 model="gpt-4o-mini",
@@ -428,91 +508,155 @@ Format your response as JSON:
                     {"role": "system", "content": "You are a factual cryptocurrency trading analyst. Only analyze provided data, never make assumptions."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=800,
-                temperature=0.1,  # Low temperature untuk consistency
+                max_tokens=600,  # Reduced for efficiency
+                temperature=0.1,
                 response_format={"type": "json_object"}
             )
             
             content = response.choices[0].message.content
             if content is None:
                 logger.error("OpenAI response content is None")
-                return self._generate_rule_based_analysis(factors)
+                return None  # Return None for consistency with function signature
             
-            ai_result = json.loads(content)
+            # Enhanced JSON parsing dengan comprehensive error handling
+            try:
+                ai_result = json.loads(content)
+                logger.debug(f"✅ Successfully parsed AI JSON response")
+            except json.JSONDecodeError as e:
+                logger.error(f"❌ Failed to parse AI response as JSON: {e}")
+                logger.debug(f"Raw response content: {content[:200]}...")
+                return None
             
-            # Validate AI response
-            return self._validate_ai_response(ai_result, evidence)
+            # Enhanced schema validation dengan detailed checking
+            validated_result = self._validate_ai_response_with_schema(ai_result, evidence)
+            
+            if validated_result.get('validation_passed', False):
+                logger.info(f"✅ AI reasoning validation passed for {symbol}")
+            else:
+                logger.warning(f"⚠️ AI reasoning validation had issues for {symbol}")
+                
+            return validated_result
             
         except Exception as e:
             logger.error(f"AI reasoning error: {e}")
             return None
     
-    def _validate_ai_response(self, ai_result: Dict[str, Any], 
-                            evidence: List[str]) -> Dict[str, Any]:
-        """Validate AI response untuk prevent halusinasi"""
+    def _validate_ai_response_with_schema(self, ai_result: Dict[str, Any], 
+                                         evidence: List[str]) -> Dict[str, Any]:
+        """Enhanced validation dengan strict schema checking"""
         validated_result = {
             'conclusion': 'NEUTRAL',
             'confidence': 50.0,
             'supporting_factors': [],
             'uncertainty_factors': [],
-            'summary_indonesian': 'Analisis tidak dapat dilakukan dengan confident.',
-            'validation_passed': False
+            'summary_indonesian': 'Analisis tidak dapat dilakukan dengan confidence yang memadai.',
+            'validation_passed': False,
+            'validation_errors': []
         }
         
+        validation_errors = []
+        
         try:
-            # Validate conclusion
-            if 'conclusion' in ai_result:
-                conclusion = ai_result['conclusion'].upper()
+            # 1. Validate conclusion with strict checking
+            if 'conclusion' not in ai_result:
+                validation_errors.append("Missing required field: conclusion")
+                validated_result['conclusion'] = 'NEUTRAL'
+            else:
+                conclusion = str(ai_result['conclusion']).upper().strip()
                 if conclusion in ['BUY', 'SELL', 'NEUTRAL']:
                     validated_result['conclusion'] = conclusion
+                    logger.debug(f"✅ Valid conclusion: {conclusion}")
+                else:
+                    validation_errors.append(f"Invalid conclusion: {ai_result['conclusion']} (must be BUY/SELL/NEUTRAL)")
+                    validated_result['conclusion'] = 'NEUTRAL'
             
-            # Validate confidence
-            if 'confidence' in ai_result:
-                confidence = ai_result['confidence']
-                if isinstance(confidence, (int, float)) and 0 <= confidence <= 100:
-                    validated_result['confidence'] = float(confidence)
+            # 2. Validate confidence with range checking
+            if 'confidence' not in ai_result:
+                validation_errors.append("Missing required field: confidence")
+            else:
+                try:
+                    confidence = float(ai_result['confidence'])
+                    if 0 <= confidence <= 100:
+                        validated_result['confidence'] = confidence
+                        logger.debug(f"✅ Valid confidence: {confidence}")
+                    else:
+                        validation_errors.append(f"Confidence out of range: {confidence} (must be 0-100)")
+                        validated_result['confidence'] = max(0, min(100, confidence))  # Clamp to valid range
+                except (ValueError, TypeError):
+                    validation_errors.append(f"Invalid confidence type: {ai_result['confidence']} (must be numeric)")
             
-            # Validate supporting factors (must reference provided evidence)
-            if 'supporting_factors' in ai_result:
-                factors = ai_result['supporting_factors']
-                if isinstance(factors, list):
-                    # Only include factors that reference actual evidence
-                    valid_factors = []
-                    for factor in factors[:3]:  # Max 3 factors
-                        if isinstance(factor, str) and len(factor) > 10:
-                            # Check if factor references actual evidence
-                            factor_references_evidence = any(
-                                keyword in factor.lower() for keyword in 
-                                ['rsi', 'macd', 'price', 'volume', 'smc', 'structure', 'bias']
-                            )
-                            if factor_references_evidence:
-                                valid_factors.append(factor)
-                    validated_result['supporting_factors'] = valid_factors
+            # 3. Validate supporting factors with evidence cross-checking
+            if 'supporting_factors' not in ai_result:
+                validation_errors.append("Missing required field: supporting_factors")
+            elif not isinstance(ai_result['supporting_factors'], list):
+                validation_errors.append("supporting_factors must be a list")
+            else:
+                valid_factors = []
+                for i, factor in enumerate(ai_result['supporting_factors'][:5]):  # Max 5 factors
+                    if not isinstance(factor, str):
+                        validation_errors.append(f"supporting_factors[{i}] must be string")
+                        continue
+                    
+                    factor_clean = factor.strip()
+                    if len(factor_clean) < 10:
+                        validation_errors.append(f"supporting_factors[{i}] too short (min 10 chars)")
+                        continue
+                    
+                    # Check if factor references evidence or contains reasonable analysis terms
+                    is_valid_factor = any(
+                        keyword in factor_clean.lower() 
+                        for keyword in ['rsi', 'macd', 'price', 'volume', 'trend', 'support', 'resistance', 'momentum', 'structure']
+                    )
+                    
+                    if is_valid_factor:
+                        valid_factors.append(factor_clean)
+                    else:
+                        validation_errors.append(f"supporting_factors[{i}] doesn't reference technical analysis")
+                
+                validated_result['supporting_factors'] = valid_factors
             
-            # Validate uncertainty factors
+            # 4. Validate uncertainty factors
             if 'uncertainty_factors' in ai_result:
-                uncertainties = ai_result['uncertainty_factors']
-                if isinstance(uncertainties, list):
-                    validated_result['uncertainty_factors'] = [
-                        u for u in uncertainties[:2] if isinstance(u, str) and len(u) > 5
-                    ]
+                if isinstance(ai_result['uncertainty_factors'], list):
+                    valid_uncertainties = []
+                    for i, uncertainty in enumerate(ai_result['uncertainty_factors'][:3]):  # Max 3
+                        if isinstance(uncertainty, str) and len(uncertainty.strip()) > 5:
+                            valid_uncertainties.append(uncertainty.strip())
+                    validated_result['uncertainty_factors'] = valid_uncertainties
+                else:
+                    validation_errors.append("uncertainty_factors must be a list")
             
-            # Validate Indonesian summary
-            if 'summary_indonesian' in ai_result:
-                summary = ai_result['summary_indonesian']
-                if isinstance(summary, str) and len(summary) > 10:
-                    validated_result['summary_indonesian'] = summary
+            # 5. Validate Indonesian summary
+            if 'summary_indonesian' not in ai_result:
+                validation_errors.append("Missing required field: summary_indonesian")
+            else:
+                if isinstance(ai_result['summary_indonesian'], str):
+                    summary = ai_result['summary_indonesian'].strip()
+                    if len(summary) >= 10:
+                        validated_result['summary_indonesian'] = summary
+                    else:
+                        validation_errors.append("summary_indonesian too short (min 10 chars)")
+                else:
+                    validation_errors.append("summary_indonesian must be string")
             
-            # Mark as validated if key elements are present
-            validated_result['validation_passed'] = (
-                len(validated_result['supporting_factors']) >= 1 and
-                validated_result['confidence'] > 0
-            )
+            # 6. Overall validation status
+            critical_errors = len([e for e in validation_errors if any(
+                keyword in e for keyword in ['Missing required', 'Invalid conclusion', 'out of range']
+            )])
+            
+            if critical_errors == 0 and len(validated_result['supporting_factors']) >= 1:
+                validated_result['validation_passed'] = True
+                logger.info(f"✅ AI response validation passed with {len(validation_errors)} minor warnings")
+            else:
+                logger.warning(f"❌ AI response validation failed: {critical_errors} critical errors, {len(validation_errors)} total issues")
+            
+            validated_result['validation_errors'] = validation_errors
+            return validated_result
             
         except Exception as e:
-            logger.error(f"AI response validation error: {e}")
-        
-        return validated_result
+            logger.error(f"Validation exception: {e}")
+            validated_result['validation_errors'] = validation_errors + [f"Validation exception: {str(e)}"]
+            return validated_result
     
     def _combine_analyses(self, rule_analysis: Dict[str, Any], 
                          ai_analysis: Optional[Dict[str, Any]],
@@ -695,7 +839,9 @@ Format your response as JSON:
         if not self.reasoning_history:
             return {'message': 'No reasoning history available'}
         
-        recent_results = self.reasoning_history[-20:]  # Last 20 analyses
+        # Thread-safe access to recent results
+        with self._history_lock:
+            recent_results = list(self.reasoning_history)[-20:]  # Last 20 analyses
         
         # Confidence distribution
         confidence_counts = {}
@@ -709,8 +855,8 @@ Format your response as JSON:
             signal = result.conclusion
             signal_counts[signal] = signal_counts.get(signal, 0) + 1
         
-        # Average confidence
-        avg_confidence = sum(r.confidence_score for r in recent_results) / len(recent_results)
+        # Average confidence dengan division by zero guard
+        avg_confidence = sum(r.confidence_score for r in recent_results) / max(1, len(recent_results))
         
         return {
             'total_analyses': len(self.reasoning_history),
@@ -718,7 +864,7 @@ Format your response as JSON:
             'average_confidence': round(avg_confidence, 2),
             'confidence_distribution': confidence_counts,
             'signal_distribution': signal_counts,
-            'high_confidence_rate': len([r for r in recent_results if r.confidence_score >= 75]) / len(recent_results) * 100,
+            'high_confidence_rate': len([r for r in recent_results if r.confidence_score >= 75]) / max(1, len(recent_results)) * 100,
             'openai_available': self.openai_client is not None,
             'confidence_threshold': self.confidence_threshold
         }
