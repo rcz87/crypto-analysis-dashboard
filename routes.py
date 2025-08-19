@@ -384,3 +384,13 @@ except ImportError as e:
     logger.warning(f"⚠️ Performance Optimization blueprint not available: {e}")
 except Exception as e:
     logger.error(f"❌ Error registering Performance Optimization blueprint: {e}")
+
+# Register Advanced Optimization blueprint
+try:
+    from api.advanced_optimization_endpoints import advanced_optimization_bp
+    app.register_blueprint(advanced_optimization_bp)
+    logger.info("✅ Advanced Optimization blueprint registered")
+except ImportError as e:
+    logger.warning(f"⚠️ Advanced Optimization blueprint not available: {e}")
+except Exception as e:
+    logger.error(f"❌ Error registering Advanced Optimization blueprint: {e}")

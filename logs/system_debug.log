@@ -4395,3 +4395,494 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 14:42:18 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
 2025-08-19 14:42:18 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
 2025-08-19 14:42:18 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:48:29 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:48:29 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:48:29 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:48:29 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:48:29 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:48:29 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:48:29 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:48:29 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:48:29 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:48:29 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:48:29 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:48:29 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:48:29 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:48:29 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:48:29 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:48:29 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:48:29 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:48:29 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:48:29 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:48:29 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:48:29 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:48:29 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:48:29 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:48:29 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:48:29 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:48:29 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:48:29 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:48:29 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:48:29 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:48:29 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:48:29 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:48:29 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:48:29 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:48:29 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:48:29 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:48:29 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:48:29 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:48:29 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:48:29 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:48:29 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:48:29 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:48:29 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:48:29 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:335 - 🗑️ GC Optimizer initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:427 - 🚀 Memory Optimizer initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - <module>:529 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:335 - 🗑️ GC Optimizer initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - __init__:427 - 🚀 Memory Optimizer initialized
+2025-08-19 14:48:29 - core.memory_optimizer - INFO - <module>:529 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:48:31 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:48:31 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:48:31 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - ERROR - get_optimization_status:135 - Error getting optimization status: 'current_memory_mb'
+2025-08-19 14:48:31 - api.advanced_optimization_endpoints - ERROR - get_memory_stats:227 - Error getting memory stats: 'current_memory_mb'
+2025-08-19 14:49:20 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:20 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:20 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:20 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:20 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:20 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:20 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:20 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:20 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:20 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:20 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:20 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:20 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:20 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:20 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:20 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:20 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:20 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:20 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:20 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:20 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:20 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:20 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:20 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:20 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:20 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:20 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:20 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:20 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:20 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:20 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:20 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:20 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:20 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:20 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:20 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:20 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:20 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:20 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:20 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:20 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:21 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - ERROR - get_optimization_status:135 - Error getting optimization status: 'current_memory_mb'
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:21 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:21 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:21 - api.advanced_optimization_endpoints - ERROR - get_memory_stats:227 - Error getting memory stats: 'current_memory_mb'
+2025-08-19 14:49:22 - api.advanced_optimization_endpoints - ERROR - get_database_stats:162 - Error getting database stats: 'cache_hit_rate_percent'
+2025-08-19 14:49:22 - core.memory_optimizer - INFO - force_gc_collection:384 - Forced GC: freed 275 objects, 0.0MB memory
+2025-08-19 14:49:22 - core.memory_optimizer - INFO - optimize_gc_thresholds:356 - GC thresholds updated: (700, 10, 10) (pressure: normal)
+2025-08-19 14:49:23 - core.memory_optimizer - INFO - optimize_memory_usage:497 - Memory optimization completed: saved -1.1MB, removed -824 objects
+2025-08-19 14:49:28 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:28 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:28 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:28 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:28 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:28 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:28 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:28 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:28 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:28 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:28 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:28 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:28 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:28 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:28 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:28 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:28 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:28 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:28 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:28 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:28 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:28 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:28 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:28 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:28 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:28 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:28 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:29 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:29 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:29 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:29 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:29 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:29 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:29 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:33 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:33 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:33 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:33 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:33 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:33 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:33 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:33 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:33 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:33 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:33 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:33 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:33 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:33 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:33 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:33 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:33 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:33 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:33 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:33 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:33 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:33 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:33 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:33 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:33 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:33 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:33 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:33 - core.database_optimizer - INFO - <module>:555 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:33 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:35 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:35 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:35 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:35 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:35 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:35 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:35 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:49 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:49 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:49 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:49 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:49 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:49 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:49 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:49 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:49 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:49 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:49 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:49 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:49 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:49 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:49 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:49 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:49 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:49 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:49 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:49 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:49:49 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:49 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:49:49 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:49:49 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:49:49 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:49:49 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:49:49 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:49:49 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:49:49 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:49:49 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:49:49 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:49:49 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:49:49 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:49:49 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 14:49:49 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 14:49:49 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 14:49:49 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 14:49:49 - routes - INFO - <module>:372 - ✅ Security Enhancement blueprint registered
+2025-08-19 14:49:49 - routes - ERROR - <module>:386 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 14:49:49 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 14:49:49 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:50 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:50 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:50 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:50 - api.advanced_optimization_endpoints - ERROR - get_optimization_dashboard:506 - Error generating optimization dashboard: 'current_memory_mb'
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 14:49:50 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 14:49:50 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 14:49:50 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 14:49:50 - routes - INFO - <module>:392 - ✅ Advanced Optimization blueprint registered
+2025-08-19 14:49:51 - core.memory_optimizer - INFO - force_gc_collection:384 - Forced GC: freed 712 objects, 0.0MB memory
+2025-08-19 14:49:51 - core.memory_optimizer - INFO - optimize_gc_thresholds:356 - GC thresholds updated: (700, 10, 10) (pressure: normal)
+2025-08-19 14:49:52 - core.memory_optimizer - INFO - optimize_memory_usage:497 - Memory optimization completed: saved -0.7MB, removed 527 objects
+2025-08-19 14:49:52 - api.advanced_optimization_endpoints - WARNING - run_comprehensive_optimization:311 - Cache optimization failed: 'SmartCache' object has no attribute 'cache'
+2025-08-19 14:49:52 - core.memory_optimizer - INFO - force_gc_collection:384 - Forced GC: freed 502 objects, 0.0MB memory
