@@ -2478,3 +2478,87 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 11:09:45 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
 2025-08-19 11:09:45 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
 2025-08-19 11:09:45 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 11:13:43 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 11:13:43 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 11:13:43 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 11:13:43 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 11:13:43 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 11:13:43 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 11:13:43 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 11:13:43 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 11:13:43 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 11:13:48 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 11:13:48 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 11:13:48 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 11:13:48 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 11:13:48 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 11:13:48 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 11:13:48 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 11:13:48 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 11:13:48 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 11:13:48 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 11:13:48 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 11:13:48 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 11:13:48 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 11:13:48 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 11:13:48 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 11:13:48 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 11:13:48 - routes - INFO - <module>:356 - ✅ State API blueprint registered
