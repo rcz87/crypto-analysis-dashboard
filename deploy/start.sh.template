@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Template start script (tidak mengandung secret / path spesifik)
+set -a
+source ./.env
+set +a
+
+VENV_PATH="${VENV_PATH:-./venv}"
+APP_MODULE="${APP_MODULE:-main:app}"      # ganti ke app:app kalau perlu
+BIND_ADDR="${BIND_ADDR:-127.0.0.1:5050}"
+WORKERS="${WORKERS:-4}"
+TIMEOUT="${TIMEOUT:-300}"
+
+exec "${VENV_PATH}/bin/gunicorn" \
+  --bind "${BIND_ADDR}" --workers "${WORKERS}" --timeout "${TIMEOUT}" "${APP_MODULE}"
