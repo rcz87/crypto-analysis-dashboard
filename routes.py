@@ -354,3 +354,13 @@ if smc_pattern_available and smc_pattern:
 if state_available and state_api:
     app.register_blueprint(state_api)
     logger.info("✅ State API blueprint registered")
+
+# Register Data Quality Enhancement blueprint
+try:
+    from api.data_quality_endpoints import data_quality_bp
+    app.register_blueprint(data_quality_bp)
+    logger.info("✅ Data Quality Enhancement blueprint registered")
+except ImportError as e:
+    logger.warning(f"⚠️ Data Quality Enhancement blueprint not available: {e}")
+except Exception as e:
+    logger.error(f"❌ Error registering Data Quality Enhancement blueprint: {e}")

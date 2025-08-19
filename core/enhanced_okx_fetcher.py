@@ -40,7 +40,7 @@ class EnhancedOKXFetcher:
             time.sleep(self.rate_limit_delay - elapsed)
         self.last_request_time = time.time()
     
-    def _make_request(self, endpoint: str, params: Dict = None) -> Optional[Dict]:
+    def _make_request(self, endpoint: str, params: Optional[Dict] = None) -> Optional[Dict]:
         """Helper untuk membuat request dengan error handling"""
         try:
             self._rate_limit()

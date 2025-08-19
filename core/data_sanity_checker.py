@@ -52,7 +52,7 @@ class DataSanityChecker:
     def validate_market_data(self, 
                            data: Dict[str, Any],
                            data_source: str,
-                           request_timestamp: float = None) -> DataQualityReport:
+                           request_timestamp: Optional[float] = None) -> DataQualityReport:
         """
         Comprehensive market data validation
         """

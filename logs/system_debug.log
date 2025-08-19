@@ -2842,3 +2842,388 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 11:40:47 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
 2025-08-19 11:40:47 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
 2025-08-19 11:40:47 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:33 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:33 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:33 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:33 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:41 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:41 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:41 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:41 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:41 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:41 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:41 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:41 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:41 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:41 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:20:41 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:20:42 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:42 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:42 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:42 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:42 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:42 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:42 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:42 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:42 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:42 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:42 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:42 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:42 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:42 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:42 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:42 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:42 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:42 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:20:42 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:20:42 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:20:42 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:20:42 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:20:42 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:20:42 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:20:42 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:20:42 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:20:42 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:20:42 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:20:42 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:20:42 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:20:42 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:20:42 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:20:47 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:47 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:47 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:47 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:47 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:47 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:47 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:47 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:47 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:20:47 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:20:47 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:47 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:20:47 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:20:47 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:20:47 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:47 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:20:47 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:20:47 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:20:47 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:20:47 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:20:47 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:20:47 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:20:47 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:20:47 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:20:47 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:20:47 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:20:47 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:20:47 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:20:47 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:20:47 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:20:47 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:20:47 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:21:01 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): api.binance.com:443
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _make_request:544 - https://api.binance.com:443 "GET /api/v3/ticker/24hr?symbol=BTCUSDT HTTP/1.1" 451 224
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from binance: 451 Client Error:  for url: https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): api.bybit.com:443
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _make_request:544 - https://api.bybit.com:443 "GET /v5/market/tickers?symbol=BTCUSDT HTTP/1.1" 403 986
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from bybit: 403 Client Error: Forbidden for url: https://api.bybit.com/v5/market/tickers?symbol=BTCUSDT
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): api.pro.coinbase.com:443
+2025-08-19 14:21:02 - urllib3.connectionpool - DEBUG - _make_request:544 - https://api.pro.coinbase.com:443 "GET /products/%7Bsymbol%7D/ticker HTTP/1.1" 503 45
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from coinbase: 503 Server Error: Service Unavailable for url: https://api.pro.coinbase.com/products/%7Bsymbol%7D/ticker
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from kucoin: <DataSource.KUCOIN: 'kucoin'>
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:03 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1m&limit=100 HTTP/1.1" 200 None
+2025-08-19 14:21:03 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=50 HTTP/1.1" 200 None
+2025-08-19 14:21:03 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:03 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:21:03 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:04 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/public/liquidation-orders?instType=SWAP&state=filled&limit=100 HTTP/1.1" 400 81
+2025-08-19 14:21:04 - core.enhanced_okx_fetcher - ERROR - _make_request:61 - Request error for /api/v5/public/liquidation-orders: 400 Client Error: Bad Request for url: https://www.okx.com/api/v5/public/liquidation-orders?instType=SWAP&state=filled&limit=100
+2025-08-19 14:21:25 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:26 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:26 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:26 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:26 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1m&limit=100 HTTP/1.1" 200 None
+2025-08-19 14:21:26 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:26 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:26 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=50 HTTP/1.1" 200 None
+2025-08-19 14:21:26 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:27 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=ETH-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:27 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for ETH-USDT
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=SOL-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:27 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for SOL-USDT
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:27 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=ADA-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:27 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for ADA-USDT
+2025-08-19 14:21:28 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 14:21:28 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 14:21:28 - core.multi_source_data_manager - INFO - get_market_data:147 - ✅ Data fetched from okx for BTC-USDT
+2025-08-19 14:22:34 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:22:34 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:22:34 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:22:34 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:22:34 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:22:34 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:22:34 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:22:34 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:22:34 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:22:34 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:22:34 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:22:34 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:22:34 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:22:34 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:22:34 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:22:34 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:22:41 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:22:41 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:22:41 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:22:41 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:22:41 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:22:41 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:22:41 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:22:41 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:22:41 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 14:22:41 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:22:41 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 14:22:41 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:22:41 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 14:22:41 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:22:41 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 14:22:41 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 14:22:41 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 14:22:41 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:22:41 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:22:41 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:22:41 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:22:41 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:22:41 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:271 - ✅ Promptbook blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:275 - ✅ Performance blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:279 - ✅ News API blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:283 - ✅ Missing GPTs endpoints registered
+2025-08-19 14:22:41 - routes - INFO - <module>:287 - ✅ SMC context blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:291 - ✅ Enhanced signals blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:295 - ✅ Institutional blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:299 - ✅ Webhook blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:303 - ✅ Sharp scoring blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:307 - ✅ Telegram blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:312 - ✅ Backtest API blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:316 - ✅ Chart blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:320 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:324 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:328 - ✅ Improvement blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:332 - ✅ Missing endpoints blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:336 - ✅ Modular blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:340 - ✅ Sharp signal blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:344 - ✅ Signal engine blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:348 - ✅ Signal top blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:352 - ✅ SMC pattern blueprint registered
+2025-08-19 14:22:41 - routes - INFO - <module>:356 - ✅ State API blueprint registered
+2025-08-19 14:22:41 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 14:22:41 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 14:22:41 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 14:22:41 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 14:22:41 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 14:22:41 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 14:22:41 - routes - INFO - <module>:362 - ✅ Data Quality Enhancement blueprint registered

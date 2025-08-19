@@ -108,3 +108,8 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - alert_system_status:166 - Alert system status error: attempted relative import beyond top-level package
 2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_symbol:557 - Primary symbol error: 'NoneType' object has no attribute 'get'
 2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_timeframe:586 - Primary timeframe error: 'NoneType' object has no attribute 'get'
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from binance: 451 Client Error:  for url: https://api.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from bybit: 403 Client Error: Forbidden for url: https://api.bybit.com/v5/market/tickers?symbol=BTCUSDT
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from coinbase: 503 Server Error: Service Unavailable for url: https://api.pro.coinbase.com/products/%7Bsymbol%7D/ticker
+2025-08-19 14:21:02 - core.multi_source_data_manager - ERROR - _fetch_from_source:251 - Error fetching from kucoin: <DataSource.KUCOIN: 'kucoin'>
+2025-08-19 14:21:04 - core.enhanced_okx_fetcher - ERROR - _make_request:61 - Request error for /api/v5/public/liquidation-orders: 400 Client Error: Bad Request for url: https://www.okx.com/api/v5/public/liquidation-orders?instType=SWAP&state=filled&limit=100
