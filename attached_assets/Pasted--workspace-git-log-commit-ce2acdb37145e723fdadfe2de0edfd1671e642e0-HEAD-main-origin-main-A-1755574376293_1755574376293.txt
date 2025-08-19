@@ -1,0 +1,53 @@
+~/workspace$ git log
+commit ce2acdb37145e723fdadfe2de0edfd1671e642e0 (HEAD -> main, origin/main)
+Author: ricozap87 <44920475-ricozap87@users.noreply.replit.com>
+Date:   Tue Aug 19 03:25:57 2025 +0000
+
+    Prepare repository for manual push with critical fixes and new integrations
+    
+    Update markdown guide with repository status, Git configuration, and comprehensive changes including critical fixes for missing endpoints, Telegram notifier, and database fallback, alongside new files for webhook, scoring, and Telegram integrations.
+    
+    Replit-Commit-Author: Agent
+    Replit-Commit-Session-Id: 774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe
+    Replit-Commit-Checkpoint-Type: full_checkpoint
+    Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/76ec735d-0891-462f-b480-6be1343dbeca/774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe/B6uTv0s
+
+commit 4afb03883c56d54e9bcc63e8b79b93e36d594dd0
+Author: ricozap87 <44920475-ricozap87@users.noreply.replit.com>
+Date:   Tue Aug 19 03:23:14 2025 +0000
+
+    Add webhook and notification system for trading signals
+    
+    Integrates TradingView LuxAlgo signals and enhances Telegram notification capabilities with new API endpoints and status checks.
+    
+    Replit-Commit-Author: Agent
+    Replit-Commit-Session-Id: 774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe
+    Replit-Commit-Checkpoint-Type: full_checkpoint
+    Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/76ec735d-0891-462f-b480-6be1343dbeca/774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe/B6uTv0s
+
+commit f3a09739b29a8411cea4ef9ed6d68c880a9505b9
+Author: ricozap87 <44920475-ricozap87@users.noreply.replit.com>
+Date:   Tue Aug 19 03:15:19 2025 +0000
+
+    Enable local development with automatic database fallback to SQLite
+    
+    Introduce a local development environment configuration with a fallback mechanism from PostgreSQL to SQLite, resolving connection issues on Windows and providing a dedicated entry point for local testing.
+    
+    Replit-Commit-Author: Agent
+    Replit-Commit-Session-Id: 774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe
+    Replit-Commit-Checkpoint-Type: full_checkpoint
+    Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/76ec735d-0891-462f-b480-6be1343dbeca/774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe/qCwAAbT
+
+commit b716c390ec604be70943214a4673d15d7a113360
+Author: ricozap87 <44920475-ricozap87@users.noreply.replit.com>
+Date:   Tue Aug 19 02:18:26 2025 +0000
+
+    Update project dependencies to their latest versions
+    
+    Update the requirements_complete.txt file to reflect the latest versions of all project dependencies, including core frameworks, data processing, machine learning, and communication libraries.
+    
+    Replit-Commit-Author: Agent
+    Replit-Commit-Session-Id: 774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe
+    Replit-Commit-Checkpoint-Type: full_checkpoint
+    Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/76ec735d-0891-462f-b480-6be1343dbeca/774ce4af-8ab1-4f97-bb36-f1e9fb7ba9fe/qCwAAbT
+:
