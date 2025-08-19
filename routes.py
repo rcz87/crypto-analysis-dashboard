@@ -374,3 +374,13 @@ except ImportError as e:
     logger.warning(f"⚠️ Security Enhancement blueprint not available: {e}")
 except Exception as e:
     logger.error(f"❌ Error registering Security Enhancement blueprint: {e}")
+
+# Register Performance Optimization blueprint
+try:
+    from api.performance_endpoints import performance_bp
+    app.register_blueprint(performance_bp)
+    logger.info("✅ Performance Optimization blueprint registered")
+except ImportError as e:
+    logger.warning(f"⚠️ Performance Optimization blueprint not available: {e}")
+except Exception as e:
+    logger.error(f"❌ Error registering Performance Optimization blueprint: {e}")
