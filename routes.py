@@ -27,6 +27,9 @@ def index():
             "/api/promptbook/",
             "/api/performance/stats",
             "/api/news/status",
+            "/api/v1/ai-reasoning/health",
+            "/api/v1/ai-reasoning/test-reasoning",
+            "/api/v1/ai-reasoning/analyze-market",
             "/health"
         ]
     })
@@ -394,3 +397,15 @@ except ImportError as e:
     logger.warning(f"⚠️ Advanced Optimization blueprint not available: {e}")
 except Exception as e:
     logger.error(f"❌ Error registering Advanced Optimization blueprint: {e}")
+
+# Register AI Reasoning blueprint
+try:
+    from api.ai_reasoning_endpoints import ai_reasoning_bp
+    app.register_blueprint(ai_reasoning_bp)
+    logger.info("✅ AI Reasoning blueprint registered")
+except ImportError as e:
+    logger.warning(f"⚠️ AI Reasoning blueprint not available: {e}")
+except Exception as e:
+    logger.error(f"❌ Error registering AI Reasoning blueprint: {e}")
+        
+

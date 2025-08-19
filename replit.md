@@ -3,6 +3,8 @@
 ## Overview
 This project is a focused cryptocurrency trading platform designed for GPTs integration and Telegram bot functionality. It provides Smart Money Concept (SMC) analysis, AI-powered trading insights, and real-time market data processing via a clean API. The platform aims to be a production-ready system capable of continuous self-improvement and robust security, offering advanced features like multi-timeframe analysis, risk management, and performance tracking. Its business vision includes scaling for sophisticated trading analysis via ChatGPT Custom GPT integration.
 
+**Latest Enhancement (August 19, 2025)**: Enhanced AI Reasoning Engine telah berhasil diintegrasikan dan berfungsi optimal untuk mengatasi masalah halusinasi AI dan meningkatkan akurasi analisis trading. Sistem reasoning yang baru menggunakan validasi data faktual, confidence scoring, dan anti-hallucination measures untuk memberikan analisis yang jelas dan tidak menghasilkan hasil asal-asalan. API endpoints tersedia di `/api/v1/ai-reasoning/` dengan komponen lengkap: health check, test reasoning, analyze market, dan enhanced analysis.
+
 ## User Preferences
 Preferred communication style: Simple, everyday language.
 User language preference: Indonesian (Bahasa Indonesia)

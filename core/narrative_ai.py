@@ -3,7 +3,7 @@ AI-powered narrative generation for trading analysis
 """
 
 import os
-import openai
+# import openai  # Old openai library - now using new OpenAI client
 import logging
 from datetime import datetime
 from typing import Dict, Any, Optional
@@ -15,9 +15,7 @@ class NarrativeAI:
     
     def __init__(self):
         self.openai_api_key = os.environ.get('OPENAI_API_KEY')
-        if self.openai_api_key:
-            openai.api_key = self.openai_api_key
-        else:
+        if not self.openai_api_key:
             logger.warning("OpenAI API key not found. Narrative AI will use fallback responses.")
     
     def generate_analysis_narrative(self, 
@@ -33,7 +31,9 @@ class NarrativeAI:
             # Create a comprehensive prompt for analysis
             prompt = self._create_analysis_prompt(symbol, analysis_data, language)
             
-            response = openai.ChatCompletion.create(
+            from openai import OpenAI
+            client = OpenAI(api_key=self.openai_api_key)
+            response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are a professional cryptocurrency trading analyst."},
@@ -43,7 +43,7 @@ class NarrativeAI:
                 temperature=0.7
             )
             
-            return response.choices[0].message.content
+            return response.choices[0].message.content if response.choices[0].message.content else "Unable to generate analysis"
             
         except Exception as e:
             logger.error(f"Error generating AI narrative: {e}")

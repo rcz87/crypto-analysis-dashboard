@@ -35,8 +35,8 @@ class AIEngine:
     
     def generate_trading_narrative(self, symbol: str, timeframe: str, 
                                  market_data: Dict[str, Any], 
-                                 smc_analysis: Dict[str, Any] = None,
-                                 signal: Dict[str, Any] = None) -> str:
+                                 smc_analysis: Optional[Dict[str, Any]] = None,
+                                 signal: Optional[Dict[str, Any]] = None) -> str:
         """Generate trading narrative for the signal"""
         
         try:
@@ -51,7 +51,7 @@ class AIEngine:
     
     def _generate_ai_narrative(self, symbol: str, timeframe: str, 
                              market_data: Dict[str, Any],
-                             smc_analysis: Dict[str, Any],
+                             smc_analysis: Optional[Dict[str, Any]],
                              signal: Dict[str, Any]) -> str:
         """Generate AI-powered narrative using OpenAI"""
         
@@ -84,17 +84,21 @@ Please provide a concise professional trading analysis in Indonesian covering:
 
 Keep response under 200 words, professional tone."""
 
-            response = self.openai_client.chat.completions.create(
-                model="gpt-4o-mini",  # Use mini for faster response
-                messages=[
-                    {"role": "system", "content": "You are a professional cryptocurrency trader providing concise market analysis in Indonesian."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=300,
-                temperature=0.7
-            )
-            
-            return response.choices[0].message.content.strip()
+            if self.openai_client:
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-4o-mini",  # Use mini for faster response
+                    messages=[
+                        {"role": "system", "content": "You are a professional cryptocurrency trader providing concise market analysis in Indonesian."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=300,
+                    temperature=0.7
+                )
+                
+                content = response.choices[0].message.content
+                return content.strip() if content else "Unable to generate narrative"
+            else:
+                return self._generate_fallback_narrative(symbol, timeframe, market_data, smc_analysis, signal)
             
         except Exception as e:
             logger.error(f"AI narrative generation failed: {e}")
@@ -102,8 +106,8 @@ Keep response under 200 words, professional tone."""
     
     def _generate_fallback_narrative(self, symbol: str, timeframe: str,
                                    market_data: Dict[str, Any],
-                                   smc_analysis: Dict[str, Any] = None,
-                                   signal: Dict[str, Any] = None) -> str:
+                                   smc_analysis: Optional[Dict[str, Any]] = None,
+                                   signal: Optional[Dict[str, Any]] = None) -> str:
         """Generate fallback narrative when AI is not available"""
         
         try:

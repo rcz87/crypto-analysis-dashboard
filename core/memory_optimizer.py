@@ -202,8 +202,8 @@ class MemoryTracker:
                 if time_span > 0 and count_increase > 0:
                     growth_rate = count_increase / time_span  # objects per second
                     
-                    # Detect potential leak
-                    if growth_rate > 1 and count_increase > 100:  # Threshold values
+                    # Detect potential leak with stricter thresholds
+                    if growth_rate > 5 and count_increase > 500:  # Stricter threshold values
                         severity = self._calculate_leak_severity(growth_rate, count_increase)
                         
                         leak_id = f"{obj_type}"
