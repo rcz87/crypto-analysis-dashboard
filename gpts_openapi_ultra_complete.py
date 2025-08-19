@@ -7,10 +7,22 @@ from flask import Blueprint, jsonify
 
 openapi_bp = Blueprint('openapi_ultra', __name__)
 
+def _relax_responses(schema: dict) -> dict:
+    """Add additionalProperties: True to bare object schemas"""
+    for p in schema.get("paths", {}).values():
+        for m in p.values():
+            resp = m.get("responses", {}).get("200", {})
+            content = resp.get("content", {}).get("application/json", {})
+            sch = content.get("schema")
+            if isinstance(sch, dict) and sch.get("type") == "object":
+                if not sch.get("properties") and not sch.get("additionalProperties"):
+                    sch["additionalProperties"] = True
+    return schema
+
 def get_ultra_complete_openapi_schema():
     """Generate ultra-complete OpenAPI 3.1.0 schema for ALL available endpoints"""
     
-    return {
+    schema = {
         "openapi": "3.1.0",
         "info": {
             "title": "Cryptocurrency Trading Analysis API - Ultra Complete",
@@ -56,23 +68,15 @@ def get_ultra_complete_openapi_schema():
             },
             "/api/gpts/health": {
                 "get": {
-                    "operationId": "getGPTsHealthCheck",
-                    "summary": "GPTs Health Check (Alias)", 
+                    "operationId": "getHealth",
+                    "summary": "System Health Check (alias)",
                     "description": "Alias for /health - System health and database connectivity check for GPTs",
                     "responses": {
                         "200": {
-                            "description": "System is healthy",
+                            "description": "OK",
                             "content": {
                                 "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "properties": {
-                                            "status": {"type": "string", "example": "healthy"},
-                                            "database": {"type": "string", "example": "connected"},
-                                            "version": {"type": "string", "example": "2.0.0"}
-                                        },
-                                        "additionalProperties": True
-                                    }
+                                    "schema": {"type": "object"}
                                 }
                             }
                         }
@@ -149,50 +153,37 @@ def get_ultra_complete_openapi_schema():
             },
             "/api/gpts/sinyal/tajam": {
                 "get": {
-                    "operationId": "getDetailedAnalysisGET",
-                    "summary": "Advanced Trading Analysis (GET)",
-                    "description": "Deep AI analysis with SMC, sentiment, and institutional insights via GET method",
+                    "operationId": "getSharpTradingSignal",
+                    "summary": "Sharp Trading Signal",
+                    "description": "Deep AI analysis with SMC, sentiment, and institutional insights",
                     "parameters": [
                         {
-                            "name": "symbol", 
+                            "name": "symbol",
                             "in": "query",
-                            "description": "Trading pair (e.g., BTC-USDT)",
-                            "schema": {"type": "string", "default": "BTC-USDT"}
+                            "schema": {"type": "string", "default": "BTCUSDT"}
                         },
                         {
                             "name": "tf",
-                            "in": "query", 
-                            "description": "Timeframe for analysis",
-                            "schema": {"type": "string", "default": "1H"}
+                            "in": "query",
+                            "schema": {"type": "string", "default": "1h"}
                         },
                         {
                             "name": "format",
                             "in": "query",
-                            "description": "Response format (json/text)",
-                            "schema": {"type": "string", "default": "json"}
+                            "schema": {"type": "string", "enum": ["json", "narrative"], "default": "json"}
                         },
                         {
                             "name": "min_confidence",
                             "in": "query",
-                            "description": "Minimum confidence threshold",
                             "schema": {"type": "number", "default": 70}
                         }
                     ],
                     "responses": {
                         "200": {
-                            "description": "Detailed analysis completed",
+                            "description": "OK",
                             "content": {
                                 "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "properties": {
-                                            "analysis": {"type": "object", "additionalProperties": True},
-                                            "confidence": {"type": "number", "example": 85.2},
-                                            "signals": {"type": "array", "items": {"type": "object", "additionalProperties": True}},
-                                            "status": {"type": "string", "example": "success"}
-                                        },
-                                        "additionalProperties": True
-                                    }
+                                    "schema": {"type": "object"}
                                 }
                             }
                         }
@@ -819,9 +810,73 @@ def get_ultra_complete_openapi_schema():
                         }
                     }
                 }
+            },
+            "/api/gpts/telegram/status": {
+                "get": {
+                    "operationId": "getTelegramStatus",
+                    "summary": "Telegram Integration Status",
+                    "description": "Check Telegram bot integration status and connectivity",
+                    "responses": {
+                        "200": {
+                            "description": "Telegram status retrieved",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object"}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/gpts/sharp-scoring/test": {
+                "get": {
+                    "operationId": "testSharpScoring",
+                    "summary": "Sharp Scoring Test",
+                    "description": "Test sharp scoring algorithm functionality",
+                    "responses": {
+                        "200": {
+                            "description": "Sharp scoring test completed",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object"}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/webhooks/tradingview/test": {
+                "post": {
+                    "operationId": "postTradingViewTest",
+                    "summary": "TradingView Webhook Test",
+                    "description": "Test TradingView webhook integration",
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": True
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Webhook test completed",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object"}
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
+    
+    return _relax_responses(schema)
 
 @openapi_bp.route('/openapi.json')
 def openapi_schema():
