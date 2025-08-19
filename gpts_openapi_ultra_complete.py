@@ -896,7 +896,9 @@ def openapi_schema():
 @openapi_bp.route('/.well-known/openapi.json') 
 def well_known_openapi():
     """Well-known OpenAPI schema endpoint"""
-    return jsonify(get_ultra_complete_openapi_schema())
+    schema = get_ultra_complete_openapi_schema()
+    schema = _relax_all_responses(schema)
+    return jsonify(schema)
 
 @openapi_bp.route('/api/docs')
 def api_docs():
