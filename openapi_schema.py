@@ -1051,50 +1051,151 @@ def get_openapi_schema():
                 }
             }
         },
-        "/api/performance/": {
-            "get": {
-                "operationId": "getPerformanceMetrics",
-                "summary": "Dapatkan metrik performa trading lengkap",
-                "description": "Mengambil metrik performa trading komprehensif dari database PostgreSQL termasuk Sharpe ratio, win rate, max drawdown, profit factor, dan statistik trading lainnya",
-                "parameters": [
-                    {
-                        "name": "symbol",
-                        "in": "query",
-                        "description": "Filter berdasarkan symbol tertentu (contoh: BTCUSDT)",
-                        "required": False,
-                        "schema": {"type": "string"}
+            "/api/performance/": {
+                "get": {
+                    "operationId": "getPerformanceMetrics",
+                    "summary": "Dapatkan metrik performa trading lengkap",
+                    "description": "Mengambil metrik performa trading komprehensif dari database PostgreSQL termasuk Sharpe ratio, win rate, max drawdown, profit factor, dan statistik trading lainnya",
+                    "parameters": [
+                        {
+                            "name": "symbol",
+                            "in": "query",
+                            "description": "Filter berdasarkan symbol tertentu (contoh: BTCUSDT)",
+                            "required": false,
+                            "schema": {"type": "string"}
+                        },
+                        {
+                            "name": "days",
+                            "in": "query", 
+                            "description": "Jumlah hari untuk analisis (default: 30)",
+                            "required": false,
+                            "schema": {"type": "integer", "minimum": 1, "maximum": 365}
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Metrik performa berhasil diambil",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "success"},
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "total_signals": {"type": "integer", "description": "Total sinyal yang dieksekusi"},
+                                                    "win_rate": {"type": "number", "description": "Persentase win rate"},
+                                                    "sharpe_ratio": {"type": "number", "description": "Sharpe ratio untuk mengukur return vs risk"},
+                                                    "max_drawdown": {"type": "number", "description": "Maximum drawdown dalam persen"},
+                                                    "profit_factor": {"type": "number", "description": "Profit factor (total win / total loss)"},
+                                                    "total_pnl": {"type": "number", "description": "Total profit/loss dalam persen"},
+                                                    "average_pnl": {"type": "number", "description": "Rata-rata PnL per trade"},
+                                                    "best_trade": {"type": "number", "description": "Trade terbaik dalam persen"},
+                                                    "worst_trade": {"type": "number", "description": "Trade terburuk dalam persen"},
+                                                    "wins": {"type": "integer", "description": "Jumlah trade yang profit"},
+                                                    "losses": {"type": "integer", "description": "Jumlah trade yang loss"}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/performance/summary": {
+                "get": {
+                    "operationId": "getPerformanceSummary",
+                    "summary": "Dapatkan ringkasan performa trading",
+                    "description": "Mengambil ringkasan performa trading yang disederhanakan untuk overview cepat",
+                    "responses": {
+                        "200": {
+                            "description": "Ringkasan performa berhasil diambil",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "success"},
+                                            "data": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "win_rate": {"type": "number", "description": "Win rate dalam persen"},
+                                                    "total_signals": {"type": "integer", "description": "Total sinyal"},
+                                                    "sharpe_ratio": {"type": "number", "description": "Sharpe ratio"},
+                                                    "total_pnl": {"type": "number", "description": "Total PnL persen"},
+                                                    "status": {"type": "string", "description": "Status profitabilitas"},
+                                                    "performance_grade": {"type": "string", "description": "Grade performa (A/B/C)"}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/v1/ai-reasoning/analyze-market": {
+                "post": {
+                    "operationId": "analyzeMarketWithAI",
+                    "summary": "Analisis pasar mendalam dengan AI reasoning yang enhanced",
+                    "description": "Menggunakan Enhanced AI Reasoning Engine untuk analisis pasar cryptocurrency yang comprehensive dengan OpenAI GPT-4o, SMC analysis, dan thread-safe operations",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "symbol": {"type": "string", "example": "BTC-USDT", "description": "Symbol cryptocurrency"},
+                                        "timeframe": {"type": "string", "example": "1H", "description": "Timeframe analisis"},
+                                        "analysis_depth": {"type": "string", "enum": ["basic", "comprehensive", "expert"], "default": "comprehensive"}
+                                    },
+                                    "required": ["symbol"]
+                                }
+                            }
+                        }
                     },
-                    {
-                        "name": "days",
-                        "in": "query", 
-                        "description": "Jumlah hari untuk analisis (default: 30)",
-                        "required": False,
-                        "schema": {"type": "integer", "minimum": 1, "maximum": 365}
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Metrik performa berhasil diambil",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "status": {"type": "string", "example": "success"},
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "total_signals": {"type": "integer", "description": "Total sinyal yang dieksekusi"},
-                                                "win_rate": {"type": "number", "description": "Persentase win rate"},
-                                                "sharpe_ratio": {"type": "number", "description": "Sharpe ratio untuk mengukur return vs risk"},
-                                                "max_drawdown": {"type": "number", "description": "Maximum drawdown dalam persen"},
-                                                "profit_factor": {"type": "number", "description": "Profit factor (total win / total loss)"},
-                                                "total_pnl": {"type": "number", "description": "Total profit/loss dalam persen"},
-                                                "average_pnl": {"type": "number", "description": "Rata-rata PnL per trade"},
-                                                "best_trade": {"type": "number", "description": "Trade terbaik dalam persen"},
-                                                "worst_trade": {"type": "number", "description": "Trade terburuk dalam persen"},
-                                                "wins": {"type": "integer", "description": "Jumlah trade yang profit"},
-                                                "losses": {"type": "integer", "description": "Jumlah trade yang loss"}
+                    "responses": {
+                        "200": {
+                            "description": "Analisis AI reasoning berhasil",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "success"},
+                                            "reasoning_result": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "conclusion": {"type": "string", "enum": ["BUY", "SELL", "NEUTRAL"]},
+                                                    "confidence": {"type": "string", "enum": ["very_low", "low", "medium", "high", "very_high"]},
+                                                    "confidence_score": {"type": "number", "minimum": 0, "maximum": 100},
+                                                    "evidence": {"type": "array", "items": {"type": "string"}},
+                                                    "reasoning_chain": {"type": "array", "items": {"type": "string"}},
+                                                    "uncertainty_factors": {"type": "array", "items": {"type": "string"}}
+                                                }
+                                            },
+                                            "analysis_quality": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "quality_score": {"type": "number", "minimum": 0, "maximum": 100},
+                                                    "quality_level": {"type": "string", "enum": ["POOR", "AVERAGE", "GOOD", "EXCELLENT"]},
+                                                    "confidence_level": {"type": "string"},
+                                                    "evidence_count": {"type": "integer"},
+                                                    "reasoning_steps": {"type": "integer"}
+                                                }
+                                            },
+                                            "metadata": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "ai_enhancement_used": {"type": "boolean"},
+                                                    "analysis_timestamp": {"type": "number"},
+                                                    "data_sources": {"type": "array", "items": {"type": "string"}}
+                                                }
                                             }
                                         }
                                     }
@@ -1103,32 +1204,49 @@ def get_openapi_schema():
                         }
                     }
                 }
-            }
-        },
-        "/api/performance/summary": {
-            "get": {
-                "operationId": "getPerformanceSummary",
-                "summary": "Dapatkan ringkasan performa trading",
-                "description": "Mengambil ringkasan performa trading yang disederhanakan untuk overview cepat",
-                "responses": {
-                    "200": {
-                        "description": "Ringkasan performa berhasil diambil",
+            },
+            "/api/v1/ai-reasoning/test-reasoning": {
+                "post": {
+                    "operationId": "testAIReasoning",
+                    "summary": "Test Enhanced AI Reasoning Engine dengan skenario khusus",
+                    "description": "Endpoint untuk testing dan validasi Enhanced AI Reasoning Engine dengan berbagai skenario test",
+                    "requestBody": {
+                        "required": true,
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "status": {"type": "string", "example": "success"},
-                                        "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "win_rate": {"type": "number", "description": "Win rate dalam persen"},
-                                                "total_signals": {"type": "integer", "description": "Total sinyal"},
-                                                "sharpe_ratio": {"type": "number", "description": "Sharpe ratio"},
-                                                "total_pnl": {"type": "number", "description": "Total PnL persen"},
-                                                "status": {"type": "string", "description": "Status profitabilitas"},
-                                                "performance_grade": {"type": "string", "description": "Grade performa (A/B/C)"}
-                                            }
+                                        "symbol": {"type": "string", "example": "BTC-USDT"},
+                                        "timeframe": {"type": "string", "example": "1H"},
+                                        "test_scenario": {"type": "string", "enum": ["basic", "stress_test", "edge_cases", "hybrid_validation"], "default": "basic"}
+                                    },
+                                    "required": ["symbol", "timeframe"]
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Test reasoning berhasil",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "success": {"type": "boolean"},
+                                            "test_type": {"type": "string"},
+                                            "test_evaluation": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "test_passed": {"type": "boolean"},
+                                                    "reasoning_quality": {"type": "string"},
+                                                    "evidence_count": {"type": "integer"},
+                                                    "actionable_recommendation": {"type": "boolean"},
+                                                    "uncertainty_acknowledged": {"type": "boolean"}
+                                                }
+                                            },
+                                            "analysis_result": {"type": "object"}
                                         }
                                     }
                                 }
@@ -1136,7 +1254,7 @@ def get_openapi_schema():
                         }
                     }
                 }
-            }
+            },
         },
         "components": {
             "schemas": {
@@ -1148,6 +1266,28 @@ def get_openapi_schema():
                         "current_price": {"type": "number"},
                         "reasoning": {"type": "string"}
                     }
+                },
+                "EnhancedReasoningResult": {
+                    "type": "object",
+                    "properties": {
+                        "conclusion": {"type": "string", "enum": ["BUY", "SELL", "NEUTRAL"]},
+                        "confidence": {"type": "string", "enum": ["very_low", "low", "medium", "high", "very_high"]},
+                        "confidence_score": {"type": "number", "minimum": 0, "maximum": 100},
+                        "evidence": {"type": "array", "items": {"type": "string"}},
+                        "data_sources": {"type": "array", "items": {"type": "string"}},
+                        "reasoning_chain": {"type": "array", "items": {"type": "string"}},
+                        "uncertainty_factors": {"type": "array", "items": {"type": "string"}},
+                        "timestamp": {"type": "number"}
+                    }
+                },
+                "MarketAnalysisRequest": {
+                    "type": "object",
+                    "properties": {
+                        "symbol": {"type": "string", "example": "BTC-USDT"},
+                        "timeframe": {"type": "string", "example": "1H"},
+                        "analysis_depth": {"type": "string", "enum": ["basic", "comprehensive", "expert"]}
+                    },
+                    "required": ["symbol"]
                 }
             }
         }

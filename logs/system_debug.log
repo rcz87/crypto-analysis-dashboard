@@ -12465,3 +12465,389 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-19 15:46:08 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
 2025-08-19 15:46:08 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
 2025-08-19 15:46:08 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
+2025-08-19 15:53:41 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 15:53:41 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 15:53:42 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=50 HTTP/1.1" 200 None
+2025-08-19 15:53:42 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 50 candles for BTC-USDT
+2025-08-19 15:55:11 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 15:55:11 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:11 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:11 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 15:55:11 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 15:55:11 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 15:55:11 - routes - INFO - <module>:274 - ✅ Promptbook blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:278 - ✅ Performance blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:282 - ✅ News API blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:286 - ✅ Missing GPTs endpoints registered
+2025-08-19 15:55:11 - routes - INFO - <module>:290 - ✅ SMC context blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:294 - ✅ Enhanced signals blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:298 - ✅ Institutional blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:302 - ✅ Webhook blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:306 - ✅ Sharp scoring blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:310 - ✅ Telegram blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:315 - ✅ Backtest API blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:319 - ✅ Chart blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:323 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:327 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:331 - ✅ Improvement blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:335 - ✅ Missing endpoints blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:339 - ✅ Modular blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:343 - ✅ Sharp signal blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:347 - ✅ Signal engine blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:351 - ✅ Signal top blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:355 - ✅ SMC pattern blueprint registered
+2025-08-19 15:55:11 - routes - INFO - <module>:359 - ✅ State API blueprint registered
+2025-08-19 15:55:11 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 15:55:11 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 15:55:11 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 15:55:11 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 15:55:11 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:11 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 15:55:11 - routes - INFO - <module>:365 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 15:55:11 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 15:55:11 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 15:55:11 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 15:55:11 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 15:55:11 - routes - INFO - <module>:375 - ✅ Security Enhancement blueprint registered
+2025-08-19 15:55:11 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:55:11 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 15:55:11 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 15:55:11 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 15:55:11 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 15:55:11 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 15:55:13 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 15:55:13 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 15:55:13 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 15:55:13 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 15:55:13 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 15:55:13 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 15:55:13 - routes - INFO - <module>:395 - ✅ Advanced Optimization blueprint registered
+2025-08-19 15:55:13 - core.enhanced_reasoning_engine - INFO - __init__:178 - 🧠 Enhanced Reasoning Engine initialized with OpenAI support
+2025-08-19 15:55:13 - core.enhanced_reasoning_engine - INFO - <module>:977 - 🧠 Enhanced Reasoning Engine module initialized - Akurasi tinggi, tidak halusinasi
+2025-08-19 15:55:13 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 15:55:13 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:13 - core.ai_reasoning_integration - INFO - __init__:41 - 🧠 AI Reasoning Integrator initialized
+2025-08-19 15:55:13 - core.ai_reasoning_integration - INFO - <module>:411 - 🧠 AI Reasoning Integration module initialized - Enhanced reasoning dengan AI narrative
+2025-08-19 15:55:13 - core.advanced_cache_manager - INFO - __init__:220 - 🗄️ Advanced Cache Manager initialized with 4 pools
+2025-08-19 15:55:13 - core.advanced_cache_manager - INFO - <module>:317 - 🗄️ Advanced Cache Manager module initialized
+2025-08-19 15:55:13 - core.response_compression - INFO - <module>:225 - 📦 Response Compression module initialized
+2025-08-19 15:55:13 - core.enhanced_error_handler - INFO - <module>:382 - 🚨 Enhanced Error Handler module initialized
+2025-08-19 15:55:13 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:13 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:13 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
+2025-08-19 15:55:13 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
+2025-08-19 15:55:17 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 15:55:17 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:17 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:17 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 15:55:17 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 15:55:17 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:17 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 15:55:17 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 15:55:17 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:17 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 15:55:17 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 15:55:17 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 15:55:17 - routes - INFO - <module>:274 - ✅ Promptbook blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:278 - ✅ Performance blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:282 - ✅ News API blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:274 - ✅ Promptbook blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:286 - ✅ Missing GPTs endpoints registered
+2025-08-19 15:55:17 - routes - INFO - <module>:290 - ✅ SMC context blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:278 - ✅ Performance blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:294 - ✅ Enhanced signals blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:282 - ✅ News API blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:298 - ✅ Institutional blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:286 - ✅ Missing GPTs endpoints registered
+2025-08-19 15:55:17 - routes - INFO - <module>:302 - ✅ Webhook blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:290 - ✅ SMC context blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:306 - ✅ Sharp scoring blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:310 - ✅ Telegram blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:294 - ✅ Enhanced signals blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:315 - ✅ Backtest API blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:319 - ✅ Chart blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:298 - ✅ Institutional blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:323 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:302 - ✅ Webhook blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:306 - ✅ Sharp scoring blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:327 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:310 - ✅ Telegram blueprint registered
+2025-08-19 15:55:17 - routes - INFO - <module>:315 - ✅ Backtest API blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:331 - ✅ Improvement blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:319 - ✅ Chart blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:323 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:327 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:335 - ✅ Missing endpoints blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:331 - ✅ Improvement blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:339 - ✅ Modular blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:343 - ✅ Sharp signal blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:347 - ✅ Signal engine blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:351 - ✅ Signal top blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:355 - ✅ SMC pattern blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:335 - ✅ Missing endpoints blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:339 - ✅ Modular blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:359 - ✅ State API blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:343 - ✅ Sharp signal blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:347 - ✅ Signal engine blueprint registered
+2025-08-19 15:55:18 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:351 - ✅ Signal top blueprint registered
+2025-08-19 15:55:18 - routes - INFO - <module>:355 - ✅ SMC pattern blueprint registered
+2025-08-19 15:55:18 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:359 - ✅ State API blueprint registered
+2025-08-19 15:55:18 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 15:55:18 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 15:55:18 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:18 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 15:55:18 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 15:55:18 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:365 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 15:55:18 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 15:55:18 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 15:55:18 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:18 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 15:55:18 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 15:55:18 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 15:55:18 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 15:55:18 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:365 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 15:55:18 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 15:55:18 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 15:55:18 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:375 - ✅ Security Enhancement blueprint registered
+2025-08-19 15:55:18 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 15:55:18 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:55:18 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 15:55:18 - routes - INFO - <module>:375 - ✅ Security Enhancement blueprint registered
+2025-08-19 15:55:18 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:55:18 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 15:55:18 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 15:55:19 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 15:55:19 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 15:55:19 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 15:55:19 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 15:55:19 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 15:55:19 - routes - INFO - <module>:395 - ✅ Advanced Optimization blueprint registered
+2025-08-19 15:55:19 - routes - INFO - <module>:395 - ✅ Advanced Optimization blueprint registered
+2025-08-19 15:55:19 - core.enhanced_reasoning_engine - INFO - __init__:178 - 🧠 Enhanced Reasoning Engine initialized with OpenAI support
+2025-08-19 15:55:19 - core.enhanced_reasoning_engine - INFO - <module>:977 - 🧠 Enhanced Reasoning Engine module initialized - Akurasi tinggi, tidak halusinasi
+2025-08-19 15:55:19 - core.enhanced_reasoning_engine - INFO - __init__:178 - 🧠 Enhanced Reasoning Engine initialized with OpenAI support
+2025-08-19 15:55:19 - core.enhanced_reasoning_engine - INFO - <module>:977 - 🧠 Enhanced Reasoning Engine module initialized - Akurasi tinggi, tidak halusinasi
+2025-08-19 15:55:19 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 15:55:19 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 15:55:19 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:19 - core.ai_reasoning_integration - INFO - __init__:41 - 🧠 AI Reasoning Integrator initialized
+2025-08-19 15:55:19 - core.ai_reasoning_integration - INFO - <module>:411 - 🧠 AI Reasoning Integration module initialized - Enhanced reasoning dengan AI narrative
+2025-08-19 15:55:19 - core.advanced_cache_manager - INFO - __init__:220 - 🗄️ Advanced Cache Manager initialized with 4 pools
+2025-08-19 15:55:19 - core.advanced_cache_manager - INFO - <module>:317 - 🗄️ Advanced Cache Manager module initialized
+2025-08-19 15:55:19 - core.response_compression - INFO - <module>:225 - 📦 Response Compression module initialized
+2025-08-19 15:55:19 - core.enhanced_error_handler - INFO - <module>:382 - 🚨 Enhanced Error Handler module initialized
+2025-08-19 15:55:19 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:19 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:19 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
+2025-08-19 15:55:19 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:55:19 - core.ai_reasoning_integration - INFO - __init__:41 - 🧠 AI Reasoning Integrator initialized
+2025-08-19 15:55:19 - core.ai_reasoning_integration - INFO - <module>:411 - 🧠 AI Reasoning Integration module initialized - Enhanced reasoning dengan AI narrative
+2025-08-19 15:55:19 - core.advanced_cache_manager - INFO - __init__:220 - 🗄️ Advanced Cache Manager initialized with 4 pools
+2025-08-19 15:55:19 - core.advanced_cache_manager - INFO - <module>:317 - 🗄️ Advanced Cache Manager module initialized
+2025-08-19 15:55:19 - core.response_compression - INFO - <module>:225 - 📦 Response Compression module initialized
+2025-08-19 15:55:19 - core.enhanced_error_handler - INFO - <module>:382 - 🚨 Enhanced Error Handler module initialized
+2025-08-19 15:55:19 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:55:19 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:55:19 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
+2025-08-19 15:55:19 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
+2025-08-19 15:55:19 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
+2025-08-19 15:55:27 - api.ai_reasoning_endpoints - INFO - test_reasoning_engine:428 - 🧪 Running basic reasoning test for BTC-USDT
+2025-08-19 15:55:27 - core.ai_reasoning_integration - INFO - analyze_trading_opportunity:65 - 🔍 Starting comprehensive analysis for BTC-USDT 1H
+2025-08-19 15:55:27 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-58238174-1801-4e98-b29a-7b6b1ec31314', 'json_data': {'messages': [{'role': 'system', 'content': 'You are a factual cryptocurrency trading analyst. Only analyze provided data, never make assumptions.'}, {'role': 'user', 'content': 'Analyze BTC-USDT 1H trading opportunity based on FACTUAL DATA ONLY.\n\nCRITICAL: Base analysis ONLY on provided data. No assumptions or external info.\n\nEVIDENCE:\nCurrent price: 50800.000000\nPrice increased by 0.40% from open\nVolatility: 1.18% (high-low range)\nCurrent volume: 1100\nRSI 65.5 in neutral range\nMACD above signal line (bullish momentum)\nSMC market bias: bullish\nStructure break detected: bos_up\nActive order blocks: 1\n\nDATA:\nPrice: {"open": 50600, "high": 51000, "low": 50400, "close": 50800, "volume": 1100}\nIndicators: {"rsi": 65.5, "macd": 150.2, "macd_signal": 140.8, "ema_20": 50400, "ema_50": 50200}\nSMC: {"market_bias": "bullish", "structure_break": "bos_up", "order_blocks": [{"price": 50000, "type": "bullish"}]}\n\nProvide JSON response:\n{\n    "conclusion": "BUY/SELL/NEUTRAL",\n    "confidence": 0-100,\n    "supporting_factors": ["factor1", "factor2", "factor3"],\n    "uncertainty_factors": ["uncertainty1", "uncertainty2"],\n    "summary_indonesian": "summary in Indonesian"\n}'}], 'model': 'gpt-4o-mini', 'max_tokens': 600, 'response_format': {'type': 'json_object'}, 'temperature': 0.1}}
+2025-08-19 15:55:27 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-19 15:55:27 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=30.0 socket_options=None
+2025-08-19 15:55:27 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f4e3208c450>
+2025-08-19 15:55:27 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f4e33d6d6d0> server_hostname='api.openai.com' timeout=30.0
+2025-08-19 15:55:27 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f4e3208c510>
+2025-08-19 15:55:27 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-19 15:55:27 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-19 15:55:27 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-19 15:55:27 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-19 15:55:27 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 19 Aug 2025 15:55:32 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'4177'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'4231'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199723'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'83ms'), (b'x-request-id', b'req_2440b0d82841468ea38df5148818c73f'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=a18w2G3RaKuIwehckWsE.s_e0XwxtyMyL06Bek.ck9A-1755618932-1.0.1.1-mUULy_QAGU0YwgDg7.DwiIWAIpVHlKQYApSPGvfRkVsaSfs47pl9.pa1PErGsSR.ll5bPfFc_xIRCoI8NtJ_zL3jAauP353PROFqtnEbcxE; path=/; expires=Tue, 19-Aug-25 16:25:32 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=65mf_piKPs1uyV2WFgu_5E5AmaWN4D4nWOtdipAQYn8-1755618932267-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'971ad5dc0b317de4-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-19 15:55:32 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-19 15:55:32 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Tue, 19 Aug 2025 15:55:32 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '4177'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '4231'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199723'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '83ms'), ('x-request-id', 'req_2440b0d82841468ea38df5148818c73f'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=a18w2G3RaKuIwehckWsE.s_e0XwxtyMyL06Bek.ck9A-1755618932-1.0.1.1-mUULy_QAGU0YwgDg7.DwiIWAIpVHlKQYApSPGvfRkVsaSfs47pl9.pa1PErGsSR.ll5bPfFc_xIRCoI8NtJ_zL3jAauP353PROFqtnEbcxE; path=/; expires=Tue, 19-Aug-25 16:25:32 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=65mf_piKPs1uyV2WFgu_5E5AmaWN4D4nWOtdipAQYn8-1755618932267-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '971ad5dc0b317de4-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-19 15:55:32 - openai._base_client - DEBUG - request:1021 - request_id: req_2440b0d82841468ea38df5148818c73f
+2025-08-19 15:55:32 - core.enhanced_reasoning_engine - DEBUG - _perform_ai_enhanced_reasoning:519 - ✅ Successfully parsed AI JSON response
+2025-08-19 15:55:32 - core.enhanced_reasoning_engine - DEBUG - _validate_ai_response_with_schema:563 - ✅ Valid conclusion: BUY
+2025-08-19 15:55:32 - core.enhanced_reasoning_engine - DEBUG - _validate_ai_response_with_schema:576 - ✅ Valid confidence: 75.0
+2025-08-19 15:55:32 - core.enhanced_reasoning_engine - INFO - _validate_ai_response_with_schema:644 - ✅ AI response validation passed with 0 minor warnings
+2025-08-19 15:55:32 - core.enhanced_reasoning_engine - INFO - _perform_ai_enhanced_reasoning:529 - ✅ AI reasoning validation passed for BTC-USDT
+2025-08-19 15:55:32 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-655df644-9e44-49a4-b7e0-c49162b9a87f', 'json_data': {'messages': [{'role': 'system', 'content': 'You are a professional cryptocurrency trader providing concise market analysis in Indonesian.'}, {'role': 'user', 'content': 'Analyze this cryptocurrency trading setup in Indonesian:\n\nSymbol: BTC-USDT\nTimeframe: 1H\nCurrent Price: 0\nSignal Direction: BUY\nConfidence: 95.00\n\nSMC Analysis:\n- Market Bias: bullish\n- Structure Break: none\n\nPlease provide a concise professional trading analysis in Indonesian covering:\n1. Market structure assessment\n2. Entry rationale\n3. Risk management\n4. Expected outcome\n\nKeep response under 200 words, professional tone.'}], 'model': 'gpt-4o-mini', 'max_tokens': 300, 'temperature': 0.7}}
+2025-08-19 15:55:32 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-19 15:55:32 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-19 15:55:32 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f4e320a9050>
+2025-08-19 15:55:32 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f4e33d6d7f0> server_hostname='api.openai.com' timeout=15.0
+2025-08-19 15:55:32 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f4e320a9110>
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-19 15:55:32 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-19 15:55:42 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 19 Aug 2025 15:55:42 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'10308'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'10406'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9998'), (b'x-ratelimit-remaining-tokens', b'199867'), (b'x-ratelimit-reset-requests', b'12.914s'), (b'x-ratelimit-reset-tokens', b'39ms'), (b'x-request-id', b'req_e538e32f9a6e49c084f72d228aae77b9'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=hEePP0PiEzLIw.qbN6tjcb0C2GtlSezEyR3j4WX5hrk-1755618942-1.0.1.1-VUY4nQtlBzs8I4pA9Hz63sPFJFkg_rIcv37UkP1CjTpaKIYkHl.XZmHwL8BcG.fct0agUH3MNooDL9mPGFGJ8AypFqPMkPFh5p3_U9TYAZc; path=/; expires=Tue, 19-Aug-25 16:25:42 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=oBUiUfil3kzlBHxzeEJtMPtrb0G6xRnyYsJ3v_XAUnw-1755618942771-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'971ad5f6fe4e6824-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-19 15:55:42 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-19 15:55:42 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-19 15:55:42 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-19 15:55:42 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-19 15:55:42 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-19 15:55:42 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Tue, 19 Aug 2025 15:55:42 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '10308'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '10406'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9998'), ('x-ratelimit-remaining-tokens', '199867'), ('x-ratelimit-reset-requests', '12.914s'), ('x-ratelimit-reset-tokens', '39ms'), ('x-request-id', 'req_e538e32f9a6e49c084f72d228aae77b9'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=hEePP0PiEzLIw.qbN6tjcb0C2GtlSezEyR3j4WX5hrk-1755618942-1.0.1.1-VUY4nQtlBzs8I4pA9Hz63sPFJFkg_rIcv37UkP1CjTpaKIYkHl.XZmHwL8BcG.fct0agUH3MNooDL9mPGFGJ8AypFqPMkPFh5p3_U9TYAZc; path=/; expires=Tue, 19-Aug-25 16:25:42 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=oBUiUfil3kzlBHxzeEJtMPtrb0G6xRnyYsJ3v_XAUnw-1755618942771-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '971ad5f6fe4e6824-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-19 15:55:42 - openai._base_client - DEBUG - request:1021 - request_id: req_e538e32f9a6e49c084f72d228aae77b9
+2025-08-19 15:55:42 - core.ai_reasoning_integration - INFO - analyze_trading_opportunity:111 - ✅ Analysis completed for BTC-USDT - BUY with 95.0% confidence
+2025-08-19 15:55:42 - api.ai_reasoning_endpoints - INFO - test_reasoning_engine:527 - 🧪 Basic reasoning test completed - Quality: EXCELLENT
+2025-08-19 15:56:45 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 15:56:45 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:56:45 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:56:45 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 15:56:45 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 15:56:45 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 15:56:45 - routes - INFO - <module>:274 - ✅ Promptbook blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:278 - ✅ Performance blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:282 - ✅ News API blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:286 - ✅ Missing GPTs endpoints registered
+2025-08-19 15:56:45 - routes - INFO - <module>:290 - ✅ SMC context blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:294 - ✅ Enhanced signals blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:298 - ✅ Institutional blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:302 - ✅ Webhook blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:306 - ✅ Sharp scoring blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:310 - ✅ Telegram blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:315 - ✅ Backtest API blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:319 - ✅ Chart blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:323 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:327 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:331 - ✅ Improvement blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:335 - ✅ Missing endpoints blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:339 - ✅ Modular blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:343 - ✅ Sharp signal blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:347 - ✅ Signal engine blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:351 - ✅ Signal top blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:355 - ✅ SMC pattern blueprint registered
+2025-08-19 15:56:45 - routes - INFO - <module>:359 - ✅ State API blueprint registered
+2025-08-19 15:56:45 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 15:56:45 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 15:56:45 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 15:56:45 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 15:56:45 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:56:45 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 15:56:45 - routes - INFO - <module>:365 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 15:56:45 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 15:56:45 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 15:56:45 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 15:56:45 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 15:56:45 - routes - INFO - <module>:375 - ✅ Security Enhancement blueprint registered
+2025-08-19 15:56:45 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:56:45 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 15:56:45 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 15:56:45 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 15:56:45 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 15:56:45 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 15:56:48 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 15:56:48 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:56:48 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:56:48 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 15:56:48 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 15:56:48 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 15:56:48 - routes - INFO - <module>:274 - ✅ Promptbook blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:278 - ✅ Performance blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:282 - ✅ News API blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:286 - ✅ Missing GPTs endpoints registered
+2025-08-19 15:56:48 - routes - INFO - <module>:290 - ✅ SMC context blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:294 - ✅ Enhanced signals blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:298 - ✅ Institutional blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:302 - ✅ Webhook blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:306 - ✅ Sharp scoring blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:310 - ✅ Telegram blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:315 - ✅ Backtest API blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:319 - ✅ Chart blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:323 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:327 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:331 - ✅ Improvement blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:335 - ✅ Missing endpoints blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:339 - ✅ Modular blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:343 - ✅ Sharp signal blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:347 - ✅ Signal engine blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:351 - ✅ Signal top blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:355 - ✅ SMC pattern blueprint registered
+2025-08-19 15:56:48 - routes - INFO - <module>:359 - ✅ State API blueprint registered
+2025-08-19 15:56:48 - core.market_anomaly_detector - INFO - __init__:79 - 🔍 Market Anomaly Detector initialized
+2025-08-19 15:56:48 - core.multi_source_data_manager - INFO - __init__:121 - 🔄 Multi-Source Data Manager initialized
+2025-08-19 15:56:48 - core.historical_data_completeness_checker - INFO - __init__:98 - 📊 Historical Data Completeness Checker initialized
+2025-08-19 15:56:48 - core.enhanced_okx_fetcher - INFO - __init__:33 - 🔄 Enhanced OKX Fetcher initialized
+2025-08-19 15:56:48 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:56:48 - api.data_quality_endpoints - INFO - <module>:593 - 🔍 Data Quality Enhancement API endpoints initialized
+2025-08-19 15:56:48 - routes - INFO - <module>:365 - ✅ Data Quality Enhancement blueprint registered
+2025-08-19 15:56:48 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-19 15:56:48 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-19 15:56:48 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-19 15:56:48 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-19 15:56:48 - routes - INFO - <module>:375 - ✅ Security Enhancement blueprint registered
+2025-08-19 15:56:48 - routes - ERROR - <module>:389 - ❌ Error registering Performance Optimization blueprint: The name 'performance_optimization' is already registered for this blueprint. Use 'name=' to provide a unique name.
+2025-08-19 15:56:48 - core.database_optimizer - INFO - <module>:570 - 💾 Database Optimization Engine module initialized
+2025-08-19 15:56:48 - core.memory_optimizer - INFO - __init__:115 - 📊 Memory Tracker initialized with 30s intervals
+2025-08-19 15:56:48 - core.memory_optimizer - INFO - __init__:337 - 🗑️ GC Optimizer initialized
+2025-08-19 15:56:48 - core.memory_optimizer - INFO - __init__:429 - 🚀 Memory Optimizer initialized
+2025-08-19 15:56:48 - core.memory_optimizer - INFO - <module>:531 - 🧠 Memory Optimization Engine module initialized
+2025-08-19 15:56:48 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 15:56:48 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 15:56:48 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 15:56:48 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 15:56:48 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 15:56:48 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 15:56:48 - routes - INFO - <module>:395 - ✅ Advanced Optimization blueprint registered
+2025-08-19 15:56:48 - core.enhanced_reasoning_engine - INFO - __init__:178 - 🧠 Enhanced Reasoning Engine initialized with OpenAI support
+2025-08-19 15:56:48 - core.enhanced_reasoning_engine - INFO - <module>:977 - 🧠 Enhanced Reasoning Engine module initialized - Akurasi tinggi, tidak halusinasi
+2025-08-19 15:56:48 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 15:56:48 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:56:48 - core.ai_reasoning_integration - INFO - __init__:41 - 🧠 AI Reasoning Integrator initialized
+2025-08-19 15:56:48 - core.ai_reasoning_integration - INFO - <module>:411 - 🧠 AI Reasoning Integration module initialized - Enhanced reasoning dengan AI narrative
+2025-08-19 15:56:48 - core.advanced_cache_manager - INFO - __init__:220 - 🗄️ Advanced Cache Manager initialized with 4 pools
+2025-08-19 15:56:48 - core.advanced_cache_manager - INFO - <module>:317 - 🗄️ Advanced Cache Manager module initialized
+2025-08-19 15:56:48 - core.response_compression - INFO - <module>:225 - 📦 Response Compression module initialized
+2025-08-19 15:56:48 - core.enhanced_error_handler - INFO - <module>:382 - 🚨 Enhanced Error Handler module initialized
+2025-08-19 15:56:48 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:56:48 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:56:48 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
+2025-08-19 15:56:48 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
+2025-08-19 15:56:53 - core.database_optimizer - INFO - __init__:60 - 💾 Connection Pool initialized: 3-15 connections
+2025-08-19 15:56:53 - core.database_optimizer - INFO - __init__:214 - 🧠 Query Cache initialized: max_size=500, ttl=300s
+2025-08-19 15:56:53 - core.database_optimizer - INFO - __init__:321 - 🔍 Query Optimizer initialized
+2025-08-19 15:56:53 - core.database_optimizer - INFO - __init__:424 - 🚀 Database Optimizer initialized
+2025-08-19 15:56:53 - api.advanced_optimization_endpoints - INFO - <module>:37 - Database optimizer initialized
+2025-08-19 15:56:53 - api.advanced_optimization_endpoints - INFO - <module>:510 - 🚀 Advanced Optimization API endpoints initialized
+2025-08-19 15:56:53 - routes - INFO - <module>:395 - ✅ Advanced Optimization blueprint registered
+2025-08-19 15:56:53 - core.enhanced_reasoning_engine - INFO - __init__:178 - 🧠 Enhanced Reasoning Engine initialized with OpenAI support
+2025-08-19 15:56:53 - core.enhanced_reasoning_engine - INFO - <module>:977 - 🧠 Enhanced Reasoning Engine module initialized - Akurasi tinggi, tidak halusinasi
+2025-08-19 15:56:53 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 15:56:53 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 15:56:53 - core.ai_reasoning_integration - INFO - __init__:41 - 🧠 AI Reasoning Integrator initialized
+2025-08-19 15:56:53 - core.ai_reasoning_integration - INFO - <module>:411 - 🧠 AI Reasoning Integration module initialized - Enhanced reasoning dengan AI narrative
+2025-08-19 15:56:53 - core.advanced_cache_manager - INFO - __init__:220 - 🗄️ Advanced Cache Manager initialized with 4 pools
+2025-08-19 15:56:53 - core.advanced_cache_manager - INFO - <module>:317 - 🗄️ Advanced Cache Manager module initialized
+2025-08-19 15:56:53 - core.response_compression - INFO - <module>:225 - 📦 Response Compression module initialized
+2025-08-19 15:56:53 - core.enhanced_error_handler - INFO - <module>:382 - 🚨 Enhanced Error Handler module initialized
+2025-08-19 15:56:53 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-19 15:56:53 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 15:56:53 - api.ai_reasoning_endpoints - INFO - <module>:752 - 🧠 AI Reasoning API endpoints initialized - Enhanced reasoning untuk trading analysis
+2025-08-19 15:56:53 - routes - INFO - <module>:405 - ✅ AI Reasoning blueprint registered
