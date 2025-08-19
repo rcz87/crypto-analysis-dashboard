@@ -39,7 +39,40 @@ def get_ultra_complete_openapi_schema():
                             "description": "System is healthy",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "healthy"},
+                                            "database": {"type": "string", "example": "connected"},
+                                            "version": {"type": "string", "example": "2.0.0"}
+                                        },
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/gpts/health": {
+                "get": {
+                    "operationId": "getGPTsHealthCheck",
+                    "summary": "GPTs Health Check (Alias)", 
+                    "description": "Alias for /health - System health and database connectivity check for GPTs",
+                    "responses": {
+                        "200": {
+                            "description": "System is healthy",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "healthy"},
+                                            "database": {"type": "string", "example": "connected"},
+                                            "version": {"type": "string", "example": "2.0.0"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -56,7 +89,16 @@ def get_ultra_complete_openapi_schema():
                             "description": "Complete system status",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "system": {"type": "object", "additionalProperties": True},
+                                            "components": {"type": "object", "additionalProperties": True},
+                                            "health": {"type": "string", "example": "healthy"},
+                                            "timestamp": {"type": "string", "example": "2025-08-19T10:30:00Z"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -89,7 +131,16 @@ def get_ultra_complete_openapi_schema():
                             "description": "Trading signal generated",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "signal": {"type": "object", "additionalProperties": True},
+                                            "status": {"type": "string", "example": "success"},
+                                            "confidence": {"type": "number", "example": 75.5},
+                                            "symbol": {"type": "string", "example": "BTC-USDT"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -97,10 +148,60 @@ def get_ultra_complete_openapi_schema():
                 }
             },
             "/api/gpts/sinyal/tajam": {
+                "get": {
+                    "operationId": "getDetailedAnalysisGET",
+                    "summary": "Advanced Trading Analysis (GET)",
+                    "description": "Deep AI analysis with SMC, sentiment, and institutional insights via GET method",
+                    "parameters": [
+                        {
+                            "name": "symbol", 
+                            "in": "query",
+                            "description": "Trading pair (e.g., BTC-USDT)",
+                            "schema": {"type": "string", "default": "BTC-USDT"}
+                        },
+                        {
+                            "name": "tf",
+                            "in": "query", 
+                            "description": "Timeframe for analysis",
+                            "schema": {"type": "string", "default": "1H"}
+                        },
+                        {
+                            "name": "format",
+                            "in": "query",
+                            "description": "Response format (json/text)",
+                            "schema": {"type": "string", "default": "json"}
+                        },
+                        {
+                            "name": "min_confidence",
+                            "in": "query",
+                            "description": "Minimum confidence threshold",
+                            "schema": {"type": "number", "default": 70}
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Detailed analysis completed",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "analysis": {"type": "object", "additionalProperties": True},
+                                            "confidence": {"type": "number", "example": 85.2},
+                                            "signals": {"type": "array", "items": {"type": "object", "additionalProperties": True}},
+                                            "status": {"type": "string", "example": "success"}
+                                        },
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
                 "post": {
                     "operationId": "getDetailedAnalysis", 
-                    "summary": "Advanced Trading Analysis",
-                    "description": "Deep AI analysis with SMC, sentiment, and institutional insights",
+                    "summary": "Advanced Trading Analysis (POST)",
+                    "description": "Deep AI analysis with SMC, sentiment, and institutional insights via POST method",
                     "requestBody": {
                         "required": False,
                         "content": {
@@ -109,8 +210,11 @@ def get_ultra_complete_openapi_schema():
                                     "type": "object",
                                     "properties": {
                                         "symbol": {"type": "string", "default": "BTC-USDT"},
-                                        "timeframe": {"type": "string", "default": "1H"}
-                                    }
+                                        "timeframe": {"type": "string", "default": "1H"},
+                                        "format": {"type": "string", "default": "json"},
+                                        "min_confidence": {"type": "number", "default": 70}
+                                    },
+                                    "additionalProperties": True
                                 }
                             }
                         }
@@ -120,7 +224,16 @@ def get_ultra_complete_openapi_schema():
                             "description": "Detailed analysis completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "analysis": {"type": "object", "additionalProperties": True},
+                                            "confidence": {"type": "number", "example": 85.2},
+                                            "signals": {"type": "array", "items": {"type": "object", "additionalProperties": True}},
+                                            "status": {"type": "string", "example": "success"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -137,7 +250,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Top signals retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"signals": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "status": {"type": "string", "example": "success"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -176,7 +289,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Market data retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"data": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "symbol": {"type": "string"}, "timeframe": {"type": "string"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -202,7 +315,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Ticker data retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"ticker": {"type": "object", "additionalProperties": True}, "symbol": {"type": "string"}, "price": {"type": "number"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -228,7 +341,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Order book retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"orderbook": {"type": "object", "additionalProperties": True}, "symbol": {"type": "string"}, "depth": {"type": "integer"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -261,7 +374,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "SMC analysis completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"smc_analysis": {"type": "object", "additionalProperties": True}, "patterns": {"type": "array", "items": {"type": "object", "additionalProperties": True}}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -293,7 +406,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "SMC zones retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"zones": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "symbol": {"type": "string"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -324,7 +437,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Filtered SMC zones",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"smc_zones": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "analysis": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -349,7 +462,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Order blocks retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"orderblocks": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "timeframe": {"type": "string"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -380,7 +493,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Pattern recognition completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"patterns": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "recognition_result": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -407,7 +520,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Deep analysis completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"analysis": {"type": "object", "additionalProperties": True}, "insights": {"type": "array", "items": {"type": "object", "additionalProperties": True}}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -438,7 +551,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Enhanced signal generated",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"signal": {"type": "object", "additionalProperties": True}, "enhanced_analysis": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -455,7 +568,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Live context retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"context": {"type": "object", "additionalProperties": True}, "live_data": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -472,7 +585,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Alerts status retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"alerts": {"type": "object", "additionalProperties": True}, "status": {"type": "string", "example": "active"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -505,7 +618,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Backtest results retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"backtest_results": {"type": "object", "additionalProperties": True}, "performance": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -552,7 +665,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Strategies retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"strategies": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "count": {"type": "integer"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -577,7 +690,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Quick backtest completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"quick_results": {"type": "object", "additionalProperties": True}, "summary": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -630,7 +743,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Chart data retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"widget_data": {"type": "object", "additionalProperties": True}, "config": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -649,7 +762,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Prompt templates retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"prompts": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "templates": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -666,7 +779,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Performance stats retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"performance": {"type": "object", "additionalProperties": True}, "stats": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -683,7 +796,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "News status retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"news_service": {"type": "object", "additionalProperties": True}, "status": {"type": "string", "example": "operational"}}, "additionalProperties": True}
                                 }
                             }
                         }
@@ -700,7 +813,7 @@ def get_ultra_complete_openapi_schema():
                             "description": "Signals history retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object"}
+                                    "schema": {"type": "object", "properties": {"history": {"type": "array", "items": {"type": "object", "additionalProperties": True}}, "pagination": {"type": "object", "additionalProperties": True}}, "additionalProperties": True}
                                 }
                             }
                         }

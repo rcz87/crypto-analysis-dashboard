@@ -48,6 +48,23 @@ def health():
         "version": "2.0.0"
     })
 
+@main_bp.route('/api/gpts/health')
+def gpts_health():
+    """GPTs Health check endpoint (alias for /health)"""
+    try:
+        # Test database connection
+        from sqlalchemy import text
+        db.session.execute(text('SELECT 1'))
+        db_status = "connected"
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+    
+    return jsonify({
+        "status": "healthy",
+        "database": db_status,
+        "version": "2.0.0"
+    })
+
 # OpenAPI schema will be handled by the dedicated blueprint
 
 # Enhanced GPTs API will be imported from gpts_routes.py
