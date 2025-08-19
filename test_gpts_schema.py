@@ -26,8 +26,8 @@ def test_openapi_schema():
                 operations.append(f"{method.upper()} {path} ({details['operationId']})")
         
         print(f"📊 Total Operations: {len(operations)}")
-        for op in operations:
-            print(f"   • {op}")
+        for i, op in enumerate(operations, 1):
+            print(f"   {i:2d}. {op}")
     else:
         print(f"❌ Schema Error: HTTP {schema_response.status_code}")
     

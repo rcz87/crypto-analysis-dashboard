@@ -56,7 +56,7 @@ def health():
 from gpts_routes import gpts_api
 
 # Import OpenAPI schema blueprint
-from gpts_openapi_simple import openapi_bp
+from gpts_openapi_complete import openapi_bp
 
 # Import SMC zones blueprint
 from api.smc_zones_endpoints import smc_zones_bp
