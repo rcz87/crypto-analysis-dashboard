@@ -1,0 +1,49 @@
+# 📡 Endpoint Debug Report – GPTs & Telegram Bot API
+
+**Tanggal Pemeriksaan**: 2025-08-05  
+**Status Sistem**: ✅ Operational  
+**Jumlah Endpoint Aktif**: 12 / 14  
+**Versi API**: 1.0.0  
+**Fokus Layanan**: GPTs Integration & Telegram Notifications
+
+---
+
+## ✅ Endpoint Aktif
+
+| Endpoint                               | Fungsi                                  | Status |
+|----------------------------------------|------------------------------------------|--------|
+| `/api/signal`                          | GPT Signal Generator                     | ✅ OK  |
+| `/api/market/narrative`               | AI Market Narrative                      | ✅ OK  |
+| `/api/orderblock`                     | SMC Orderblock Detection                 | ✅ OK  |
+| `/api/gpts/sinyal/tajam`              | AI SMC Signal + Reasoning                | ✅ OK  |
+| `/api/gpts/indicators`                | Technical Indicators (MACD, RSI, dll)   | ✅ OK  |
+| `/api/gpts/funding-rate`             | Funding Rate + Open Interest            | ✅ OK  |
+| `/api/gpts/orderbook`                | Orderbook Bid/Ask Realtime              | ✅ OK  |
+| `/api/gpts/market-depth`             | Market Pressure & Liquidity Analysis    | ✅ OK  |
+| `/api/chart/data`                    | Chart Candle Data                       | ✅ OK  |
+| `/api/chart/smc-overlays`            | SMC Overlays (OB, FVG)                  | ✅ OK  |
+| `/api/chart/symbols`                 | Symbol List for Chart                   | ✅ OK  |
+| `/api/performance`                   | Trading Performance Metrics             | ✅ OK  |
+
+---
+
+## ⚠️ Endpoint Non-Aktif
+
+| Endpoint                   | Fungsi                                  | Status   |
+|----------------------------|------------------------------------------|----------|
+| `/api/news/sentiment`     | News Sentiment Analysis                  | ❌ Error |
+| `/api/backtest`           | Strategy Backtest Analyzer               | ❌ Error |
+
+---
+
+## 🔧 Layanan Internal Aktif
+
+- `ai_analysis`: ✅
+- `okx_data`: ✅
+- `redis_cache`: ✅
+- `telegram_bot`: ✅
+- `system_enhancements`: ✅
+
+---
+
+> Disiapkan oleh CryptoSage AI – Sistem saat ini siap untuk produksi dan integrasi lanjutan dengan ChatGPT Custom GPT & Telegram.

@@ -1,0 +1,31 @@
+# Deployment Configuration for GCE/Replit Deployments
+# This file contains deployment-specific settings
+
+# Port Configuration
+PORT=5000
+FLASK_ENV=production
+PRODUCTION_ONLY=1
+
+# Memory and Performance Optimization
+GUNICORN_WORKERS=2
+GUNICORN_TIMEOUT=120
+GUNICORN_MAX_REQUESTS=1000
+
+# Database Configuration
+DATABASE_URL=${DATABASE_URL}
+
+# Disable heavy ML features in production
+DISABLE_LOCAL_ML_MODELS=1
+USE_OPENAI_API_ONLY=1
+
+# Logging Configuration
+LOG_LEVEL=INFO
+LOG_FORMAT=structured
+
+# Health Check Configuration
+HEALTH_CHECK_ENABLED=1
+HEALTH_CHECK_ENDPOINT=/health
+
+# Security Settings
+FLASK_DEBUG=0
+WERKZEUG_DEBUG_PIN=off

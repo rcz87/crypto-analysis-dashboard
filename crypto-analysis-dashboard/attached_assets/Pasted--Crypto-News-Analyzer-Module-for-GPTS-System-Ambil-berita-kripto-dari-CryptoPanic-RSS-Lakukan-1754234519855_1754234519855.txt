@@ -1,0 +1,68 @@
+"""
+Crypto News Analyzer Module for GPTS System
+- Ambil berita kripto dari CryptoPanic RSS
+- Lakukan analisis sentimen menggunakan GPT
+- Output dalam format struktur GPTS
+"""
+
+import feedparser
+import requests
+import openai
+import os
+from datetime import datetime, timedelta
+from typing import List, Dict, Any
+
+# Konfigurasi API
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+CRYPTO_PANIC_RSS = "https://cryptopanic.com/feed/rss/"
+
+# Fungsi: Ambil dan parsing berita dari CryptoPanic (via RSS)
+def fetch_crypto_news(limit: int = 10) -> List[Dict[str, Any]]:
+    feed = feedparser.parse(CRYPTO_PANIC_RSS)
+    entries = feed.entries[:limit]
+    news = []
+    for entry in entries:
+        news.append({
+            "title": entry.title,
+            "link": entry.link,
+            "published": entry.published,
+            "summary": entry.summary
+        })
+    return news
+
+# Fungsi: Analisis sentimen dengan GPT
+async def analyze_sentiment(title: str, summary: str) -> str:
+    try:
+        prompt = f"""
+        Judul: {title}
+        Ringkasan: {summary}
+
+        Berdasarkan isi berita ini, analisa sentimen pasar secara ringkas.
+        Jawaban hanya salah satu dari: BULLISH, BEARISH, atau NETRAL.
+        Jawab singkat saja:
+        """
+        
+        completion = openai.ChatCompletion.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.3
+        )
+        response = completion.choices[0].message.content.strip().upper()
+        return response if response in ["BULLISH", "BEARISH", "NETRAL"] else "NETRAL"
+    except Exception as e:
+        return "ERROR"
+
+# Fungsi: Wrapper lengkap untuk endpoint
+async def get_news_sentiment(limit: int = 5) -> List[Dict[str, Any]]:
+    news_list = fetch_crypto_news(limit)
+    result = []
+    for item in news_list:
+        sentiment = await analyze_sentiment(item['title'], item['summary'])
+        result.append({
+            "title": item['title'],
+            "summary": item['summary'],
+            "sentiment": sentiment,
+            "published": item['published'],
+            "source": item['link']
+        })
+    return result

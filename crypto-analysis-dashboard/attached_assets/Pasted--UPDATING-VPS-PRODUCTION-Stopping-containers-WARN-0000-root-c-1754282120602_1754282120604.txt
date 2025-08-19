@@ -1,0 +1,93 @@
+🔄 UPDATING VPS PRODUCTION
+=========================
+🛑 Stopping containers...
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+📥 Pulling latest code from GitHub...
+From https://github.com/rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+🗑️ Cleaning build cache...
+Deleted build cache objects:
+l8r6y1fwwxn6mwlnzz6gy2wpx
+0rwvptmagyfajq868uskaac3c
+zzkz1eenok69ezudtmhbak6rt
+kgyhx8q1v3hx2wtz88a7k8be1
+kzjo5kd0iegyprg7p2wtmo6zc
+uyta7el633xnjdnu4dc3j2kb6
+xny20n9lv9ki0cws3lro1olrj
+7mw216kv357yrqhkaih6f84zk
+y8r1xfn1v1lnmvc8r37f46rvm
+ov145q1jdyzz67l07n3c1tlut
+7ywhkb75y0ajbnlp2dq7s7hds
+lajftoma8580hhnnz7otmmx5a
+6voddbak4dp29uo7v4zyqpd0r
+c5b2ob022cyrxfd3yect47cva
+51ggsfl9oicr8be7duwn0nynx
+pam9ug23eozecuuonzx7qihl5
+xq7li2x4fa9zkrzngtyiom61q
+0l9wgkhacb9bd33dyecje352r
+
+Total reclaimed space: 153.1MB
+🚀 Building with latest code...
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+WARN[0000] Docker Compose is configured to build using Bake, but buildx isn't installed 
+[+] Building 8.0s (24/24) FINISHED                                                                                                                                                                             docker:default
+ => [crypto-app internal] load build definition from Dockerfile                                                                                                                                                          0.0s
+ => => transferring dockerfile: 3.38kB                                                                                                                                                                                   0.0s
+ => WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 4)                                                                                                                                           0.0s
+ => [crypto-app internal] load metadata for docker.io/library/python:3.11-slim                                                                                                                                           0.0s
+ => [crypto-app internal] load .dockerignore                                                                                                                                                                             0.0s
+ => => transferring context: 1.59kB                                                                                                                                                                                      0.0s
+ => [crypto-app internal] load build context                                                                                                                                                                             0.1s
+ => => transferring context: 1.39MB                                                                                                                                                                                      0.1s
+ => CACHED [crypto-app builder 1/4] FROM docker.io/library/python:3.11-slim                                                                                                                                              0.0s
+ => [crypto-app stage-1  2/15] RUN apt-get update && apt-get install -y --no-install-recommends     postgresql-client     curl     && apt-get clean     && rm -rf /var/lib/apt/lists/*     && rm -rf /var/cache/apt/*    6.4s
+ => [crypto-app builder 2/4] WORKDIR /build                                                                                                                                                                              0.1s
+ => [crypto-app builder 3/4] COPY requirements-prod.txt .                                                                                                                                                                0.0s
+ => [crypto-app builder 4/4] RUN mkdir -p /root/.local     && pip install --no-cache-dir --user -r requirements-prod.txt     && find /root/.local -name "*.pyc" -delete 2>/dev/null || true     && find /root/.local -n  1.9s
+ => [crypto-app stage-1  3/15] COPY --from=builder /root/.local /usr/local                                                                                                                                               0.0s 
+ => [crypto-app stage-1  4/15] WORKDIR /app                                                                                                                                                                              0.0s 
+ => [crypto-app stage-1  5/15] COPY wsgi_production.py .                                                                                                                                                                 0.0s 
+ => [crypto-app stage-1  6/15] COPY main.py .                                                                                                                                                                            0.0s 
+ => [crypto-app stage-1  7/15] COPY gpts_api_simple.py .                                                                                                                                                                 0.0s 
+ => [crypto-app stage-1  8/15] COPY gunicorn.conf.py .                                                                                                                                                                   0.0s 
+ => [crypto-app stage-1  9/15] COPY start-production.sh .                                                                                                                                                                0.0s 
+ => [crypto-app stage-1 10/15] COPY models.py .                                                                                                                                                                          0.0s 
+ => [crypto-app stage-1 11/15] COPY core/ ./core/                                                                                                                                                                        0.0s 
+ => [crypto-app stage-1 12/15] COPY api/ ./api/                                                                                                                                                                          0.0s 
+ => [crypto-app stage-1 13/15] RUN echo "=== Verifying .dockerignore exclusions ==="     && echo "Checking if heavy directories were excluded..."     && test ! -d ".pythonlibs" || (echo "ERROR: .pythonlibs was copie  0.2s
+ => [crypto-app stage-1 14/15] RUN mkdir -p logs tmp     && find . -name "*.pyc" -delete     && find . -name "__pycache__" -type d -exec rm -rf {} + || true     && find /usr/local -name "*.pyc" -delete     && find /  0.4s
+ => [crypto-app stage-1 15/15] RUN useradd --create-home --shell /bin/bash app && chown -R app:app /app                                                                                                                  0.4s 
+ => [crypto-app] exporting to image                                                                                                                                                                                      0.4s 
+ => => exporting layers                                                                                                                                                                                                  0.4s
+ => => writing image sha256:473a3678dc4ab522dfaf223a3ca501affc07accef3c1bb57fed237519869897b                                                                                                                             0.0s
+ => => naming to docker.io/library/crypto-analysis-dashboard-crypto-app                                                                                                                                                  0.0s
+ => [crypto-app] resolving provenance for metadata file                                                                                                                                                                  0.0s
+[+] Running 5/5
+ ✔ crypto-app                                        Built                                                                                                                                                               0.0s 
+ ✔ Network crypto-analysis-dashboard_crypto_network  Created                                                                                                                                                             0.1s 
+ ✔ Container crypto_postgres                         Started                                                                                                                                                             0.3s 
+ ✔ Container crypto_trading_app                      Started                                                                                                                                                             0.5s 
+ ✔ Container crypto_nginx                            Started                                                                                                                                                             0.7s 
+⏳ Waiting for containers to start...
+📊 Container status:
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED          STATUS                           PORTS                                                                      NAMES
+5c31190887ce   nginx:alpine                           "/docker-entrypoint.…"   31 seconds ago   Up 30 seconds                    0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   crypto_nginx
+36a03d5eaabb   crypto-analysis-dashboard-crypto-app   "./start-production.…"   31 seconds ago   Up 1 second (health: starting)   0.0.0.0:5050->5000/tcp, [::]:5050->5000/tcp                                crypto_trading_app
+bedc32947bf3   postgres:16-alpine                     "docker-entrypoint.s…"   31 seconds ago   Up 30 seconds                    0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                  crypto_postgres
+🧪 Testing fixed endpoint...
+GET method test:
+
+POST method test:
+
+📋 Checking Flask routes...
+Could not check routes
+
+=========================
+🎯 UPDATE COMPLETED
+=========================
+External URLs ready:
+  GET: http://212.26.36.253:5050/api/gpts/sinyal/tajam?symbol=BTCUSDT
+  POST: http://212.26.36.253:5050/api/gpts/sinyal/tajam
+=========================
+root@srv795356:~/crypto-analysis-dashboard# 

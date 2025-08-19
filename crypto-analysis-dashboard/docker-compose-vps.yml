@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: crypto_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: crypto_trading
+      POSTGRES_USER: crypto_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-crypto_secure_password_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - crypto_network
+
+  # Main Application
+  crypto-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: crypto_trading_app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      # Database
+      DATABASE_URL: postgresql://crypto_user:${POSTGRES_PASSWORD:-crypto_secure_password_2024}@postgres:5432/crypto_trading
+
+      # OKX API (Required)
+      OKX_API_KEY: ${OKX_API_KEY}
+      OKX_SECRET_KEY: ${OKX_SECRET_KEY}
+      OKX_PASSPHRASE: ${OKX_PASSPHRASE}
+
+      # OpenAI API (Required)
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+
+      # Telegram (Optional)
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+
+      # Production Settings
+      FLASK_ENV: production
+      PRODUCTION_ONLY: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "5050:5000"  # Main production port
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - crypto_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: crypto_nginx
+    restart: unless-stopped
+    depends_on:
+      - crypto-app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/certbot:/var/www/certbot:ro
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - crypto_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  crypto_network:
+    driver: bridge

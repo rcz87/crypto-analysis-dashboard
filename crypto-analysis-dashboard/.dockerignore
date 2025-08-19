@@ -1,0 +1,102 @@
+# ========================
+# 🚨 BERAT - Exclude folder >1GB (PRIORITY!)
+# ========================
+.pythonlibs/
+.cache/
+pip-cache/
+.local/
+.npm/
+.config/
+
+# ========================
+# 🚫 Umum - Hapus sampah
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.log
+*.tmp
+*.swp
+*.bak
+*.old
+.DS_Store
+
+# ========================
+# 📦 Data berat (AutoML, training, dataset)
+# ========================
+*.pkl
+*.db
+*.csv
+*.xlsx
+*.npz
+*.jsonl
+*.npy
+*.sav
+
+# ========================
+# ⚙️ Lingkungan Virtual & Package
+# ========================
+env/
+venv/
+.venv/
+*.egg-info/
+site-packages/
+pip-wheel-metadata/
+
+# ========================
+# 📚 Notebook & Markdown
+# ========================
+*.ipynb
+*.md
+docs/
+notebooks/
+experiments/
+test/
+tests/
+
+# ========================
+# 🌐 Web & Node
+# ========================
+node_modules/
+build/
+dist/
+coverage/
+*.tgz
+
+# ========================
+# 🔐 Replit & Git
+# ========================
+.git/
+.gitignore
+.replit
+.replit-deployment
+__repl__/
+
+# ========================
+# 🧪 Replit Output Log & Development Files
+# ========================
+replit.nix
+replit.log
+.breakpoints
+.env.local
+.env.development
+
+# ========================  
+# 💾 Database & Large Data Files
+# ========================
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+data/
+backup/
+dumps/
+logs/
+
+# ========================
+# 🔧 Build & Development Tools
+# ========================
+.vscode/
+.idea/
+*.pyc
+Thumbs.db

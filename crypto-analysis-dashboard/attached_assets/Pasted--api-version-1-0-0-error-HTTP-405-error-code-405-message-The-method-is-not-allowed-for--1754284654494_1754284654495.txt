@@ -1,0 +1,96 @@
+{"api_version":"1.0.0","error":"HTTP_405","error_code":405,"message":"The method is not allowed for the requested URL.","timestamp":"2025-08-04T05:14:50.879449"}
+{"api_version":"1.0.0","data_source":"OKX_AUTHENTICATED_SMC_WITH_XAI","server_time":"2025-08-04T05:14:57.892986","signal":{"action":"BUY","ai_adjustment":5,"ai_reasoning":"- **Bias Utama**: NEUTRAL, dikarenakan tidak adanya konfluensi yang kuat dari indikator teknikal utama.\n- **Reasoning**: \n  - Orderbook menunjukkan keseimbangan antara buy dan sell orders.\n  - RSI mendekati level 50, menunjukkan momentum netral.\n  - Volume delta tidak menunjukkan dominasi dari sisi pembeli atau penjual.\n- **Entry Point Optimal**: Tunggu breakout di atas $114500 untuk potensi bullish atau di bawah $114200 untuk potensi bearish.\n- **Stop Loss**: \n  - Bullish: Di bawah $114200\n  - ","confidence":65.7,"confidence_emoji":"\u26a0\ufe0f","confidence_level":"LOW","current_price":114355.3,"entry_price":114355.3,"indicators_triggered":"\u2022 Order Blocks: 6 Active","mtf_analysis":{"confluence_details":"Strong bullish confluence (2/3 timeframes)","confluence_score":74.5,"recommendation":{"action":"BUY","confidence":79.5,"divergence":null,"optimal_entry":{"suggested_zone":{"resistance":115016.0,"support":113577.4},"wait_for_pullback":false},"reasoning":"Strong bullish confluence (2/3 timeframes)"},"timeframe_alignment":{"15M":{"momentum":"NEUTRAL","price_vs_sma20":0.08,"price_vs_sma50":0.57,"resistance":115016.0,"rsi":58.54,"support":113577.4,"timeframe":"15M","trend":"BULLISH","trend_strength":85},"1H":{"momentum":"NEUTRAL","price_vs_sma20":0.08,"price_vs_sma50":0.57,"resistance":115016.0,"rsi":58.54,"support":113577.4,"timeframe":"1H","trend":"BULLISH","trend_strength":85},"4H":{"momentum":"NEUTRAL","price_vs_sma20":0.32,"price_vs_sma50":-1.83,"resistance":116063.2,"rsi":60.15,"support":111903.1,"timeframe":"4H","trend":"NEUTRAL","trend_strength":50}}},"raw_score":60.6,"risk_level":"HIGH","risk_management":{"max_loss_usd":100.0,"position_size":0.133695,"recommended_leverage":5,"risk_per_trade":1.0,"warnings":[]},"risk_reward_ratio":1.4999999999999902,"signal_id":"BTC-USDT_BUY_20250804051457","smc_analysis":{"bos_count":0,"choch_count":0,"derivatives_data":{"funding_rate":null,"open_interest":null},"fvg_count":0,"market_structure":"neutral","order_blocks":6,"smc_indicators":["Order Blocks: 6 Active"]},"stop_loss":113607.32857142857,"symbol":"BTC-USDT","take_profit_1":115477.25714285714,"take_profit_2":116225.22857142855,"timeframe":"1H","timestamp":"2025-08-04T05:14:57.892820","volume_profile":{"imbalance":null,"insights":{"price_position":"BELOW_VALUE","risk_level":"MODERATE","support_resistance":[{"level":118322.269,"strength":"STRONG","type":"RESISTANCE"},{"level":118005.273,"strength":"STRONG","type":"RESISTANCE"},{"level":118163.771,"strength":"STRONG","type":"RESISTANCE"},{"level":111982.349,"strength":"MODERATE","type":"BREAKOUT_LEVEL"},{"level":119748.751,"strength":"MODERATE","type":"BREAKOUT_LEVEL"}],"trade_recommendation":"Look for bounce from value area low for short entries"},"poc":{"price":118322.269,"strength":"STRONG","volume":1711.55},"skew":null,"value_area":{"vah":null,"val":null,"volume_percentage":null}},"xai_explanation":{"confidence":65.65,"decision":"BUY","explanation":"Signal: BUY dengan confidence 65.7%","risk_level":"MEDIUM","top_factors":[]}}}
+curl: (28) Failed to connect to 212.26.36.253 port 5050 after 130780 ms: Connection timed out
+WARNING:main:⚠️ FLASK_SECRET_KEY not set - using generated key (set FLASK_SECRET_KEY for production)
+INFO:main:✅ Database configuration loaded
+/usr/local/lib/python3.11/site-packages/flask_sqlalchemy/model.py:214: SAWarning: This declarative base already contains a class with the same class name and module name as models.SignalHistory, and will be replaced in the string-lookup table.
+  super().__init_subclass__(**kwargs)
+WARNING:main:Database initialization failed: Table 'signal_history' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+INFO:main:✅ Global error handlers initialized
+INFO:core.security_hardening:🔒 Security hardening applied to Flask app
+INFO:core.security_hardening:🔒 Security Hardening Engine initialized
+INFO:main:✅ Security hardening initialized
+INFO:core.explainable_ai_engine:🔍 Explainable AI Engine initialized
+INFO:core.data_validation_pipeline:🔍 Advanced Data Validation Pipeline initialized
+INFO:core.prompt_injection_defense:🛡️ Prompt Injection Defense System initialized
+INFO:core.overfitting_prevention_system:🔒 Overfitting Prevention System initialized
+INFO:main:✅ Critical fixes initialized - Enterprise-grade security & quality
+INFO:gpts_api_simple:✅ System enhancements loaded
+INFO:core.okx_fetcher:OKX API initialized with authentication credentials
+INFO:gpts_api_simple:✅ OKX Fetcher initialized
+INFO:core.ai_engine:AI Engine initialized successfully with OpenAI GPT-4o
+INFO:gpts_api_simple:✅ AI Engine initialized
+INFO:core.telegram_notifier:📱 Telegram Notifier initialized
+INFO:gpts_api_simple:✅ Telegram Notifier initialized
+WARNING:core.redis_manager:⚠️ Redis connection failed: Error 111 connecting to localhost:6379. Connection refused.. Using in-memory cache.
+WARNING:core.redis_manager:⚠️ Redis connection failed: Error 111 connecting to localhost:6379. Connection refused.. Using in-memory cache.
+INFO:gpts_api_simple:✅ Redis Manager initialized
+WARNING:root:SHAP not available. Install with: pip install shap
+/usr/local/lib/python3.11/site-packages/flask_sqlalchemy/model.py:214: SAWarning: This declarative base already contains a class with the same class name and module name as models.SignalHistory, and will be replaced in the string-lookup table.
+  super().__init_subclass__(**kwargs)
+INFO:core.professional_smc_analyzer:🚀 Professional SMC Analyzer initialized with enhanced features
+INFO:core.professional_smc_analyzer:🚀 Professional SMC Analyzer initialized with enhanced features
+INFO:core.enhanced_ai_engine:Enhanced AI Engine initialized with OpenAI GPT-4o
+INFO:core.multi_timeframe_analyzer:🔍 Multi-Timeframe Analyzer initialized
+INFO:core.risk_manager:💰 Risk Manager initialized with capital protection features
+WARNING:core.signal_tracker:No database session provided, using in-memory tracking
+INFO:core.signal_tracker:📊 Signal Performance Tracker initialized
+INFO:core.alert_manager:✅ Alert rule added/updated: High Confidence Signals
+INFO:core.alert_manager:✅ Alert rule added/updated: SMC Structure Break
+INFO:core.alert_manager:✅ Alert rule added/updated: High Volume Alert
+INFO:core.alert_manager:✅ Alert rule added/updated: Funding Rate Overheat
+INFO:core.alert_manager:🔔 Enhanced Alert Manager initialized
+INFO:core.volume_profile_analyzer:📊 Volume Profile Analyzer initialized
+INFO:core.sharp_signal_engine:🎯 Sharp Signal Engine initialized with MTF, Risk Management, Performance Tracking & Alert System
+INFO:gpts_api_simple:✅ Sharp Signal Engine initialized with enhancements
+INFO:core.multi_timeframe_analyzer:🔍 Multi-Timeframe Analyzer initialized
+INFO:gpts_api_simple:✅ Multi-Timeframe Analyzer initialized
+INFO:core.risk_manager:💰 Risk Manager initialized with capital protection features
+INFO:gpts_api_simple:✅ Risk Manager initialized
+WARNING:core.signal_tracker:No database session provided, using in-memory tracking
+INFO:core.signal_tracker:📊 Signal Performance Tracker initialized
+INFO:gpts_api_simple:✅ Signal Performance Tracker initialized
+INFO:core.alert_manager:✅ Alert rule added/updated: High Confidence Signals
+INFO:core.alert_manager:✅ Alert rule added/updated: SMC Structure Break
+INFO:core.alert_manager:✅ Alert rule added/updated: High Volume Alert
+INFO:core.alert_manager:✅ Alert rule added/updated: Funding Rate Overheat
+INFO:core.alert_manager:🔔 Enhanced Alert Manager initialized
+INFO:gpts_api_simple:✅ Alert Manager initialized
+INFO:gpts_api_simple:🚀 GPTs API Blueprint initialized successfully
+INFO:main:✅ GPTs API blueprint registered
+ERROR:main:Failed to import State API: No module named 'services'
+INFO:main:✅ Self-Learning Signal Engine API registered
+WARNING:core.redis_manager:⚠️ Redis connection failed: Error 111 connecting to localhost:6379. Connection refused.. Using in-memory cache.
+INFO:core.api_auth_layer:🔑 API Authentication Layer initialized
+INFO:main:✅ Comprehensive Self-Improvement API registered
+2025-08-04 05:17:13.589862: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-08-04 05:17:13.593263: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-08-04 05:17:13.635507: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-08-04 05:17:13.635574: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-08-04 05:17:13.637618: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-08-04 05:17:13.646310: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2025-08-04 05:17:13.646546: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-08-04 05:17:16.357007: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+INFO:main:✅ ML Prediction Engine API registered
+ERROR:main:Failed to import News API: No module named 'aiohttp'
+INFO:api.performance_endpoints:✅ Performance tracking endpoints initialized
+INFO:main:✅ Performance Tracking API registered
+WARNING:main:⚠️ FLASK_SECRET_KEY not set - using generated key (set FLASK_SECRET_KEY for production)
+INFO:main:✅ Database configuration loaded
+WARNING:main:Database initialization failed: Table 'signal_history' is already defined for this MetaData instance.  Specify 'extend_existing=True' to redefine options and columns on an existing Table object.
+INFO:main:✅ Global error handlers initialized
+INFO:core.security_hardening:🔒 Security hardening applied to Flask app
+INFO:core.security_hardening:🔒 Security Hardening Engine initialized
+INFO:main:✅ Security hardening initialized
+INFO:main:✅ Critical fixes initialized - Enterprise-grade security & quality
+INFO:main:✅ GPTs API blueprint registered
+ERROR:main:Failed to import State API: No module named 'services'
+INFO:main:✅ Self-Learning Signal Engine API registered
+INFO:main:✅ Comprehensive Self-Improvement API registered
+INFO:main:✅ ML Prediction Engine API registered
+ERROR:main:Failed to import News API: No module named 'aiohttp'
+INFO:api.performance_endpoints:✅ Performance tracking endpoints initialized
+INFO:main:✅ Performance Tracking API registered
+/api/gpts/sinyal/tajam -> POST
+root@srv795356:~/crypto-analysis-dashboard# 

@@ -1,0 +1,168 @@
+#!/usr/bin/env python3
+"""
+GPTS Core-10 Endpoint Tester
+- Menguji 10 endpoint utama: health, status, ticker, orderbook, market-data, analysis,
+  sinyal/tajam, signal, smc-zones, smc-analysis
+- Output: ringkas di console + CSV ringkasan
+"""
+
+import sys, time, json, csv, requests
+from typing import Dict, Any, Tuple
+
+BASE_URL = "http://localhost:5000"   # ganti dengan alamat server kamu
+SYMBOL   = "SOL-USDT"
+TIMEOUT  = 25
+
+def ok(resp: requests.Response) -> bool:
+    return 200 <= resp.status_code < 300
+
+def jcut(obj: Any, n=320) -> str:
+    try:
+        s = json.dumps(obj, ensure_ascii=False)
+    except Exception:
+        s = str(obj)
+    return s[:n] + ("..." if len(s) > n else "")
+
+def try_get(url: str) -> Tuple[bool, int, Any, float]:
+    t0 = time.time()
+    r = requests.get(url, timeout=TIMEOUT)
+    dt = (time.time()-t0)*1000
+    try:
+        data = r.json()
+    except Exception:
+        data = r.text
+    return ok(r), r.status_code, data, dt
+
+def try_post(url: str, payload: Dict[str, Any]) -> Tuple[bool, int, Any, float]:
+    t0 = time.time()
+    r = requests.post(url, json=payload, timeout=TIMEOUT)
+    dt = (time.time()-t0)*1000
+    try:
+        data = r.json()
+    except Exception:
+        data = r.text
+    return ok(r), r.status_code, data, dt
+
+def print_line(idx: int, method: str, path: str, okk: bool, ms: float, code: int):
+    print(f"[{idx:02d}/10] {method:4} {path:<35} {'✅' if okk else '❌'} {ms:7.1f} ms  ({code})")
+
+def main():
+    base = BASE_URL.rstrip("/")
+    if len(sys.argv) > 1:
+        base = sys.argv[1].rstrip("/")
+
+    print("=== GPTS Core-10 Endpoint Tester ===")
+    print("Base     :", base)
+    print("Symbol   :", SYMBOL)
+    print("Timeout  :", TIMEOUT, "s\n")
+
+    results = []  # (idx, method, path, url, status, ok, ms, sample)
+    idx = 0
+
+    # 1) health
+    idx += 1
+    path = "/api/gpts/health"
+    url  = base + path
+    okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", path, okk, ms, code)
+    results.append((idx,"GET",path,url,code,okk,ms,jcut(data)))
+
+    # 2) status
+    idx += 1
+    path = "/api/gpts/status"
+    url  = base + path
+    okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", path, okk, ms, code)
+    results.append((idx,"GET",path,url,code,okk,ms,jcut(data)))
+
+    # 3) ticker
+    idx += 1
+    path = f"/api/gpts/ticker/{SYMBOL}"
+    url  = base + path
+    okk, code, data, ms = try_get(url)
+    if not okk:
+        url = f"{base}/api/gpts/ticker?symbol={SYMBOL}"
+        okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", "/api/gpts/ticker", okk, ms, code)
+    results.append((idx,"GET","/api/gpts/ticker",url,code,okk,ms,jcut(data)))
+
+    # 4) orderbook
+    idx += 1
+    path = f"/api/gpts/orderbook/{SYMBOL}"
+    url  = base + path
+    okk, code, data, ms = try_get(url)
+    if not okk:
+        url = f"{base}/api/gpts/orderbook?symbol={SYMBOL}&depth=400"
+        okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", "/api/gpts/orderbook", okk, ms, code)
+    results.append((idx,"GET","/api/gpts/orderbook",url,code,okk,ms,jcut(data)))
+
+    # 5) market-data
+    idx += 1
+    path = "/api/gpts/market-data"
+    url  = base + path
+    payload = {"symbol": SYMBOL, "tf": "1h", "limit": 300}
+    okk, code, data, ms = try_post(url, payload)
+    print_line(idx, "POST", path, okk, ms, code)
+    results.append((idx,"POST",path,url,code,okk,ms,jcut(data)))
+
+    # 6) analysis
+    idx += 1
+    path = "/api/gpts/analysis"
+    url  = base + path
+    payload = {"symbol": SYMBOL, "tf": "4h"}
+    okk, code, data, ms = try_post(url, payload)
+    print_line(idx, "POST", path, okk, ms, code)
+    results.append((idx,"POST",path,url,code,okk,ms,jcut(data)))
+
+    # 7) sinyal/tajam
+    idx += 1
+    path = "/api/gpts/sinyal/tajam"
+    url  = f"{base}{path}?symbol={SYMBOL}&tf=1h&format=json"
+    okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", path, okk, ms, code)
+    results.append((idx,"GET",path,url,code,okk,ms,jcut(data)))
+
+    # 8) signal
+    idx += 1
+    path = "/api/gpts/signal"
+    url  = f"{base}{path}?symbol={SYMBOL}&tf=15m"
+    okk, code, data, ms = try_get(url)
+    print_line(idx, "GET", path, okk, ms, code)
+    results.append((idx,"GET",path,url,code,okk,ms,jcut(data)))
+
+    # 9) smc-zones
+    idx += 1
+    path = "/api/gpts/smc-zones"
+    url  = base + path
+    payload = {"symbol": SYMBOL, "tfs": ["5m","15m","1h"]}
+    okk, code, data, ms = try_post(url, payload)
+    print_line(idx, "POST", path, okk, ms, code)
+    results.append((idx,"POST",path,url,code,okk,ms,jcut(data)))
+
+    # 10) smc-analysis
+    idx += 1
+    path = "/api/gpts/smc-analysis"
+    url  = base + path
+    payload = {"symbol": SYMBOL, "tfs": ["1m","5m","15m","1h"],
+               "features": ["BOS","CHOCH","OB","FVG","LIQ_SWEEP"]}
+    okk, code, data, ms = try_post(url, payload)
+    print_line(idx, "POST", path, okk, ms, code)
+    results.append((idx,"POST",path,url,code,okk,ms,jcut(data)))
+
+    # summary
+    passed = sum(1 for r in results if r[5])
+    failed = len(results) - passed
+    print("\n=== SUMMARY ===")
+    print(f"Total tested: {len(results)} | Passed: {passed} | Failed: {failed}")
+
+    csv_path = "gpts_core10_report.csv"
+    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["idx","method","path","url","status_code","ok","latency_ms","sample"])
+        for row in results:
+            w.writerow(row)
+    print(f"CSV saved: {csv_path}")
+
+if __name__ == "__main__":
+    main()

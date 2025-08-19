@@ -1,0 +1,53 @@
+🔍 VPS COMPREHENSIVE ENDPOINT TEST
+===================================
+
+1. CORE PLATFORM ENDPOINTS:
+=============================
+Testing Main Platform:
+{"endpoints":{"gpts_api":"/api/gpts/","health":"/health","status":"/api/gpts/status"},"focus":"GPTs integration and Telegram notifications","message":"Cryptocurrency GPTs & Telegram Bot API","version":"1.0.0"}
+
+Testing Health Check:
+{"focus":"GPTs_and_Telegram_only","services":{"core_systems":"operational","gpts_api":"active","telegram_bot":"active"},"status":"healthy"}
+
+Testing GPTs Status:
+{"api_version":"1.0.0","endpoints":["/api/gpts/sinyal/tajam","/api/gpts/status"],"gpts_compatible":true,"server_time":"2025-08-04T06:31:42.875488","service_status":"OPERATIONAL"}
+
+2. TRADING SIGNAL ENDPOINTS:
+=============================
+Testing Sharp Signal (Default):
+{"api_version":"1.0.0","data_source":"OKX_AUTHENTICATED_SMC_WITH_XAI","gpts_compatible":true,"market_analysis":{"current_price":90985.21,"sma_20":92858.56,"sma_50":92919.17,"symbol":"BTCUSDT","timeframe":"1H","trend":"SELL"},"server_time":"2025-08-04T06:31:42.887203","signal":{"action":"SELL","ai_adjustment":0,"ai_reasoning":"- **Bias Utama**: SELL; analisis menunjukkan momentum bearish.\n- **Entry Point**: Optimal entry di sekitar $90,985.21\n- **Risk Management**: Gunakan stop loss ketat untuk mengelola risiko.","confidence":72,"entry_price":90985.21}}
+
+Testing Sharp Signal (JSON format):
+✅ JSON Format: N/A
+Signal: SELL
+Confidence: 72
+
+Testing Sharp Signal (Narrative format):
+✅ Narrative Format: N/A
+
+3. PERFORMANCE ENDPOINTS:
+=========================
+Testing Performance Stats:
+✅ Status: success
+Total Trades: 0
+Win Rate: 0.00%
+
+4. OTHER ENDPOINTS:
+===================
+Testing Performance Metrics:
+{"api_version":"1.0.0","available_endpoints":["/api/gpts/signal","/api/gpts/sinyal/tajam","/api/gpts/narrative","/api/gpts/chart","/api/gpts/status"],"error":"NOT_FOUND","error_code":404,"message":"Endpoint not found","timestamp":"2025-08-04T06:31:42.970060"}
+
+Testing Signal History:
+{"api_version":"1.0.0","available_endpoints":["/api/gpts/signal","/api/gpts/sinyal/tajam","/api/gpts/narrative","/api/gpts/chart","/api/gpts/status"],"error":"NOT_FOUND","error_code":404,"message":"Endpoint not found","timestamp":"2025-08-04T06:31:42.979891"}
+
+Testing News Analysis:
+{"api_version":"1.0.0","available_endpoints":["/api/gpts/signal","/api/gpts/sinyal/tajam","/api/gpts/narrative","/api/gpts/chart","/api/gpts/status"],"error":"NOT_FOUND","error_code":404,"message":"Endpoint not found","timestamp":"2025-08-04T06:31:42.988258"}
+
+Testing AI Prediction:
+{"api_version":"1.0.0","available_endpoints":["/api/gpts/signal","/api/gpts/sinyal/tajam","/api/gpts/narrative","/api/gpts/chart","/api/gpts/status"],"error":"NOT_FOUND","error_code":404,"message":"Endpoint not found","timestamp":"2025-08-04T06:31:42.996946"}
+
+
+===================================
+✅ VPS COMPREHENSIVE TEST COMPLETED
+===================================
+root@srv795356:~/crypto-analysis-dashboard# 

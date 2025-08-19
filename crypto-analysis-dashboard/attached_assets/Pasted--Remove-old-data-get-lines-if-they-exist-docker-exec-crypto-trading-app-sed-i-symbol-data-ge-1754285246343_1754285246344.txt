@@ -1,0 +1,26 @@
+# Remove old data.get lines if they exist
+docker exec crypto_trading_app sed -i '/symbol = data\.get.*symbol.*BTC-USDT/d' /app/gpts_api_simple.py
+docker exec crypto_trading_app sed -i '/timeframe = data\.get.*timeframe.*1h/d' /app/gpts_api_simple.py
+
+# Verify fix
+docker exec crypto_trading_app grep -A 15 "def post_sharp_signal" /app/gpts_api_simple.py
+
+# Restart container 
+docker restart crypto_trading_app
+
+# Wait and test
+sleep 25
+echo "Testing GET method:"
+curl "http://localhost:5050/api/gpts/sinyal/tajam?symbol=BTCUSDT&timeframe=1H"
+
+echo -e "\nTesting POST method:"
+curl -X POST "http://localhost:5050/api/gpts/sinyal/tajam" \
+  -H "Content-Type: application/json" \
+  -d '{"symbol": "BTCUSDT", "timeframe": "1H"}'
+crypto_trading_app
+Testing GET method:
+{"api_version":"1.0.0","error":"HTTP_405","error_code":405,"message":"The method is not allowed for the requested URL.","timestamp":"2025-08-04T05:26:52.870740"}
+
+Testing POST method:
+{"api_version":"1.0.0","data_source":"OKX_AUTHENTICATED_SMC_WITH_XAI","server_time":"2025-08-04T05:26:58.776710","signal":{"action":"NEUTRAL","ai_adjustment":0,"ai_reasoning":"- **Bias Utama**: Neutral; harga saat ini berada di tengah-tengah range, tanpa indikasi kuat dari pembeli atau penjual.\n- **Reasoning**: Volume delta menunjukkan aktivitas yang seimbang; orderbook tidak menunjukkan tekanan beli/jual yang signifikan; RSI mendekati 50, menandakan momentum netral.\n- **Entry Point Optimal**: Tunggu konfirmasi breakout di atas $115,000 atau breakdown di bawah $113,500 untuk entry lebih aman.\n- **Stop Loss dan Take Profit**: Stop loss ketat di sekitar $500 dari entry;","confidence":60.6,"confidence_emoji":"\u26a0\ufe0f","confidence_level":"LOW","current_price":114284.4,"entry_price":114284.4,"indicators_triggered":"\u2022 Order Blocks: 6 Active","mtf_analysis":{"confluence_details":"Strong bullish confluence (2/3 timeframes)","confluence_score":74.5,"recommendation":{"action":"BUY","confidence":79.5,"divergence":null,"optimal_entry":{"suggested_zone":{"resistance":115016.0,"support":113577.4},"wait_for_pullback":false},"reasoning":"Strong bullish confluence (2/3 timeframes)"},"timeframe_alignment":{"15M":{"momentum":"NEUTRAL","price_vs_sma20":0.02,"price_vs_sma50":0.51,"resistance":115016.0,"rsi":56.87,"support":113577.4,"timeframe":"15M","trend":"BULLISH","trend_strength":85},"1H":{"momentum":"NEUTRAL","price_vs_sma20":0.02,"price_vs_sma50":0.51,"resistance":115016.0,"rsi":56.87,"support":113577.4,"timeframe":"1H","trend":"BULLISH","trend_strength":85},"4H":{"momentum":"NEUTRAL","price_vs_sma20":0.26,"price_vs_sma50":-1.89,"resistance":116063.2,"rsi":59.35,"support":111903.1,"timeframe":"4H","trend":"NEUTRAL","trend_strength":50}}},"raw_score":60.6,"risk_level":"MEDIUM","risk_reward_ratio":1.5000000000000098,"smc_analysis":{"bos_count":0,"choch_count":0,"derivatives_data":{"funding_rate":null,"open_interest":null},"fvg_count":0,"market_structure":"neutral","order_blocks":6,"smc_indicators":["Order Blocks: 6 Active"]},"stop_loss":113531.91428571429,"symbol":"BTC-USDT","take_profit_1":115413.12857142856,"take_profit_2":116165.61428571427,"timeframe":"1H","timestamp":"2025-08-04T05:26:58.776613","volume_profile":{"imbalance":null,"insights":{"price_position":"BELOW_VALUE","risk_level":"MODERATE","support_resistance":[{"level":118322.269,"strength":"STRONG","type":"RESISTANCE"},{"level":118005.273,"strength":"STRONG","type":"RESISTANCE"},{"level":118163.771,"strength":"STRONG","type":"RESISTANCE"},{"level":111982.349,"strength":"MODERATE","type":"BREAKOUT_LEVEL"},{"level":119748.751,"strength":"MODERATE","type":"BREAKOUT_LEVEL"}],"trade_recommendation":"Look for bounce from value area low for short entries"},"poc":{"price":118322.269,"strength":"STRONG","volume":1711.55},"skew":null,"value_area":{"vah":null,"val":null,"volume_percentage":null}},"xai_explanation":{"confidence":60.65,"decision":"NEUTRAL","explanation":"Signal: NEUTRAL dengan confidence 60.6%","risk_level":"MEDIUM","top_factors":[]}}}
+root@srv795356:~/crypto-analysis-dashboard# 

@@ -1,0 +1,48 @@
+root@srv795356:~/crypto-analysis-dashboard# docker ps
+docker-compose -f docker-compose-vps.yml logs --tail=20
+CONTAINER ID   IMAGE                                  COMMAND                  CREATED          STATUS                    PORTS                                                                      NAMES
+09ec49f2731e   nginx:alpine                           "/docker-entrypoint.…"   44 seconds ago   Up 43 seconds             0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   crypto_nginx
+d76fe916eeb3   crypto-analysis-dashboard-crypto-app   "./start-production.…"   44 seconds ago   Up 44 seconds (healthy)   0.0.0.0:5050->5000/tcp, [::]:5050->5000/tcp                                crypto_trading_app
+6a0cf18c246b   postgres:16-alpine                     "docker-entrypoint.s…"   45 seconds ago   Up 44 seconds             0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                  crypto_postgres
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+crypto_trading_app  | ERROR:main:Failed to import GPTs API: No module named 'pandas'
+crypto_trading_app  | ERROR:main:Failed to import State API: No module named 'api'
+crypto_trading_app  | ERROR:main:Failed to import Self-Learning API: No module named 'pandas'
+crypto_trading_app  | ERROR:main:Failed to import Improvement API: No module named 'jwt'
+crypto_trading_app  | ERROR:main:Failed to import ML Prediction API: No module named 'jwt'
+crypto_trading_app  | ERROR:main:Failed to import News API: No module named 'api'
+crypto_trading_app  | ERROR:main:Failed to import Performance API: No module named 'api'
+crypto_trading_app  | INFO:wsgi_production:🚀 Production mode activated - GPTs & Telegram Bot API
+crypto_trading_app  | INFO:wsgi_production:🔍 Performing startup health checks...
+crypto_trading_app  | WARNING:wsgi_production:Database connection issue: connection to server at "postgres" (172.19.0.2), port 5432 failed: FATAL:  password authentication failed for user "crypto_user"
+crypto_trading_app  | 
+crypto_trading_app  | INFO:wsgi_production:API Keys Status: {'OKX_API_KEY': True, 'OPENAI_API_KEY': True, 'DATABASE_URL': True}
+crypto_trading_app  | INFO:wsgi_production:✅ GPTs & Telegram Bot API ready for production
+crypto_trading_app  | [2025-08-04 03:43:17 +0000] [1] [INFO] Starting gunicorn 21.2.0
+crypto_trading_app  | [2025-08-04 03:43:17 +0000] [1] [INFO] Listening at: http://0.0.0.0:5000 (1)
+crypto_trading_app  | [2025-08-04 03:43:17 +0000] [1] [INFO] Using worker: sync
+crypto_trading_app  | [2025-08-04 03:43:17 +0000] [13] [INFO] Booting worker with pid: 13
+crypto_trading_app  | [2025-08-04 03:43:17 +0000] [14] [INFO] Booting worker with pid: 14
+crypto_trading_app  | 127.0.0.1 - - [04/Aug/2025:03:43:19 +0000] "GET /health HTTP/1.1" 200 140 "-" "curl/7.88.1"
+crypto_trading_app  | 127.0.0.1 - - [04/Aug/2025:03:43:49 +0000] "GET /health HTTP/1.1" 200 140 "-" "curl/7.88.1"
+crypto_nginx        | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+crypto_nginx        | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+crypto_nginx        | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+crypto_nginx        | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+crypto_nginx        | 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+crypto_nginx        | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+crypto_nginx        | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+crypto_nginx        | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+crypto_nginx        | /docker-entrypoint.sh: Configuration complete; ready for start up
+crypto_postgres     | 
+crypto_postgres     | PostgreSQL Database directory appears to contain a database; Skipping initialization
+crypto_postgres     | 
+crypto_postgres     | 2025-08-04 03:43:14.356 UTC [1] LOG:  starting PostgreSQL 16.9 on x86_64-pc-linux-musl, compiled by gcc (Alpine 14.2.0) 14.2.0, 64-bit
+crypto_postgres     | 2025-08-04 03:43:14.356 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+crypto_postgres     | 2025-08-04 03:43:14.356 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+crypto_postgres     | 2025-08-04 03:43:14.362 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+crypto_postgres     | 2025-08-04 03:43:14.366 UTC [29] LOG:  database system was shut down at 2025-08-04 03:43:13 UTC
+crypto_postgres     | 2025-08-04 03:43:14.372 UTC [1] LOG:  database system is ready to accept connections
+crypto_postgres     | 2025-08-04 03:43:17.659 UTC [33] FATAL:  password authentication failed for user "crypto_user"
+crypto_postgres     | 2025-08-04 03:43:17.659 UTC [33] DETAIL:  Connection matched file "/var/lib/postgresql/data/pg_hba.conf" line 128: "host all all all scram-sha-256"
+root@srv795356:~/crypto-analysis-dashboard# 
