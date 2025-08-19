@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """
-Enhanced Reasoning Engine - AI Reasoning dengan Akurasi Tinggi
-Sistem reasoning yang jelas, tidak halusinasi, dan berdasarkan data faktual
+Enhanced Reasoning Engine (Hybrid) - Production-hardened
+Combines clean architecture with enterprise-grade robustness:
+- Safe JSON serialization with proper Enum handling
+- Comprehensive indicator validation & bounds checking  
+- Thread-safe operations with RLock & deque ring buffer
+- Compact AI context preparation for optimal token usage
+- Multi-layer error handling with detailed tracking
+- Enhanced retry logic with exponential backoff
 """
 
 import logging
@@ -40,16 +46,16 @@ class ReasoningResult:
     timestamp: float
     
     def to_dict(self) -> Dict[str, Any]:
-        """Convert to dictionary with proper JSON serialization"""
+        """JSON-serializable dictionary with safe Enum & timestamp conversion"""
         return {
-            'conclusion': self.conclusion,
-            'confidence': self.confidence.value,  # Enum to string
-            'confidence_score': self.confidence_score,
-            'evidence': self.evidence,
-            'data_sources': self.data_sources,
-            'reasoning_chain': self.reasoning_chain,
-            'uncertainty_factors': self.uncertainty_factors,
-            'timestamp': datetime.fromtimestamp(self.timestamp).isoformat()  # Timestamp to ISO
+            "conclusion": self.conclusion,
+            "confidence": self.confidence.value if isinstance(self.confidence, ReasoningConfidence) else str(self.confidence),
+            "confidence_score": float(self.confidence_score),
+            "evidence": list(self.evidence or []),
+            "data_sources": list(self.data_sources or []),
+            "reasoning_chain": list(self.reasoning_chain or []),
+            "uncertainty_factors": list(self.uncertainty_factors or []),
+            "timestamp": datetime.utcfromtimestamp(self.timestamp).isoformat() + "Z",
         }
 
 # TypedDict for better type safety
@@ -149,25 +155,25 @@ class EnhancedReasoningEngine:
     Fokus pada accuracy, clarity, dan menghindari halusinasi
     """
     
-    def __init__(self):
+    def __init__(self, history_size: int = 100):
+        # Fact validator for data integrity
         self.fact_validator = FactValidator()
         
-        # Thread-safe reasoning history using deque and lock
+        # Thread-safe reasoning history using deque ring buffer
         self._history_lock = threading.RLock()
-        self.reasoning_history = deque(maxlen=100)  # Ring buffer with max 100 entries
+        self.reasoning_history = deque(maxlen=max(10, history_size))
+        self.confidence_threshold = 50.0
         
-        self.confidence_threshold = 50.0  # Minimum confidence untuk actionable signals
-        
-        # OpenAI client dengan improved retry logic
+        # OpenAI client with robust initialization
         self.openai_client = None
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if openai_api_key:
+        api_key = os.getenv("OPENAI_API_KEY")
+        if api_key:
             try:
                 from openai import OpenAI
                 self.openai_client = OpenAI(
-                    api_key=openai_api_key,
+                    api_key=api_key,
                     timeout=30.0,
-                    max_retries=3  # Increased retries dengan exponential backoff
+                    max_retries=3
                 )
                 logger.info("🧠 Enhanced Reasoning Engine initialized with OpenAI support")
             except ImportError:
@@ -219,71 +225,60 @@ class EnhancedReasoningEngine:
             logger.error(f"Error in market analysis: {e}")
             return self._create_error_result(str(e))
     
-    def _validate_market_data(self, market_factors: MarketFactors) -> Dict[str, Any]:
-        """Validate market data untuk prevent halusinasi"""
-        errors = []
+    def _validate_market_data(self, mf: MarketFactors) -> Dict[str, Any]:
+        """Hybrid validation: comprehensive but efficient (combines both approaches)"""
+        errors: List[str] = []
         
-        # Validate price data
-        if market_factors.price_data:
-            price_valid, price_errors = self.fact_validator.validate_price_data(
-                market_factors.price_data
-            )
-            if not price_valid:
-                errors.extend(price_errors)
-        else:
-            errors.append("Price data is required")
+        # Core price validation (essential fields)
+        price = mf.price_data or {}
+        for field in ("open", "high", "low", "close", "volume"):
+            if field not in price:
+                errors.append(f"Missing price field: {field}")
+                continue
+            value = price[field]
+            if not isinstance(value, (int, float)) or (field != "volume" and value < 0) or (field == "volume" and value < 0):
+                errors.append(f"Invalid {field}: {value}")
+
+        # Price relationship validation (OHLC logic)
+        if all(k in price for k in ("open", "high", "low", "close")):
+            if price["high"] < max(price["open"], price["close"]):
+                errors.append("High cannot be < max(Open, Close)")
+            if price["low"] > min(price["open"], price["close"]):
+                errors.append("Low cannot be > min(Open, Close)")
+            if price["high"] < price["low"]:
+                errors.append("High cannot be < Low")
+
+        # Enhanced indicator validation with bounds checking
+        indicators = mf.technical_indicators or {}
+        current_price = float(price.get("close", 1.0))
         
-        # Enhanced validation untuk technical indicators
-        if market_factors.technical_indicators:
-            current_price = market_factors.price_data.get('close', 1) if market_factors.price_data else 1
+        for k, v in indicators.items():
+            if not isinstance(v, (int, float)):
+                errors.append(f"Indicator {k} not numeric: {v}")
+                continue
             
-            for indicator, value in market_factors.technical_indicators.items():
-                indicator_lower = indicator.lower()
-                
-                # Oscillators (0-100 range)
-                if indicator_lower in ['rsi', 'stoch', 'williams_r']:
-                    if not isinstance(value, (int, float)) or value < 0 or value > 100:
-                        errors.append(f"Invalid {indicator} value: {value} (should be 0-100)")
-                
-                # Moving averages - should be reasonable relative to price
-                elif indicator_lower in ['ema', 'sma', 'ema_20', 'sma_50', 'sma_200']:
-                    if not isinstance(value, (int, float)):
-                        errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
-                    elif value <= 0:
-                        errors.append(f"Invalid {indicator} value: {value} (should be positive)")
-                    elif abs(value - current_price) > current_price * 10:  # More than 10x price difference
-                        errors.append(f"Suspicious {indicator} value: {value} (too far from current price {current_price})")
-                
-                # MACD - should be reasonable relative to price
-                elif indicator_lower in ['macd', 'macd_signal', 'macd_histogram']:
-                    if not isinstance(value, (int, float)):
-                        errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
-                    elif abs(value) > current_price * 0.5:  # MACD shouldn't be > 50% of price
-                        errors.append(f"Suspicious {indicator} value: {value} (magnitude too large relative to price {current_price})")
-                
-                # Bollinger Bands
-                elif indicator_lower in ['bb_upper', 'bb_lower', 'bb_middle']:
-                    if not isinstance(value, (int, float)) or value <= 0:
-                        errors.append(f"Invalid {indicator} value: {value} (should be positive)")
-                    elif abs(value - current_price) > current_price * 2:  # More than 2x price difference
-                        errors.append(f"Suspicious {indicator} value: {value} (too far from current price {current_price})")
-                
-                # Volume indicators
-                elif indicator_lower in ['volume_sma', 'volume_ema']:
-                    if not isinstance(value, (int, float)) or value < 0:
-                        errors.append(f"Invalid {indicator} value: {value} (should be non-negative)")
-                
-                # Generic numeric validation for other indicators
-                elif not isinstance(value, (int, float)):
-                    errors.append(f"Invalid {indicator} value: {value} (should be numeric)")
-                elif math.isnan(value) or math.isinf(value):
-                    errors.append(f"Invalid {indicator} value: {value} (NaN or Infinity)")
-        
-        return {
-            'valid': len(errors) == 0,
-            'errors': errors,
-            'data_quality_score': max(0, 100 - len(errors) * 10)
-        }
+            # Oscillator bounds (0-100)
+            if k.lower() in ("rsi", "stoch", "williams_r"):
+                if not (0 <= v <= 100):
+                    errors.append(f"{k} out of bounds: {v} (should be 0-100)")
+            
+            # Moving averages relative to price
+            elif k.lower() in ("ema_50", "ema_200", "sma_20", "sma_50", "sma_200"):
+                if v <= 0:
+                    errors.append(f"{k} should be positive: {v}")
+                elif abs(v - current_price) > current_price * 10:
+                    errors.append(f"{k} too far from price: {v} vs {current_price}")
+            
+            # MACD magnitude check
+            elif k.lower() in ("macd", "macd_signal", "macd_histogram"):
+                if abs(v) > current_price * 0.5:
+                    errors.append(f"{k} magnitude too large: {v} (vs price {current_price})")
+            
+            # NaN/Infinity check
+            if math.isnan(v) or math.isinf(v):
+                errors.append(f"{k} is NaN/Infinity: {v}")
+
+        return {"valid": len(errors) == 0, "errors": errors}
     
     def _extract_factual_evidence(self, market_factors: MarketFactors) -> List[str]:
         """Extract factual evidence dari market data"""
@@ -868,6 +863,109 @@ Provide JSON response:
             'openai_available': self.openai_client is not None,
             'confidence_threshold': self.confidence_threshold
         }
+
+    # ===============================
+    # Compact Helper Methods (From User's Implementation)
+    # ===============================
+    
+    def _prepare_ai_context_compact(self, mf: MarketFactors, evidence: List[str], 
+                                   symbol: str, timeframe: str) -> Dict[str, Any]:
+        """Compact context preparation for optimal token usage"""
+        def subset(d: Dict[str, Any], keep: Tuple[str, ...]) -> Dict[str, Any]:
+            return {k: d.get(k) for k in keep if isinstance(d, dict) and k in d}
+
+        price = subset(mf.price_data or {}, ("open", "high", "low", "close", "volume"))
+        ind = {k: (mf.technical_indicators or {}).get(k) for k in ("rsi", "macd", "ema_50", "ema_200", "sma_20", "sma_50") if k in (mf.technical_indicators or {})}
+
+        smc = {}
+        if isinstance(mf.smc_analysis, dict):
+            for k in ("trend", "structure", "key_levels"):
+                if k in mf.smc_analysis:
+                    smc[k] = mf.smc_analysis[k]
+
+        return {
+            "symbol": symbol,
+            "timeframe": timeframe,
+            "price": price,
+            "indicators": ind,
+            "smc": smc,
+            "evidence": evidence[:12],
+        }
+    
+    def _call_openai_safe(self, messages: List[Dict[str, str]], max_attempts: int = 3):
+        """Safe OpenAI calls with exponential backoff"""
+        if not self.openai_client:
+            return None
+        delay = 0.6
+        for attempt in range(1, max_attempts + 1):
+            try:
+                return self.openai_client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=messages,
+                    max_tokens=600,  # Compact token usage
+                    temperature=0.1,
+                    response_format={"type": "json_object"},
+                    timeout=20.0,
+                )
+            except Exception as e:
+                logger.warning(f"OpenAI attempt {attempt} failed: {e}")
+                time.sleep(delay)
+                delay *= 1.7
+        return None
+    
+    def _validate_ai_response_hybrid(self, ai: Dict[str, Any]) -> Dict[str, Any]:
+        """Hybrid validation combining comprehensive checks with user's simplicity"""
+        out = {
+            "conclusion": "NEUTRAL",
+            "confidence": 50.0,
+            "supporting_factors": [],
+            "uncertainty_factors": [],
+            "summary_indonesian": "Analisis terbatas karena data terbatas.",
+            "validation_passed": False,
+        }
+        try:
+            # Conclusion validation
+            conc = str(ai.get("conclusion", "NEUTRAL")).upper().strip()
+            if conc not in {"BUY", "SELL", "NEUTRAL"}:
+                conc = "NEUTRAL"
+            out["conclusion"] = conc
+
+            # Confidence with clamping
+            conf = float(ai.get("confidence", 50.0))
+            out["confidence"] = max(0.0, min(100.0, conf))
+
+            # Supporting factors validation
+            s = ai.get("supporting_factors", [])
+            u = ai.get("uncertainty_factors", [])
+            if isinstance(s, list):
+                out["supporting_factors"] = [str(x) for x in s][:10]
+            if isinstance(u, list):
+                out["uncertainty_factors"] = [str(x) for x in u][:10]
+
+            # Summary validation
+            summ = ai.get("summary_indonesian") or ai.get("summary") or ""
+            out["summary_indonesian"] = str(summ)[:800] if summ else out["summary_indonesian"]
+
+            out["validation_passed"] = True
+        except Exception as e:
+            logger.warning(f"AI response normalization failed: {e}")
+        return out
+    
+    def _confidence_bucket(self, score: float) -> ReasoningConfidence:
+        """Convert numeric score to confidence bucket"""
+        s = float(score)
+        if s >= 85: return ReasoningConfidence.VERY_HIGH
+        if s >= 70: return ReasoningConfidence.HIGH
+        if s >= 55: return ReasoningConfidence.MEDIUM
+        if s >= 40: return ReasoningConfidence.LOW
+        return ReasoningConfidence.VERY_LOW
+    
+    def _clamp(self, x: float, lo: float, hi: float) -> float:
+        """Safe value clamping"""
+        try:
+            return max(lo, min(hi, float(x)))
+        except Exception:
+            return lo
 
 # Global instance
 enhanced_reasoning_engine = EnhancedReasoningEngine()
