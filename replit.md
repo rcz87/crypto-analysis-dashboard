@@ -26,6 +26,14 @@ Preferred communication style: Simple, everyday language.
 - **Error Response Helper**: Centralized error response formatting with metadata and CORS headers
 - **Data Validation Integration**: Added minimum bars validation to prevent calculation errors
 
+### Parameter & Data Quality Improvements (Completed)
+- **Symbol Normalization**: Created normalize_symbol() function handling BTCUSDT → BTC-USDT, BTC/USDT → BTC-USDT formats
+- **Parameter Consistency**: Standardized to 'timeframe' parameter (with 'tf' backward compatibility) across all endpoints
+- **OHLCV Data Validation**: Added validate_ohlcv_data() with pd.to_numeric coercion and NaN detection
+- **Security Headers**: Added X-Content-Type-Options: nosniff, Cache-Control: no-store to all responses
+- **Payload Limits**: Set 1MB maximum payload size for enhanced security
+- **Sensitive Data Protection**: Added secret redaction in error logs to prevent token/key exposure
+
 ## System Architecture
 
 ### Backend Architecture

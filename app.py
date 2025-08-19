@@ -16,6 +16,19 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1) # needed for url_for to generate with https
 
+# 🔒 SECURITY CONFIGURATION
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 1MB max payload
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', app.secret_key)
+
+# Add security headers to all responses
+@app.after_request 
+def add_security_headers(response):
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
+
 # configure the database, relative to the app instance folder
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {

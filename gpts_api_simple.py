@@ -9,6 +9,8 @@ import os
 import platform
 import logging
 import pandas as pd
+import numpy as np
+import re
 from datetime import datetime
 from flask import Flask, Blueprint, request, jsonify
 from flask_cors import cross_origin, CORS
@@ -28,6 +30,106 @@ mtf_analyzer = None
 risk_manager = None
 signal_tracker = None
 alert_manager = None
+
+# ============================================================================
+# UTILITY FUNCTIONS - SYMBOL NORMALIZATION & DATA VALIDATION
+# ============================================================================
+
+def normalize_symbol(symbol):
+    """
+    Normalize trading symbol to standard format (BTC-USDT)
+    
+    Handles various input formats:
+    - BTCUSDT -> BTC-USDT
+    - BTC/USDT -> BTC-USDT
+    - btc-usdt -> BTC-USDT
+    """
+    if not symbol:
+        return "BTC-USDT"  # Default fallback
+    
+    # Convert to uppercase and remove spaces
+    symbol = str(symbol).upper().strip()
+    
+    # If already in correct format, return as-is
+    if re.match(r'^[A-Z]{2,10}-[A-Z]{2,10}$', symbol):
+        return symbol
+    
+    # Handle slash format (BTC/USDT -> BTC-USDT)
+    if '/' in symbol:
+        parts = symbol.split('/')
+        if len(parts) == 2 and all(len(part) >= 2 for part in parts):
+            return '-'.join(parts)
+        else:
+            logger.warning(f"Invalid slash format: {symbol}")
+            return symbol.replace('/', '-')
+    
+    # Handle concatenated format (BTCUSDT -> BTC-USDT)
+    # Common trading pairs
+    common_quotes = ['USDT', 'USDC', 'BTC', 'ETH', 'USD', 'EUR']
+    
+    for quote in common_quotes:
+        if symbol.endswith(quote) and len(symbol) > len(quote):
+            base = symbol[:-len(quote)]
+            if len(base) >= 2:  # Valid base currency
+                return f"{base}-{quote}"
+    
+    # If no pattern matches, assume it's already correct or return as-is
+    logger.warning(f"Could not normalize symbol: {symbol}, returning as-is")
+    return symbol
+
+def validate_ohlcv_data(df):
+    """
+    Validate and coerce OHLCV data to proper types
+    
+    Returns:
+        tuple: (is_valid, error_message, cleaned_df)
+    """
+    if df is None or df.empty:
+        return False, "Empty dataframe", None
+    
+    # Required OHLCV columns
+    required_cols = ["open", "high", "low", "close", "volume"]
+    
+    # Check if required columns exist
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        return False, f"Missing columns: {missing_cols}", None
+    
+    # Create a copy to avoid modifying original
+    df_clean = df.copy()
+    
+    try:
+        # Coerce to numeric, invalid parsing will become NaN
+        df_clean[required_cols] = df_clean[required_cols].apply(pd.to_numeric, errors="coerce")
+        
+        # Check for any NaN values after coercion
+        if df_clean[required_cols].isna().any().any():
+            nan_summary = df_clean[required_cols].isna().sum()
+            return False, f"Invalid numeric data detected: {nan_summary.to_dict()}", None
+        
+        # Additional validation: ensure OHLC relationships are logical
+        invalid_ohlc = (
+            (df_clean['high'] < df_clean['low']) | 
+            (df_clean['open'] < 0) | 
+            (df_clean['volume'] < 0)
+        )
+        
+        if invalid_ohlc.any():
+            invalid_count = invalid_ohlc.sum()
+            return False, f"Invalid OHLC relationships in {invalid_count} rows", None
+        
+        return True, "Data validation passed", df_clean
+        
+    except Exception as e:
+        return False, f"Data validation error: {str(e)}", None
+
+def add_security_headers(response):
+    """Add security headers to response"""
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 # Create blueprint (defined only once)
 gpts_simple = Blueprint('gpts_simple', __name__, url_prefix='/api/gpts')
@@ -58,6 +160,19 @@ def create_app():
 
     # Create Flask app
     app = Flask(__name__)
+    
+    # 🔒 SECURITY CONFIGURATION
+    app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 1MB max payload
+    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-only')
+    
+    # Add security headers to all responses
+    @app.after_request 
+    def add_security_headers_to_response(response):
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
 
     # 🔒 CORS SECURITY FIX: Implementasi whitelist domain
     allowed_origins = [
@@ -543,7 +658,11 @@ def error_response(status_code, message, details=None, error_type=None):
     }
     
     if details:
-        error_data["details"] = details
+        # Ensure sensitive information is not logged in details
+        if isinstance(details, str) and any(keyword in details.lower() for keyword in ['key', 'token', 'secret', 'password']):
+            error_data["details"] = "Sensitive information redacted"
+        else:
+            error_data["details"] = details
     
     # Add request context for debugging (if request context available)
     try:
@@ -557,7 +676,8 @@ def error_response(status_code, message, details=None, error_type=None):
         # No request context available (outside request context)
         pass
     
-    return add_cors_headers(jsonify(error_data)), status_code
+    response = add_cors_headers(jsonify(error_data))
+    return add_security_headers(response), status_code
 # ============================================================================
 # CORE GPTs ENDPOINTS
 # ============================================================================
@@ -601,16 +721,24 @@ def get_api_status():
 def get_trading_signal():
     """Main trading signal endpoint for GPTs"""
     try:
-        # Handle both GET and POST requests
+        # Handle both GET and POST requests with standardized parameters
         if request.method == 'GET':
             symbol = request.args.get('symbol', 'BTCUSDT')
-            timeframe = request.args.get('tf', '1H')
+            # Support both 'timeframe' and 'tf' for backward compatibility
+            timeframe = request.args.get('timeframe') or request.args.get('tf', '1H')
             confidence_threshold = float(request.args.get('confidence', 0.75))
         else:
             data = request.get_json() or {}
             symbol = data.get('symbol', 'BTCUSDT')
             timeframe = data.get('timeframe', '1H')
             confidence_threshold = float(data.get('confidence_threshold', 0.75))
+        
+        # 🔧 SYMBOL NORMALIZATION: Consistent symbol format
+        # Handle URL-encoded slashes (BTC%2FUSDT -> BTC/USDT)
+        import urllib.parse
+        symbol = urllib.parse.unquote(symbol)
+        symbol = normalize_symbol(symbol)
+        logger.info(f"GPTs signal request: {symbol} {timeframe} (normalized)")
 
         # 🔧 ENHANCED INPUT VALIDATION with fallback
         if system_enhancements_available:
@@ -636,22 +764,21 @@ def get_trading_signal():
         # Initialize services
         initialize_core_services()
 
-        # Convert symbol format for OKX
-        if '/' in symbol:
-            okx_symbol = symbol.replace('/', '-')
-        elif symbol.endswith('USDT') and '-' not in symbol:
-            base = symbol.replace('USDT', '')
-            okx_symbol = f"{base}-USDT"
-        else:
-            okx_symbol = symbol
-
         if not okx_fetcher:
             return error_response(503, "Market data service unavailable")
 
-        # Get market data with validation
-        df = okx_fetcher.get_candles(okx_symbol, timeframe, limit=100)
+        # Get market data with validation (symbol already normalized)
+        df = okx_fetcher.get_candles(symbol, timeframe, limit=100)
         if df is None or df.empty:
             return error_response(404, "Market data not available", f"Symbol: {symbol}")
+        
+        # 🔧 OHLCV DATA VALIDATION: Ensure data quality and proper types
+        is_valid, validation_message, df_clean = validate_ohlcv_data(df)
+        if not is_valid:
+            return error_response(422, "Data quality validation failed", validation_message)
+        
+        # Use cleaned dataframe
+        df = df_clean
         
         # Minimum bars validation to prevent NaN errors
         is_valid, validation_message = validate_minimum_bars(df, min_bars=60)
@@ -1044,8 +1171,15 @@ def get_chart_data():
     """Chart data endpoint for trading view integration"""
     try:
         symbol = request.args.get('symbol', 'BTC-USDT')
-        timeframe = request.args.get('tf', '1H')
+        # Support both 'timeframe' and 'tf' for backward compatibility
+        timeframe = request.args.get('timeframe') or request.args.get('tf', '1H')
         limit = int(request.args.get('limit', 100))
+        
+        # 🔧 SYMBOL NORMALIZATION
+        # Handle URL-encoded slashes
+        import urllib.parse
+        symbol = urllib.parse.unquote(symbol)
+        symbol = normalize_symbol(symbol)
 
         logger.info(f"Chart data request: {symbol} {timeframe}")
 
@@ -1054,18 +1188,25 @@ def get_chart_data():
         if not okx_fetcher:
             return error_response(503, "Chart data service unavailable")
 
-        # Get candlestick data
+        # Get candlestick data with validation
         df = okx_fetcher.get_candles(symbol, timeframe, limit=limit)
         if df is None or df.empty:
-            return add_cors_headers(jsonify({
-                "error": "Chart data not available",
-        if df is None or df.empty:
             return error_response(404, "Chart data not available", f"Symbol: {symbol}")
+        
+        # 🔧 OHLCV DATA VALIDATION: Ensure data quality and proper types
+        is_valid, validation_message, df_clean = validate_ohlcv_data(df)
+        if not is_valid:
+            return error_response(422, "Chart data quality validation failed", validation_message)
+        
+        # Use cleaned dataframe
+        df = df_clean
         
         # Add minimum bars validation for chart data
         is_valid, validation_message = validate_minimum_bars(df, min_bars=20)
         if not is_valid:
             return error_response(400, validation_message, f"Available: {len(df)} bars")
+        
+        # Format for trading view
         chart_data = []
         for _, row in df.iterrows():
             chart_data.append({
@@ -1089,7 +1230,6 @@ def get_chart_data():
 
     except Exception as e:
         logger.error(f"Chart data error: {e}")
-        return add_cors_headers(jsonify({
         return error_response(500, "Chart data retrieval failed", str(e))
 # DUPLICATE ENDPOINT REMOVED - Combined with first /signal definition
 

@@ -1,6 +1,10 @@
 # gpts_routes.py - Production Ready for VPS Hostinger
 from flask import Blueprint, jsonify, request
 import os
+import pandas as pd
+import numpy as np
+import re
+import urllib.parse
 from sqlalchemy import create_engine, text
 import logging
 from core.okx_fetcher import OKXFetcher
@@ -20,13 +24,53 @@ okx_fetcher = OKXFetcher()
 # Helper functions
 ALLOWED_TFS = {"1m","3m","5m","15m","30m","1H","2H","4H","6H","12H","1D","2D","3D","1W","1M","3M"}
 
-def normalize_symbol(sym: str) -> str:
-    s = (sym or "").upper()
-    if "-" in s:
-        return s
-    if s.endswith("USDT"):
-        return s.replace("USDT", "-USDT")
-    return f"{s}-USDT"
+def normalize_symbol(symbol):
+    """
+    Enhanced symbol normalization handling multiple formats
+    
+    Handles:
+    - BTCUSDT -> BTC-USDT  
+    - BTC/USDT -> BTC-USDT
+    - btc-usdt -> BTC-USDT
+    - URL-encoded slashes: BTC%2FUSDT -> BTC-USDT
+    """
+    import re
+    import urllib.parse
+    
+    if not symbol:
+        return "BTC-USDT"  # Default fallback
+    
+    # Handle URL-encoded slashes first
+    symbol = urllib.parse.unquote(str(symbol))
+    
+    # Convert to uppercase and remove spaces
+    symbol = symbol.upper().strip()
+    
+    # If already in correct format, return as-is
+    if re.match(r'^[A-Z]{2,10}-[A-Z]{2,10}$', symbol):
+        return symbol
+    
+    # Handle slash format (BTC/USDT -> BTC-USDT)
+    if '/' in symbol:
+        parts = symbol.split('/')
+        if len(parts) == 2 and all(len(part) >= 2 for part in parts):
+            return '-'.join(parts)
+        else:
+            logger.warning(f"Invalid slash format: {symbol}")
+            return symbol.replace('/', '-')
+    
+    # Handle concatenated format (BTCUSDT -> BTC-USDT)
+    common_quotes = ['USDT', 'USDC', 'BTC', 'ETH', 'USD', 'EUR']
+    
+    for quote in common_quotes:
+        if symbol.endswith(quote) and len(symbol) > len(quote):
+            base = symbol[:-len(quote)]
+            if len(base) >= 2:  # Valid base currency
+                return f"{base}-{quote}"
+    
+    # If no pattern matches, return as-is
+    logger.warning(f"Could not normalize symbol: {symbol}, returning as-is")
+    return symbol
 
 def normalize_timeframe(tf):
     """Normalize timeframe format to match ALLOWED_TFS"""
@@ -56,6 +100,97 @@ def normalize_timeframe(tf):
 def validate_tf(tf: str) -> bool:
     normalized = normalize_timeframe(tf)
     return normalized in ALLOWED_TFS
+
+def validate_ohlcv_data(df):
+    """
+    Validate and coerce OHLCV data to proper types
+    
+    Returns:
+        tuple: (is_valid, error_message, cleaned_df)
+    """
+    if df is None or df.empty:
+        return False, "Empty dataframe", None
+    
+    # Required OHLCV columns
+    required_cols = ["open", "high", "low", "close", "volume"]
+    
+    # Check if required columns exist
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        return False, f"Missing columns: {missing_cols}", None
+    
+    # Create a copy to avoid modifying original
+    df_clean = df.copy()
+    
+    try:
+        # Coerce to numeric, invalid parsing will become NaN
+        df_clean[required_cols] = df_clean[required_cols].apply(pd.to_numeric, errors="coerce")
+        
+        # Check for any NaN values after coercion
+        if df_clean[required_cols].isna().any().any():
+            nan_summary = df_clean[required_cols].isna().sum()
+            return False, f"Invalid numeric data detected: {nan_summary.to_dict()}", None
+        
+        # Additional validation: ensure OHLC relationships are logical
+        invalid_ohlc = (
+            (df_clean['high'] < df_clean['low']) | 
+            (df_clean['open'] < 0) | 
+            (df_clean['volume'] < 0)
+        )
+        
+        if invalid_ohlc.any():
+            invalid_count = invalid_ohlc.sum()
+            return False, f"Invalid OHLC relationships in {invalid_count} rows", None
+        
+        return True, "Data validation passed", df_clean
+        
+    except Exception as e:
+        return False, f"Data validation error: {str(e)}", None
+
+def error_response(status_code, message, details=None, error_type=None):
+    """Enhanced error response with security headers"""
+    from datetime import datetime
+    
+    # Map status codes to error types
+    error_type_mapping = {
+        400: "BAD_REQUEST",
+        401: "UNAUTHORIZED", 
+        403: "FORBIDDEN",
+        404: "NOT_FOUND",
+        422: "VALIDATION_ERROR",
+        429: "RATE_LIMIT_EXCEEDED",
+        500: "INTERNAL_SERVER_ERROR",
+        503: "SERVICE_UNAVAILABLE"
+    }
+    
+    if error_type is None:
+        error_type = error_type_mapping.get(status_code, "UNKNOWN_ERROR")
+    
+    error_data = {
+        "error": error_type,
+        "message": message,
+        "status_code": status_code,
+        "api_version": "1.0.0",
+        "server_time": datetime.now().isoformat()
+    }
+    
+    if details:
+        # Ensure sensitive information is not logged in details
+        if isinstance(details, str) and any(keyword in details.lower() for keyword in ['key', 'token', 'secret', 'password']):
+            error_data["details"] = "Sensitive information redacted"
+        else:
+            error_data["details"] = details
+    
+    response = jsonify(error_data)
+    response.status_code = status_code
+    
+    # Add security headers
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, private'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    
+    return response
 
 @gpts_api.route('/status', methods=['GET'])
 def get_status():
