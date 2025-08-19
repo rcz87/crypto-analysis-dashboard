@@ -364,3 +364,13 @@ except ImportError as e:
     logger.warning(f"⚠️ Data Quality Enhancement blueprint not available: {e}")
 except Exception as e:
     logger.error(f"❌ Error registering Data Quality Enhancement blueprint: {e}")
+
+# Register Security Enhancement blueprint
+try:
+    from api.security_endpoints import security_bp
+    app.register_blueprint(security_bp)
+    logger.info("✅ Security Enhancement blueprint registered")
+except ImportError as e:
+    logger.warning(f"⚠️ Security Enhancement blueprint not available: {e}")
+except Exception as e:
+    logger.error(f"❌ Error registering Security Enhancement blueprint: {e}")
