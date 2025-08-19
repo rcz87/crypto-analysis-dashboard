@@ -96,3 +96,7 @@ Traceback (most recent call last):
     "additional": [op for op in operations if op not in sum([categories.get(cat, []) for cat in ["system", "trading_signals", "market_data", "smc_analysis", "backtest", "chart"]], [])]
                                                              ^^^^^^^^^^
 NameError: cannot access free variable 'categories' where it is not associated with a value in enclosing scope
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package

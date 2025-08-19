@@ -756,3 +756,24 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 08:48:20 - routes - INFO - <module>:331 - ✅ Signal top blueprint registered
 2025-08-19 08:48:20 - routes - INFO - <module>:335 - ✅ SMC pattern blueprint registered
 2025-08-19 08:48:20 - routes - INFO - <module>:339 - ✅ State API blueprint registered
+2025-08-19 08:52:08 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 08:52:08 - api.backtest_endpoints - INFO - run_strategy_backtest:72 - Starting backtest: RSI_MACD on BTC-USDT from 2025-07-20 to 2025-08-19
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_all_active_signals:190 - ✅ Generated 6 active signals
+2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_top_signal:102 - ✅ Top signal retrieved - Symbol: , TF: , Signal: BUY
+2025-08-19 08:52:08 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 08:52:08 - api.backtest_endpoints - INFO - run_strategy_backtest:72 - Starting backtest: RSI_MACD on BTC-USDT from 2025-07-20 to 2025-08-19
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:52:08 - api.chart_endpoints - INFO - chart_data:178 - 📊 Chart data request: BTCUSDT 1H
+2025-08-19 08:52:08 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 08:52:08 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 08:52:08 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=200 HTTP/1.1" 200 None
+2025-08-19 08:52:08 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 200 candles for BTC-USDT
+2025-08-19 08:52:08 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 08:52:08 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-19 08:52:08 - api.smc_pattern_endpoints - INFO - recognize_smc_patterns:115 - ✅ Pattern recognition completed for BTC-USDT: 0 patterns detected
+2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_all_active_signals:190 - ✅ Generated 6 active signals
+2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_top_signal:102 - ✅ Top signal retrieved - Symbol: , TF: , Signal: BUY
