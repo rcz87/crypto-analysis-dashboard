@@ -100,3 +100,11 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
 2025-08-19 08:52:08 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
 2025-08-19 08:52:08 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - live_smc_context:131 - Live SMC context error: attempted relative import beyond top-level package
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - alert_system_status:166 - Alert system status error: attempted relative import beyond top-level package
+2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_symbol:557 - Primary symbol error: 'NoneType' object has no attribute 'get'
+2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_timeframe:586 - Primary timeframe error: 'NoneType' object has no attribute 'get'

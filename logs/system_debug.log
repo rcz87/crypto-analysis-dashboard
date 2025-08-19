@@ -777,3 +777,182 @@ NameError: cannot access free variable 'categories' where it is not associated w
 2025-08-19 08:52:08 - api.smc_pattern_endpoints - INFO - recognize_smc_patterns:115 - ✅ Pattern recognition completed for BTC-USDT: 0 patterns detected
 2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_all_active_signals:190 - ✅ Generated 6 active signals
 2025-08-19 08:52:08 - api.signal_top_endpoints - INFO - get_top_signal:102 - ✅ Top signal retrieved - Symbol: , TF: , Signal: BUY
+2025-08-19 09:00:54 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 09:00:54 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 09:00:54 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-19 09:00:54 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-19 09:00:54 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-19 09:00:55 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-56cfd792-d278-486d-b9bc-c398206263f4', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-19 09:00:55 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-19 09:00:55 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-19 09:00:55 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f2350816b90>
+2025-08-19 09:00:55 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f2351974cb0> server_hostname='api.openai.com' timeout=15.0
+2025-08-19 09:00:55 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f2350816c50>
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Tue, 19 Aug 2025 09:00:55 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'549'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'571'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199996'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_03c77809a7264ccca5e9ebae8c7c879f'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=.7FiHpGSSfZkof.2NLW0oThQsnMExnDrooaU9of6R8w-1755594055-1.0.1.1-Y_xU1_aew_qaegjRUlr3m2_kcvYKV5WHl9g46ZK8TSywt2rfvVv7Vn7F9dSZ5Ng69HZy55nBpP0xPz9tdG3HwZKzZklatDOtanFm0PWQFyk; path=/; expires=Tue, 19-Aug-25 09:30:55 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=mUWwyUK9eTof9j.8Iov_wTB40.K5Q0E4PrT8LZ8nXOg-1755594055833-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'9718769ceff030b0-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-19 09:00:55 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-19 09:00:55 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-19 09:00:55 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Tue, 19 Aug 2025 09:00:55 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '549'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '571'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199996'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_03c77809a7264ccca5e9ebae8c7c879f'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=.7FiHpGSSfZkof.2NLW0oThQsnMExnDrooaU9of6R8w-1755594055-1.0.1.1-Y_xU1_aew_qaegjRUlr3m2_kcvYKV5WHl9g46ZK8TSywt2rfvVv7Vn7F9dSZ5Ng69HZy55nBpP0xPz9tdG3HwZKzZklatDOtanFm0PWQFyk; path=/; expires=Tue, 19-Aug-25 09:30:55 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=mUWwyUK9eTof9j.8Iov_wTB40.K5Q0E4PrT8LZ8nXOg-1755594055833-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '9718769ceff030b0-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-19 09:00:55 - openai._base_client - DEBUG - request:1021 - request_id: req_03c77809a7264ccca5e9ebae8c7c879f
+2025-08-19 09:00:57 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 09:00:57 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=50 HTTP/1.1" 200 None
+2025-08-19 09:00:57 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 50 candles for BTC-USDT
+2025-08-19 09:00:57 - core.okx_fetcher - DEBUG - get_historical_data:136 - Returning cached data for BTC-USDT
+2025-08-19 09:00:57 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 09:00:57 - api.backtest_endpoints - INFO - run_strategy_backtest:72 - Starting backtest: RSI_MACD on BTC-USDT from 2025-07-20 to 2025-08-19
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:57 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 09:00:57 - api.backtest_endpoints - INFO - run_strategy_backtest:72 - Starting backtest: RSI_MACD on BTC-USDT from 2025-07-20 to 2025-08-19
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:57 - core.backtesting_engine - INFO - __init__:24 - 📊 Backtesting Engine initialized
+2025-08-19 09:00:57 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 09:00:57 - api.chart_endpoints - INFO - chart_data:178 - 📊 Chart data request: BTCUSDT 1H
+2025-08-19 09:00:57 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 09:00:57 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 09:00:58 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=200 HTTP/1.1" 200 None
+2025-08-19 09:00:58 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 200 candles for BTC-USDT
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - live_smc_context:131 - Live SMC context error: attempted relative import beyond top-level package
+2025-08-19 09:00:58 - api.enhanced_gpts_endpoints - ERROR - alert_system_status:166 - Alert system status error: attempted relative import beyond top-level package
+2025-08-19 09:00:58 - api.signal_top_endpoints - INFO - get_all_active_signals:190 - ✅ Generated 6 active signals
+2025-08-19 09:00:58 - api.signal_top_endpoints - INFO - get_top_signal:102 - ✅ Top signal retrieved - Symbol: , TF: , Signal: BUY
+2025-08-19 09:00:58 - api.smc_pattern_endpoints - INFO - recognize_smc_patterns:115 - ✅ Pattern recognition completed for BTC-USDT: 0 patterns detected
+2025-08-19 09:00:58 - core.prompt_book_manager - INFO - __init__:17 - 📚 Prompt Book Manager initialized
+2025-08-19 09:00:58 - api.promptbook - INFO - get_promptbook:34 - 📚 Prompt Book accessed via dedicated blueprint
+2025-08-19 09:00:58 - core.crypto_news_analyzer - INFO - __init__:51 - 📰 Crypto News Analyzer initialized
+2025-08-19 09:00:58 - gpts_routes - INFO - get_sharp_signal:131 - Processing sharp signal request: BTC-USDT 1H
+2025-08-19 09:00:58 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 09:00:58 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 09:00:58 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-19 09:00:58 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-19 09:00:58 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-19 09:00:58 - core.signal_generator.SignalGenerator - INFO - generate_signal:55 - Generated BUY signal for BTC-USDT
+2025-08-19 09:00:58 - gpts_routes - INFO - get_sharp_signal:180 - Sharp signal generated successfully: BUY with 0.4 confidence
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-19 09:00:59 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-19 09:00:59 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-19 09:00:59 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/gpts/ticker/BTC-USDT HTTP/1.1" 200 248
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:00:59 - api.smc_zones_endpoints - INFO - get_smc_zones:101 - ✅ SMC Zones data retrieved for BTC-USDT (1H) - Filters: symbol=BTC-USDT, tf=1H
+2025-08-19 09:00:59 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/smc/zones?symbol=BTC-USDT&tf=1H HTTP/1.1" 200 488
+2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_symbol:557 - Primary symbol error: 'NoneType' object has no attribute 'get'
+2025-08-19 09:00:59 - api.smc_zones_endpoints - ERROR - _get_primary_timeframe:586 - Primary timeframe error: 'NoneType' object has no attribute 'get'
+2025-08-19 09:00:59 - api.smc_zones_endpoints - INFO - get_smc_zones:101 - ✅ SMC Zones data retrieved for UNKNOWN (UNKNOWN) - Filters: symbol=, tf=
+2025-08-19 09:01:04 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 09:01:04 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 09:01:04 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 09:01:04 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 09:01:04 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 09:01:04 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 09:01:04 - routes - INFO - <module>:254 - ✅ Promptbook blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:258 - ✅ Performance blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:262 - ✅ News API blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:266 - ✅ Missing GPTs endpoints registered
+2025-08-19 09:01:04 - routes - INFO - <module>:270 - ✅ SMC context blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:274 - ✅ Enhanced signals blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:278 - ✅ Institutional blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:282 - ✅ Webhook blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:286 - ✅ Sharp scoring blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:290 - ✅ Telegram blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:295 - ✅ Backtest API blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:299 - ✅ Chart blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:303 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:307 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:311 - ✅ Improvement blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:315 - ✅ Missing endpoints blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:319 - ✅ Modular blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:323 - ✅ Sharp signal blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:327 - ✅ Signal engine blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:331 - ✅ Signal top blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:335 - ✅ SMC pattern blueprint registered
+2025-08-19 09:01:04 - routes - INFO - <module>:339 - ✅ State API blueprint registered
+2025-08-19 09:01:05 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-19 09:01:05 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-19 09:01:10 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 09:01:10 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 09:01:10 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 09:01:10 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 09:01:10 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 09:01:10 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 09:01:10 - routes - INFO - <module>:254 - ✅ Promptbook blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:258 - ✅ Performance blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:262 - ✅ News API blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:266 - ✅ Missing GPTs endpoints registered
+2025-08-19 09:01:10 - routes - INFO - <module>:270 - ✅ SMC context blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:274 - ✅ Enhanced signals blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:278 - ✅ Institutional blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:282 - ✅ Webhook blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:286 - ✅ Sharp scoring blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:290 - ✅ Telegram blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:295 - ✅ Backtest API blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:299 - ✅ Chart blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:303 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:307 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:311 - ✅ Improvement blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:315 - ✅ Missing endpoints blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:319 - ✅ Modular blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:323 - ✅ Sharp signal blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:327 - ✅ Signal engine blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:331 - ✅ Signal top blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:335 - ✅ SMC pattern blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:339 - ✅ State API blueprint registered
+2025-08-19 09:01:10 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-19 09:01:10 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-19 09:01:10 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-19 09:01:10 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-19 09:01:10 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-19 09:01:10 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-19 09:01:10 - routes - INFO - <module>:254 - ✅ Promptbook blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:258 - ✅ Performance blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:262 - ✅ News API blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:266 - ✅ Missing GPTs endpoints registered
+2025-08-19 09:01:10 - routes - INFO - <module>:270 - ✅ SMC context blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:274 - ✅ Enhanced signals blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:278 - ✅ Institutional blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:282 - ✅ Webhook blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:286 - ✅ Sharp scoring blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:290 - ✅ Telegram blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:295 - ✅ Backtest API blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:299 - ✅ Chart blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:303 - ✅ Enhanced GPTs blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:307 - ✅ GPTs CoinGlass blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:311 - ✅ Improvement blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:315 - ✅ Missing endpoints blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:319 - ✅ Modular blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:323 - ✅ Sharp signal blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:327 - ✅ Signal engine blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:331 - ✅ Signal top blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:335 - ✅ SMC pattern blueprint registered
+2025-08-19 09:01:10 - routes - INFO - <module>:339 - ✅ State API blueprint registered
+2025-08-19 09:01:17 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 09:01:17 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:01:17 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-19 09:01:17 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-19 09:01:18 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:01:18 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:01:18 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/gpts/ticker/BTC-USDT HTTP/1.1" 200 248
+2025-08-19 09:01:18 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:01:18 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-19 09:01:18 - api.smc_zones_endpoints - INFO - get_smc_zones:101 - ✅ SMC Zones data retrieved for BTC-USDT (1H) - Filters: symbol=BTC-USDT, tf=1H
+2025-08-19 09:01:18 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/smc/zones?symbol=BTC-USDT&tf=1H HTTP/1.1" 200 488
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/ticker?instId=BTC-USDT HTTP/1.1" 200 None
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/gpts/ticker/BTC-USDT HTTP/1.1" 200 247
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _new_conn:241 - Starting new HTTP connection (1): localhost:5000
+2025-08-19 09:01:53 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-19 09:01:53 - api.smc_zones_endpoints - INFO - get_smc_zones:101 - ✅ SMC Zones data retrieved for BTC-USDT (1H) - Filters: symbol=BTC-USDT, tf=1H
+2025-08-19 09:01:53 - urllib3.connectionpool - DEBUG - _make_request:544 - http://localhost:5000 "GET /api/smc/zones?symbol=BTC-USDT&tf=1H HTTP/1.1" 200 488
