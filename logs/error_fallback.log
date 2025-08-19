@@ -64,3 +64,35 @@ IndentationError: unexpected indent
 2025-08-18 11:45:31 - config.keep_alive - ERROR - setup_keep_alive:117 - ❌ Keep-alive setup failed: 'Flask' object has no attribute 'before_first_request'
 2025-08-18 11:45:31 - core.telegram_bot - ERROR - start_bot:165 - Failed to start telegram bot: name 'Updater' is not defined
 2025-08-18 11:45:31 - config.keep_alive - ERROR - setup_keep_alive:117 - ❌ Keep-alive setup failed: 'Flask' object has no attribute 'before_first_request'
+2025-08-19 08:45:07 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:45:07 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 08:45:38 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:45:38 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:45:38 - core.backtesting_engine - ERROR - _get_historical_data:193 - Historical data fetch error: 'NoneType' object has no attribute 'get_candles'
+2025-08-19 08:45:38 - api.enhanced_gpts_endpoints - ERROR - enhanced_signal_analysis:70 - Enhanced signal analysis error: attempted relative import beyond top-level package
+2025-08-19 08:45:38 - api.enhanced_gpts_endpoints - ERROR - live_smc_context:131 - Live SMC context error: attempted relative import beyond top-level package
+2025-08-19 08:45:38 - api.enhanced_gpts_endpoints - ERROR - alert_system_status:166 - Alert system status error: attempted relative import beyond top-level package
+2025-08-19 08:47:53 - app - ERROR - log_exception:875 - Exception on /api/docs [GET]
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/gpts_openapi_ultra_complete.py", line 744, in api_docs
+    "additional": [op for op in operations if op not in sum([categories.get(cat, []) for cat in ["system", "trading_signals", "market_data", "smc_analysis", "backtest", "chart"]], [])]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/gpts_openapi_ultra_complete.py", line 744, in <listcomp>
+    "additional": [op for op in operations if op not in sum([categories.get(cat, []) for cat in ["system", "trading_signals", "market_data", "smc_analysis", "backtest", "chart"]], [])]
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/gpts_openapi_ultra_complete.py", line 744, in <listcomp>
+    "additional": [op for op in operations if op not in sum([categories.get(cat, []) for cat in ["system", "trading_signals", "market_data", "smc_analysis", "backtest", "chart"]], [])]
+                                                             ^^^^^^^^^^
+NameError: cannot access free variable 'categories' where it is not associated with a value in enclosing scope

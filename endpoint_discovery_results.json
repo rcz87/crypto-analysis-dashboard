@@ -1,0 +1,42 @@
+{
+  "available_endpoints": [
+    "GET /api/gpts/status",
+    "GET /api/gpts/signal",
+    "GET /api/gpts/market-data",
+    "GET /health",
+    "GET /api/backtest",
+    "POST /api/backtest",
+    "GET /api/backtest/strategies",
+    "GET /api/backtest/quick",
+    "GET /widget",
+    "GET /dashboard",
+    "GET /data",
+    "POST /api/gpts/sinyal/enhanced",
+    "GET /api/gpts/context/live",
+    "GET /api/gpts/alerts/status",
+    "GET /api/signal/top",
+    "POST /api/smc/patterns/recognize",
+    "GET /api/signals/history",
+    "GET /api/gpts/analysis/deep",
+    "GET /api/smc/orderblocks"
+  ],
+  "unavailable_endpoints": [
+    "POST /sharp",
+    "GET /sharp/status",
+    "POST /sharp/test",
+    "POST /analyze",
+    "GET /test",
+    "POST /api/signal/top/telegram",
+    "POST /track-signal",
+    "GET /signal-history",
+    "GET /liquidity-map",
+    "GET /liquidation-heatmap",
+    "GET /market-sentiment",
+    "POST /auto-tune",
+    "POST /retrain-model",
+    "GET /smc/analysis",
+    "GET /trend/analysis"
+  ],
+  "total_available": 19,
+  "total_unavailable": 15
+}
