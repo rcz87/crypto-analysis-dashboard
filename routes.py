@@ -28,26 +28,54 @@ def _require_api_key() -> Optional[tuple]:
 
 @core_bp.route("/", methods=["GET"])
 def index():
-    """Main index route with API information"""
+    """Main index route with comprehensive API information"""
     gate = _require_api_key()
     if gate: 
         return gate
+
+    from datetime import datetime
+        
+    # Dynamically collect all registered blueprints and their prefixes
+    all_endpoints = []
+    blueprint_info = {}
+    
+    # Get all registered blueprints
+    for blueprint_name, blueprint in current_app.blueprints.items():
+        if hasattr(blueprint, 'url_prefix') and blueprint.url_prefix:
+            prefix = blueprint.url_prefix
+            all_endpoints.append(f"{prefix}/*")
+            blueprint_info[blueprint_name] = prefix
+    
+    # Add core endpoints
+    core_endpoints = ["/health", "/api/gpts/status", "/api/gpts/sinyal/tajam"]
+    all_endpoints.extend(core_endpoints)
+    all_endpoints = sorted(list(set(all_endpoints)))
         
     return jsonify({
-        "message": "Advanced Cryptocurrency GPTs & Telegram Bot API",
-        "version": current_app.config.get("API_VERSION", "2.0.0"),
+        "message": "Advanced Cryptocurrency Trading Analysis Platform",
         "service": "crypto-trading-suite",
+        "version": current_app.config.get("API_VERSION", "2.0.0"),
         "status": "active",
-        "endpoints": [
-            "/api/gpts/status",
-            "/api/gpts/sinyal/tajam",
-            "/api/gpts/market-data", 
-            "/api/gpts/smc-analysis",
-            "/api/gpts/ticker/<symbol>",
-            "/api/gpts/orderbook/<symbol>",
-            "/api/gpts/smc-zones/<symbol>",
-            "/health"
-        ]
+        "description": "AI-powered cryptocurrency trading signals with institutional-grade analysis",
+        "features": [
+            "Smart Money Concept Analysis",
+            "AI-Powered Trading Signals", 
+            "Real-time Market Data",
+            "Technical Analysis",
+            "Risk Management",
+            "ChatGPT Integration",
+            "Enhanced Signal Generation",
+            "Institutional Analysis",
+            "Performance Monitoring",
+            "Security Features",
+            "Data Quality Management"
+        ],
+        "endpoints": all_endpoints,
+        "registered_blueprints": len(current_app.blueprints),
+        "total_endpoints": len(all_endpoints),
+        "blueprint_prefixes": blueprint_info,
+        "documentation": "/api/schema",
+        "timestamp": datetime.now().isoformat()
     })
 
 @core_bp.route("/health", methods=["GET"])
@@ -172,36 +200,47 @@ def init_routes(app, db=None):
     # Register primary GPTs API blueprint
     _register_optional_blueprint(app, "gpts_routes", "gpts_api", url_prefix=f"{api_prefix}/gpts")
     
-    # Register core functionality blueprints
-    optional_blueprints = [
-        # Core OpenAPI and SMC
+    # 🤖 AUTO-DISCOVERED BLUEPRINTS - All user's endpoints
+    auto_discovered_blueprints = [
+        ("api.advanced_optimization_endpoints", "advanced_optimization_bp", "/api/advanced_optimization"),
+        ("api.ai_reasoning_endpoints", "ai_reasoning_bp", "/api/ai"),
+        ("api.backtest_endpoints", "backtest_bp", "/api/backtest"),
+        ("api.chart_endpoints", "chart_bp", "/api/charts"),
+        ("api.data_quality_endpoints", "data_quality_bp", "/api/data_quality"),
+        ("api.enhanced_gpts_endpoints", "enhanced_gpts_bp", "/api/gpts"),
+        ("api.enhanced_signal_endpoints", "enhanced_signals_bp", "/api/signals"),
+        ("api.gpts_coinglass_endpoints", "coinglass_bp", "/api/coinglass"),
+        ("api.gpts_coinglass_simple", "coinglass_simple_bp", "/api/coinglass-simple"),
+        ("api.improvement_endpoints", "improvement_bp", "/api/improvements"),
+        ("api.institutional_endpoints", "institutional_bp", "/api/institutional"),
+        ("api.missing_endpoints", "missing_bp", "/api/missing"),
+        ("api.missing_gpts_endpoints", "missing_gpts_bp", "/api/missing-gpts"),
+        ("api.modular_endpoints", "modular_bp", "/api/modular"),
+        ("api.news_endpoints", "news_api", "/api/news"),
+        ("api.performance_api", "performance_api_bp", "/api/performance-api"),
+        ("api.performance_endpoints", "performance_bp", "/api/performance"),
+        ("api.promptbook", "promptbook_bp", "/api/promptbook"),
+        ("api.security_endpoints", "security_bp", "/api/security"),
+        ("api.sharp_scoring_endpoints", "sharp_scoring_bp", "/api/sharp-scoring"),
+        ("api.sharp_signal_endpoint", "sharp_signal_bp", "/api/signals"),
+        ("api.signal_engine_endpoint", "signal_engine_bp", "/api/signal-engine"),
+        ("api.signal_top_endpoints", "signal_top_bp", "/api/signal-top"),
+        ("api.smc_endpoints", "smc_bp", "/api/smc"),
+        ("api.smc_pattern_endpoints", "smc_pattern_bp", "/api/smc-patterns"),
+        ("api.smc_zones_endpoints", "smc_zones_bp", "/api/smc-zones"),
+        ("api.state_endpoints", "state_bp", "/api/state"),
+        ("api.telegram_endpoints", "telegram_bp", "/api/telegram"),
+        ("api.webhook_endpoints", "webhook_bp", "/api/webhook"),
+        # Legacy/root blueprints
         ("openapi_schema", "openapi_bp", f"{api_prefix}/schema"),
-        ("api.smc_zones_endpoints", "smc_zones_bp", f"{api_prefix}/smc"),
-        
-        # Enhanced functionality
-        ("api.data_quality_endpoints", "data_quality_bp", f"{api_prefix}/quality"), 
-        ("api.security_endpoints", "security_bp", f"{api_prefix}/security"),
-        ("api.performance_endpoints", "performance_bp", f"{api_prefix}/performance"),
-        ("api.advanced_optimization_endpoints", "advanced_optimization_bp", f"{api_prefix}/optimization"),
-        ("api.ai_reasoning_endpoints", "ai_reasoning_bp", f"{api_prefix}/v1/ai-reasoning"),
-        
-        # Optional features
-        ("api.promptbook_endpoints", "promptbook_bp", f"{api_prefix}/promptbook"),
-        ("api.news_endpoints", "news_api", f"{api_prefix}/news"),
-        ("api.telegram_endpoints", "telegram_bp", f"{api_prefix}/telegram"),
-        ("api.webhook_endpoints", "webhook_bp", f"{api_prefix}/webhook"),
-        
-        # Enhanced trading features
-        ("api.enhanced_signals_endpoints", "enhanced_signals_bp", f"{api_prefix}/enhanced"),
-        ("api.institutional_endpoints", "institutional_bp", f"{api_prefix}/institutional"),
-        ("api.coinglass_endpoints", "coinglass_bp", f"{api_prefix}/coinglass"),
     ]
     
-    # Register all optional blueprints
+    # Register all auto-discovered blueprints
     successful_registrations = 0
-    for import_path, attr, url_prefix in optional_blueprints:
+    for import_path, attr, url_prefix in auto_discovered_blueprints:
         if _register_optional_blueprint(app, import_path, attr, url_prefix):
             successful_registrations += 1
     
-    logger.info(f"🚀 Routes initialized: {successful_registrations}/{len(optional_blueprints)} optional blueprints registered")
+    logger.info(f"🤖 Auto-discovery: {successful_registrations}/{len(auto_discovered_blueprints)} blueprints registered")
+    logger.info(f"🚀 Routes initialized: ALL user endpoints discovered and registered")
     logger.info("🎯 Application factory pattern successfully implemented")

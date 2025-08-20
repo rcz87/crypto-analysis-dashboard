@@ -16007,3 +16007,293 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-19 17:02:06 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
 2025-08-19 17:02:06 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
 2025-08-19 17:02:06 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:17 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:17 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:17 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:17 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:17 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:17 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:17 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:17 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:17 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:17 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:17 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:17 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:17 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:17 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:17 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:17 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:17 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:17 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:17 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:17 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:17 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:17 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:17 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:17 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:17 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:17 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:17 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:17 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:17 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:17 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:17 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:17 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:17 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:17 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:17 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:17 - routes - INFO - init_routes:216 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:17 - routes - INFO - init_routes:217 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:17 - routes - INFO - init_routes:218 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:17 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:17 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:17 - routes - INFO - init_routes:216 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:17 - routes - INFO - init_routes:217 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:17 - routes - INFO - init_routes:218 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:17 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:26 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:26 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:26 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:26 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:26 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:26 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:26 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:26 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:26 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:26 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:26 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:26 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:26 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:26 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:26 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:26 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:26 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:26 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:26 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:26 - routes - INFO - init_routes:216 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:26 - routes - INFO - init_routes:217 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:26 - routes - INFO - init_routes:218 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:26 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:32 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:32 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:32 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:32 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:33 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:33 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:33 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:33 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:33 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:33 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:33 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:33 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:33 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:33 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:33 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:33 - routes - INFO - init_routes:216 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:33 - routes - INFO - init_routes:217 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:33 - routes - INFO - init_routes:218 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:33 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:33 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:33 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:33 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:33 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:33 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:33 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:33 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:33 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:33 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:33 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:33 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:33 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:33 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:33 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:33 - routes - INFO - _register_optional_blueprint:138 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:33 - routes - ERROR - _register_optional_blueprint:144 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:33 - routes - INFO - init_routes:216 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:33 - routes - INFO - init_routes:217 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:33 - routes - INFO - init_routes:218 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:33 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:50 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:50 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:50 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:50 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:50 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:50 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:50 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:50 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:50 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:50 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:50 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:50 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:50 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:50 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:50 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:50 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:50 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:50 - routes - INFO - init_routes:244 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:50 - routes - INFO - init_routes:245 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:50 - routes - INFO - init_routes:246 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:50 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:50 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:33:50 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:33:50 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/modular)
+2025-08-20 00:33:50 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:50 - core.redis_manager - WARNING - __init__:29 - ⚠️ Redis connection failed: Error 99 connecting to localhost:6379. Cannot assign requested address.. Using in-memory cache.
+2025-08-20 00:33:50 - core.api_auth_layer - INFO - __init__:61 - 🔑 API Authentication Layer initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: news_api (prefix=/api/news)
+2025-08-20 00:33:50 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:33:50 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.performance_api.performance_api_bp: module 'api.performance_api' has no attribute 'performance_api_bp'
+2025-08-20 00:33:50 - api.performance_endpoints - INFO - <module>:527 - 🚀 Performance Optimization API endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_optimization (prefix=/api/performance)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:33:50 - core.security_manager - WARNING - __init__:81 - Redis not available for security features: Error 99 connecting to localhost:6379. Cannot assign requested address.
+2025-08-20 00:33:50 - core.security_manager - INFO - __init__:135 - 🔒 Security Manager initialized with comprehensive protection
+2025-08-20 00:33:50 - core.security_manager - INFO - <module>:627 - 🔒 Security Manager module initialized
+2025-08-20 00:33:50 - api.security_endpoints - INFO - <module>:601 - 🔒 Security Enhancement API endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: security (prefix=/api/security)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: sharp_scoring (prefix=/api/sharp-scoring)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: sharp_signal_bp (prefix=/api/signals)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.signal_engine_endpoint.signal_engine_bp: module 'api.signal_engine_endpoint' has no attribute 'signal_engine_bp'
+2025-08-20 00:33:50 - api.signal_top_endpoints - INFO - <module>:968 - 🏆 Top Signal Endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: signal_top (prefix=/api/signal-top)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.smc_endpoints.smc_bp: module 'api.smc_endpoints' has no attribute 'smc_bp'
+2025-08-20 00:33:50 - api.smc_pattern_endpoints - INFO - <module>:638 - 🎯 SMC Pattern Recognition Endpoint initialized
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
+2025-08-20 00:33:50 - api.smc_zones_endpoints - INFO - <module>:656 - 🔍 SMC Zones Endpoints initialized
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: smc_zones (prefix=/api/smc-zones)
+2025-08-20 00:33:50 - api.state_endpoints - INFO - <module>:498 - 🗄️ Stateful AI Signal Engine API endpoints initialized
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: telegram (prefix=/api/telegram)
+2025-08-20 00:33:50 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: webhooks (prefix=/api/webhook)
+2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:33:50 - routes - INFO - init_routes:244 - 🤖 Auto-discovery: 20/30 blueprints registered
+2025-08-20 00:33:50 - routes - INFO - init_routes:245 - 🚀 Routes initialized: ALL user endpoints discovered and registered
+2025-08-20 00:33:50 - routes - INFO - init_routes:246 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:33:50 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:33:59 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 00:33:59 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 00:33:59 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 00:33:59 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 00:33:59 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-20 00:33:59 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-a57f7c89-cb02-4f50-a737-8c9bb65da917', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-20 00:33:59 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-20 00:33:59 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-20 00:33:59 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f073239cf10>
+2025-08-20 00:33:59 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f0733bba450> server_hostname='api.openai.com' timeout=15.0
+2025-08-20 00:33:59 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f073239cfd0>
+2025-08-20 00:33:59 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-20 00:33:59 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-20 00:33:59 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-20 00:33:59 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-20 00:33:59 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 20 Aug 2025 00:34:00 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'569'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'653'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_6e88e0dc7d134810bdab170d63b25cdd'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=ZfifvLM87oA6cfdAaVOMAOmyErZRRDyW.Q.LfD2AAsY-1755650040-1.0.1.1-vSetskIK.PPAjkIHtRbZ9MicFJYeR5YFZvUQPgrCY4XssxDh2RmZjuTvOy8U9ACdQQS5ZDzjOCugKydYjQAVgz05Jp1F4I8dUHttVSHpKTk; path=/; expires=Wed, 20-Aug-25 01:04:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=wygTLv8QlzL2WRmWWhI5a901oewm7lvLygeBn0MirEU-1755650040853-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'971dcd6cbe5d27de-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-20 00:34:00 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-20 00:34:00 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 00:34:00 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '569'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '653'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_6e88e0dc7d134810bdab170d63b25cdd'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=ZfifvLM87oA6cfdAaVOMAOmyErZRRDyW.Q.LfD2AAsY-1755650040-1.0.1.1-vSetskIK.PPAjkIHtRbZ9MicFJYeR5YFZvUQPgrCY4XssxDh2RmZjuTvOy8U9ACdQQS5ZDzjOCugKydYjQAVgz05Jp1F4I8dUHttVSHpKTk; path=/; expires=Wed, 20-Aug-25 01:04:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=wygTLv8QlzL2WRmWWhI5a901oewm7lvLygeBn0MirEU-1755650040853-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '971dcd6cbe5d27de-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-20 00:34:00 - openai._base_client - DEBUG - request:1021 - request_id: req_6e88e0dc7d134810bdab170d63b25cdd
