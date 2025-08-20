@@ -55,16 +55,24 @@ class TestEndpointSmoke:
         url = f"{BASE_URL}{path}"
         
         try:
+            # Add API key header for protected endpoints
+            headers = {"Content-Type": "application/json"}
+            protected_paths = ['/api/gpts/status', '/api/gpts/sinyal/tajam', '/api/institutional', '/api/enhanced']
+            
+            if any(protected in path for protected in protected_paths):
+                api_key = os.environ.get('API_KEY', 'test-api-key')
+                headers['X-API-KEY'] = api_key
+            
             if method == "GET":
                 if data:  # Query parameters
-                    response = requests.get(url, params=data, timeout=TIMEOUT)
+                    response = requests.get(url, params=data, headers=headers, timeout=TIMEOUT)
                 else:
-                    response = requests.get(url, timeout=TIMEOUT)
+                    response = requests.get(url, headers=headers, timeout=TIMEOUT)
             elif method == "POST":
                 response = requests.post(
                     url, 
                     json=data or {}, 
-                    headers={"Content-Type": "application/json"},
+                    headers=headers,
                     timeout=TIMEOUT
                 )
             else:
@@ -94,15 +102,20 @@ class TestEndpointSmoke:
 
     def test_core_integration_workflow(self):
         """Test full workflow: OKX data → SMC analysis → Signal generation"""
+        # Add API key for protected endpoints
+        headers = {"Content-Type": "application/json"}
+        api_key = os.environ.get('API_KEY', 'test-api-key')
+        headers['X-API-KEY'] = api_key
+        
         # Test data fetch capability
-        response = requests.get(f"{BASE_URL}/api/gpts/status", timeout=TIMEOUT)
+        response = requests.get(f"{BASE_URL}/api/gpts/status", headers=headers, timeout=TIMEOUT)
         assert response.status_code == 200
         
         # Test signal generation workflow
         signal_response = requests.post(
             f"{BASE_URL}/api/gpts/sinyal/tajam",
             json={"symbol": "BTCUSDT", "timeframe": "1H"},
-            headers={"Content-Type": "application/json"},
+            headers=headers,
             timeout=TIMEOUT
         )
         assert signal_response.status_code == 200

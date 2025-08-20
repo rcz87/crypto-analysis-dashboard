@@ -13,17 +13,35 @@ def _require_api_key() -> Optional[tuple]:
     api_key_required = os.environ.get('API_KEY_REQUIRED', 'false').lower() == 'true'
     expected_key = os.environ.get("API_KEY")
     
-    if not api_key_required or not expected_key:
+    if not api_key_required:
         return None  # gate disabled
     
+    if not expected_key:
+        logger.warning("API_KEY environment variable not set but API_KEY_REQUIRED=true")
+        return jsonify({
+            "success": False,
+            "error": "CONFIGURATION_ERROR", 
+            "message": "API key validation not properly configured",
+            "status_code": 500
+        }), 500
+    
     provided_key = request.headers.get("X-API-KEY")
-    if provided_key != expected_key:
-        payload = {
-            "success": False, 
+    if not provided_key:
+        return jsonify({
+            "success": False,
             "error": "UNAUTHORIZED",
-            "message": "Valid API key required in X-API-KEY header"
-        }
-        return jsonify(payload), 401
+            "message": "API key required. Include X-API-KEY header.",
+            "status_code": 401
+        }), 401
+        
+    if provided_key != expected_key:
+        logger.warning(f"Invalid API key attempt from {request.remote_addr}")
+        return jsonify({
+            "success": False,
+            "error": "UNAUTHORIZED", 
+            "message": "Invalid API key provided",
+            "status_code": 401
+        }), 401
     return None
 
 @core_bp.route("/", methods=["GET"])
@@ -80,10 +98,9 @@ def index():
 
 @core_bp.route("/health", methods=["GET"])
 def health_check():
-    """Enhanced health check with component status determination"""
-    gate = _require_api_key()
-    if gate: 
-        return gate
+    """Enhanced health check with component status determination - NO API key required"""
+    # Health check should be accessible without API key for monitoring
+    # gate = _require_api_key()  # Commented out - health check exempt
 
     from datetime import datetime
     

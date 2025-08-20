@@ -1,0 +1,61 @@
+Halo Agent Replit 👋
+
+Tiga isu kritikal sudah BERES (schema 200 OK, no duplication, health DB healthy). Mohon lanjutkan FINAL POLISH agar environment benar-benar hardened & stabil di produksi:
+
+A) SECURITY & ACCESS
+1) Aktifkan gate produksi:
+   - Set `API_KEY_REQUIRED=true` dan `API_KEY` di Secrets.
+   - Verifikasi: request tanpa header `X-API-KEY` → 401 (UNAUTHORIZED).
+   - Pastikan `/` masih menampilkan ringkasan (registered_blueprints, endpoints) hanya jika authorized.
+   (Index route & gate key sudah ada dan mendukung ini.)  :contentReference[oaicite:0]{index=0}
+
+2) Rate limiting dasar:
+   - Pasang Flask-Limiter untuk seluruh prefix `/api/*` (mis. 60 req/menit per IP).
+   - Eksepsi internal/health jika dibutuhkan.
+
+B) HEALTH & OBSERVABILITY
+3) Health OKX tuning:
+   - Saat ini overall `degraded` meski DB healthy. Perbaiki `OKXFetcher.test_connection()` agar:
+     - status "connected" → “healthy”
+     - status rate-limited → “degraded”
+   - Target GET `/health` → 200 "healthy" di kondisi normal.
+   (Health DB `SELECT 1` & komposisi status sudah ada.)  :contentReference[oaicite:1]{index=1}
+
+4) Install psutil (DONE) + tambahkan logging JSON terstruktur (level INFO) untuk setiap request ke endpoint kritikal (signals, institutional, ai).
+
+C) BLUEPRINT & DOCS CONSISTENCY
+5) Kunci konsistensi blueprint:
+   - Capai kembali 32/32, identifikasi 1 blueprint yang belum terdaftar, lalu aktifkan.
+   - Gunakan stable registry yang sudah ada di `routes.init_routes()` (jangan ada pendaftaran ganda dari modul lain).  :contentReference[oaicite:2]{index=2}
+
+6) OpenAPI docs:
+   - `/api/schema` & `/api/schema/enhanced` sudah 200 OK → tambahkan isi minimal spec (title, version, 3–5 path nyata).
+   - Tambah test: GET keduanya harus 200 dan mengandung `openapi` or `status: ok`.
+
+D) TESTING & CI
+7) Naikkan coverage smoke test:
+   - Perbaiki 2 test yang gagal → target 100% PASS untuk 17/17.
+   - Jadikan smoke test Wajib-lulus sebelum deploy (pipeline Replit Deployments).
+
+E) DEPLOYMENT SETTINGS
+8) Gunicorn hardening:
+   - Worker class `gthread`, workers = (CPU*2)+1, threads 2–4, timeout 60s.
+   - Jalankan di port 5000 (sudah ok).
+   - Pastikan `ProxyFix` aktif untuk reverse proxy (sudah ada). :contentReference[oaicite:3]{index=3}
+
+9) Lock environment:
+   - `pip freeze > requirements.lock`
+   - Pin Python (3.11.x) di Replit config (replit.nix / deployment settings).
+
+F) RELIABILITY
+10) Self-check & alert:
+    - Cron/heartbeat: hit `/health` setiap 1 menit.
+    - Jika status ≠ healthy → kirim alert ke Telegram bot internal.
+
+Mohon kirim balik:
+- Output GET `/` (registered_blueprints kembali 32)
+- Output GET `/health` (healthy)
+- Output GET `/api/schema` & `/api/schema/enhanced` (200 OK)
+- Hasil `pytest -q` (100% pass)
+- Konfigurasi gunicorn final (cmd/Procfile)
+Terima kasih 🙏

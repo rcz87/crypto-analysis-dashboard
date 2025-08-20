@@ -4,6 +4,8 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -53,6 +55,37 @@ def create_app(config_name='development'):
     
     # Initialize extensions
     db.init_app(app)
+    
+    # 🚦 RATE LIMITING CONFIGURATION
+    # Handle environment variable mix-up (auto-correct if swapped)
+    env_rate_limit = os.environ.get('RATE_LIMIT_DEFAULT', '120/minute')
+    env_storage = os.environ.get('LIMITER_STORAGE_URI', 'memory://')
+    
+    # Auto-detect and correct if values were swapped
+    if env_rate_limit.startswith('memory://') and ('/' in env_storage and 'minute' in env_storage):
+        logger.info("🔄 Detected swapped rate limit environment variables, auto-correcting...")
+        rate_limit_default = env_storage  # Actually the rate limit
+        limiter_storage_uri = env_rate_limit  # Actually the storage URI
+    else:
+        rate_limit_default = env_rate_limit
+        limiter_storage_uri = env_storage
+    
+    # Initialize Flask-Limiter with proper configuration
+    try:
+        limiter = Limiter(
+            key_func=get_remote_address,
+            default_limits=[rate_limit_default],
+            storage_uri=limiter_storage_uri,
+            strategy="fixed-window"
+        )
+        
+        # Initialize with app
+        limiter.init_app(app)
+        
+        logger.info(f"🚦 Rate limiting configured: {rate_limit_default} via {limiter_storage_uri}")
+    except Exception as e:
+        logger.warning(f"Rate limiting failed to initialize: {e}. Continuing without rate limits.")
+        limiter = None
     
     # 🔒 Security Headers Middleware
     @app.after_request 

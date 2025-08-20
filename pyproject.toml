@@ -35,4 +35,5 @@ dependencies = [
     "cryptography>=45.0.6",
     "psutil>=7.0.0",
     "pytest>=8.4.1",
+    "flask-limiter>=3.12",
 ]

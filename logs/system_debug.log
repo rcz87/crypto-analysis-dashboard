@@ -20087,3 +20087,569 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-20 07:20:52 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
 2025-08-20 07:20:52 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
 2025-08-20 07:20:52 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:22:27 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:22:27 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: tuple (+2546 objects, 9.40/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: set (+1449 objects, 5.35/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: function (+2546 objects, 9.40/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: list (+1853 objects, 6.84/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: dict (+3453 objects, 12.74/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: function (+2545 objects, 9.39/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: dict (+3445 objects, 12.71/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: tuple (+2681 objects, 9.89/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: list (+1849 objects, 6.82/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: set (+1448 objects, 5.34/s)
+2025-08-20 07:24:57 - core.memory_optimizer - WARNING - _detect_memory_leaks:219 - 🚨 Potential memory leak detected: deque (+1356 objects, 5.00/s)
+2025-08-20 07:25:36 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:25:36 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:25:36 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:25:36 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:25:36 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:31:26 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:31:26 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:31:26 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:31:26 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:31:27 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:31:27 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:31:27 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:31:27 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:31:27 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:31:27 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:31:27 - routes - INFO - init_routes:294 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:31:27 - routes - INFO - init_routes:295 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:31:27 - routes - INFO - init_routes:296 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:31:27 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:31:29 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:31:29 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:31:29 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:31:29 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:31:34 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:31:34 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:31:34 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:31:34 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:31:34 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:31:34 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:31:34 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:31:34 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:31:34 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:31:34 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:31:34 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:31:34 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:31:34 - routes - INFO - init_routes:294 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:31:34 - routes - INFO - init_routes:295 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:31:34 - routes - INFO - init_routes:296 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:31:34 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:31:35 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:31:35 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:31:35 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:31:35 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:31:35 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:31:35 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:31:35 - routes - INFO - init_routes:294 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:31:35 - routes - INFO - init_routes:295 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:31:35 - routes - INFO - init_routes:296 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:31:35 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:31:46 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:31:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:31:46 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:31:46 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:31:47 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:31:47 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:31:47 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:31:47 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:31:47 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:31:47 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:31:47 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:31:47 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:31:47 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:31:47 - routes - INFO - init_routes:294 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:31:47 - routes - INFO - init_routes:295 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:31:47 - routes - INFO - init_routes:296 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:31:47 - app - INFO - create_app:117 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:31:48 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:31:48 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:31:48 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:31:48 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:31:48 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:31:48 - routes - INFO - _register_optional_blueprint:199 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:31:48 - routes - INFO - init_routes:294 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:31:48 - routes - INFO - init_routes:295 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:31:48 - routes - INFO - init_routes:296 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:31:48 - app - INFO - create_app:117 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:33:06 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:33:06 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:33:06 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:33:06 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:33:06 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:33:06 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:33:06 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:33:06 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:33:07 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:33:07 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:33:07 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:33:07 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:33:07 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:33:07 - routes - INFO - init_routes:312 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:33:07 - routes - INFO - init_routes:313 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:33:07 - routes - INFO - init_routes:314 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:33:07 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:33:07 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:33:07 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:33:07 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:33:07 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:33:07 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:33:07 - routes - INFO - _register_optional_blueprint:217 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:33:07 - routes - INFO - init_routes:312 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:33:07 - routes - INFO - init_routes:313 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:33:07 - routes - INFO - init_routes:314 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:33:07 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:33:17 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:33:17 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:33:17 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:33:17 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:33:17 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-20 07:33:18 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-1c365e9b-4f50-452a-bddf-6a14ac615836', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-20 07:33:18 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-20 07:33:18 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-20 07:33:18 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de4504790>
+2025-08-20 07:33:18 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f1de5d04e60> server_hostname='api.openai.com' timeout=15.0
+2025-08-20 07:33:18 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de4504850>
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 20 Aug 2025 07:33:18 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'309'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'374'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_888582e4ba274f6494e0ef7ed17b41df'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=3lKP4QWAQ46syiHx8VOSLWeQsj4_7PNXThCTob1gJjQ-1755675198-1.0.1.1-s9xMl.a.McgBnfNUntK43lAT_qEMOnuFktR9z3ka5_zv9WmLBf4jGpmrpCKwl7UVRKRXfq.LZUV3zy8IWuAnRouUoJ0Rxzqf3Jfo.XtoSvI; path=/; expires=Wed, 20-Aug-25 08:03:18 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=.CX29bDtIlIRoZqKnuxd5gcj0IsqNS1kjdEyOmSv6Is-1755675198624-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'972033a3ca03a366-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-20 07:33:18 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-20 07:33:18 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-20 07:33:18 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 07:33:18 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '309'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '374'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_888582e4ba274f6494e0ef7ed17b41df'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=3lKP4QWAQ46syiHx8VOSLWeQsj4_7PNXThCTob1gJjQ-1755675198-1.0.1.1-s9xMl.a.McgBnfNUntK43lAT_qEMOnuFktR9z3ka5_zv9WmLBf4jGpmrpCKwl7UVRKRXfq.LZUV3zy8IWuAnRouUoJ0Rxzqf3Jfo.XtoSvI; path=/; expires=Wed, 20-Aug-25 08:03:18 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=.CX29bDtIlIRoZqKnuxd5gcj0IsqNS1kjdEyOmSv6Is-1755675198624-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '972033a3ca03a366-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-20 07:33:18 - openai._base_client - DEBUG - request:1021 - request_id: req_888582e4ba274f6494e0ef7ed17b41df
+2025-08-20 07:33:22 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:33:22 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:33:22 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:33:22 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:33:22 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-20 07:33:22 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-c707a9b7-0e99-497f-8a0d-8aac9d0a86bc', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-20 07:33:22 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-20 07:33:22 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-20 07:33:22 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de5d6df50>
+2025-08-20 07:33:22 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f1de5d04ef0> server_hostname='api.openai.com' timeout=15.0
+2025-08-20 07:33:22 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de45050d0>
+2025-08-20 07:33:22 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:22 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-20 07:33:22 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-20 07:33:22 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-20 07:33:22 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:23 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 20 Aug 2025 07:33:23 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'300'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'385'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9998'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'12.802s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_c15a8dcae69c40b38d0911eaaf14e4e1'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=yaorBxYWvz.JDw6Z8zYyLEJ_jJaqEwUnaqzsIo2mGHI-1755675203-1.0.1.1-ENTOJhFks1xkGdgTcTf6pfbKYBnfcu83PROtdScO.VtdTmfZhEgzZhCP.Lo4xVCuw5sob4NiPrkRL.P9KJbd4NuPQg5cTYn.OcCsSl6P.60; path=/; expires=Wed, 20-Aug-25 08:03:23 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=Lo2kYPUdOKuBpiyzv12PIn43ejb8S8LhyJFr.oI9nss-1755675203118-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'972033c09d22c39b-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-20 07:33:23 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-20 07:33:23 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-20 07:33:23 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-20 07:33:23 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-20 07:33:23 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-20 07:33:23 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 07:33:23 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '300'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '385'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9998'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '12.802s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_c15a8dcae69c40b38d0911eaaf14e4e1'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=yaorBxYWvz.JDw6Z8zYyLEJ_jJaqEwUnaqzsIo2mGHI-1755675203-1.0.1.1-ENTOJhFks1xkGdgTcTf6pfbKYBnfcu83PROtdScO.VtdTmfZhEgzZhCP.Lo4xVCuw5sob4NiPrkRL.P9KJbd4NuPQg5cTYn.OcCsSl6P.60; path=/; expires=Wed, 20-Aug-25 08:03:23 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=Lo2kYPUdOKuBpiyzv12PIn43ejb8S8LhyJFr.oI9nss-1755675203118-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '972033c09d22c39b-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-20 07:33:23 - openai._base_client - DEBUG - request:1021 - request_id: req_c15a8dcae69c40b38d0911eaaf14e4e1
+2025-08-20 07:33:26 - core.okx_fetcher - DEBUG - get_historical_data:136 - Returning cached data for BTC-USDT
+2025-08-20 07:33:26 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-20 07:33:26 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-e38b880a-0379-4afd-a0c4-f88eb6ebc6c7', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-20 07:33:26 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-20 07:33:26 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-20 07:33:26 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de451f4d0>
+2025-08-20 07:33:26 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f1de48eb9b0> server_hostname='api.openai.com' timeout=15.0
+2025-08-20 07:33:26 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de451f590>
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 20 Aug 2025 07:33:26 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'192'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'206'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9997'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'17.907s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_1b928a068df4469086681aef612aba13'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=Bij6UTF9JtDltqMimode_ffTsBJQrDeCDS9fUjUjyww-1755675206-1.0.1.1-qZeQPXlRxZ4z54GyNSgdIlmp3QJ17tkIOhf5ioXEpryDBJ.mljgewAkeGCD63sCONXBAQJXVbyVHLQB3dZGya7Q4sJucogC4dW_ND3oNnZA; path=/; expires=Wed, 20-Aug-25 08:03:26 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=9VMwE8GL85vO77mDsvEzll_VG5FUBW1LJDWpB6gh7w0-1755675206519-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'972033d729eba368-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-20 07:33:26 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-20 07:33:26 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-20 07:33:26 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 07:33:26 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '192'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '206'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9997'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '17.907s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_1b928a068df4469086681aef612aba13'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=Bij6UTF9JtDltqMimode_ffTsBJQrDeCDS9fUjUjyww-1755675206-1.0.1.1-qZeQPXlRxZ4z54GyNSgdIlmp3QJ17tkIOhf5ioXEpryDBJ.mljgewAkeGCD63sCONXBAQJXVbyVHLQB3dZGya7Q4sJucogC4dW_ND3oNnZA; path=/; expires=Wed, 20-Aug-25 08:03:26 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=9VMwE8GL85vO77mDsvEzll_VG5FUBW1LJDWpB6gh7w0-1755675206519-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '972033d729eba368-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-20 07:33:26 - openai._base_client - DEBUG - request:1021 - request_id: req_1b928a068df4469086681aef612aba13
+2025-08-20 07:33:27 - core.okx_fetcher - DEBUG - get_historical_data:136 - Returning cached data for BTC-USDT
+2025-08-20 07:33:27 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+2025-08-20 07:33:27 - openai._base_client - DEBUG - _build_request:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-bd4f58a2-0ca0-40cb-a804-2e34358be700', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+2025-08-20 07:33:27 - openai._base_client - DEBUG - request:975 - Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+2025-08-20 07:33:27 - httpcore.connection - DEBUG - trace:47 - connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+2025-08-20 07:33:27 - httpcore.connection - DEBUG - trace:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de4533a90>
+2025-08-20 07:33:27 - httpcore.connection - DEBUG - trace:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x7f1de48ebc80> server_hostname='api.openai.com' timeout=15.0
+2025-08-20 07:33:27 - httpcore.connection - DEBUG - trace:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f1de4533b50>
+2025-08-20 07:33:27 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:27 - httpcore.http11 - DEBUG - trace:47 - send_request_headers.complete
+2025-08-20 07:33:27 - httpcore.http11 - DEBUG - trace:47 - send_request_body.started request=<Request [b'POST']>
+2025-08-20 07:33:27 - httpcore.http11 - DEBUG - trace:47 - send_request_body.complete
+2025-08-20 07:33:27 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-08-20 07:33:28 - httpcore.http11 - DEBUG - trace:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 20 Aug 2025 07:33:28 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'438'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'664'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9997'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'25.044s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_8396a4b5db524dc29cbce33026fc11db'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=q7ciMS4Absa7EYV9GNF59rbs.s19AJ7R714NLllde.I-1755675208-1.0.1.1-ARA0u9_EktreBtjA4zzGrCA.4VESYvkmZbx.4o1dJ0dgP.xHbLp3dnhhZZ6_.OvIXfQnQl_kKi9KQH5bltB6rCKs5oMljXkg24knIy1usdo; path=/; expires=Wed, 20-Aug-25 08:03:28 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=sAwQtrMR7x9qeUpjCacpHO3fRE8PG7XN0HxrSY0IQUw-1755675208389-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'972033dfed3ec381-SEA'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+2025-08-20 07:33:28 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-20 07:33:28 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.started request=<Request [b'POST']>
+2025-08-20 07:33:28 - httpcore.http11 - DEBUG - trace:47 - receive_response_body.complete
+2025-08-20 07:33:28 - httpcore.http11 - DEBUG - trace:47 - response_closed.started
+2025-08-20 07:33:28 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
+2025-08-20 07:33:28 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 07:33:28 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '438'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '664'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9997'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '25.044s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_8396a4b5db524dc29cbce33026fc11db'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=q7ciMS4Absa7EYV9GNF59rbs.s19AJ7R714NLllde.I-1755675208-1.0.1.1-ARA0u9_EktreBtjA4zzGrCA.4VESYvkmZbx.4o1dJ0dgP.xHbLp3dnhhZZ6_.OvIXfQnQl_kKi9KQH5bltB6rCKs5oMljXkg24knIy1usdo; path=/; expires=Wed, 20-Aug-25 08:03:28 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=sAwQtrMR7x9qeUpjCacpHO3fRE8PG7XN0HxrSY0IQUw-1755675208389-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '972033dfed3ec381-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+2025-08-20 07:33:28 - openai._base_client - DEBUG - request:1021 - request_id: req_8396a4b5db524dc29cbce33026fc11db
+2025-08-20 07:33:34 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:33:34 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:33:34 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:33:34 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:34:02 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:34:02 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:34:02 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 07:34:02 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 07:34:09 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:34:09 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:34:09 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:34:09 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:34:10 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:34:10 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:34:10 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:34:10 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:34:10 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:34:10 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:34:10 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:34:10 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:34:10 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:34:10 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:34:11 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:34:11 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:34:11 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:34:11 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:34:12 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:34:12 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:34:12 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:34:12 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:34:12 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:34:12 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:34:12 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:34:12 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:34:12 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:34:12 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:34:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:34:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:34:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:34:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:34:33 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:34:33 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:34:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:34:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:34:34 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:34:34 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:34:34 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:34:34 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:34:34 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:34:34 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:34:34 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:34:34 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:34:34 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:34:34 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:34:34 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:34:34 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:34:34 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:34:34 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:34:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:34:34 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:34:34 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:34:34 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:34:34 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:34:45 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:34:45 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:34:45 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:34:46 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:34:46 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:34:46 - gpts_routes - WARNING - _require_api_key:48 - Invalid API key attempt from 127.0.0.1
+2025-08-20 07:34:46 - gpts_routes - WARNING - _require_api_key:48 - Invalid API key attempt from 127.0.0.1
+2025-08-20 07:34:46 - gpts_routes - INFO - get_sharp_signal:309 - Processing sharp signal request: BTC-USDT 1H
+2025-08-20 07:34:46 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:34:46 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:34:46 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:34:46 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:34:46 - core.signal_generator.SignalGenerator - INFO - generate_signal:55 - Generated BUY signal for BTC-USDT
+2025-08-20 07:34:46 - gpts_routes - INFO - get_sharp_signal:358 - Sharp signal generated successfully: BUY with 0.6 confidence
+2025-08-20 07:35:20 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:35:20 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:20 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:35:20 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:35:20 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:35:21 - gpts_routes - INFO - get_sharp_signal:309 - Processing sharp signal request: BTC-USDT 1H
+2025-08-20 07:35:21 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:21 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:35:21 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:35:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:35:21 - core.signal_generator.SignalGenerator - INFO - generate_signal:55 - Generated BUY signal for BTC-USDT
+2025-08-20 07:35:21 - gpts_routes - INFO - get_sharp_signal:358 - Sharp signal generated successfully: BUY with 0.6 confidence
+2025-08-20 07:35:21 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:21 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:35:21 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:35:21 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:35:21 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:35:21 - api.enhanced_signal_endpoints - INFO - get_enhanced_sharp_signal:61 - Enhanced sharp signal request: BTC-USDT 1H
+2025-08-20 07:35:21 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:21 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:35:22 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:35:22 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:35:22 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:35:22 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:35:22 - core.scoring_service - WARNING - _score_smc:168 - SMC scoring error: 'list' object has no attribute 'get'
+2025-08-20 07:35:22 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-20 07:35:22 - api.smc_zones_endpoints - INFO - get_smc_zones:115 - ✅ SMC Zones data retrieved for BTCUSDT (1H) - Filters: symbol=BTCUSDT, tf=1H
+2025-08-20 07:35:22 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:35:22 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:22 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:35:22 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:35:22 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:35:22 - gpts_routes - INFO - get_sharp_signal:309 - Processing sharp signal request: BTC-USDT 1H
+2025-08-20 07:35:22 - core.okx_fetcher - DEBUG - get_historical_data:136 - Returning cached data for BTC-USDT
+2025-08-20 07:35:22 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:35:22 - core.signal_generator.SignalGenerator - INFO - generate_signal:55 - Generated BUY signal for BTC-USDT
+2025-08-20 07:35:22 - gpts_routes - INFO - get_sharp_signal:358 - Sharp signal generated successfully: BUY with 0.6 confidence
+2025-08-20 07:35:22 - core.okx_fetcher - DEBUG - get_historical_data:136 - Returning cached data for BTC-USDT
+2025-08-20 07:35:23 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:35:23 - api.enhanced_signal_endpoints - INFO - get_enhanced_sharp_signal:61 - Enhanced sharp signal request: BTC-USDT 1H
+2025-08-20 07:35:23 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:35:23 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:35:23 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:35:23 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:35:23 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:35:23 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:35:23 - core.scoring_service - WARNING - _score_smc:168 - SMC scoring error: 'list' object has no attribute 'get'
+2025-08-20 07:35:23 - api.smc_zones_endpoints - INFO - get_smc_zones:115 - ✅ SMC Zones data retrieved for BTCUSDT (1H) - Filters: symbol=BTCUSDT, tf=1H
+2025-08-20 07:35:32 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:35:32 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:35:32 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:35:32 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:35:32 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:35:32 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:35:32 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:35:32 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:35:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:35:32 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:35:32 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:35:32 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:35:32 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:35:38 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:35:38 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:35:38 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:35:38 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:35:38 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:35:38 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:35:38 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:35:38 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:35:39 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:35:39 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:35:39 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:35:39 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:35:39 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:35:39 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:35:39 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:35:39 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:35:39 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:35:39 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:35:39 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:35:39 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:35:39 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:35:39 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:35:39 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:35:39 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:35:39 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:35:39 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:35:39 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:36:32 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:36:32 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:36:32 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:36:32 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:36:32 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 07:36:32 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 07:36:33 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 07:36:33 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:36:33 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:36:33 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:36:33 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:36:33 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:36:33 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:36:33 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:36:33 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:36:33 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:36:33 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:36:34 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 07:36:34 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 07:36:34 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 07:36:34 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 07:36:34 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+2025-08-20 07:36:34 - routes - INFO - _register_optional_blueprint:216 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+2025-08-20 07:36:34 - routes - INFO - init_routes:311 - 🔒 Stable registry: 31/32 blueprints registered consistently
+2025-08-20 07:36:34 - routes - INFO - init_routes:312 - 🚀 Routes initialized: CONSISTENT endpoint system active (31 active)
+2025-08-20 07:36:34 - routes - INFO - init_routes:313 - 🎯 Application factory pattern successfully implemented
+2025-08-20 07:36:34 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+2025-08-20 07:36:42 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:36:42 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:36:42 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:36:43 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:36:43 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:36:44 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:36:44 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:36:44 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:36:45 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:36:45 - core.structure_memory - INFO - __init__:29 - 🧠 SMC Memory System initialized
+2025-08-20 07:36:45 - api.smc_zones_endpoints - INFO - get_smc_zones:115 - ✅ SMC Zones data retrieved for BTCUSDT (1H) - Filters: symbol=BTCUSDT, tf=1H
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:36:45 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:36:45 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:36:45 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:36:45 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:36:45 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:36:46 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:36:46 - api.enhanced_signal_endpoints - INFO - get_enhanced_sharp_signal:61 - Enhanced sharp signal request: BTC-USDT 1H
+2025-08-20 07:36:46 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 07:36:46 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 07:36:46 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=100 HTTP/1.1" 200 None
+2025-08-20 07:36:46 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 100 candles for BTC-USDT
+2025-08-20 07:36:46 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/books?instId=BTC-USDT&sz=20 HTTP/1.1" 200 None
+2025-08-20 07:36:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - analyze_market_structure:57 - SMC analysis completed successfully
+2025-08-20 07:36:46 - core.scoring_service - WARNING - _score_smc:168 - SMC scoring error: 'list' object has no attribute 'get'
+2025-08-20 07:36:46 - api.smc_zones_endpoints - INFO - get_smc_zones:115 - ✅ SMC Zones data retrieved for BTCUSDT (1H) - Filters: symbol=BTCUSDT, tf=1H

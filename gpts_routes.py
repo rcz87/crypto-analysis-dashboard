@@ -16,6 +16,44 @@ import time
 gpts_api = Blueprint('gpts_api', __name__, url_prefix='/api/gpts')
 logger = logging.getLogger(__name__)
 
+# Import API key protection from routes
+def _require_api_key():
+    """Check for required API key in production environment"""
+    from flask import request, jsonify
+    api_key_required = os.environ.get('API_KEY_REQUIRED', 'false').lower() == 'true'
+    expected_key = os.environ.get("API_KEY")
+    
+    if not api_key_required:
+        return None  # gate disabled
+    
+    if not expected_key:
+        logger.warning("API_KEY environment variable not set but API_KEY_REQUIRED=true")
+        return jsonify({
+            "success": False,
+            "error": "CONFIGURATION_ERROR", 
+            "message": "API key validation not properly configured",
+            "status_code": 500
+        }), 500
+    
+    provided_key = request.headers.get("X-API-KEY")
+    if not provided_key:
+        return jsonify({
+            "success": False,
+            "error": "UNAUTHORIZED",
+            "message": "API key required. Include X-API-KEY header.",
+            "status_code": 401
+        }), 401
+        
+    if provided_key != expected_key:
+        logger.warning(f"Invalid API key attempt from {request.remote_addr}")
+        return jsonify({
+            "success": False,
+            "error": "UNAUTHORIZED", 
+            "message": "Invalid API key provided",
+            "status_code": 401
+        }), 401
+    return None
+
 # Initialize components with fixed versions
 smc_analyzer = ProfessionalSMCAnalyzer()
 signal_generator = SignalGenerator()
@@ -194,7 +232,12 @@ def error_response(status_code, message, details=None, error_type=None):
 
 @gpts_api.route('/status', methods=['GET'])
 def get_status():
-    """Status ringkas ketersediaan semua komponen sistem"""
+    """Status ringkas ketersediaan semua komponen sistem - PROTECTED by API key"""
+    # API key protection
+    gate = _require_api_key()
+    if gate: 
+        return gate
+        
     try:
         # Test OKX API
         okx_test = okx_fetcher.test_connection()
@@ -250,7 +293,12 @@ def get_status():
 
 @gpts_api.route('/sinyal/tajam', methods=['POST'])
 def get_sharp_signal():
-    """Sharp signal analysis endpoint optimized for VPS deployment"""
+    """Sharp signal analysis endpoint optimized for VPS deployment - PROTECTED by API key"""
+    # API key protection
+    gate = _require_api_key()
+    if gate: 
+        return gate
+        
     try:
         data = request.get_json() or {}
         symbol = normalize_symbol(data.get('symbol', 'BTC-USDT'))

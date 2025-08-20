@@ -6,11 +6,12 @@ import multiprocessing
 bind = "0.0.0.0:5000"
 backlog = 1024
 
-# Worker processes
-workers = min(2, multiprocessing.cpu_count())  # Limit workers to reduce memory usage
-worker_class = "sync"
+# Worker processes - Production optimized
+workers = (multiprocessing.cpu_count() * 2) + 1  # Optimal: (CPU * 2) + 1
+worker_class = "gthread"  # Use gthread for better concurrency
 worker_connections = 1000
-timeout = 120
+threads = 4  # 2-4 threads per worker as specified
+timeout = 60  # 60s timeout as specified
 keepalive = 2
 
 # Restart workers after this many requests, to prevent memory leaks

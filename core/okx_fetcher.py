@@ -345,14 +345,22 @@ class OKXFetcher:
             return 0.0
     
     def test_connection(self) -> Dict[str, Any]:
-        """Test OKX API connection"""
+        """Test OKX API connection - returns 'connected' for healthy status"""
         try:
             result = self.get_historical_data('BTC-USDT', '1H', 2)
-            return {
-                'status': 'success' if result['status'] == 'success' else 'fallback',
-                'candles_received': result['count'],
-                'message': 'OKX API connection successful' if result['status'] == 'success' else 'Using fallback data'
-            }
+            
+            if result['status'] == 'success' and result.get('count', 0) > 0:
+                return {
+                    'status': 'connected',  # Changed from 'success' to 'connected' for health check
+                    'candles_received': result['count'],
+                    'message': 'OKX API connection successful'
+                }
+            else:
+                return {
+                    'status': 'degraded',  # Fallback data available but not optimal
+                    'candles_received': result.get('count', 0),
+                    'message': 'Using fallback data - API may be rate limited'
+                }
         except Exception as e:
             return {
                 'status': 'error',
