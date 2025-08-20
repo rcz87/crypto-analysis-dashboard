@@ -16995,3 +16995,9 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-20 04:30:17 - routes - INFO - init_routes:262 - 🚀 Routes initialized: CONSISTENT endpoint system active (30 active)
 2025-08-20 04:30:17 - routes - INFO - init_routes:263 - 🎯 Application factory pattern successfully implemented
 2025-08-20 04:30:17 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 04:34:53 - routes - WARNING - health_check:110 - Database health check failed: db
+2025-08-20 04:34:53 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+2025-08-20 04:34:53 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+2025-08-20 04:34:53 - urllib3.connectionpool - DEBUG - _new_conn:1049 - Starting new HTTPS connection (1): www.okx.com:443
+2025-08-20 04:34:53 - urllib3.connectionpool - DEBUG - _make_request:544 - https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+2025-08-20 04:34:53 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
