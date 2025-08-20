@@ -13,6 +13,16 @@ logger = logging.getLogger(__name__)
 # Create blueprint for OpenAPI schema endpoint
 openapi_enhanced_bp = Blueprint('openapi_enhanced', __name__)
 
+@openapi_enhanced_bp.route('/openapi', methods=['GET'])
+def get_enhanced_openapi():
+    """Main endpoint to serve the enhanced OpenAPI schema for ChatGPT"""
+    try:
+        schema = get_enhanced_ultra_complete_openapi_schema()
+        return jsonify(schema)
+    except Exception as e:
+        logger.error(f"Error generating enhanced OpenAPI schema: {e}")
+        return jsonify({"error": "Failed to generate OpenAPI schema"}), 500
+
 def get_enhanced_ultra_complete_openapi_schema():
     """
     Generate the most comprehensive OpenAPI 3.1.0 schema for ChatGPT Custom GPT integration
@@ -642,14 +652,7 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
     return schema
 
 @openapi_enhanced_bp.route('/openapi-enhanced.json', methods=['GET'])
-def get_enhanced_openapi():
-    """Endpoint to serve the enhanced OpenAPI schema"""
-    try:
-        schema = get_enhanced_ultra_complete_openapi_schema()
-        return jsonify(schema)
-    except Exception as e:
-        logger.error(f"Error generating enhanced OpenAPI schema: {e}")
-        return jsonify({"error": "Failed to generate OpenAPI schema"}), 500
+# Duplicate endpoint removed - already defined above
 
 @openapi_enhanced_bp.route('/openapi-chatgpt.json', methods=['GET'])
 def get_chatgpt_optimized_openapi():
