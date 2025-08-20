@@ -85,7 +85,7 @@ class TestEndpointSmoke:
             except json.JSONDecodeError:
                 pytest.fail(f"Endpoint {method} {path} returned invalid JSON: {response.text}")
                 
-        except requests.exceptions.ConnectError:
+        except requests.exceptions.ConnectionError:
             pytest.fail(f"Could not connect to {url}. Is the server running on {BASE_URL}?")
         except requests.exceptions.Timeout:
             pytest.fail(f"Endpoint {method} {path} timed out after {TIMEOUT}s")

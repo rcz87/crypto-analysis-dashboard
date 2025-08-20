@@ -1073,11 +1073,11 @@ def get_openapi_schema():
                     }
                 ],
                 "responses": {
-                        "200": {
-                            "description": "Metrik performa berhasil diambil",
-                            "content": {
-                                "application/json": {
-                                    "schema": {
+                    "200": {
+                        "description": "Metrik performa berhasil diambil",
+                        "content": {
+                            "application/json": {
+                                "schema": {
                                         "type": "object",
                                         "properties": {
                                             "status": {"type": "string", "example": "success"},
@@ -1104,8 +1104,9 @@ def get_openapi_schema():
                         }
                     }
                 }
-            },
-            "/api/performance/summary": {
+            }
+        },
+        "/api/performance/summary": {
                 "get": {
                     "operationId": "getPerformanceSummary",
                     "summary": "Dapatkan ringkasan performa trading",

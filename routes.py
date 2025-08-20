@@ -92,24 +92,57 @@ def health_check():
     
     # Test database connection
     try:
-        # Safe database access using current_app
+        # Try multiple approaches to access database
+        db = None
+        
+        # Approach 1: current_app extensions
         if hasattr(current_app, 'extensions') and 'sqlalchemy' in current_app.extensions:
-            db = current_app.extensions['sqlalchemy'].db
-            from sqlalchemy import text
-            db.session.execute(text("SELECT 1"))
-            db.session.commit()
-            components["database"] = {"status": "healthy", "message": "Connected"}
+            db = current_app.extensions['sqlalchemy']
+        
+        # Approach 2: direct from app module  
+        if db is None:
+            try:
+                from app import db
+            except ImportError:
+                db = None
+        
+        # Approach 3: direct connection via DATABASE_URL
+        if db is None:
+            import os
+            import psycopg2
+            conn = psycopg2.connect(os.environ['DATABASE_URL'])
+            cursor = conn.cursor()
+            cursor.execute('SELECT 1;')
+            result = cursor.fetchone()
+            cursor.close()
+            conn.close()
+            if result and result[0] == 1:
+                components["database"] = {"status": "healthy", "message": "Direct connection successful"}
+            else:
+                components["database"] = {"status": "degraded", "message": "Query returned unexpected result"}
+                health_status = "degraded"
         else:
-            # Fallback to direct import
-            from app import db
+            # Use SQLAlchemy if available
             from sqlalchemy import text
-            db.session.execute(text("SELECT 1"))
-            db.session.commit()
-            components["database"] = {"status": "healthy", "message": "Connected"}
+            with db.engine.connect() as connection:
+                result = connection.execute(text("SELECT 1"))
+                row = result.fetchone()
+                if row and row[0] == 1:
+                    components["database"] = {"status": "healthy", "message": "SQLAlchemy connection successful"}
+                else:
+                    components["database"] = {"status": "degraded", "message": "Unexpected query result"}
+                    health_status = "degraded"
+                    
     except Exception as e:
         logger.warning(f"Database health check failed: {e}")
-        components["database"] = {"status": "unhealthy", "message": f"Error: {str(e)}"}
-        health_status = "degraded"
+        error_msg = str(e).lower()
+        if 'connection' in error_msg or 'timeout' in error_msg or 'refused' in error_msg:
+            components["database"] = {"status": "unhealthy", "message": f"Connection failed: {str(e)[:100]}"}
+            health_status = "unhealthy"
+        else:
+            components["database"] = {"status": "degraded", "message": f"Database error: {str(e)[:100]}"}
+            if health_status == "healthy":
+                health_status = "degraded"
     
     # Test core components availability
     try:
