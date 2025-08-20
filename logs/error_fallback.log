@@ -396,3 +396,8 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-20 04:30:09 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
 2025-08-20 04:30:17 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
 2025-08-20 04:30:17 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 04:40:02 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 04:40:03 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 04:40:09 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 04:40:15 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 04:40:15 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
