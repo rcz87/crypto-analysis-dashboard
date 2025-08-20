@@ -13,6 +13,18 @@ logger = logging.getLogger(__name__)
 # Create blueprint for OpenAPI schema endpoint
 openapi_enhanced_bp = Blueprint('openapi_enhanced', __name__)
 
+@openapi_enhanced_bp.route('/', methods=['GET'])
+def enhanced_schema_root():
+    """Enhanced schema endpoint - Basic stub"""
+    return jsonify({
+        "status": "ok",
+        "message": "Enhanced OpenAPI schema endpoint",
+        "endpoints": {
+            "openapi-enhanced.json": "Enhanced OpenAPI specification",
+            "openapi-chatgpt.json": "ChatGPT-optimized schema"
+        }
+    })
+
 @openapi_enhanced_bp.route('/openapi', methods=['GET'])
 def get_enhanced_openapi():
     """Main endpoint to serve the enhanced OpenAPI schema for ChatGPT"""

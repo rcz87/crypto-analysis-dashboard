@@ -37,8 +37,10 @@ CRITICAL_ENDPOINTS = [
     ("GET", "/api/performance/advanced/status"),
     
     # Schema documentation
-    ("GET", "/api/schema"),
-    ("GET", "/api/schema/enhanced"),
+    ("GET", "/api/schema/"),
+    ("GET", "/api/schema/enhanced/"),
+    ("GET", "/api/schema/openapi.json"),
+    ("GET", "/api/schema/enhanced/openapi-enhanced.json"),
 ]
 
 class TestEndpointSmoke:

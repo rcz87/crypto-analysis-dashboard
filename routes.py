@@ -248,8 +248,8 @@ def init_routes(app, db=None):
         # Enhanced Schema (NEW - Ultra-complete OpenAPI for ChatGPT)
         ("core.enhanced_openapi_schema", "openapi_enhanced_bp", "/api/schema/enhanced"),
         
-        # Schema (optional)
-        ("openapi_schema", "openapi_bp", f"{api_prefix}/schema"),
+        # Schema (optional) - Clean version without syntax errors
+        ("openapi_schema_clean", "openapi_bp", f"{api_prefix}/schema"),
     ]
     
     # Register stable blueprints (consistent across restarts)

@@ -1053,26 +1053,26 @@ def get_openapi_schema():
         },
         "/api/performance/": {
             "get": {
-                    "operationId": "getPerformanceMetrics",
-                    "summary": "Dapatkan metrik performa trading lengkap",
-                    "description": "Mengambil metrik performa trading komprehensif dari database PostgreSQL termasuk Sharpe ratio, win rate, max drawdown, profit factor, dan statistik trading lainnya",
-                    "parameters": [
-                        {
-                            "name": "symbol",
-                            "in": "query",
-                            "description": "Filter berdasarkan symbol tertentu (contoh: BTCUSDT)",
-                            "required": false,
-                            "schema": {"type": "string"}
-                        },
-                        {
-                            "name": "days",
-                            "in": "query", 
-                            "description": "Jumlah hari untuk analisis (default: 30)",
-                            "required": false,
-                            "schema": {"type": "integer", "minimum": 1, "maximum": 365}
-                        }
-                    ],
-                    "responses": {
+                "operationId": "getPerformanceMetrics",
+                "summary": "Dapatkan metrik performa trading lengkap",
+                "description": "Mengambil metrik performa trading komprehensif dari database PostgreSQL termasuk Sharpe ratio, win rate, max drawdown, profit factor, dan statistik trading lainnya",
+                "parameters": [
+                    {
+                        "name": "symbol",
+                        "in": "query",
+                        "description": "Filter berdasarkan symbol tertentu (contoh: BTCUSDT)",
+                        "required": false,
+                        "schema": {"type": "string"}
+                    },
+                    {
+                        "name": "days",
+                        "in": "query", 
+                        "description": "Jumlah hari untuk analisis (default: 30)",
+                        "required": false,
+                        "schema": {"type": "integer", "minimum": 1, "maximum": 365}
+                    }
+                ],
+                "responses": {
                         "200": {
                             "description": "Metrik performa berhasil diambil",
                             "content": {
@@ -1254,7 +1254,7 @@ def get_openapi_schema():
                         }
                     }
                 }
-            },
+            }
         },
         "components": {
             "schemas": {
@@ -1316,4 +1316,17 @@ def api_docs():
             "GET /api/gpts/status": "Status kesehatan API"
         },
         "openapi_spec": "/openapi.json"
+    })
+
+@openapi_bp.route('/', methods=['GET'])
+def schema_root():
+    """Main schema endpoint - Basic stub"""
+    return jsonify({
+        "status": "ok",
+        "message": "Base OpenAPI schema endpoint",
+        "endpoints": {
+            "openapi.json": "Full OpenAPI specification",
+            "api-docs": "Human-readable documentation",
+            ".well-known/openapi.json": "OpenAPI discovery endpoint"
+        }
     })
