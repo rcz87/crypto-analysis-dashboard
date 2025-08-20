@@ -29,6 +29,20 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, User-Agent'
     return response
 
+@enhanced_signals_bp.route('/status', methods=['GET'])
+@cross_origin()
+def enhanced_status():
+    """Enhanced signals status - stub endpoint"""
+    return add_cors_headers(jsonify({
+        "status": "ok",
+        "endpoint": "enhanced_signals",
+        "data": {
+            "service": "Enhanced Signal Generation",
+            "version": "1.0.0",
+            "features": ["sharp-signal", "quality-analysis", "risk-management"]
+        }
+    })), 200
+
 @enhanced_signals_bp.route('/sharp-signal', methods=['POST'])
 @cross_origin()
 def get_enhanced_sharp_signal():

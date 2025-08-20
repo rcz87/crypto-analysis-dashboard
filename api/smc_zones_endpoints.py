@@ -10,10 +10,24 @@ from datetime import datetime
 from typing import Dict, List, Any
 
 # Blueprint initialization
-smc_zones_bp = Blueprint("smc_zones", __name__)
+smc_zones_bp = Blueprint("smc_zones", __name__, url_prefix='/api/smc')
 logger = logging.getLogger(__name__)
 
-@smc_zones_bp.route("/api/smc/zones", methods=["GET"])
+@smc_zones_bp.route("/status", methods=["GET"])
+@cross_origin()
+def smc_zones_status():
+    """SMC Zones status - stub endpoint"""
+    return jsonify({
+        "status": "ok",
+        "endpoint": "smc_zones",
+        "data": {
+            "service": "SMC Zones Analysis",
+            "version": "1.0.0",
+            "features": ["bullish-ob", "bearish-ob", "fair-value-gaps", "liquidity-zones"]
+        }
+    }), 200
+
+@smc_zones_bp.route("/zones", methods=["GET"])
 @cross_origin()
 def get_smc_zones():
     """

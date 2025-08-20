@@ -26,6 +26,20 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
     return response
 
+@institutional_bp.route('/status', methods=['GET'])
+@cross_origin()
+def institutional_status():
+    """Institutional endpoint status - stub endpoint"""
+    return add_cors_headers(jsonify({
+        "status": "ok",
+        "endpoint": "institutional",
+        "data": {
+            "service": "Institutional Signal Engine",
+            "version": "1.0.0", 
+            "features": ["institutional-signal", "risk-analysis", "compliance-monitoring"]
+        }
+    })), 200
+
 @institutional_bp.route('/signal', methods=['POST'])
 @cross_origin()
 def get_institutional_signal():

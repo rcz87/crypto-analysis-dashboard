@@ -1052,7 +1052,7 @@ def get_openapi_schema():
             }
         },
         "/api/performance/": {
-                "get": {
+            "get": {
                     "operationId": "getPerformanceMetrics",
                     "summary": "Dapatkan metrik performa trading lengkap",
                     "description": "Mengambil metrik performa trading komprehensif dari database PostgreSQL termasuk Sharpe ratio, win rate, max drawdown, profit factor, dan statistik trading lainnya",

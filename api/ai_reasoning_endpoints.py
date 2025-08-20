@@ -37,6 +37,19 @@ smc_analyzer = ProfessionalSMCAnalyzer()
 cache_manager = get_cache_manager()
 error_handler = get_error_handler()
 
+@ai_reasoning_bp.route('/status', methods=['GET'])
+def ai_reasoning_status():
+    """AI Reasoning status - stub endpoint"""
+    return jsonify({
+        "status": "ok",
+        "endpoint": "ai_reasoning", 
+        "data": {
+            "service": "AI Reasoning Engine",
+            "version": "1.0.0",
+            "features": ["comprehensive-analysis", "quick-analysis", "reasoning-stats"]
+        }
+    }), 200
+
 def calculate_basic_technical_indicators(candles: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Calculate basic technical indicators from candles data"""
     if not candles or len(candles) < 14:
