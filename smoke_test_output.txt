@@ -1,0 +1,76 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.13, pytest-8.4.1, pluggy-1.6.0 -- /home/runner/workspace/.pythonlibs/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/runner/workspace
+configfile: pyproject.toml
+plugins: Flask-Dance-7.1.0, anyio-4.9.0
+collecting ... collected 15 items
+
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/health-None] PASSED [  6%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/gpts/status-None] PASSED [ 13%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[POST-/api/gpts/sinyal/tajam-data2] PASSED [ 20%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/institutional/status-None] PASSED [ 26%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[POST-/api/institutional/signal-data4] PASSED [ 33%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/enhanced/status-None] PASSED [ 40%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[POST-/api/enhanced/sharp-signal-data6] PASSED [ 46%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/v1/ai-reasoning/status-None] PASSED [ 53%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/smc/status-None] PASSED [ 60%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/smc/zones-data9] PASSED [ 66%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/performance/advanced/status-None] FAILED [ 73%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/schema-None] FAILED [ 80%]
+test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/schema/enhanced-None] FAILED [ 86%]
+test_smoke.py::TestEndpointSmoke::test_core_integration_workflow PASSED  [ 93%]
+test_smoke.py::TestEndpointSmoke::test_no_404_responses FAILED           [100%]
+
+=================================== FAILURES ===================================
+_ TestEndpointSmoke.test_endpoint_returns_200_or_expected[GET-/api/performance/advanced/status-None] _
+test_smoke.py:77: in test_endpoint_returns_200_or_expected
+    assert response.status_code == 200, f"Endpoint {method} {path} returned {response.status_code}: {response.text}"
+E   AssertionError: Endpoint GET /api/performance/advanced/status returned 404: {"error":"NOT_FOUND","message":"The requested endpoint was not found","status_code":404,"success":false}
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+
+During handling of the above exception, another exception occurred:
+test_smoke.py:86: in test_endpoint_returns_200_or_expected
+    except requests.exceptions.ConnectError:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'requests.exceptions' has no attribute 'ConnectError'
+_ TestEndpointSmoke.test_endpoint_returns_200_or_expected[GET-/api/schema-None] _
+test_smoke.py:77: in test_endpoint_returns_200_or_expected
+    assert response.status_code == 200, f"Endpoint {method} {path} returned {response.status_code}: {response.text}"
+E   AssertionError: Endpoint GET /api/schema returned 404: {"error":"NOT_FOUND","message":"The requested endpoint was not found","status_code":404,"success":false}
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+
+During handling of the above exception, another exception occurred:
+test_smoke.py:86: in test_endpoint_returns_200_or_expected
+    except requests.exceptions.ConnectError:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'requests.exceptions' has no attribute 'ConnectError'
+_ TestEndpointSmoke.test_endpoint_returns_200_or_expected[GET-/api/schema/enhanced-None] _
+test_smoke.py:77: in test_endpoint_returns_200_or_expected
+    assert response.status_code == 200, f"Endpoint {method} {path} returned {response.status_code}: {response.text}"
+E   AssertionError: Endpoint GET /api/schema/enhanced returned 404: {"error":"NOT_FOUND","message":"The requested endpoint was not found","status_code":404,"success":false}
+E     
+E   assert 404 == 200
+E    +  where 404 = <Response [404]>.status_code
+
+During handling of the above exception, another exception occurred:
+test_smoke.py:86: in test_endpoint_returns_200_or_expected
+    except requests.exceptions.ConnectError:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: module 'requests.exceptions' has no attribute 'ConnectError'
+___________________ TestEndpointSmoke.test_no_404_responses ____________________
+test_smoke.py:126: in test_no_404_responses
+    assert response.status_code != 404, f"Critical endpoint {method} {path} returns 404 - endpoint not found!"
+E   AssertionError: Critical endpoint GET /api/performance/advanced/status returns 404 - endpoint not found!
+E   assert 404 != 404
+E    +  where 404 = <Response [404]>.status_code
+=========================== short test summary info ============================
+FAILED test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/performance/advanced/status-None]
+FAILED test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/schema-None]
+FAILED test_smoke.py::TestEndpointSmoke::test_endpoint_returns_200_or_expected[GET-/api/schema/enhanced-None]
+FAILED test_smoke.py::TestEndpointSmoke::test_no_404_responses - AssertionErr...
+======================== 4 failed, 11 passed in 12.08s =========================

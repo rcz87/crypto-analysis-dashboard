@@ -1,0 +1,56 @@
+Halo Agent Replit 👋
+
+Saya ingin VERIFIKASI KEBERHASILAN perbaikan API sesuai 3 target:
+1) Semua modul blueprint tersedia & terdaftar
+2) Semua endpoint punya stub anti-404
+3) Smoke test otomatis lulus untuk endpoint kritikal
+
+Tolong lakukan langkah verifikasi berikut dan kirimkan log/outputnya:
+
+A. ENV & BOOT
+- Pastikan ENV:
+  - DATABASE_URL sudah ke Postgres (hindari fallback sqlite)
+  - API_KEY_REQUIRED=false (untuk test), atau kalau true, sertakan X-API-KEY yang valid
+  - OKX_* dan OPENAI_API_KEY terpasang
+- Jalankan aplikasi pada port 5050 (sesuai app factory + routes.init_routes)
+
+B. INDEX & BLUEPRINT COUNTS (BUKTI 32/32)
+- GET /  → kirimkan JSON penuh
+  * Kami ingin melihat:
+    - "registered_blueprints" (jumlahnya harus 32)
+    - "endpoints" (daftar prefix + core endpoints)
+    - "blueprint_prefixes" (mapping nama blueprint → url_prefix)
+  * Halaman ini memang dirancang menampilkan ringkasan layanan + daftar endpoint & prefix yang terdaftar
+
+C. HEALTH CHECK (DB + OKX)
+- GET /health → lampirkan JSON + HTTP status
+  * DB: execute SELECT 1 → status “Connected”
+  * OKX: OKXFetcher.test_connection() → “connected” atau setidaknya “degraded”
+  * Catat status keseluruhan: healthy/degraded/unhealthy (HTTP 200 atau 503)
+
+D. ANTI‑404 PROOF (STUBS)
+- Jalankan dan lampirkan output:
+  - GET  /api/institutional/status
+  - GET  /api/enhanced/status        (atau /api/signals/enhanced/* sesuai implementasi)
+  - GET  /api/smc/status
+  - GET  /api/gpts/status
+  - GET  /api/gpts/sinyal/tajam
+  - POST /api/ai-reasoning/status atau /api/ai-reasoning/explain (json body {"symbol":"BTC-USDT"})
+- Semua HARUS 200 OK dengan payload JSON minimal (status/endpoint/data).
+
+E. SMOKE TESTS
+- Jalankan pytest untuk smoke suite yang memeriksa 200 OK pada endpoint prioritas (institutional, ai-reasoning, signals/enhanced, smc-zones, gpts).
+- Kirimkan ringkasan hasil (contoh: 11/15 passed), termasuk daftar test yang gagal (jika ada) agar bisa segera diperbaiki.
+
+F. OPENAPI DOKUMENTASI
+- GET /api/schema dan /api/schema/enhanced → kirimkan ringkasannya.
+- Pastikan hanya memuat path yang BENAR-BENAR tersedia (hindari overselling).
+
+Tujuan akhir verifikasi:
+- COUNT blueprint di index sesuai target (32/32)
+- Semua stub endpoint balas 200 OK (tidak ada 404)
+- Smoke test lintas grup (institutional, enhanced signals, ai-reasoning, smc-zones, gpts) lulus
+- Health menunjukkan DB & OKX terkoneksi (healthy/degraded yang wajar)
+- OpenAPI selaras dengan endpoint nyata
+
+Terima kasih 🙏 — mohon kirimkan semua output (JSON/pytest logs) agar bisa kami arsipkan sebagai bukti “production-ready”.
