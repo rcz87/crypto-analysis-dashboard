@@ -37,7 +37,7 @@ class AIEngine:
         """Check if AI engine is available"""
         return self.openai_client is not None
     
-    def test_connection(self) -> Dict[str, Any]:
+    def test_ai_connection(self) -> Dict[str, Any]:
         """Test AI engine connection"""
         return {
             "available": self.is_available(),
@@ -67,15 +67,21 @@ Provide concise Indonesian analysis focusing on key trading insights."""
                     temperature=0.7
                 )
                 
-                return response.choices[0].message.content.strip()
+                content = response.choices[0].message.content
+                return content.strip() if content else ""
                 
             except Exception as e:
                 logger.error(f"AI snapshot generation error: {e}")
-                return f"Analisis {symbol} menunjukkan kondisi market {signal_result.get('bias', 'neutral')} dengan confidence {signal_result.get('confidence', 0)}%."
+                fallback_signal = analysis_data.get('signal_result', {})
+                bias = fallback_signal.get('bias', 'neutral') if fallback_signal else 'neutral'
+                confidence = fallback_signal.get('confidence', 0) if fallback_signal else 0
+                return f"Analisis {symbol} menunjukkan kondisi market {bias} dengan confidence {confidence}%."
         
         # Fallback narrative
         signal_result = analysis_data.get('signal_result', {})
-        return f"Analisis {symbol} menunjukkan kondisi market {signal_result.get('bias', 'neutral')} dengan confidence {signal_result.get('confidence', 0)}%."
+        bias = signal_result.get('bias', 'neutral') if signal_result else 'neutral'
+        confidence = signal_result.get('confidence', 0) if signal_result else 0
+        return f"Analisis {symbol} menunjukkan kondisi market {bias} dengan confidence {confidence}%."
     
     def generate_trading_narrative(self, symbol: str, timeframe: str, 
                                  market_data: Dict[str, Any], 

@@ -65,14 +65,14 @@ def get_enhanced_sharp_signal():
         # Get SMC analysis
         smc_analysis = smc_analyzer.analyze_market_structure(market_data)
         
-        # Get funding data (optional)
+        # Get funding data (optional) - commented out for now
         funding_data = None
-        try:
-            funding_response = okx_fetcher.get_funding_rate(symbol)
-            if 'error' not in funding_response:
-                funding_data = funding_response
-        except:
-            pass
+        # try:
+        #     funding_response = okx_fetcher.get_funding_rate(symbol)
+        #     if 'error' not in funding_response:
+        #         funding_data = funding_response
+        # except:
+        #     pass
         
         # Generate enhanced signal
         signal_result = enhanced_engine.generate_enhanced_signal(

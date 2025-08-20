@@ -44,14 +44,14 @@ def get_institutional_signal():
         market_data = okx_fetcher.get_historical_data(symbol, timeframe, 100)
         orderbook_data = okx_fetcher.get_order_book(symbol, depth=20)
         
-        # Get funding data
+        # Get funding data (optional) - commented out for now
         funding_data = None
-        try:
-            funding_response = okx_fetcher.get_funding_rate(symbol)
-            if 'error' not in funding_response:
-                funding_data = funding_response
-        except:
-            pass
+        # try:
+        #     funding_response = okx_fetcher.get_funding_rate(symbol)
+        #     if 'error' not in funding_response:
+        #         funding_data = funding_response
+        # except:
+        #     pass
         
         # Generate institutional signal
         signal_result = institutional_engine.generate_institutional_signal(

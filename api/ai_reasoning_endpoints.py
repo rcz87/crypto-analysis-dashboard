@@ -191,8 +191,8 @@ def analyze_trading_opportunity():
                 import pandas as pd
                 candles_df = pd.DataFrame(market_data['candles'])
                 if not candles_df.empty:
-                    # Use analyze method instead of analyze_comprehensive
-                    smc_result = smc_analyzer.analyze(candles_df, symbol, timeframe)
+                    # Use analyze_market_structure method 
+                    smc_result = smc_analyzer.analyze_market_structure({'candles': market_data['candles']})
                     analysis_data['smc_analysis'] = smc_result
                     logger.info(f"✅ SMC analysis completed for {symbol}")
             except Exception as e:
@@ -251,20 +251,21 @@ def analyze_trading_opportunity():
     except Exception as e:
         logger.error(f"Error in AI reasoning analysis: {e}")
         logger.error(traceback.format_exc())
-        symbol = 'unknown'
-        timeframe = 'unknown'
+        error_symbol = 'unknown'
+        error_timeframe = 'unknown'
         try:
-            if data:
-                symbol = data.get('symbol', 'unknown')
-                timeframe = data.get('timeframe', 'unknown')
+            request_data = request.get_json() if request else None
+            if request_data:
+                error_symbol = request_data.get('symbol', 'unknown')
+                error_timeframe = request_data.get('timeframe', 'unknown')
         except:
             pass
             
         return jsonify({
             'error': 'Analysis failed',
             'message': str(e),
-            'symbol': symbol,
-            'timeframe': timeframe
+            'symbol': error_symbol,
+            'timeframe': error_timeframe
         }), 500
 
 @ai_reasoning_bp.route('/quick-analysis', methods=['POST'])
@@ -349,10 +350,19 @@ def quick_analysis():
         
     except Exception as e:
         logger.error(f"Error in quick analysis: {e}")
+        error_symbol = 'unknown'
+        error_timeframe = 'unknown'
+        try:
+            request_data = request.get_json() if request else None
+            if request_data:
+                error_symbol = request_data.get('symbol', 'unknown')
+                error_timeframe = request_data.get('timeframe', 'unknown')
+        except:
+            pass
         return handle_api_error(
             'AI_ANALYSIS_FAILED',
-            f'Quick analysis gagal untuk {symbol}',
-            {'symbol': symbol, 'timeframe': timeframe, 'error_detail': str(e)},
+            f'Quick analysis gagal untuk {error_symbol}',
+            {'symbol': error_symbol, 'timeframe': error_timeframe, 'error_detail': str(e)},
             exception=e,
             status_code=500
         )

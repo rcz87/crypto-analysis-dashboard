@@ -1,7 +1,7 @@
 # gpts_routes.py
 from flask import Blueprint, jsonify, request
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import logging
 from core.okx_fetcher import OKXFetcher
 from core.ai_engine import get_ai_engine
@@ -87,7 +87,7 @@ def get_status():
             okx_details["error"] = str(e)
         
         ai_engine = get_ai_engine()
-        ai_test = ai_engine.test_connection()
+        ai_test = ai_engine.test_ai_connection()
         openai_status = "available" if ai_test.get("available", False) else "unavailable"
         
         db_status = "unavailable"
@@ -97,7 +97,7 @@ def get_status():
             try:
                 engine = create_engine(db_url)
                 with engine.connect() as conn:
-                    conn.execute("SELECT 1")
+                    conn.execute(text("SELECT 1"))
                 db_status = "available"
             except Exception as e:
                 db_details["error"] = str(e)

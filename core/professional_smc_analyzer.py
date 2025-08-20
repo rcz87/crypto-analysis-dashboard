@@ -70,8 +70,8 @@ class ProfessionalSMCAnalyzer:
             closes = df['close'].values
             
             # Simple structure analysis
-            recent_high = float(np.max(highs[-10:]))
-            recent_low = float(np.min(lows[-10:]))
+            recent_high = float(np.amax(np.array(highs[-10:], dtype=np.float64)))
+            recent_low = float(np.amin(np.array(lows[-10:], dtype=np.float64)))
             current_price = closes[-1]
             
             # Determine structure break
@@ -104,7 +104,10 @@ class ProfessionalSMCAnalyzer:
                 
                 # Look for strong candles with high volume
                 body_size = abs(candle['close'] - candle['open'])
-                avg_volume = df['volume'].rolling(20).mean().iloc[i]
+                if i >= 20:
+                    avg_volume = float(df['volume'].iloc[i-20:i].mean())
+                else:
+                    avg_volume = float(df['volume'].iloc[:i+1].mean())
                 
                 if candle['volume'] > avg_volume * 1.5 and body_size > 0:
                     order_blocks.append({
@@ -164,8 +167,9 @@ class ProfessionalSMCAnalyzer:
             volumes = df['volume'].values
             
             # Find high volume areas (potential liquidity)
-            avg_volume = np.mean(volumes)
-            high_volume_indices = np.where(volumes > avg_volume * 1.5)[0]
+            avg_volume = float(np.mean(np.array(volumes, dtype=np.float64)))
+            volume_array = np.array(volumes, dtype=np.float64)
+            high_volume_indices = np.where(volume_array > avg_volume * 1.5)[0]
             
             liquidity_levels = []
             for idx in high_volume_indices[-5:]:  # Last 5 high volume areas
@@ -195,8 +199,8 @@ class ProfessionalSMCAnalyzer:
             closes = df['close'].values
             
             # Simple bias calculation
-            short_ma = np.mean(closes[-5:])  # 5-period average
-            long_ma = np.mean(closes[-20:])  # 20-period average
+            short_ma = float(np.mean(np.array(closes[-5:], dtype=np.float64)))  # 5-period average
+            long_ma = float(np.mean(np.array(closes[-20:], dtype=np.float64)))  # 20-period average
             
             if short_ma > long_ma * 1.01:
                 return 'bullish'
@@ -230,8 +234,8 @@ class ProfessionalSMCAnalyzer:
             lows = df['low'].values
             
             return {
-                'resistance': float(np.max(highs[-20:])),
-                'support': float(np.min(lows[-20:])),
+                'resistance': float(np.amax(np.array(highs[-20:], dtype=np.float64))),
+                'support': float(np.amin(np.array(lows[-20:], dtype=np.float64))),
                 'current_price': float(df['close'].iloc[-1])
             }
             
