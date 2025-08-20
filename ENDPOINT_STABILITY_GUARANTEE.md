@@ -74,3 +74,22 @@ User frustrated bahwa **setiap perbaikan endpoint selalu berubah nama**:
 ---
 
 **COMMITMENT**: Sistem endpoint sekarang LOCKED dan tidak akan berubah-ubah lagi tanpa persetujuan user.
+
+## USER MANDATE (August 20, 2025)
+**"Jangan pernah merubah2 nama endpoint lagi"**
+
+This is a CRITICAL user requirement. Under NO circumstances should endpoint names be modified, even for "improvements" or "optimizations". The current 29/31 registered blueprints represent the final, locked state.
+
+### PROHIBITED ACTIONS:
+- ❌ Changing endpoint URL paths
+- ❌ Renaming blueprint variables
+- ❌ Modifying endpoint prefixes
+- ❌ Switching back to auto-discovery
+- ❌ "Improving" the naming scheme
+
+### ALLOWED MAINTENANCE:
+- ✅ Bug fixes within existing endpoints
+- ✅ Adding completely new endpoints (with user approval)
+- ✅ Internal code improvements (without changing names)
+
+**FINAL STATE LOCKED**: 29 blueprints registered, names frozen permanently.

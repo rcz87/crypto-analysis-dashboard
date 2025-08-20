@@ -10,6 +10,8 @@ The platform serves as both a web API and ChatGPT Custom GPT integration, provid
 
 Preferred communication style: Simple, everyday language.
 
+**CRITICAL REQUIREMENT**: "Jangan pernah merubah2 nama endpoint lagi" - Endpoint names must NEVER change again under any circumstances. User experienced frustration from constant endpoint name changes and requires absolute stability.
+
 ## Recent Critical Fixes (August 20, 2025)
 
 ### Endpoint Consistency Fix (COMPLETED - August 20, 2025)
@@ -20,6 +22,7 @@ Preferred communication style: Simple, everyday language.
 - **25/27 Blueprints Locked**: Fixed registry with verified working blueprints for consistent user experience
 - **Registry Management**: Manual maintenance of blueprint registry prevents naming inconsistencies
 - **Stability Guarantee**: Endpoint names will not change anymore without user approval
+- **USER MANDATE**: "Jangan pernah merubah2 nama endpoint lagi" - Absolute prohibition on endpoint name changes
 
 ## Previous Fixes (August 19, 2025)
 
