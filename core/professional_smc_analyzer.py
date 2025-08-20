@@ -70,8 +70,8 @@ class ProfessionalSMCAnalyzer:
             closes = df['close'].values
             
             # Simple structure analysis
-            recent_high = np.max(highs[-10:])
-            recent_low = np.min(lows[-10:])
+            recent_high = float(np.max(highs[-10:]))
+            recent_low = float(np.min(lows[-10:]))
             current_price = closes[-1]
             
             # Determine structure break

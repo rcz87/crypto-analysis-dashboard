@@ -4,7 +4,7 @@ Simplified signal generation for reliable deployment
 """
 
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import time
 
 logger = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ class SignalGenerator:
         self.logger = logging.getLogger(f"{__name__}.SignalGenerator")
         self.logger.info("Signal Generator initialized")
     
-    def generate_signal(self, market_data: Dict[str, Any], smc_analysis: Dict[str, Any] = None) -> Dict[str, Any]:
+    def generate_signal(self, market_data: Dict[str, Any], smc_analysis: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Generate trading signal based on market data and SMC analysis
         
@@ -59,7 +59,7 @@ class SignalGenerator:
             self.logger.error(f"Signal generation error: {e}")
             return self._get_fallback_signal()
     
-    def _analyze_price_action(self, candles: list, smc_analysis: Dict[str, Any] = None) -> Dict[str, Any]:
+    def _analyze_price_action(self, candles: list, smc_analysis: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Analyze price action to determine signal direction"""
         try:
             if len(candles) < 5:

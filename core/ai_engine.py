@@ -33,6 +33,50 @@ class AIEngine:
         else:
             logger.info("No OpenAI API key - using fallback narratives")
     
+    def is_available(self) -> bool:
+        """Check if AI engine is available"""
+        return self.openai_client is not None
+    
+    def test_connection(self) -> Dict[str, Any]:
+        """Test AI engine connection"""
+        return {
+            "available": self.is_available(),
+            "status": "connected" if self.is_available() else "fallback",
+            "client": "OpenAI GPT-4" if self.is_available() else "Basic fallback"
+        }
+    
+    def generate_ai_snapshot(self, symbol: str, timeframe: str, analysis_data: Dict[str, Any]) -> str:
+        """Generate AI snapshot/narrative"""
+        if self.openai_client:
+            try:
+                signal_result = analysis_data.get('signal_result', {})
+                smc_analysis = analysis_data.get('smc_analysis', {})
+                
+                prompt = f"""Generate a professional trading analysis for {symbol} {timeframe}:
+                
+Signal: {signal_result.get('bias', 'NEUTRAL')}
+Confidence: {signal_result.get('confidence', 0)}%
+Market Structure: {smc_analysis.get('market_bias', 'neutral')}
+
+Provide concise Indonesian analysis focusing on key trading insights."""
+
+                response = self.openai_client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=200,
+                    temperature=0.7
+                )
+                
+                return response.choices[0].message.content.strip()
+                
+            except Exception as e:
+                logger.error(f"AI snapshot generation error: {e}")
+                return f"Analisis {symbol} menunjukkan kondisi market {signal_result.get('bias', 'neutral')} dengan confidence {signal_result.get('confidence', 0)}%."
+        
+        # Fallback narrative
+        signal_result = analysis_data.get('signal_result', {})
+        return f"Analisis {symbol} menunjukkan kondisi market {signal_result.get('bias', 'neutral')} dengan confidence {signal_result.get('confidence', 0)}%."
+    
     def generate_trading_narrative(self, symbol: str, timeframe: str, 
                                  market_data: Dict[str, Any], 
                                  smc_analysis: Optional[Dict[str, Any]] = None,

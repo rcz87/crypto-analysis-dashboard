@@ -148,8 +148,8 @@ def get_tajam_signal():
         if not candles:
             return jsonify({"status": "error", "message": f"Failed to get market data for {symbol} {timeframe}"}), 400
         
-        smc_result = smc_analyzer.analyze_market_structure(candles)
-        signal_result = signal_generator.generate_signal({'candles': candles}, smc_result, is_concise=True)
+        smc_result = smc_analyzer.analyze_market_structure({'candles': candles})
+        signal_result = signal_generator.generate_signal({'candles': candles}, smc_result)
         
         current_price = candles[-1].get('close', 0) if candles else 0
         
@@ -194,8 +194,8 @@ def get_enhanced_signal():
         if not candles:
             return jsonify({"status": "error", "message": f"Failed to get market data for {symbol} {timeframe}"}), 400
         
-        smc_result = smc_analyzer.analyze_market_structure(candles)
-        signal_result = signal_generator.generate_signal({'candles': candles}, smc_result, is_concise=False)
+        smc_result = smc_analyzer.analyze_market_structure({'candles': candles})
+        signal_result = signal_generator.generate_signal({'candles': candles}, smc_result)
         
         news_context = {}
         if include_news:
