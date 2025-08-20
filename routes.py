@@ -200,47 +200,57 @@ def init_routes(app, db=None):
     # Register primary GPTs API blueprint
     _register_optional_blueprint(app, "gpts_routes", "gpts_api", url_prefix=f"{api_prefix}/gpts")
     
-    # 🤖 AUTO-DISCOVERED BLUEPRINTS - All user's endpoints
-    auto_discovered_blueprints = [
-        ("api.advanced_optimization_endpoints", "advanced_optimization_bp", "/api/advanced_optimization"),
-        ("api.ai_reasoning_endpoints", "ai_reasoning_bp", "/api/ai"),
-        ("api.backtest_endpoints", "backtest_bp", "/api/backtest"),
-        ("api.chart_endpoints", "chart_bp", "/api/charts"),
-        ("api.data_quality_endpoints", "data_quality_bp", "/api/data_quality"),
-        ("api.enhanced_gpts_endpoints", "enhanced_gpts_bp", "/api/gpts"),
-        ("api.enhanced_signal_endpoints", "enhanced_signals_bp", "/api/signals"),
-        ("api.gpts_coinglass_endpoints", "coinglass_bp", "/api/coinglass"),
-        ("api.gpts_coinglass_simple", "coinglass_simple_bp", "/api/coinglass-simple"),
-        ("api.improvement_endpoints", "improvement_bp", "/api/improvements"),
-        ("api.institutional_endpoints", "institutional_bp", "/api/institutional"),
-        ("api.missing_endpoints", "missing_bp", "/api/missing"),
-        ("api.missing_gpts_endpoints", "missing_gpts_bp", "/api/missing-gpts"),
-        ("api.modular_endpoints", "modular_bp", "/api/modular"),
-        ("api.news_endpoints", "news_api", "/api/news"),
-        ("api.performance_api", "performance_api_bp", "/api/performance-api"),
-        ("api.performance_endpoints", "performance_bp", "/api/performance"),
-        ("api.promptbook", "promptbook_bp", "/api/promptbook"),
+    # 🔒 STABLE BLUEPRINT REGISTRY - Fixed naming untuk konsistensi
+    # Registry ini di-maintain manual agar endpoint tidak berubah-ubah
+    stable_blueprints = [
+        # Core GPTs API
+        ("gpts_routes", "gpts_api", "/api/gpts"),
+        
+        # Verified working endpoints (consistent naming)
+        ("api.data_quality_endpoints", "data_quality_bp", "/api/data-quality"),
         ("api.security_endpoints", "security_bp", "/api/security"),
-        ("api.sharp_scoring_endpoints", "sharp_scoring_bp", "/api/sharp-scoring"),
-        ("api.sharp_signal_endpoint", "sharp_signal_bp", "/api/signals"),
-        ("api.signal_engine_endpoint", "signal_engine_bp", "/api/signal-engine"),
-        ("api.signal_top_endpoints", "signal_top_bp", "/api/signal-top"),
-        ("api.smc_endpoints", "smc_bp", "/api/smc"),
-        ("api.smc_pattern_endpoints", "smc_pattern_bp", "/api/smc-patterns"),
-        ("api.smc_zones_endpoints", "smc_zones_bp", "/api/smc-zones"),
-        ("api.state_endpoints", "state_bp", "/api/state"),
+        ("api.performance_endpoints", "performance_bp", "/api/performance"),
+        ("api.advanced_optimization_endpoints", "advanced_optimization_bp", "/api/optimization"),
+        ("api.ai_reasoning_endpoints", "ai_reasoning_bp", "/api/ai-reasoning"),
+        ("api.institutional_endpoints", "institutional_bp", "/api/institutional"),
         ("api.telegram_endpoints", "telegram_bp", "/api/telegram"),
-        ("api.webhook_endpoints", "webhook_bp", "/api/webhook"),
-        # Legacy/root blueprints
+        ("api.webhook_endpoints", "webhook_bp", "/api/webhooks"),
+        ("api.smc_zones_endpoints", "smc_zones_bp", "/api/smc-zones"),
+        ("api.news_endpoints", "news_api", "/api/news"),
+        
+        # Trading & Signal endpoints (grouped logically)
+        ("api.enhanced_signal_endpoints", "enhanced_signals_bp", "/api/signals/enhanced"),
+        ("api.sharp_signal_endpoint", "sharp_signal_bp", "/api/signals/sharp"),
+        ("api.signal_top_endpoints", "signal_top_bp", "/api/signals/top"),
+        ("api.sharp_scoring_endpoints", "sharp_scoring_bp", "/api/signals/scoring"),
+        
+        # Analysis & Tools
+        ("api.backtest_endpoints", "backtest_api", "/api/backtest"),
+        ("api.chart_endpoints", "chart_bp", "/api/charts"),
+        ("api.missing_endpoints", "missing_bp", "/api/analysis/missing"),
+        ("api.modular_endpoints", "modular_bp", "/api/analysis/modular"),
+        ("api.improvement_endpoints", "improvement_bp", "/api/analysis/improvements"),
+        
+        # Enhanced GPTs features
+        ("api.enhanced_gpts_endpoints", "enhanced_gpts", "/api/gpts/enhanced"),
+        ("api.missing_gpts_endpoints", "missing_gpts_bp", "/api/gpts/missing"),
+        ("api.gpts_coinglass_endpoints", "gpts_coinglass_bp", "/api/gpts/coinglass"),
+        ("api.gpts_coinglass_simple", "coinglass_bp", "/api/coinglass"),
+        
+        # Utility
+        ("api.promptbook", "promptbook_bp", "/api/promptbook"),
+        ("api.performance_api", "performance_api", "/api/performance/advanced"),
+        
+        # Schema (optional)
         ("openapi_schema", "openapi_bp", f"{api_prefix}/schema"),
     ]
     
-    # Register all auto-discovered blueprints
-    successful_registrations = 0
-    for import_path, attr, url_prefix in auto_discovered_blueprints:
+    # Register stable blueprints (consistent across restarts)
+    stable_successful = 0
+    for import_path, attr, url_prefix in stable_blueprints:
         if _register_optional_blueprint(app, import_path, attr, url_prefix):
-            successful_registrations += 1
+            stable_successful += 1
     
-    logger.info(f"🤖 Auto-discovery: {successful_registrations}/{len(auto_discovered_blueprints)} blueprints registered")
-    logger.info(f"🚀 Routes initialized: ALL user endpoints discovered and registered")
+    logger.info(f"🔒 Stable registry: {stable_successful}/{len(stable_blueprints)} blueprints registered consistently")
+    logger.info(f"🚀 Routes initialized: CONSISTENT endpoint system active ({stable_successful} active)")
     logger.info("🎯 Application factory pattern successfully implemented")

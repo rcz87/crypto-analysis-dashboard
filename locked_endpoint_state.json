@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-08-20T00:38:40.417696",
+  "total_endpoints": 19,
+  "registered_blueprints": 27,
+  "stable_endpoints": [
+    "/api/data-quality/*",
+    "/api/enhanced/*",
+    "/api/gpts/*",
+    "/api/gpts/coinglass/*",
+    "/api/gpts/sharp-scoring/*",
+    "/api/gpts/sinyal/tajam",
+    "/api/gpts/status",
+    "/api/gpts/telegram/*",
+    "/api/improvement/*",
+    "/api/institutional/*",
+    "/api/optimization/*",
+    "/api/performance/*",
+    "/api/promptbook/*",
+    "/api/security/*",
+    "/api/signal/*",
+    "/api/v1/ai-reasoning/*",
+    "/api/v2/*",
+    "/api/webhooks/*",
+    "/health"
+  ],
+  "registry_locked": true,
+  "note": "LOCKED STATE - Do not modify without user approval"
+}

@@ -16297,3 +16297,105 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-20 00:34:00 - httpcore.http11 - DEBUG - trace:47 - response_closed.complete
 2025-08-20 00:34:00 - openai._base_client - DEBUG - request:1013 - HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Wed, 20 Aug 2025 00:34:00 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '569'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '653'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_6e88e0dc7d134810bdab170d63b25cdd'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=ZfifvLM87oA6cfdAaVOMAOmyErZRRDyW.Q.LfD2AAsY-1755650040-1.0.1.1-vSetskIK.PPAjkIHtRbZ9MicFJYeR5YFZvUQPgrCY4XssxDh2RmZjuTvOy8U9ACdQQS5ZDzjOCugKydYjQAVgz05Jp1F4I8dUHttVSHpKTk; path=/; expires=Wed, 20-Aug-25 01:04:00 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=wygTLv8QlzL2WRmWWhI5a901oewm7lvLygeBn0MirEU-1755650040853-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '971dcd6cbe5d27de-SEA'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
 2025-08-20 00:34:00 - openai._base_client - DEBUG - request:1021 - request_id: req_6e88e0dc7d134810bdab170d63b25cdd
+2025-08-20 00:37:46 - httpcore.connection - DEBUG - trace:47 - close.started
+2025-08-20 00:37:46 - httpcore.connection - DEBUG - trace:47 - close.complete
+2025-08-20 00:37:53 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:37:53 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:37:53 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 00:37:53 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 00:37:53 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:37:53 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:37:53 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:37:53 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 00:37:53 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:37:53 - routes - INFO - init_routes:254 - 🔒 Stable registry: 25/27 blueprints registered consistently
+2025-08-20 00:37:53 - routes - INFO - init_routes:255 - 🚀 Routes initialized: CONSISTENT endpoint system active (25 active)
+2025-08-20 00:37:53 - routes - INFO - init_routes:256 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:37:53 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:37:55 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:37:55 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:37:55 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:37:55 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 00:37:56 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 00:37:56 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:37:56 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:37:56 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:37:56 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 00:37:56 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:37:56 - routes - INFO - init_routes:254 - 🔒 Stable registry: 25/27 blueprints registered consistently
+2025-08-20 00:37:56 - routes - INFO - init_routes:255 - 🚀 Routes initialized: CONSISTENT endpoint system active (25 active)
+2025-08-20 00:37:56 - routes - INFO - init_routes:256 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:37:56 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:38:03 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:38:03 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:38:03 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:38:03 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 00:38:04 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 00:38:04 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:38:04 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:38:04 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:38:04 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 00:38:04 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:04 - routes - INFO - init_routes:254 - 🔒 Stable registry: 25/27 blueprints registered consistently
+2025-08-20 00:38:04 - routes - INFO - init_routes:255 - 🚀 Routes initialized: CONSISTENT endpoint system active (25 active)
+2025-08-20 00:38:04 - routes - INFO - init_routes:256 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:38:04 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:38:09 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:38:09 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:38:09 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:38:09 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 00:38:09 - core.enhanced_signal_logic - INFO - __init__:67 - 🧠 Enhanced Signal Logic initialized with Weight Matrix & Scoring System
+2025-08-20 00:38:09 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - INFO - __init__:18 - Professional SMC Analyzer initialized
+2025-08-20 00:38:09 - core.enhanced_ai_engine - INFO - __init__:42 - Enhanced AI Engine initialized with OpenAI GPT-4o
+2025-08-20 00:38:09 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: modular_endpoints (prefix=/api/analysis/modular)
+2025-08-20 00:38:10 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 00:38:10 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:38:10 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:38:10 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 00:38:10 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+2025-08-20 00:38:10 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+2025-08-20 00:38:10 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:10 - routes - INFO - init_routes:254 - 🔒 Stable registry: 25/27 blueprints registered consistently
+2025-08-20 00:38:10 - routes - INFO - init_routes:255 - 🚀 Routes initialized: CONSISTENT endpoint system active (25 active)
+2025-08-20 00:38:10 - routes - INFO - init_routes:256 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:38:10 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+2025-08-20 00:38:10 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+2025-08-20 00:38:10 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+2025-08-20 00:38:10 - routes - INFO - _register_optional_blueprint:166 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+2025-08-20 00:38:10 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:10 - routes - INFO - init_routes:254 - 🔒 Stable registry: 25/27 blueprints registered consistently
+2025-08-20 00:38:10 - routes - INFO - init_routes:255 - 🚀 Routes initialized: CONSISTENT endpoint system active (25 active)
+2025-08-20 00:38:10 - routes - INFO - init_routes:256 - 🎯 Application factory pattern successfully implemented
+2025-08-20 00:38:10 - app - INFO - create_app:115 - 🚀 Flask app created successfully (config: development)

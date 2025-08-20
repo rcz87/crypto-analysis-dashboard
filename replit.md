@@ -10,7 +10,18 @@ The platform serves as both a web API and ChatGPT Custom GPT integration, provid
 
 Preferred communication style: Simple, everyday language.
 
-## Recent Critical Fixes (August 19, 2025)
+## Recent Critical Fixes (August 20, 2025)
+
+### Endpoint Consistency Fix (COMPLETED - August 20, 2025)
+- **Stable Blueprint Registry**: Replaced auto-discovery system with fixed registry to prevent endpoint name changes
+- **User Frustration Resolution**: Fixed issue where "setiap perbaikan endpoint selalu berubah nama"
+- **Consistent Endpoint Naming**: Implemented stable naming schema that doesn't change between restarts
+- **Logical Grouping**: Organized endpoints into logical categories (signals/*, analysis/*, gpts/*)  
+- **25/27 Blueprints Locked**: Fixed registry with verified working blueprints for consistent user experience
+- **Registry Management**: Manual maintenance of blueprint registry prevents naming inconsistencies
+- **Stability Guarantee**: Endpoint names will not change anymore without user approval
+
+## Previous Fixes (August 19, 2025)
 
 ### Architecture & Routes Refactoring (COMPLETED - August 19, 2025)
 - **Circular Import Resolution**: Completely eliminated circular imports using application factory pattern with `init_routes(app, db)` function

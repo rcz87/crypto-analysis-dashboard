@@ -365,3 +365,8 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.smc_pattern_endpoints.smc_pattern_bp: module 'api.smc_pattern_endpoints' has no attribute 'smc_pattern_bp'
 2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint api.state_endpoints.state_bp: module 'api.state_endpoints' has no attribute 'state_bp'
 2025-08-20 00:33:50 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:37:53 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:37:56 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:04 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:10 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
+2025-08-20 00:38:10 - routes - ERROR - _register_optional_blueprint:172 - ❌ Error registering blueprint openapi_schema.openapi_bp: unexpected indent (openapi_schema.py, line 1054)
