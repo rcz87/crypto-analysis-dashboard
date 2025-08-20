@@ -43,9 +43,16 @@ def _require_api_key():
             "message": "API key required. Include X-API-KEY header.",
             "status_code": 401
         }), 401
-        
-    if provided_key != expected_key:
-        logger.warning(f"Invalid API key attempt from {request.remote_addr}")
+    
+    # Clean both keys for comparison (strip whitespace)
+    expected_clean = expected_key.strip()
+    provided_clean = provided_key.strip()
+    
+    # Debug logging (remove after fixing)
+    logger.debug(f"API key check: expected_len={len(expected_clean)}, provided_len={len(provided_clean)}")
+    
+    if provided_clean != expected_clean:
+        logger.warning(f"Invalid API key attempt from {request.remote_addr} - key mismatch")
         return jsonify({
             "success": False,
             "error": "UNAUTHORIZED", 

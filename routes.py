@@ -46,10 +46,9 @@ def _require_api_key() -> Optional[tuple]:
 
 @core_bp.route("/", methods=["GET"])
 def index():
-    """Main index route with comprehensive API information"""
-    gate = _require_api_key()
-    if gate: 
-        return gate
+    """Main index route with comprehensive API information - PUBLIC (no API key required)"""
+    # Root endpoint should be public for service discovery and monitoring
+    # gate = _require_api_key()  # Commented out - root should be accessible
 
     from datetime import datetime
         
