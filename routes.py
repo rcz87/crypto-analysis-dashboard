@@ -216,12 +216,16 @@ def init_routes(app, db=None):
         ("api.telegram_endpoints", "telegram_bp", "/api/telegram"),
         ("api.webhook_endpoints", "webhook_bp", "/api/webhooks"),
         ("api.smc_zones_endpoints", "smc_zones_bp", "/api/smc-zones"),
+        ("api.smc_endpoints", "smc_context_bp", "/api/smc/context"),
+        ("api.smc_pattern_endpoints", "smc_pattern", "/api/smc/patterns"),
+        ("api.state_endpoints", "state_api", "/api/state"),
         ("api.news_endpoints", "news_api", "/api/news"),
         
         # Trading & Signal endpoints (grouped logically)
         ("api.enhanced_signal_endpoints", "enhanced_signals_bp", "/api/signals/enhanced"),
         ("api.sharp_signal_endpoint", "sharp_signal_bp", "/api/signals/sharp"),
         ("api.signal_top_endpoints", "signal_top_bp", "/api/signals/top"),
+        ("api.signal_engine_endpoint", "signal_bp", "/api/signals/engine"),
         ("api.sharp_scoring_endpoints", "sharp_scoring_bp", "/api/signals/scoring"),
         
         # Analysis & Tools
