@@ -245,6 +245,9 @@ def init_routes(app, db=None):
         ("api.promptbook", "promptbook_bp", "/api/promptbook"),
         ("api.performance_api", "performance_api", "/api/performance/advanced"),
         
+        # Enhanced Schema (NEW - Ultra-complete OpenAPI for ChatGPT)
+        ("core.enhanced_openapi_schema", "openapi_enhanced_bp", "/api/schema/enhanced"),
+        
         # Schema (optional)
         ("openapi_schema", "openapi_bp", f"{api_prefix}/schema"),
     ]
