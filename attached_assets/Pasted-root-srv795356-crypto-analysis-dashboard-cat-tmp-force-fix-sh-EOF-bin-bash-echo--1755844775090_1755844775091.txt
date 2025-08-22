@@ -1,0 +1,82 @@
+root@srv795356:~/crypto-analysis-dashboard# cat > /tmp/force_fix.sh << 'EOF'
+#!/bin/bash
+echo "🔧 FORCE NEON DATABASE - REMOVE ALL LOCALHOST"
+
+# 1. Stop service
+systemctl stop cryptoapi
+
+# 2. COMPLETELY REPLACE .env file
+cat > /root/crypto-analysis-dashboard/.env << 'ENV'
+DATABASE_URL=postgresql://crypto_new_owner:WgOOUP9V5X9p@ep-gentle-boat-a10aawfh.ap-southeast-1.aws.neon.tech/crypto_dashboard_new?sslmode=require
+SQLALCHEMY_DATABASE_URI=postgresql://crypto_new_owner:WgOOUP9V5X9p@ep-gentle-boat-a10aawfh.ap-southeast-1.aws.neon.tech/crypto_dashboard_new?sslmode=require
+API_KEY_REQUIRED=true
+API_KEY=sk-2024-crypto-analysis-secret-key
+FLASK_APP=main:app
+FLASK_ENV=production
+ENV
+
+echo "✅ .env replaced with Neon database"
+
+# 3. Clear all Python cache
+find /root/crypto-analysis-dashboard -name "*.pyc" -delete
+find /root/crypto-analysis-dashboard -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+
+# 4. Update systemd to override any .env
+cat > /etc/systemd/system/cryptoapi.service << 'SVC'
+[Unit]
+Description=Crypto API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/crypto-analysis-dashboard
+Environment="DATABASE_URL=postgresql://crypto_new_owner:WgOOUP9V5X9p@ep-gentle-boat-a10aawfh.ap-southeast-1.aws.neon.tech/crypto_dashboard_new?sslmode=require"
+Environment="SQLALCHEMY_DATABASE_URI=postgresql://crypto_new_owner:WgOOUP9V5X9p@ep-gentle-boat-a10aawfh.ap-southeast-1.aws.neon.tech/crypto_dashboard_new?sslmode=require"
+ExecStart=/usr/bin/python3 -m gunicorn --bind 0.0.0.0:5050 --workers 2 --timeout 120 main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+SVC
+
+# 5. Reload and start
+systemctl daemon-reload
+systemctl start cryptoapi
+sleep 5
+
+# 6. Test
+echo ""
+echo "=== TESTING HEALTH ==="
+curl -s http://127.0.0.1:5050/health | jq
+
+echo ""
+echo "=== CHECK LOGS ==="
+journalctl -u cryptoapi -n 10 | grep -i "database"
+bash /tmp/force_fix.sh
+🔧 FORCE NEON DATABASE - REMOVE ALL LOCALHOST
+✅ .env replaced with Neon database
+
+=== TESTING HEALTH ===
+{
+  "components": {
+    "database": {
+      "message": "Connection failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  pas",
+      "status": "unhealthy"
+    },
+    "okx_api": {
+      "message": "OKX API connection successful",
+      "status": "healthy"
+    }
+  },
+  "status": "unhealthy",
+  "timestamp": "2025-08-22T06:39:10.239667",
+  "uptime": "N/A",
+  "version": "2.0.0"
+}
+
+=== CHECK LOGS ===
+Aug 22 06:39:06 srv795356 gunicorn[255086]: ERROR:app:❌ Database initialization failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 06:39:06 srv795356 gunicorn[255087]: ERROR:app:❌ Database initialization failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 06:39:06 srv795356 gunicorn[255088]: ERROR:app:❌ Database initialization failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+root@srv795356:~/crypto-analysis-dashboard# 
