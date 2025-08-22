@@ -1,0 +1,54 @@
+ULTRA SIMPLE VPS FIX - Copy Paste Commands
+========================================
+
+Jalankan command ini satu per satu di VPS Hostinger:
+
+1. Stop service:
+sudo systemctl stop cryptoapi.service
+
+2. Create environment file (ganti YOUR_NEON_URL dengan URL database Neon yang benar):
+cat > /root/crypto-analysis-dashboard/.env.production << 'EOF'
+DATABASE_URL=YOUR_NEON_URL_HERE
+SQLALCHEMY_DATABASE_URI=YOUR_NEON_URL_HERE
+FLASK_ENV=production
+API_KEY_REQUIRED=true
+API_KEY=your-api-key-here
+SESSION_SECRET=production-secret
+EOF
+
+3. Update systemd service:
+sudo tee /etc/systemd/system/cryptoapi.service > /dev/null << 'EOF'
+[Unit]
+Description=Crypto Trading API
+After=network.target
+
+[Service]
+Type=notify
+User=root
+WorkingDirectory=/root/crypto-analysis-dashboard
+Environment=PATH=/root/crypto-analysis-dashboard/venv/bin
+EnvironmentFile=/root/crypto-analysis-dashboard/.env.production
+ExecStart=/root/crypto-analysis-dashboard/venv/bin/gunicorn --bind 0.0.0.0:5000 --workers 4 main:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+4. Start service:
+sudo systemctl daemon-reload
+sudo systemctl start cryptoapi.service
+
+5. Check status:
+sudo systemctl status cryptoapi.service
+
+6. Test health:
+curl http://localhost:5000/health
+
+IMPORTANT: 
+- Ganti YOUR_NEON_URL_HERE dengan URL database Neon yang sebenarnya
+- Format: postgresql://neondb_owner:PASSWORD@ep-xxx.neon.tech/neondb?sslmode=require
+- Jangan lupa ganti API keys di .env.production setelah selesai
+
+Jika berhasil, curl health akan return response dengan "healthy" status.
