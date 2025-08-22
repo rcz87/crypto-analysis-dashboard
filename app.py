@@ -218,6 +218,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register advanced_trading: {e}")
     
+    # ⚡ Register Optimized AI endpoints (Latency optimization, Advanced ML)
+    try:
+        from api.optimized_ai_endpoints import optimized_ai_bp
+        if "optimized_ai" not in app.blueprints:
+            app.register_blueprint(optimized_ai_bp)
+            logger.info("✅ Optimized AI: Latency <3s, Transformer + RL ensemble registered")
+    except Exception as e:
+        logger.warning(f"Could not register optimized_ai: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
