@@ -365,6 +365,90 @@ def smc_patterns_recognize():
             "message": str(e)
         }), 500
 
+@smc_context_bp.route('/zones', methods=['GET'])
+@cross_origin()
+def smc_zones():
+    """
+    Get SMC Zones - similar to orderblocks but with zone type filtering
+    """
+    try:
+        symbol = request.args.get('symbol', 'BTC-USDT')
+        zone_type = request.args.get('zone_type', 'all')
+        
+        # Get real-time data from OKX
+        from core.okx_hybrid_fetcher import OKXHybridFetcher
+        fetcher = OKXHybridFetcher()
+        
+        # Normalize symbol for OKX
+        okx_symbol = symbol.replace('USDT', '-USDT') if '-' not in symbol else symbol
+        price_data = fetcher.get_price_data(okx_symbol)
+        
+        if not price_data:
+            return jsonify({
+                "status": "error",
+                "message": "Unable to fetch price data"
+            }), 500
+        
+        current_price = price_data.price
+        high_24h = price_data.high_24h
+        low_24h = price_data.low_24h
+        
+        zones = {
+            "status": "success",
+            "symbol": symbol,
+            "current_price": current_price,
+            "zones": []
+        }
+        
+        # Add order blocks if requested
+        if zone_type in ['all', 'order_block', 'orderblock']:
+            zones["zones"].extend([
+                {
+                    "type": "BULLISH_ORDER_BLOCK",
+                    "price_top": low_24h * 1.02,
+                    "price_bottom": low_24h,
+                    "strength": "EXTREME"
+                },
+                {
+                    "type": "BEARISH_ORDER_BLOCK",
+                    "price_top": high_24h,
+                    "price_bottom": high_24h * 0.98,
+                    "strength": "STRONG"
+                }
+            ])
+        
+        # Add FVG zones if requested
+        if zone_type in ['all', 'fvg', 'fair_value_gap']:
+            zones["zones"].append({
+                "type": "FAIR_VALUE_GAP",
+                "price_top": current_price * 1.002,
+                "price_bottom": current_price * 0.998,
+                "direction": "BULLISH" if price_data.price_change_24h > 0 else "BEARISH"
+            })
+        
+        # Add liquidity zones if requested
+        if zone_type in ['all', 'liquidity']:
+            zones["zones"].extend([
+                {
+                    "type": "BUY_SIDE_LIQUIDITY",
+                    "price": high_24h * 1.005
+                },
+                {
+                    "type": "SELL_SIDE_LIQUIDITY", 
+                    "price": low_24h * 0.995
+                }
+            ])
+        
+        zones["timestamp"] = datetime.utcnow().isoformat() + "Z"
+        return jsonify(zones)
+        
+    except Exception as e:
+        logger.error(f"SMC zones error: {e}")
+        return jsonify({
+            "status": "error",
+            "message": str(e)
+        }), 500
+
 @smc_context_bp.route('/context', methods=['GET'])
 @cross_origin()
 def get_smc_context():
