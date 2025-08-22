@@ -158,6 +158,31 @@ def create_app(config_name='development'):
             def basic_status():
                 return jsonify({"status": "active", "version": "2.0.0"})
     
+    # 🎯 Register Core Trading endpoints explicitly
+    try:
+        from api.signal_top_endpoints import signal_top_bp
+        if "signal_top" not in app.blueprints:
+            app.register_blueprint(signal_top_bp)
+            logger.info("✅ Core Trading: signal_top blueprint registered")
+    except Exception as e:
+        logger.warning(f"Could not register signal_top: {e}")
+    
+    try:
+        from api.missing_endpoints import missing_bp
+        if "missing_endpoints" not in app.blueprints:
+            app.register_blueprint(missing_bp)
+            logger.info("✅ Core Trading: missing_endpoints blueprint registered")
+    except Exception as e:
+        logger.warning(f"Could not register missing_endpoints: {e}")
+    
+    try:
+        from api.news_endpoints import news_api
+        if "news_api" not in app.blueprints:
+            app.register_blueprint(news_api)
+            logger.info("✅ Core Trading: news_api blueprint registered")
+    except Exception as e:
+        logger.warning(f"Could not register news_api: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():

@@ -264,7 +264,7 @@ def _register_optional_blueprint(app, import_path: str, attr: str, url_prefix: O
         return True
 
     except ImportError as e:
-        logger.debug(f"⚠️ Optional blueprint not available: {import_path}.{attr}")
+        logger.warning(f"⚠️ Optional blueprint not available: {import_path}.{attr} - {e}")
     except Exception as e:
         logger.error(f"❌ Error registering blueprint {import_path}.{attr}: {e}")
     return False
@@ -316,19 +316,19 @@ def init_routes(app, db=None):
         ("api.smc_endpoints", "smc_context_bp", "/api/smc/context"),
         ("api.smc_pattern_endpoints", "smc_pattern", "/api/smc/patterns"),
         ("api.state_endpoints", "state_api", "/api/state"),
-        ("api.news_endpoints", "news_api", "/api/news"),
+        ("api.news_endpoints", "news_api", ""),  # Register at root for /api/gpts/news-analysis
         
         # Trading & Signal endpoints (grouped logically)
         ("api.enhanced_signal_endpoints", "enhanced_signals_bp", "/api/enhanced"),
         ("api.sharp_signal_endpoint", "sharp_signal_bp", "/api/signals/sharp"),
-        ("api.signal_top_endpoints", "signal_top_bp", "/api/signals/top"),
+        ("api.signal_top_endpoints", "signal_top_bp", ""),  # Register at root to get /api/signal/top
         ("api.signal_engine_endpoint", "signal_bp", "/api/signals/engine"),
         ("api.sharp_scoring_endpoints", "sharp_scoring_bp", "/api/signals/scoring"),
         
         # Analysis & Tools
         ("api.backtest_endpoints", "backtest_api", "/api/backtest"),
         ("api.chart_endpoints", "chart_bp", "/api/charts"),
-        ("api.missing_endpoints", "missing_bp", "/api/analysis/missing"),
+        ("api.missing_endpoints", "missing_bp", ""),  # Register at root for /api/signals/history etc
         ("api.modular_endpoints", "modular_bp", "/api/analysis/modular"),
         ("api.improvement_endpoints", "improvement_bp", "/api/analysis/improvements"),
         
