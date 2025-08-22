@@ -73,12 +73,8 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
         },
         "servers": [
             {
-                "url": "https://gpts.guardiansofthetoken.id",
-                "description": "Production API Server - High Availability"
-            },
-            {
-                "url": "http://localhost:5000", 
-                "description": "Development Server"
+                "url": "https://76ec735d-0891-462f-b480-6be1343dbeca-00-31zfb82614q0g.kirk.replit.dev",
+                "description": "Cryptocurrency Trading Analysis API Server"
             }
         ],
         "paths": {
@@ -300,7 +296,15 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
                             "description": "Quick sharp signal retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object", "additionalProperties": True}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "success"},
+                                            "signal": {"type": "object", "additionalProperties": True},
+                                            "timestamp": {"type": "string"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -572,7 +576,16 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
                             "description": "Enhanced analysis completed",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object", "additionalProperties": True}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string", "example": "success"},
+                                            "analysis": {"type": "object", "additionalProperties": True},
+                                            "market_data": {"type": "object", "additionalProperties": True},
+                                            "timestamp": {"type": "string"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
@@ -594,7 +607,16 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
                             "description": "OpenAPI schema retrieved",
                             "content": {
                                 "application/json": {
-                                    "schema": {"type": "object", "additionalProperties": True}
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "openapi": {"type": "string", "example": "3.1.0"},
+                                            "info": {"type": "object", "additionalProperties": True},
+                                            "paths": {"type": "object", "additionalProperties": True},
+                                            "components": {"type": "object", "additionalProperties": True}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
