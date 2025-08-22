@@ -217,14 +217,23 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register smc_context: {e}")
     
-    # 🤖 Register AI Reasoning endpoints
+    # 🤖 Register AI Reasoning endpoints  
     try:
         from api.ai_reasoning_endpoints import ai_reasoning_bp
         if "ai_reasoning" not in app.blueprints:
             app.register_blueprint(ai_reasoning_bp)
-            logger.info("✅ AI Reasoning: ai_reasoning blueprint registered with /api/v1/ai-reasoning routes")
+            logger.info("✅ AI Reasoning: ai_reasoning blueprint registered with /api/ai-reasoning routes")
     except Exception as e:
         logger.warning(f"Could not register ai_reasoning: {e}")
+        
+    # 🎯 Register Sharp Signal endpoints (CRITICAL PRIORITY)
+    try:
+        from api.sharp_signal_endpoint import sharp_signal_bp
+        if "sharp_signal_bp" not in app.blueprints:
+            app.register_blueprint(sharp_signal_bp)
+            logger.info("✅ CRITICAL: Sharp Signal blueprint registered with /api/signal/sharp routes")
+    except Exception as e:
+        logger.warning(f"Could not register sharp_signal_bp: {e}")
     
     # 🚀 Register Advanced Trading endpoints (SMC, MTF, Risk Management)
     try:
