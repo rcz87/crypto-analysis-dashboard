@@ -106,48 +106,25 @@ def health_check():
     health_status = "healthy"
     components = {}
     
-    # Test database connection
+    # Test database connection using SQLAlchemy config only
     try:
-        # Try multiple approaches to access database
-        db = None
+        import sqlalchemy as sa
         
-        # Approach 1: current_app extensions
-        if hasattr(current_app, 'extensions') and 'sqlalchemy' in current_app.extensions:
-            db = current_app.extensions['sqlalchemy']
-        
-        # Approach 2: direct from app module  
-        if db is None:
-            try:
-                from app import db
-            except ImportError:
-                db = None
-        
-        # Approach 3: direct connection via DATABASE_URL
-        if db is None:
-            import os
-            import psycopg2
-            conn = psycopg2.connect(os.environ['DATABASE_URL'])
-            cursor = conn.cursor()
-            cursor.execute('SELECT 1;')
-            result = cursor.fetchone()
-            cursor.close()
-            conn.close()
-            if result and result[0] == 1:
-                components["database"] = {"status": "healthy", "message": "Direct connection successful"}
+        # Get database URL from Flask config (single source of truth)
+        database_url = current_app.config.get("SQLALCHEMY_DATABASE_URI")
+        if not database_url:
+            raise ValueError("SQLALCHEMY_DATABASE_URI not configured")
+            
+        # Create engine directly from config to avoid fallbacks
+        engine = sa.create_engine(database_url, pool_pre_ping=True, connect_args={"connect_timeout": 10})
+        with engine.connect() as connection:
+            result = connection.execute(sa.text("SELECT 1"))
+            row = result.fetchone()
+            if row and row[0] == 1:
+                components["database"] = {"status": "healthy", "message": "SQLAlchemy connection successful"}
             else:
-                components["database"] = {"status": "degraded", "message": "Query returned unexpected result"}
+                components["database"] = {"status": "degraded", "message": "Unexpected query result"}
                 health_status = "degraded"
-        else:
-            # Use SQLAlchemy if available
-            from sqlalchemy import text
-            with db.engine.connect() as connection:
-                result = connection.execute(text("SELECT 1"))
-                row = result.fetchone()
-                if row and row[0] == 1:
-                    components["database"] = {"status": "healthy", "message": "SQLAlchemy connection successful"}
-                else:
-                    components["database"] = {"status": "degraded", "message": "Unexpected query result"}
-                    health_status = "degraded"
                     
     except Exception as e:
         logger.warning(f"Database health check failed: {e}")

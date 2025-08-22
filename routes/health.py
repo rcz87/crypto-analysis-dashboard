@@ -78,21 +78,36 @@ def health_check():
     components = {}
     overall_status = "healthy"
     
-    # Check database connection
+    # Check database connection using SQLAlchemy config
     try:
-        from app import db
-        with current_app.app_context():
-            # Simple database connectivity test
-            with db.engine.connect() as connection:
-                connection.execute(db.text("SELECT 1"))
-            components["database"] = {
-                "status": "healthy", 
-                "message": "Database connection successful"
-            }
+        import sqlalchemy as sa
+        from flask import current_app
+        
+        # Get database URL from Flask config (guaranteed to use the right config)
+        database_url = current_app.config.get("SQLALCHEMY_DATABASE_URI")
+        if not database_url:
+            raise ValueError("SQLALCHEMY_DATABASE_URI not configured")
+            
+        # Create engine directly from config to avoid fallbacks
+        engine = sa.create_engine(database_url, pool_pre_ping=True, connect_args={"connect_timeout": 10})
+        with engine.connect() as conn:
+            result = conn.execute(sa.text("SELECT 1"))
+            row = result.fetchone()
+            if row and row[0] == 1:
+                components["database"] = {
+                    "status": "healthy", 
+                    "message": "SQLAlchemy connection successful"
+                }
+            else:
+                raise ValueError("Database query returned unexpected result")
+                
+        # Dispose engine after test to prevent connection leaks
+        engine.dispose()
+                
     except Exception as e:
         components["database"] = {
             "status": "unhealthy",
-            "message": f"Database connection failed: {str(e)[:100]}"
+            "message": f"Connection failed: {str(e)[:100]}"
         }
         overall_status = "unhealthy"
     
