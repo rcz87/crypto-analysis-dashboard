@@ -209,6 +209,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register ai_reasoning: {e}")
     
+    # 🚀 Register Advanced Trading endpoints (SMC, MTF, Risk Management)
+    try:
+        from api.advanced_trading_endpoints import advanced_trading_bp
+        if "advanced_trading" not in app.blueprints:
+            app.register_blueprint(advanced_trading_bp)
+            logger.info("✅ Advanced Trading: Enhanced SMC, Multi-Timeframe, Risk Management registered")
+    except Exception as e:
+        logger.warning(f"Could not register advanced_trading: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():

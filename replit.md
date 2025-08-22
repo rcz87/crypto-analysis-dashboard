@@ -30,6 +30,20 @@ Performance is ensured through comprehensive system health checks, a circuit bre
 ### Security Architecture
 Security is managed through environment-based configuration for sensitive credentials, comprehensive input validation, graceful error handling with informative responses, and secure secret key generation with proper WSGI configuration.
 
+## Recent Updates (August 22, 2025)
+
+### Advanced Trading Features Implemented
+1. **Enhanced SMC Analysis** - CHoCH detection, Fair Value Gaps (FVG), Liquidity Sweeps, Breaker Blocks
+2. **Multi-Timeframe Analysis** - 1H + 4H + Daily confluence with alignment scoring
+3. **Risk Management System** - ATR-based SL/TP, Position Sizing, Kelly Criterion, Scaling Strategies
+
+### New Endpoints Added
+- `/api/advanced/smc-analysis` - Enhanced SMC with CHoCH, FVG, liquidity analysis
+- `/api/advanced/multi-timeframe` - Multi-timeframe confluence (1H, 4H, Daily)
+- `/api/advanced/risk-management` - ATR-based risk calculation and position sizing
+- `/api/advanced/complete-analysis` - Combined analysis with all features
+- `/api/advanced/status` - Advanced features status check
+
 ## External Dependencies
 
 ### Market Data Providers
