@@ -191,6 +191,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register gpts_sinyal: {e}")
     
+    # 🧠 Register SMC (Smart Money Concepts) endpoints
+    try:
+        from api.smc_endpoints import smc_context_bp
+        if "smc_context" not in app.blueprints:
+            app.register_blueprint(smc_context_bp)
+            logger.info("✅ SMC: smc_context blueprint registered with /api/smc/analysis, /api/smc/orderblocks, /api/smc/patterns/recognize")
+    except Exception as e:
+        logger.warning(f"Could not register smc_context: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
