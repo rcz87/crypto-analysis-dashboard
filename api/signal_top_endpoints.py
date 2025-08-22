@@ -69,6 +69,10 @@ def get_top_signal():
         risk_profile = request.args.get('risk_profile', 'MODERATE').upper()
         account_balance = float(request.args.get('account_balance', 10000))
         
+        # Initialize variables to avoid undefined variable errors
+        all_signals = []
+        filtered_signals = []
+        
         # Use shared services for unified signal generation
         if symbol_filter:
             # Generate unified signal using shared services
@@ -82,6 +86,11 @@ def get_top_signal():
             )
             
             top_signal = unified_signal
+            
+            # For stats purposes, create single signal array
+            if unified_signal:
+                all_signals = [unified_signal]
+                filtered_signals = [unified_signal]
             
         else:
             # Get all active signals (legacy behavior when no symbol specified)
