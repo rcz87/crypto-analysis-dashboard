@@ -1,0 +1,75 @@
+QUICK FIX COMMANDS FOR VPS PORT 5050
+=====================================
+
+COPY-PASTE THESE COMMANDS IN VPS TERMINAL:
+
+# 1. Stop current service
+sudo systemctl stop cryptoapi.service
+pkill -f "gunicorn.*main"
+
+# 2. Backup and replace .env file
+cp /root/crypto-analysis-dashboard/.env /root/crypto-analysis-dashboard/.env.backup
+cat > /root/crypto-analysis-dashboard/.env << 'EOF'
+DATABASE_URL=postgresql://neondb_owner:npg_pF1v5QHRUyJC@ep-billowing-sunset-ae1iinty.us-east-2.aws.neon.tech/neondb?sslmode=require
+SQLALCHEMY_DATABASE_URI=postgresql://neondb_owner:npg_pF1v5QHRUyJC@ep-billowing-sunset-ae1iinty.us-east-2.aws.neon.tech/neondb?sslmode=require
+FLASK_ENV=production
+API_KEY_REQUIRED=true
+SESSION_SECRET=production-secret-key
+OKX_API_KEY=9a13d0c2-b8da-4e99-a656-573327da0360
+OKX_SECRET_KEY=26EB11CA76FDAC6A62729305C4686A81
+OKX_PASSPHRASE=870200rZ$
+OPENAI_API_KEY=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
+TELEGRAM_BOT_TOKEN=7659990721:AAFmX7iRu4Azxs27kNE9QkAYJA6fiwQHwpc
+TELEGRAM_CHAT_ID=5899681906
+RATE_LIMIT_DEFAULT=120/minute
+LIMITER_STORAGE_URI=memory://
+EOF
+
+# 3. Update systemd service for port 5050
+sudo tee /etc/systemd/system/cryptoapi.service > /dev/null << 'EOF'
+[Unit]
+Description=Crypto Trading API
+After=network.target
+
+[Service]
+Type=notify
+User=root
+WorkingDirectory=/root/crypto-analysis-dashboard
+Environment=PATH=/root/crypto-analysis-dashboard/venv/bin
+EnvironmentFile=/root/crypto-analysis-dashboard/.env
+ExecStart=/root/crypto-analysis-dashboard/venv/bin/gunicorn --bind 0.0.0.0:5050 --workers 4 main:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 4. Start service
+sudo systemctl daemon-reload
+sudo systemctl start cryptoapi.service
+
+# 5. Wait and test
+sleep 8
+curl -s http://127.0.0.1:5050/health | jq '.components.database'
+
+# 6. Full status check
+curl -s http://127.0.0.1:5050/health | jq
+curl -s http://127.0.0.1:5050/api/gpts/status | jq
+
+EXPECTED RESULT:
+================
+Database status should change from "unhealthy" to "healthy"
+No more localhost:5432 errors
+All components should show "healthy" status
+
+TROUBLESHOOTING:
+================
+If still failing, check logs:
+sudo journalctl -u cryptoapi.service -f
+
+Check if port 5050 is in use:
+sudo netstat -tulpn | grep 5050
+
+Check process:
+ps aux | grep gunicorn
