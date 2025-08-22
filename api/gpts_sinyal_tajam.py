@@ -11,15 +11,22 @@ from datetime import datetime
 gpts_sinyal_bp = Blueprint("gpts_sinyal", __name__)
 logger = logging.getLogger(__name__)
 
-@gpts_sinyal_bp.route("/api/gpts/sinyal/tajam", methods=["GET"])
+@gpts_sinyal_bp.route("/api/gpts/sinyal/tajam", methods=["GET", "POST"])
 @cross_origin()
 def get_sinyal_tajam():
     """
     Get sharp trading signal dengan real-time data
+    Supports both GET and POST methods for ChatGPT compatibility
     """
     try:
-        symbol = request.args.get('symbol', 'BTC-USDT')
-        timeframe = request.args.get('timeframe', '1H')
+        # Handle both GET and POST requests
+        if request.method == 'POST':
+            data = request.get_json() or {}
+            symbol = data.get('symbol', 'BTC-USDT')
+            timeframe = data.get('timeframe', '1H')
+        else:
+            symbol = request.args.get('symbol', 'BTC-USDT')
+            timeframe = request.args.get('timeframe', '1H')
         
         # Get real-time data from OKX
         from core.okx_hybrid_fetcher import OKXHybridFetcher
