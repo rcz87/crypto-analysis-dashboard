@@ -824,3 +824,17 @@ Traceback (most recent call last):
   File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/werkzeug/wrappers/request.py", line 647, in on_json_loading_failed
     raise UnsupportedMediaType(
 werkzeug.exceptions.UnsupportedMediaType: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2025-08-22 17:01:03 - api.sharp_signal_endpoint - ERROR - sharp_signal:144 - ❌ Sharp signal generation failed: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+Traceback (most recent call last):
+  File "/home/runner/workspace/api/sharp_signal_endpoint.py", line 57, in sharp_signal
+    data = request.get_json()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/werkzeug/wrappers/request.py", line 604, in get_json
+    return self.on_json_loading_failed(None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/flask/wrappers.py", line 214, in on_json_loading_failed
+    return super().on_json_loading_failed(e)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/werkzeug/wrappers/request.py", line 647, in on_json_loading_failed
+    raise UnsupportedMediaType(
+werkzeug.exceptions.UnsupportedMediaType: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.

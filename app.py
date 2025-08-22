@@ -235,22 +235,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register sharp_signal_bp: {e}")
     
-    # 📋 Register OpenAPI Schema endpoints (CRITICAL for GPT Integration)
-    try:
-        from gpts_openapi_schema import openapi_bp
-        if "openapi" not in app.blueprints:
-            app.register_blueprint(openapi_bp)
-            logger.info("✅ CRITICAL: OpenAPI Schema blueprint registered with /openapi.json route")
-    except Exception as e:
-        logger.warning(f"Could not register openapi schema: {e}")
-        
+    # 📋 Register SINGLE OpenAPI Schema endpoint (NO MORE DUPLICATES!)
     try:
         from core.enhanced_openapi_schema import openapi_enhanced_bp  
         if "openapi_enhanced" not in app.blueprints:
             app.register_blueprint(openapi_enhanced_bp, url_prefix='/api/schema')
-            logger.info("✅ CRITICAL: Enhanced OpenAPI Schema blueprint registered with /api/schema routes")
+            app.register_blueprint(openapi_enhanced_bp, url_prefix='')  # Also serve at root /openapi.json
+            logger.info("✅ SINGLE OpenAPI Schema registered - NO MORE DUPLICATES!")
     except Exception as e:
-        logger.warning(f"Could not register enhanced openapi schema: {e}")
+        logger.warning(f"Could not register openapi schema: {e}")
     
     # 🚀 Register Advanced Trading endpoints (SMC, MTF, Risk Management)
     try:
