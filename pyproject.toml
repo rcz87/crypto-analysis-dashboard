@@ -36,4 +36,5 @@ dependencies = [
     "psutil>=7.0.0",
     "pytest>=8.4.1",
     "flask-limiter>=3.12",
+    "websockets==6.0",
 ]

@@ -240,28 +240,22 @@ def create_app(config_name='development'):
             symbol = request.args.get('symbol', 'BTC-USDT')
             timeframe = request.args.get('timeframe', '1H')
             
-            # Get real-time data from OKX direct API
+            # Get real-time data dengan Hybrid Fetcher (Cache + REST API)
             try:
-                import requests
-                okx_url = f"https://www.okx.com/api/v5/market/ticker?instId={symbol}"
-                response = requests.get(okx_url, timeout=5)
+                from core.okx_hybrid_fetcher import hybrid_fetcher
                 
-                if response.status_code == 200:
-                    data = response.json()
-                    if data.get('code') == '0' and data.get('data'):
-                        ticker = data['data'][0]
-                        current_price = float(ticker['last'])
-                        volume_24h = float(ticker.get('vol24h', 0))
-                        open_24h = float(ticker.get('open24h', current_price))
-                        price_change_24h = ((current_price - open_24h) / open_24h) * 100 if open_24h > 0 else 0
-                        high_24h = float(ticker.get('high24h', current_price))
-                        low_24h = float(ticker.get('low24h', current_price))
-                        
-                        logger.info(f"✅ OKX Real-time: {symbol} = ${current_price:,.2f} ({price_change_24h:+.2f}%)")
-                    else:
-                        raise Exception("No data in OKX response")
-                else:
-                    raise Exception(f"OKX API error: {response.status_code}")
+                # Get data via hybrid fetcher (cache priority, REST fallback)
+                price_data = hybrid_fetcher.get_price_data(symbol)
+                
+                current_price = price_data.price
+                price_change_24h = price_data.price_change_24h
+                volume_24h = price_data.volume_24h
+                high_24h = price_data.high_24h
+                low_24h = price_data.low_24h
+                
+                # Log source information
+                source_emoji = "📦" if price_data.source == "cache" else "🔄" if price_data.source == "rest" else "⚠️"
+                logger.info(f"{source_emoji} OKX {price_data.source.upper()}: {symbol} = ${current_price:,.2f} ({price_change_24h:+.2f}%)")
                     
             except Exception as fetch_error:
                 logger.warning(f"OKX fetch error: {fetch_error}, using fallback data")
@@ -335,48 +329,42 @@ def create_app(config_name='development'):
             symbol = data.get('symbol', request.args.get('symbol', 'BTC-USDT'))
             analysis_type = data.get('analysis_type', 'comprehensive')
             
-            # Get real-time market data from OKX direct API
+            # Get real-time data dengan Hybrid Fetcher (Cache + REST API)
             try:
-                import requests
-                okx_url = f"https://www.okx.com/api/v5/market/ticker?instId={symbol}"
-                response = requests.get(okx_url, timeout=5)
+                from core.okx_hybrid_fetcher import hybrid_fetcher
                 
-                if response.status_code == 200:
-                    data = response.json()
-                    if data.get('code') == '0' and data.get('data'):
-                        ticker = data['data'][0]
-                        current_price = float(ticker['last'])
-                        high_24h = float(ticker.get('high24h', current_price))
-                        low_24h = float(ticker.get('low24h', current_price))
-                        volume_24h = float(ticker.get('vol24h', 0))
-                        open_24h = float(ticker.get('open24h', current_price))
-                        price_change_24h = ((current_price - open_24h) / open_24h) * 100 if open_24h > 0 else 0
-                        
-                        # Calculate dynamic levels based on real price
-                        major_support = low_24h * 0.998
-                        minor_support = current_price * 0.985
-                        minor_resistance = current_price * 1.015
-                        major_resistance = high_24h * 1.002
-                        
-                        # Determine market sentiment
-                        if price_change_24h > 3:
-                            sentiment = "BULLISH"
-                            trend_direction = "UPWARD"
-                            trend_strength = "STRONG"
-                        elif price_change_24h < -3:
-                            sentiment = "BEARISH"
-                            trend_direction = "DOWNWARD"
-                            trend_strength = "STRONG"
-                        else:
-                            sentiment = "NEUTRAL"
-                            trend_direction = "SIDEWAYS"
-                            trend_strength = "MODERATE"
-                        
-                        logger.info(f"✅ OKX Real-time: {symbol} = ${current_price:,.2f} ({price_change_24h:+.2f}%)")
-                    else:
-                        raise Exception("No data in OKX response")
+                # Get data via hybrid fetcher (cache priority, REST fallback)
+                price_data = hybrid_fetcher.get_price_data(symbol)
+                
+                current_price = price_data.price
+                price_change_24h = price_data.price_change_24h
+                volume_24h = price_data.volume_24h
+                high_24h = price_data.high_24h
+                low_24h = price_data.low_24h
+                
+                # Calculate dynamic levels based on real price
+                major_support = low_24h * 0.998
+                minor_support = current_price * 0.985
+                minor_resistance = current_price * 1.015
+                major_resistance = high_24h * 1.002
+                
+                # Determine market sentiment
+                if price_change_24h > 3:
+                    sentiment = "BULLISH"
+                    trend_direction = "UPWARD"
+                    trend_strength = "STRONG"
+                elif price_change_24h < -3:
+                    sentiment = "BEARISH"
+                    trend_direction = "DOWNWARD"
+                    trend_strength = "STRONG"
                 else:
-                    raise Exception(f"OKX API error: {response.status_code}")
+                    sentiment = "NEUTRAL"
+                    trend_direction = "SIDEWAYS"
+                    trend_strength = "MODERATE"
+                
+                # Log source information
+                source_emoji = "📦" if price_data.source == "cache" else "🔄" if price_data.source == "rest" else "⚠️"
+                logger.info(f"{source_emoji} OKX {price_data.source.upper()}: {symbol} = ${current_price:,.2f} ({price_change_24h:+.2f}%)")
                     
             except Exception as fetch_error:
                 logger.warning(f"OKX fetch error: {fetch_error}, using fallback data")
@@ -458,6 +446,132 @@ def create_app(config_name='development'):
         except Exception as e:
             from flask import jsonify
             logger.error(f"Enhanced analysis endpoint error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    # ⚡ WebSocket Management Endpoints
+    @app.route('/api/websocket/status', methods=['GET'])
+    def websocket_status():
+        """Get WebSocket connection status"""
+        try:
+            from core.okx_websocket import ws_manager
+            
+            status = ws_manager.get_status()
+            
+            return jsonify({
+                "status": "success",
+                "websocket_status": status,
+                "message": "WebSocket running" if status["manager_running"] else "WebSocket not running",
+                "last_prices": status["client_status"]["last_prices"],
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"WebSocket status error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/websocket/start', methods=['POST'])
+    def websocket_start():
+        """Start WebSocket connection"""
+        try:
+            from flask import request, jsonify
+            from core.okx_websocket import ws_manager
+            
+            data = request.get_json() or {}
+            symbols = data.get('symbols', ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'ADA-USDT', 'DOT-USDT'])
+            
+            if not ws_manager.is_running:
+                ws_manager.start(symbols)
+                message = f"WebSocket started for {len(symbols)} symbols"
+                logger.info(f"⚡ {message}: {symbols}")
+            else:
+                message = "WebSocket already running"
+                logger.info(f"⚡ {message}")
+            
+            return jsonify({
+                "status": "success",
+                "message": message,
+                "symbols": symbols,
+                "websocket_running": ws_manager.is_running,
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"WebSocket start error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/websocket/stop', methods=['POST'])
+    def websocket_stop():
+        """Stop WebSocket connection"""
+        try:
+            from flask import jsonify
+            from core.okx_websocket import ws_manager
+            
+            ws_manager.stop()
+            logger.info("⏹️ WebSocket stopped via API")
+            
+            return jsonify({
+                "status": "success",
+                "message": "WebSocket stopped",
+                "websocket_running": ws_manager.is_running,
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"WebSocket stop error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    # 📊 Cache Status Endpoint
+    @app.route('/api/cache/status', methods=['GET'])
+    def cache_status():
+        """Get hybrid fetcher cache status"""
+        try:
+            from flask import jsonify
+            import datetime
+            from core.okx_hybrid_fetcher import hybrid_fetcher
+            
+            cache_info = hybrid_fetcher.get_cache_status()
+            
+            return jsonify({
+                "status": "success",
+                "cache_info": cache_info,
+                "message": f"Cache contains {cache_info['cache_count']} symbols",
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"Cache status error: {e}")
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/cache/refresh', methods=['POST'])
+    def cache_refresh():
+        """Force refresh all cached data"""
+        try:
+            from flask import request, jsonify
+            import datetime
+            from core.okx_hybrid_fetcher import hybrid_fetcher
+            
+            data = request.get_json() or {}
+            symbol = data.get('symbol', None)
+            
+            if symbol:
+                # Refresh specific symbol
+                price_data = hybrid_fetcher.get_price_data(symbol, force_fresh=True)
+                message = f"Refreshed {symbol}: ${price_data.price:,.2f}"
+            else:
+                # Refresh all symbols
+                hybrid_fetcher.force_refresh_all()
+                message = "Refreshed all cached symbols"
+            
+            logger.info(f"🔄 Manual refresh: {message}")
+            
+            return jsonify({
+                "status": "success",
+                "message": message,
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"Cache refresh error: {e}")
             return jsonify({"error": str(e)}), 500
     
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
