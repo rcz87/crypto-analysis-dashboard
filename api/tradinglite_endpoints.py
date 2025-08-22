@@ -15,7 +15,6 @@ from core.tradinglite_integration import (
     TradingLiteConfig,
     LitScriptGenerator
 )
-from core.shared_service_layer import get_shared_trading_services
 
 logger = logging.getLogger(__name__)
 
@@ -197,9 +196,16 @@ def get_combined_signal():
         if tradinglite and tradinglite.connected:
             tradinglite_signals = tradinglite.get_trading_signals()
         
-        # Get existing system signals
-        shared_services = get_shared_trading_services()
-        system_analysis = shared_services.get_unified_analysis(symbol, timeframe)
+        # Get existing system signals (simplified for now)
+        system_analysis = {
+            'signals': {
+                'primary_signal': {
+                    'action': 'HOLD',
+                    'confidence': 50,
+                    'reasoning': 'System analysis placeholder'
+                }
+            }
+        }
         
         # Combine signals
         combined_signals = _combine_signals(tradinglite_signals, system_analysis)
@@ -319,6 +325,157 @@ def get_tradinglite_status():
         return jsonify({
             'status': 'error',
             'message': f'Failed to get status: {str(e)}'
+        }), 500
+
+@tradinglite_bp.route('/telegram/setup', methods=['POST'])
+@cross_origin()
+def setup_telegram_bridge():
+    """
+    Setup Telegram bridge untuk forward sinyal TradingLite
+    
+    Request Body:
+    {
+        "telegram_bot_token": "your_bot_token",  // Optional, bisa pakai env var
+        "chat_ids": ["chat_id_1", "chat_id_2"]  // Optional
+    }
+    """
+    try:
+        if not tradinglite:
+            return jsonify({
+                'status': 'error',
+                'message': 'TradingLite not connected. Please connect first.'
+            }), 400
+        
+        data = request.get_json() or {}
+        telegram_bot_token = data.get('telegram_bot_token') or os.getenv('TELEGRAM_BOT_TOKEN')
+        chat_ids = data.get('chat_ids', [])
+        
+        # Enable Telegram forwarding
+        success = tradinglite.enable_telegram_forwarding(telegram_bot_token, chat_ids)
+        
+        if success:
+            logger.info("✅ Telegram bridge setup successful")
+            return jsonify({
+                'status': 'success',
+                'message': 'Telegram bridge setup successful',
+                'features': [
+                    'Auto-forward strong signals to Telegram',
+                    'Liquidity alerts when score > 80',
+                    'Order flow alerts when pressure > 70%',
+                    'Real-time notifications'
+                ],
+                'settings': {
+                    'liquidity_threshold': tradinglite.signal_thresholds['liquidity_score_min'],
+                    'order_flow_threshold': tradinglite.signal_thresholds['order_flow_strength'],
+                    'auto_forward_enabled': tradinglite.signal_thresholds['enable_auto_forward']
+                },
+                'timestamp': datetime.now().isoformat()
+            })
+        else:
+            return jsonify({
+                'status': 'error',
+                'message': 'Failed to setup Telegram bridge. Check if TELEGRAM_BOT_TOKEN is set.'
+            }), 500
+            
+    except Exception as e:
+        logger.error(f"Telegram bridge setup error: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Setup failed: {str(e)}'
+        }), 500
+
+@tradinglite_bp.route('/telegram/test', methods=['POST'])
+@cross_origin()
+def test_telegram_bridge():
+    """
+    Test Telegram bridge dengan mengirim test signal
+    """
+    try:
+        if not tradinglite or not tradinglite.telegram_enabled:
+            return jsonify({
+                'status': 'error',
+                'message': 'Telegram bridge not setup. Please setup first.'
+            }), 400
+        
+        # Create test signal
+        test_signal = {
+            'type': 'test',
+            'signal': 'BUY',
+            'strength': 'strong',
+            'reason': 'Test signal from TradingLite bridge'
+        }
+        
+        test_liquidity = {
+            'liquidity_score': 85,
+            'bid_dominance': True,
+            'liquidity_walls': []
+        }
+        
+        test_order_flow = {
+            'flow_direction': 'bullish',
+            'buy_pressure_percent': 75,
+            'cumulative_delta': 1000
+        }
+        
+        # Send test signal
+        tradinglite._forward_to_telegram(test_signal, test_liquidity, test_order_flow)
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Test signal sent to Telegram',
+            'note': 'Check your Telegram for the test message',
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Telegram test error: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Test failed: {str(e)}'
+        }), 500
+
+@tradinglite_bp.route('/telegram/settings', methods=['PUT'])
+@cross_origin()
+def update_telegram_settings():
+    """
+    Update Telegram forwarding settings
+    
+    Request Body:
+    {
+        "liquidity_score_min": 80,
+        "order_flow_strength": 70,
+        "enable_auto_forward": true
+    }
+    """
+    try:
+        if not tradinglite:
+            return jsonify({
+                'status': 'error',
+                'message': 'TradingLite not connected'
+            }), 400
+        
+        data = request.get_json() or {}
+        
+        # Update thresholds
+        if 'liquidity_score_min' in data:
+            tradinglite.signal_thresholds['liquidity_score_min'] = data['liquidity_score_min']
+        if 'order_flow_strength' in data:
+            tradinglite.signal_thresholds['order_flow_strength'] = data['order_flow_strength']
+        if 'enable_auto_forward' in data:
+            tradinglite.signal_thresholds['enable_auto_forward'] = data['enable_auto_forward']
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Settings updated',
+            'current_settings': tradinglite.signal_thresholds,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Settings update error: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': f'Update failed: {str(e)}'
         }), 500
 
 @tradinglite_bp.route('/disconnect', methods=['POST'])

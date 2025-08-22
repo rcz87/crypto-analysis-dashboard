@@ -22,6 +22,14 @@ import requests
 
 logger = logging.getLogger(__name__)
 
+# Import Telegram bot untuk forward sinyal
+try:
+    from core.telegram_bot import TelegramBot
+    TELEGRAM_AVAILABLE = True
+except ImportError:
+    TELEGRAM_AVAILABLE = False
+    logger.warning("Telegram bot not available - signals won't be forwarded to Telegram")
+
 @dataclass
 class TradingLiteConfig:
     """Configuration for TradingLite connection"""
@@ -79,13 +87,26 @@ class TradingLiteIntegration:
         self.processing_thread = None
         self.running = False
         
+        # Telegram integration
+        self.telegram_bot = None
+        self.telegram_enabled = False
+        self.telegram_chat_ids = []  # Chat IDs untuk forward sinyal
+        
+        # Signal thresholds untuk auto-forward ke Telegram
+        self.signal_thresholds = {
+            'liquidity_score_min': 80,  # Forward jika liquidity score > 80
+            'order_flow_strength': 70,  # Forward jika buy/sell pressure > 70%
+            'enable_auto_forward': True  # Auto forward ke Telegram
+        }
+        
         # Metrics
         self.metrics = {
             'messages_received': 0,
             'liquidity_updates': 0,
             'order_flow_updates': 0,
             'errors': 0,
-            'last_update': None
+            'last_update': None,
+            'telegram_signals_sent': 0
         }
         
         self.logger = logging.getLogger(f"{__name__}.TradingLiteIntegration")
@@ -442,29 +463,48 @@ class TradingLiteIntegration:
         # Liquidity-based signals
         if liquidity.get('status') == 'success':
             if liquidity.get('bid_dominance') and liquidity.get('liquidity_score', 0) > 70:
-                signals['signals'].append({
+                signal = {
                     'type': 'liquidity',
                     'signal': 'BUY',
                     'strength': 'strong',
-                    'reason': 'Strong bid liquidity dominance'
-                })
+                    'reason': 'Strong bid liquidity dominance',
+                    'liquidity_score': liquidity.get('liquidity_score', 0)
+                }
+                signals['signals'].append(signal)
+                
+                # Auto-forward ke Telegram jika memenuhi threshold
+                if self.signal_thresholds['enable_auto_forward'] and liquidity.get('liquidity_score', 0) > self.signal_thresholds['liquidity_score_min']:
+                    self._forward_to_telegram(signal, liquidity, order_flow)
         
         # Order flow-based signals
         if order_flow.get('status') == 'success':
             if order_flow.get('flow_direction') == 'bullish' and order_flow.get('buy_pressure_percent', 0) > 65:
-                signals['signals'].append({
+                signal = {
                     'type': 'order_flow',
                     'signal': 'BUY',
                     'strength': 'medium',
-                    'reason': f"Bullish order flow ({order_flow['buy_pressure_percent']:.1f}% buy pressure)"
-                })
+                    'reason': f"Bullish order flow ({order_flow['buy_pressure_percent']:.1f}% buy pressure)",
+                    'buy_pressure': order_flow['buy_pressure_percent']
+                }
+                signals['signals'].append(signal)
+                
+                # Auto-forward ke Telegram jika memenuhi threshold
+                if self.signal_thresholds['enable_auto_forward'] and order_flow.get('buy_pressure_percent', 0) > self.signal_thresholds['order_flow_strength']:
+                    self._forward_to_telegram(signal, liquidity, order_flow)
+                    
             elif order_flow.get('flow_direction') == 'bearish' and order_flow.get('buy_pressure_percent', 0) < 35:
-                signals['signals'].append({
+                signal = {
                     'type': 'order_flow',
                     'signal': 'SELL',
                     'strength': 'medium',
-                    'reason': f"Bearish order flow ({100 - order_flow['buy_pressure_percent']:.1f}% sell pressure)"
-                })
+                    'reason': f"Bearish order flow ({100 - order_flow['buy_pressure_percent']:.1f}% sell pressure)",
+                    'sell_pressure': 100 - order_flow['buy_pressure_percent']
+                }
+                signals['signals'].append(signal)
+                
+                # Auto-forward ke Telegram jika memenuhi threshold
+                if self.signal_thresholds['enable_auto_forward'] and (100 - order_flow.get('buy_pressure_percent', 50)) > self.signal_thresholds['order_flow_strength']:
+                    self._forward_to_telegram(signal, liquidity, order_flow)
         
         return signals
     
@@ -482,8 +522,95 @@ class TradingLiteIntegration:
             'connected': self.connected,
             'liquidity_data_points': len(self.liquidity_data),
             'order_flow_data_points': len(self.order_flow_data),
-            'spread_data_points': len(self.bid_ask_spreads)
+            'spread_data_points': len(self.bid_ask_spreads),
+            'telegram_enabled': self.telegram_enabled,
+            'telegram_signals_sent': self.metrics.get('telegram_signals_sent', 0)
         }
+    
+    def enable_telegram_forwarding(self, telegram_bot_token: str = None, chat_ids: List[str] = None):
+        """Enable Telegram forwarding untuk sinyal TradingLite"""
+        try:
+            if TELEGRAM_AVAILABLE:
+                # Initialize Telegram bot jika belum ada
+                if not self.telegram_bot:
+                    import os
+                    if telegram_bot_token:
+                        os.environ['TELEGRAM_BOT_TOKEN'] = telegram_bot_token
+                    
+                    from core.telegram_bot import TelegramBot
+                    self.telegram_bot = TelegramBot()
+                
+                # Set chat IDs untuk forward
+                if chat_ids:
+                    self.telegram_chat_ids = chat_ids
+                    if hasattr(self.telegram_bot, 'chat_ids'):
+                        self.telegram_bot.chat_ids.extend(chat_ids)
+                
+                self.telegram_enabled = True
+                self.logger.info("✅ Telegram forwarding enabled for TradingLite signals")
+                return True
+            else:
+                self.logger.warning("Telegram module not available")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Failed to enable Telegram forwarding: {e}")
+            return False
+    
+    def _forward_to_telegram(self, signal: Dict, liquidity: Dict, order_flow: Dict):
+        """Forward signal ke Telegram"""
+        if not self.telegram_enabled or not self.telegram_bot:
+            return
+        
+        try:
+            # Format pesan untuk Telegram
+            signal_emoji = "🟢" if signal['signal'] == 'BUY' else "🔴"
+            strength_emoji = "💪" if signal['strength'] == 'strong' else "👍"
+            
+            message = f"""
+{signal_emoji} <b>TRADINGLITE SIGNAL ALERT</b> {signal_emoji}
+
+📊 <b>Signal Type:</b> {signal['type'].upper()}
+📈 <b>Action:</b> {signal['signal']}
+{strength_emoji} <b>Strength:</b> {signal['strength'].upper()}
+
+📝 <b>Reason:</b> {signal['reason']}
+
+<b>📊 Liquidity Analysis:</b>
+• Score: {liquidity.get('liquidity_score', 0):.1f}/100
+• Bid Dominance: {'✅ Yes' if liquidity.get('bid_dominance') else '❌ No'}
+• Walls Detected: {len(liquidity.get('liquidity_walls', []))}
+
+<b>📈 Order Flow Analysis:</b>
+• Direction: {order_flow.get('flow_direction', 'neutral').upper()}
+• Buy Pressure: {order_flow.get('buy_pressure_percent', 0):.1f}%
+• Cumulative Delta: {order_flow.get('cumulative_delta', 0):,.0f}
+
+⏰ <i>{datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')}</i>
+🎯 <i>Source: TradingLite Gold Analysis</i>
+"""
+            
+            # Send via Telegram bot
+            asyncio.create_task(self._send_telegram_message(message))
+            self.metrics['telegram_signals_sent'] += 1
+            self.logger.info(f"📨 Signal forwarded to Telegram: {signal['signal']} - {signal['reason']}")
+            
+        except Exception as e:
+            self.logger.error(f"Failed to forward signal to Telegram: {e}")
+    
+    async def _send_telegram_message(self, message: str):
+        """Async helper untuk kirim pesan Telegram"""
+        try:
+            if self.telegram_bot:
+                # Use the bot's send method
+                for chat_id in self.telegram_chat_ids:
+                    await self.telegram_bot.bot.send_message(
+                        chat_id=chat_id,
+                        text=message,
+                        parse_mode='HTML'
+                    )
+        except Exception as e:
+            self.logger.error(f"Telegram send error: {e}")
 
 # LitScript Generator for custom indicators
 class LitScriptGenerator:
