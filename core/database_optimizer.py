@@ -69,26 +69,28 @@ class ConnectionPool:
                 self.logger.error(f"Error initializing connection: {e}")
     
     def _create_connection(self):
-        """Create new database connection"""
-        if self.database_url.startswith('sqlite'):
-            conn = sqlite3.connect(self.database_url.replace('sqlite:///', ''), 
-                                 check_same_thread=False,
-                                 timeout=self.config.connection_timeout)
-            conn.row_factory = sqlite3.Row
+        """Create new database connection using SQLAlchemy"""
+        try:
+            import sqlalchemy as sa
+            # Create engine from database URL with proper connection settings
+            engine = sa.create_engine(
+                self.database_url, 
+                pool_pre_ping=True,
+                connect_args={"connect_timeout": self.config.connection_timeout}
+            )
+            # Return raw connection for pool management
+            conn = engine.raw_connection()
+            conn.autocommit = True
             return conn
-        else:
-            # PostgreSQL or other databases
-            try:
-                import psycopg2
-                from psycopg2.extras import RealDictCursor
-                conn = psycopg2.connect(self.database_url, cursor_factory=RealDictCursor)
-                conn.autocommit = True
-                return conn
-            except ImportError:
-                # Fallback to sqlite if psycopg2 not available
+        except Exception as e:
+            self.logger.error(f"Failed to create SQLAlchemy connection: {e}")
+            # Fallback to sqlite only for development/testing
+            if 'sqlite' in self.database_url or ':memory:' in self.database_url:
                 conn = sqlite3.connect(':memory:', check_same_thread=False)
                 conn.row_factory = sqlite3.Row
                 return conn
+            else:
+                raise Exception(f"Database connection failed: {e}")
     
     @contextmanager
     def get_connection(self):

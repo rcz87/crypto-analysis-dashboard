@@ -134,10 +134,22 @@ def health_check():
         }
         overall_status = "unhealthy"
     
-    return jsonify({
-        "status": overall_status,
-        "components": components,
-        "version": current_app.config.get("API_VERSION", "2.0.0"),
-        "timestamp": datetime.utcnow().isoformat(),
-        "uptime": "N/A"  # Could implement uptime tracking if needed
-    }), 200 if overall_status == "healthy" else 503
+    try:
+        api_version = current_app.config.get("API_VERSION", "2.0.0")
+        timestamp = datetime.utcnow().isoformat()
+        status_code = 200 if overall_status == "healthy" else 503
+        
+        return jsonify({
+            "status": overall_status,
+            "components": components,
+            "version": api_version,
+            "timestamp": timestamp,
+            "uptime": "N/A"  # Could implement uptime tracking if needed
+        }), status_code
+    except Exception as e:
+        # Fallback response if current_app is not available
+        return jsonify({
+            "status": "error",
+            "message": f"Health check error: {str(e)}",
+            "timestamp": datetime.utcnow().isoformat()
+        }), 500
