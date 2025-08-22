@@ -257,6 +257,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register performance_cache: {e}")
     
+    # 🏢 Register Enterprise Management System
+    try:
+        from api.enterprise_management_endpoints import enterprise_bp
+        if "enterprise_management" not in app.blueprints:
+            app.register_blueprint(enterprise_bp)
+            logger.info("✅ Enterprise Management: 50+ endpoints, real-time analytics, intelligent scaling")
+    except Exception as e:
+        logger.warning(f"Could not register enterprise_management: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
