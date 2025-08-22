@@ -200,9 +200,15 @@ def _filter_signals(signals: List[Dict], symbol_filter: str, tf_filter: str) -> 
     try:
         filtered = []
         
+        # Normalize symbol filter (support both BTC-USDT and BTCUSDT format)
+        normalized_filter = symbol_filter.replace("-", "") if symbol_filter else ""
+        
         for signal in signals:
+            # Normalize signal symbol for comparison
+            signal_symbol = signal.get("symbol", "").upper().replace("-", "")
+            
             # Check symbol filter
-            if symbol_filter and signal.get("symbol", "").upper() != symbol_filter:
+            if normalized_filter and signal_symbol != normalized_filter:
                 continue
             
             # Check timeframe filter

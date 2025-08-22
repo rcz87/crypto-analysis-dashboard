@@ -183,6 +183,14 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register news_api: {e}")
     
+    try:
+        from api.gpts_sinyal_tajam import gpts_sinyal_bp
+        if "gpts_sinyal" not in app.blueprints:
+            app.register_blueprint(gpts_sinyal_bp)
+            logger.info("✅ Core Trading: gpts_sinyal blueprint registered")
+    except Exception as e:
+        logger.warning(f"Could not register gpts_sinyal: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
