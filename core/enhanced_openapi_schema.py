@@ -593,6 +593,126 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
                 }
             },
 
+            # ==================================================================
+            # ENTERPRISE MANAGEMENT ENDPOINTS  
+            # ==================================================================
+            "/api/enterprise/dashboard": {
+                "get": {
+                    "operationId": "getEnterpriseDashboard",
+                    "summary": "Enterprise Dashboard",
+                    "description": "Comprehensive dashboard for 50+ endpoints with real-time analytics",
+                    "tags": ["Enterprise"],
+                    "responses": {
+                        "200": {
+                            "description": "Enterprise dashboard data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/auto-discover": {
+                "post": {
+                    "operationId": "autoDiscoverEndpoints",
+                    "summary": "Auto-Discover Endpoints",
+                    "description": "Automatically discover and register all Flask endpoints",
+                    "tags": ["Enterprise"],
+                    "responses": {
+                        "200": {
+                            "description": "Endpoints discovered successfully",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/performance/real-time": {
+                "get": {
+                    "operationId": "getRealTimePerformance",
+                    "summary": "Real-Time Performance Monitoring",
+                    "description": "Get real-time performance metrics and anomalies",
+                    "tags": ["Enterprise"],
+                    "parameters": [
+                        {
+                            "name": "minutes",
+                            "in": "query",
+                            "description": "Time range in minutes (max 240)",
+                            "schema": {"type": "integer", "default": 30}
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Real-time performance data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/scaling/recommendations": {
+                "get": {
+                    "operationId": "getScalingRecommendations",
+                    "summary": "Intelligent Scaling Recommendations",
+                    "description": "AI-powered scaling recommendations based on load patterns",
+                    "tags": ["Enterprise"],
+                    "responses": {
+                        "200": {
+                            "description": "Scaling recommendations",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/analytics/advanced": {
+                "get": {
+                    "operationId": "getAdvancedAnalytics",
+                    "summary": "Advanced Analytics & Predictive Insights",
+                    "description": "Advanced analytics with predictive load forecasting and anomaly detection",
+                    "tags": ["Enterprise"],
+                    "responses": {
+                        "200": {
+                            "description": "Advanced analytics data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/performance/cache-stats": {
+                "get": {
+                    "operationId": "getCacheStats",
+                    "summary": "Universal Cache Statistics",
+                    "description": "Comprehensive cache statistics from Universal Cache System",
+                    "tags": ["Performance"],
+                    "responses": {
+                        "200": {
+                            "description": "Cache statistics",
+                            "content": {
+                                "application/json": {
+                                    "schema": {"type": "object", "additionalProperties": True}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            
             # =================================================================
             # OPENAPI SCHEMA ENDPOINT
             # =================================================================

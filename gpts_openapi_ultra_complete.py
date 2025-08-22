@@ -961,6 +961,167 @@ def get_ultra_complete_openapi_schema():
                     }
                 }
             },
+            "/api/enterprise/dashboard": {
+                "get": {
+                    "operationId": "getEnterpriseDashboard",
+                    "summary": "Enterprise Dashboard",
+                    "description": "Comprehensive enterprise dashboard for 50+ endpoints with real-time analytics, health monitoring, and predictive insights",
+                    "responses": {
+                        "200": {
+                            "description": "Enterprise dashboard data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "system_overview": {"type": "object", "additionalProperties": True},
+                                            "endpoint_health": {"type": "object", "additionalProperties": True},
+                                            "resource_utilization": {"type": "object", "additionalProperties": True},
+                                            "performance_analytics": {"type": "object", "additionalProperties": True},
+                                            "scaling_intelligence": {"type": "object", "additionalProperties": True},
+                                            "enterprise_features": {"type": "object", "additionalProperties": True}
+                                        },
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/auto-discover": {
+                "post": {
+                    "operationId": "autoDiscoverEndpoints",
+                    "summary": "Auto-Discover Endpoints",
+                    "description": "Automatically discover and register all Flask endpoints with enterprise management",
+                    "responses": {
+                        "200": {
+                            "description": "Endpoints discovered successfully",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "status": {"type": "string"},
+                                            "discovered_endpoints": {"type": "array", "items": {"type": "string"}},
+                                            "message": {"type": "string"}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/performance/real-time": {
+                "get": {
+                    "operationId": "getRealTimePerformance",
+                    "summary": "Real-Time Performance Monitoring",
+                    "description": "Get real-time performance metrics, trends, and anomalies for all endpoints",
+                    "parameters": [
+                        {
+                            "name": "minutes",
+                            "in": "query",
+                            "description": "Time range in minutes (max 240)",
+                            "schema": {"type": "integer", "default": 30}
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Real-time performance data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "system_overview": {"type": "object", "additionalProperties": True},
+                                            "endpoint_performance": {"type": "object", "additionalProperties": True},
+                                            "performance_trends": {"type": "object", "additionalProperties": True},
+                                            "anomalies": {"type": "array", "items": {"type": "object"}},
+                                            "predictions": {"type": "object", "additionalProperties": True}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/scaling/recommendations": {
+                "get": {
+                    "operationId": "getScalingRecommendations",
+                    "summary": "Intelligent Scaling Recommendations",
+                    "description": "Get AI-powered scaling recommendations based on load patterns and resource utilization",
+                    "responses": {
+                        "200": {
+                            "description": "Scaling recommendations",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "endpoint_recommendations": {"type": "object", "additionalProperties": True},
+                                            "system_capacity": {"type": "object", "additionalProperties": True},
+                                            "auto_scaling_status": {"type": "object", "additionalProperties": True},
+                                            "efficiency_metrics": {"type": "object", "additionalProperties": True},
+                                            "recommendations_summary": {"type": "object", "additionalProperties": True}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enterprise/analytics/advanced": {
+                "get": {
+                    "operationId": "getAdvancedAnalytics",
+                    "summary": "Advanced Analytics & Predictive Insights",
+                    "description": "Advanced analytics with predictive load forecasting, anomaly detection, and business intelligence",
+                    "responses": {
+                        "200": {
+                            "description": "Advanced analytics data",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "predictive_insights": {"type": "object", "additionalProperties": True},
+                                            "business_intelligence": {"type": "object", "additionalProperties": True},
+                                            "anomaly_intelligence": {"type": "object", "additionalProperties": True},
+                                            "system_intelligence": {"type": "object", "additionalProperties": True}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/performance/cache-stats": {
+                "get": {
+                    "operationId": "getCacheStats",
+                    "summary": "Universal Cache Statistics",
+                    "description": "Get comprehensive cache statistics from Universal Cache System with AI, Market, ML, and API cache pools",
+                    "responses": {
+                        "200": {
+                            "description": "Cache statistics",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "cache_pools": {"type": "object", "additionalProperties": True},
+                                            "optimization_status": {"type": "object", "additionalProperties": True},
+                                            "performance_metrics": {"type": "object", "additionalProperties": True}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "/api/gpts/sharp-scoring/test": {
                 "get": {
                     "operationId": "testSharpScoring",
