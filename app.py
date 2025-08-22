@@ -525,6 +525,94 @@ def create_app(config_name='development'):
             logger.error(f"WebSocket stop error: {e}")
             return jsonify({"error": str(e)}), 500
     
+    # 🔍 API Status Endpoint
+    @app.route('/api/status', methods=['GET'])
+    def api_status():
+        """Get comprehensive API status and available endpoints"""
+        try:
+            from flask import jsonify
+            import datetime
+            from core.okx_hybrid_fetcher import hybrid_fetcher
+            
+            # Get cache status
+            cache_info = hybrid_fetcher.get_cache_status()
+            
+            # List all available endpoints
+            endpoints = {
+                "trading_signals": {
+                    "/api/signal": "Get trading signal for a cryptocurrency pair",
+                    "/api/gpts/enhanced/analysis": "Enhanced comprehensive analysis for ChatGPT"
+                },
+                "market_data": {
+                    "/api/market/overview": "Market overview with top cryptocurrencies",
+                    "/api/market/ticker": "Real-time ticker data"
+                },
+                "smart_money_concepts": {
+                    "/api/smc/analysis": "Smart Money Concepts analysis",
+                    "/api/smc/zones": "Identify supply and demand zones"
+                },
+                "technical_analysis": {
+                    "/api/indicators/rsi": "RSI indicator calculation",
+                    "/api/indicators/macd": "MACD indicator calculation",
+                    "/api/indicators/bollinger": "Bollinger Bands calculation"
+                },
+                "ai_analysis": {
+                    "/api/ai/predict": "AI price prediction",
+                    "/api/ai/sentiment": "Market sentiment analysis"
+                },
+                "system": {
+                    "/api/status": "This endpoint - API status",
+                    "/api/cache/status": "Cache system status",
+                    "/api/cache/refresh": "Force cache refresh",
+                    "/api/websocket/start": "Start WebSocket connection",
+                    "/api/websocket/status": "WebSocket connection status",
+                    "/api/websocket/stop": "Stop WebSocket connection",
+                    "/health": "Health check endpoint"
+                }
+            }
+            
+            # Count total endpoints
+            total_endpoints = sum(len(category) for category in endpoints.values())
+            
+            # Get WebSocket status (safe check)
+            websocket_status = "disconnected"
+            try:
+                from core.okx_websocket_simple import ws_manager_simple
+                if ws_manager_simple.is_started:
+                    websocket_status = "connected"
+            except:
+                pass
+            
+            return jsonify({
+                "status": "operational",
+                "message": f"API is fully operational with {total_endpoints} endpoints available",
+                "version": "2.0.0",
+                "data_sources": {
+                    "primary": "OKX Exchange API",
+                    "cache": f"{cache_info['cache_count']} symbols cached",
+                    "websocket": websocket_status,
+                    "background_refresh": cache_info.get('background_refresh', False)
+                },
+                "endpoints": endpoints,
+                "statistics": {
+                    "total_endpoints": total_endpoints,
+                    "categories": len(endpoints),
+                    "cached_symbols": cache_info.get('cached_symbols', []),
+                    "last_prices": cache_info.get('last_prices', {})
+                },
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            })
+            
+        except Exception as e:
+            from flask import jsonify
+            logger.error(f"API status error: {e}")
+            return jsonify({
+                "status": "degraded",
+                "message": "API is operational but some features may be limited",
+                "error": str(e),
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
+            }), 500
+    
     # 📊 Cache Status Endpoint
     @app.route('/api/cache/status', methods=['GET'])
     def cache_status():
