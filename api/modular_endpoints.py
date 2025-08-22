@@ -266,7 +266,27 @@ def risk_assessment():
     try:
         symbol = request.args.get('symbol', 'BTCUSDT')
         timeframe = request.args.get('timeframe', '1H')
-        position_size = float(request.args.get('position_size', '1000'))  # USD
+        
+        # Safely validate and convert position_size to prevent NaN injection
+        position_size_str = request.args.get('position_size', '1000')
+        if position_size_str.lower() in ['nan', 'inf', '-inf', 'infinity', '-infinity']:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid position_size value'
+            }), 400
+        
+        try:
+            position_size = float(position_size_str)
+            if not (0 < position_size <= 1000000):  # Reasonable range validation
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Position size must be between 0 and 1,000,000 USD'
+                }), 400
+        except ValueError:
+            return jsonify({
+                'status': 'error',
+                'message': 'Invalid position_size format'
+            }), 400
         
         log_info(f"Risk Assessment request", {
             'symbol': symbol,
