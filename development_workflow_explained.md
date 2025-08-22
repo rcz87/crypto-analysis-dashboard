@@ -1,190 +1,82 @@
-# Development Workflow Explanation
+# Development Workflow
 
-## Workflow yang Disarankan: Development → GitHub → Production
+## Flask + Gunicorn Deployment Workflow
 
-### 🔄 Complete Development Cycle
+### Development Environment (Replit)
+1. **Code Development**: Edit `app.py`, `routes/`, `models/` files
+2. **Local Testing**: Use Replit workflow to test endpoints
+3. **Health Check**: Verify `/health` and `/api/gpts/status` endpoints
+4. **Database Testing**: Ensure SQLAlchemy connection works
 
-```
-Development (Replit) → GitHub Repository → Production (VPS)
-       ↓                      ↓                    ↓
-   Code & Test          Version Control      Live Application
-```
+### GitHub Integration
+1. **Commit Changes**: `git add .` → `git commit -m "feat: description"`
+2. **Push to GitHub**: `git push origin main`
+3. **Version Control**: Track all changes with descriptive commits
 
-## 1. Development di Replit
+### VPS Production Deployment
+1. **Pull Latest**: `cd /root/crypto-analysis-dashboard && git reset --hard origin/main`
+2. **Restart Service**: `systemctl restart cryptoapi.service`
+3. **Verify Deployment**: `curl -s http://127.0.0.1:5050/health | jq`
 
-**Fungsi:** Environment pengembangan utama
-- **Code development** - Tulis dan edit kode aplikasi
-- **Testing** - Test fitur baru dengan workflow Replit
-- **Debugging** - Fix bugs dan optimize performance
-- **Feature development** - Tambah endpoint API baru
+### Quick Commands
 
-**Keuntungan Replit:**
-- Environment siap pakai dengan dependencies
-- Real-time testing dan debugging
-- Database PostgreSQL terintegrasi
-- Workflow management otomatis
-
-**Contoh aktivitas:**
+#### Development (Replit)
 ```bash
-# Development di Replit
-- Edit routes.py untuk tambah endpoint baru
-- Test dengan curl di workflow
-- Debug dengan logs real-time
-- Verify health checks
+# Test local endpoints
+curl http://localhost:8000/health
+curl http://localhost:8000/api/gpts/status
+
+# Run tests
+python -m pytest tests/
 ```
 
-## 2. Push ke GitHub
-
-**Fungsi:** Version control dan backup
-- **Source code repository** - Simpan semua perubahan kode
-- **Version history** - Track semua development milestones
-- **Collaboration** - Tim bisa akses dan contribute
-- **Deployment source** - Source untuk production deployment
-
-**Commands untuk push:**
+#### GitHub (Replit Terminal)
 ```bash
 git add .
-git commit -m "feat: add new trading signal endpoint"
+git commit -m "feat: add new functionality"  
 git push origin main
 ```
 
-**Yang di-push:**
-- Source code updates
-- New features
-- Bug fixes
-- Configuration changes
-- Documentation updates
-
-## 3. Pull dari GitHub ke VPS
-
-**Fungsi:** Deploy ke production environment
-- **Production sync** - Sinkronisasi code terbaru ke VPS
-- **Live deployment** - Apply changes ke aplikasi live
-- **Version consistency** - Pastikan VPS pakai code terbaru
-
-**Commands di VPS:**
+#### VPS Production
 ```bash
+# Deploy latest changes
 cd /root/crypto-analysis-dashboard
-git pull origin main
-```
+bash scripts/deploy-vps.sh
 
-**Yang ter-update:**
-- Application code
-- API endpoints
-- Configuration files
-- Dependencies (jika ada)
-
-## 4. Restart Service
-
-**Fungsi:** Apply changes ke production
-- **Reload application** - Load code terbaru ke memory
-- **Reset connections** - Refresh database dan API connections
-- **Apply configuration** - Load environment variables baru
-
-**Commands:**
-```bash
-sudo systemctl restart cryptoapi.service
-```
-
-**Proses restart:**
-- Stop running application
-- Load updated code dari disk
-- Initialize database connections
-- Start workers dan bind to port 5050
-
-## 5. Test Functionality
-
-**Fungsi:** Verify deployment berhasil
-- **Health check** - Pastikan aplikasi running
-- **Endpoint testing** - Test API responses
-- **Database connectivity** - Verify database connection
-- **Performance check** - Monitor response times
-
-**Commands testing:**
-```bash
-# Basic health check
+# Manual deployment steps
+git reset --hard origin/main
+systemctl restart cryptoapi.service
 curl -s http://127.0.0.1:5050/health | jq
-
-# Test specific endpoints
-curl -s http://127.0.0.1:5050/api/gpts/status | jq
-
-# Check service status
-sudo systemctl status cryptoapi.service
 ```
 
-## 💡 Mengapa Workflow Ini Efektif?
-
-### **Separation of Concerns:**
-- **Development** - Focus pada coding tanpa worry production
-- **GitHub** - Reliable version control dan backup
-- **Production** - Stable environment untuk users
-
-### **Risk Management:**
-- Test di Replit dulu sebelum production
-- GitHub menyimpan backup semua versions
-- Production deploy step-by-step dengan verification
-
-### **Team Collaboration:**
-- Multiple developers bisa work di Replit
-- GitHub central repository untuk semua
-- Production updates controlled dan tracked
-
-### **Rollback Capability:**
-- Jika ada masalah di production: `git reset --hard origin/main`
-- Revert ke version sebelumnya: `git checkout <commit-hash>`
-- GitHub history lengkap untuk troubleshooting
-
-## 🎯 Best Practices
-
-### **Development Phase:**
-1. Test thoroughly di Replit
-2. Verify all endpoints working
-3. Check logs untuk errors
-4. Document changes di commit message
-
-### **GitHub Phase:**
-1. Commit dengan descriptive messages
-2. Push regularly untuk backup
-3. Tag important releases
-4. Maintain clean commit history
-
-### **Production Phase:**
-1. Always backup sebelum pull
-2. Monitor service status after restart
-3. Test critical endpoints immediately
-4. Check logs untuk any issues
-
-### **Emergency Procedures:**
-```bash
-# Quick rollback jika ada masalah
-cd /root/crypto-analysis-dashboard
-git stash  # Save current state
-git reset --hard HEAD~1  # Go back 1 commit
-sudo systemctl restart cryptoapi.service
+### Project Structure
+```
+/app.py                 # Flask application factory
+/main.py               # Entry point (main:app)
+/routes/               # Blueprint routes
+  ├── __init__.py      # init_routes() function
+  └── health.py        # Health check endpoints
+/models/               # SQLAlchemy models
+  ├── __init__.py
+  └── base.py          # Basic models
+/scripts/              # Deployment scripts
+  └── deploy-vps.sh    # VPS deployment automation
+/tests/                # Test suite
+  ├── __init__.py
+  └── test_health.py   # Health endpoint tests
+/.env.example          # Environment template
+/requirements.txt      # Dependencies
+/.github/workflows/    # GitHub Actions (optional)
+  └── deploy.yml       # Auto-deployment
 ```
 
-## 📋 Complete Workflow Example
+### Environment Configuration
+- **Development**: Uses `sqlite:///dev.db` as fallback
+- **Production**: Uses Neon PostgreSQL via `DATABASE_URL`
+- **Secrets**: Managed via Replit Secrets or VPS environment files
 
-```bash
-# === DEVELOPMENT PHASE (Replit) ===
-# Edit code, test endpoints, verify functionality
-
-# === GITHUB PHASE (Replit Terminal) ===
-git add routes.py
-git commit -m "feat: add enhanced signal analysis endpoint"
-git push origin main
-
-# === PRODUCTION PHASE (VPS Terminal) ===
-cd /root/crypto-analysis-dashboard
-git pull origin main
-sudo systemctl restart cryptoapi.service
-sleep 5
-curl -s http://127.0.0.1:5050/health | jq
-
-# === VERIFICATION PHASE ===
-# Test new endpoints
-# Monitor logs
-# Verify all systems operational
-```
-
-Workflow ini memastikan development yang aman, version control yang proper, dan production deployment yang reliable.
+### Monitoring
+- **Health Endpoint**: `/health` - Full system check with database
+- **Status Endpoint**: `/api/gpts/status` - Lightweight status check
+- **Service Status**: `systemctl status cryptoapi.service`
+- **Logs**: `journalctl -u cryptoapi.service -f`

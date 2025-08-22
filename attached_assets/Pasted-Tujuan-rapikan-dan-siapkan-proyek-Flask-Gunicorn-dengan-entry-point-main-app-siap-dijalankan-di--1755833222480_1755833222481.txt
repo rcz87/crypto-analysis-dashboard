@@ -1,0 +1,181 @@
+Tujuan: rapikan dan siapkan proyek Flask + Gunicorn dengan entry point main:app, siap dijalankan di Replit, dipush ke GitHub, dan dideploy ke VPS dengan service cryptoapi.service. DB pakai Neon via DATABASE_URL. Buat juga skrip deploy & smoke test.
+
+Konteks:
+
+Entry point server: main:app
+
+Struktur: main.py mengimpor app dari app.py (application factory create_app() + app = create_app()).
+
+Health endpoints wajib:
+
+GET /api/gpts/status → status ringan (tanpa koneksi DB)
+
+GET /health → cek DB (SQLAlchemy) + OKX, JSON output
+
+Tugas kamu:
+
+Audit & perapihan proyek
+
+Pastikan struktur minimal:
+
+/app.py         # create_app() + app = create_app()
+/main.py        # from app import app
+/routes/        # blueprints
+/models/        # SQLAlchemy models
+/scripts/       # deploy scripts
+/tests/         # basic tests
+requirements.txt
+
+
+Di app.py, pastikan:
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///dev.db")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+Tambahkan/rapikan endpoints:
+
+/api/gpts/status → JSON: { "status":"active", "version": "...", ... }
+
+/health → konek DB (SQLAlchemy connect), panggil OKX ping sederhana (boleh dummy), JSON:
+
+{"components":{"database":{"status":"healthy|unhealthy"},"okx_api":{"status":"healthy|unhealthy"}},"status":"healthy|unhealthy"}
+
+
+Dependency & Run config (Replit)
+
+Buat/isi requirements.txt minimal:
+
+Flask
+gunicorn
+SQLAlchemy
+Flask-SQLAlchemy
+python-dotenv
+requests
+
+
+Buat .replit agar run dengan Gunicorn:
+
+run = "gunicorn -k gthread -w 2 -b 0.0.0.0:8000 main:app"
+
+
+Buat .env.example (jangan isi secret asli):
+
+DATABASE_URL=postgresql://neondb_owner:⟪YOUR_NEON_PASS_URLENCODED⟫@⟪NEON_HOST⟫/neondb?sslmode=require
+SESSION_SECRET=change-me
+OKX_API_KEY=...
+OKX_SECRET_KEY=...
+OKX_PASSPHRASE=...
+
+
+Skrip deploy ke VPS
+
+Buat scripts/deploy-vps.sh (chmod +x) dengan isi:
+
+#!/usr/bin/env bash
+set -euo pipefail
+APP_DIR="/root/crypto-analysis-dashboard"
+SERVICE="cryptoapi.service"
+HEALTH_URL="http://127.0.0.1:5050/health"
+STATUS_URL="http://127.0.0.1:5050/api/gpts/status"
+
+echo "==> Pull latest"
+cd "$APP_DIR"
+git fetch origin
+git reset --hard origin/main
+
+echo "==> Show effective DB URL from systemd"
+systemctl show "$SERVICE" -p Environment | sed 's/; /\n/g' | grep -E 'DATABASE_URL|PGHOST|PGPORT|PATH' || true
+
+echo "==> Optional migrations"
+if [ -x ".venv/bin/alembic" ]; then . .venv/bin/activate && alembic upgrade head || true; fi
+
+echo "==> Restart service"
+systemctl restart "$SERVICE"
+sleep 2
+
+echo "==> Smoke tests"
+curl -s "$STATUS_URL" | jq '.status,.version' || true
+curl -s "$HEALTH_URL" | jq '.components.database,.status' || true
+
+echo "Done."
+
+
+Dokumentasi workflow singkat
+
+Tambahkan development_workflow_explained.md berisi:
+
+Development di Replit → git push origin main
+
+VPS: git reset --hard origin/main && systemctl restart cryptoapi.service
+
+Test: curl -s http://127.0.0.1:5050/health | jq
+
+(Opsional) GitHub Actions
+
+Tambahkan .github/workflows/deploy.yml:
+
+name: Deploy to VPS
+on: { push: { branches: [main] } }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: bash /root/crypto-analysis-dashboard/scripts/deploy-vps.sh
+
+
+Testing
+
+Tambahkan tests/test_health.py minimal:
+
+def test_status(client):
+    r = client.get("/api/gpts/status")
+    assert r.status_code == 200
+
+
+Jalankan lokal di Replit (gunicorn main:app) dan pastikan:
+
+/api/gpts/status → status=active
+
+/health → DB check ok (untuk dev boleh pakai sqlite fallback)
+
+Output yang harus dihasilkan
+
+requirements.txt
+
+.replit
+
+.env.example
+
+routes/* (jika perlu)
+
+scripts/deploy-vps.sh (executable)
+
+tests/test_health.py
+
+development_workflow_explained.md
+
+(opsional) .github/workflows/deploy.yml
+
+Catatan penting:
+
+Jangan menaruh secret asli dalam repo. Semua secret di Replit gunakan “Secrets”.
+
+Password Neon harus URL‑encoded (@ → %40, dll).
+
+Entry point wajib main:app.
+
+Gunakan placeholder berikut:
+
+⟪NEON_HOST⟫ = ep-billowing-sunset-xxxx.us-east-2.aws.neon.tech
+
+⟪YOUR_NEON_PASS_URLENCODED⟫ = password Neon yang sudah di‑URL encode
+
+⟪VPS_IP⟫ jika butuh contoh SSH
+
+Jika ada bagian yang belum ada di repo, buatkan file baru sesuai instruksi di atas. Setelah selesai, tampilkan ringkasan perubahan file + cara menjalankan di Replit dan di VPS.
