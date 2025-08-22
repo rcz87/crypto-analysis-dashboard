@@ -537,37 +537,113 @@ def create_app(config_name='development'):
             # Get cache status
             cache_info = hybrid_fetcher.get_cache_status()
             
-            # List all available endpoints
+            # List all available endpoints - COMPLETE LIST
             endpoints = {
-                "trading_signals": {
-                    "/api/signal": "Get trading signal for a cryptocurrency pair",
-                    "/api/gpts/enhanced/analysis": "Enhanced comprehensive analysis for ChatGPT"
-                },
-                "market_data": {
-                    "/api/market/overview": "Market overview with top cryptocurrencies",
-                    "/api/market/ticker": "Real-time ticker data"
+                "core_trading": {
+                    "/api/signal": "Get trading signal for cryptocurrency pair",
+                    "/api/signal/top": "Get top trading signals",
+                    "/api/signal/top/telegram": "Send top signals to Telegram",
+                    "/api/signal/fast": "Fast signal generation",
+                    "/api/signal/enhanced": "Enhanced signal with AI reasoning",
+                    "/api/signals/history": "Signal history tracking",
+                    "/api/gpts/enhanced/analysis": "Enhanced analysis for ChatGPT",
+                    "/api/gpts/analysis/deep": "Deep market analysis",
+                    "/api/gpts/status": "GPT integration status",
+                    "/api/gpts/news-analysis": "News-based analysis"
                 },
                 "smart_money_concepts": {
-                    "/api/smc/analysis": "Smart Money Concepts analysis",
-                    "/api/smc/zones": "Identify supply and demand zones"
+                    "/api/smc/analysis": "SMC market structure analysis",
+                    "/api/smc/orderblocks": "Order blocks identification",
+                    "/api/smc/patterns/recognize": "Pattern recognition",
+                    "/api/smc/context": "SMC context analysis",
+                    "/api/smc/summary": "SMC summary report",
+                    "/api/smc/history": "SMC analysis history",
+                    "/api/smc-overlays": "Chart overlays for SMC",
+                    "/api/smc-audit/{symbol}/{timeframe}": "SMC audit report"
                 },
-                "technical_analysis": {
-                    "/api/indicators/rsi": "RSI indicator calculation",
-                    "/api/indicators/macd": "MACD indicator calculation",
-                    "/api/indicators/bollinger": "Bollinger Bands calculation"
+                "market_intelligence": {
+                    "/api/gpts/coinglass/liquidity-map": "Liquidity map analysis",
+                    "/api/gpts/coinglass/liquidation-heatmap": "Liquidation heatmap",
+                    "/api/gpts/coinglass/market-sentiment": "Market sentiment analysis",
+                    "/api/gpts/coinglass/confluence-analysis": "Confluence analysis",
+                    "/api/gpts/coinglass/trading-opportunities": "Trading opportunities",
+                    "/api/institutional/regime-analysis": "Market regime analysis",
+                    "/api/trend/analysis": "Trend analysis",
+                    "/api/risk/assessment": "Risk assessment"
                 },
-                "ai_analysis": {
-                    "/api/ai/predict": "AI price prediction",
-                    "/api/ai/sentiment": "Market sentiment analysis"
+                "ai_reasoning": {
+                    "/api/ai-reasoning/analyze": "AI reasoning analysis",
+                    "/api/ai-reasoning/quick-analysis": "Quick AI analysis",
+                    "/api/ai-reasoning/reasoning-stats": "Reasoning statistics",
+                    "/api/ai-reasoning/configure": "Configure AI reasoning",
+                    "/api/ai-reasoning/test-reasoning": "Test reasoning engine"
                 },
-                "system": {
-                    "/api/status": "This endpoint - API status",
-                    "/api/cache/status": "Cache system status",
-                    "/api/cache/refresh": "Force cache refresh",
-                    "/api/websocket/start": "Start WebSocket connection",
-                    "/api/websocket/status": "WebSocket connection status",
-                    "/api/websocket/stop": "Stop WebSocket connection",
-                    "/health": "Health check endpoint"
+                "signal_engine": {
+                    "/api/signal-engine/analyze": "Signal engine analysis",
+                    "/api/signal-engine/test": "Test signal engine",
+                    "/api/state/track-signal": "Track signal state",
+                    "/api/state/signal-history": "Signal state history",
+                    "/api/state/signal/{signal_id}/execute": "Execute signal"
+                },
+                "performance_monitoring": {
+                    "/api/performance/status": "Performance status",
+                    "/api/performance/cache/stats": "Cache statistics",
+                    "/api/performance/cache/clear": "Clear cache",
+                    "/api/performance/metrics/summary": "Metrics summary",
+                    "/api/performance/metrics/endpoints": "Endpoint metrics",
+                    "/api/performance/system/resources": "System resources",
+                    "/api/performance/dashboard": "Performance dashboard"
+                },
+                "data_quality": {
+                    "/api/data-quality/status": "Data quality status",
+                    "/api/data-quality/anomalies/detect": "Detect anomalies",
+                    "/api/improvement/data-quality": "Data quality improvement",
+                    "/api/improvement/data-quality-summary": "Quality summary",
+                    "/api/improvement/auto-tune": "Auto-tune parameters",
+                    "/api/improvement/retrain-model": "Retrain ML models",
+                    "/api/improvement/optimize-threshold/{symbol}/{timeframe}": "Optimize thresholds"
+                },
+                "security": {
+                    "/api/security/status": "Security status",
+                    "/api/security/rate-limits/check": "Check rate limits",
+                    "/api/security/validate-input": "Validate input",
+                    "/api/security/ip-management": "IP management",
+                    "/api/security/ip-management/blacklist": "Blacklist IP",
+                    "/api/security/ip-management/whitelist": "Whitelist IP",
+                    "/api/security/audit/events": "Audit events",
+                    "/api/security/audit/summary": "Audit summary",
+                    "/api/security/encryption/test": "Test encryption"
+                },
+                "monitoring_alerts": {
+                    "/api/monitor/alerts": "Active alerts",
+                    "/api/monitor/start": "Start monitoring",
+                    "/api/alert/webhook": "Webhook alerts",
+                    "/api/alert/trigger": "Trigger alert",
+                    "/api/state/log-query": "Log query",
+                    "/api/state/analytics/signals": "Signal analytics",
+                    "/api/state/analytics/queries": "Query analytics",
+                    "/api/state/analytics/interactions": "Interaction analytics"
+                },
+                "charts_visualization": {
+                    "/api/chart/widget": "Chart widget",
+                    "/api/chart/dashboard": "Chart dashboard",
+                    "/api/chart/data": "Chart data",
+                    "/api/chart/symbols": "Available symbols",
+                    "/api/chart/health": "Chart service health"
+                },
+                "system_endpoints": {
+                    "/api/status": "Complete API status",
+                    "/api/endpoints/status": "Endpoint status",
+                    "/api/structure": "API structure",
+                    "/api/cache/status": "Cache status",
+                    "/api/cache/refresh": "Cache refresh",
+                    "/api/websocket/start": "Start WebSocket",
+                    "/api/websocket/status": "WebSocket status",
+                    "/api/websocket/stop": "Stop WebSocket",
+                    "/health": "Health check",
+                    "/openapi.json": "OpenAPI schema",
+                    "/.well-known/openapi.json": "Well-known OpenAPI",
+                    "/privacy": "Privacy policy"
                 }
             }
             
