@@ -1,0 +1,36 @@
+📋 GIT PUSH COMMANDS UNTUK GITHUB
+==================================
+
+Jalankan command ini untuk push semua fixes ke GitHub:
+
+1. Check current status:
+   git status
+
+2. Add all changes:
+   git add -A
+
+3. Commit dengan message:
+   git commit -m "Fix: Database connection using SQLAlchemy only - removed psycopg2 fallbacks"
+
+4. Push ke GitHub:
+   git push origin main
+
+FILES YANG AKAN DI-PUSH:
+------------------------
+✅ routes/health.py - Health check fix dengan SQLAlchemy
+✅ routes.py - Removed psycopg2 fallback logic
+✅ core/database_optimizer.py - SQLAlchemy connection management
+✅ scripts/fix_health_check.sh - VPS deployment script
+✅ scripts/deploy-vps.sh - Full verification script
+✅ FINAL_VPS_DEPLOYMENT_STATUS.md - Documentation
+
+SUMMARY OF FIXES:
+-----------------
+- Single source of truth: SQLALCHEMY_DATABASE_URI
+- No more psycopg2.connect fallbacks
+- Proper Neon database SSL connection
+- Flask application factory pattern
+- Connection lifecycle management
+
+Setelah push ke GitHub, pull di VPS dengan:
+git pull origin main
