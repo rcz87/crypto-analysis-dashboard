@@ -37,4 +37,5 @@ dependencies = [
     "pytest>=8.4.1",
     "flask-limiter>=3.12",
     "websockets==6.0",
+    "websocket-client>=1.8.0",
 ]

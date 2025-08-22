@@ -474,15 +474,20 @@ def create_app(config_name='development'):
         """Start WebSocket connection"""
         try:
             from flask import request, jsonify
-            from core.okx_websocket import ws_manager
+            import datetime
+            from core.okx_websocket_simple import ws_manager_simple
             
             data = request.get_json() or {}
             symbols = data.get('symbols', ['BTC-USDT', 'ETH-USDT', 'SOL-USDT', 'ADA-USDT', 'DOT-USDT'])
             
-            if not ws_manager.is_running:
-                ws_manager.start(symbols)
-                message = f"WebSocket started for {len(symbols)} symbols"
-                logger.info(f"⚡ {message}: {symbols}")
+            if not ws_manager_simple.is_started:
+                success = ws_manager_simple.start(symbols)
+                if success:
+                    message = f"WebSocket started for {len(symbols)} symbols"
+                    logger.info(f"⚡ {message}: {symbols}")
+                else:
+                    message = "Failed to start WebSocket"
+                    logger.error(message)
             else:
                 message = "WebSocket already running"
                 logger.info(f"⚡ {message}")
