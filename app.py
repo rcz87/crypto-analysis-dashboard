@@ -177,6 +177,57 @@ def create_app(config_name='development'):
         """Standard discovery endpoint for OpenAPI schema"""
         return openapi_json()
     
+    @app.route('/privacy', methods=['GET'])
+    def privacy_policy():
+        """Privacy Policy endpoint for ChatGPT Custom GPT compliance"""
+        privacy_html = """<!DOCTYPE html>
+<html>
+<head>
+    <title>Privacy Policy - Cryptocurrency Trading Analysis API</title>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; margin-top: 30px; }
+        p { line-height: 1.6; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Privacy Policy</h1>
+    <p><strong>Last updated:</strong> August 22, 2025</p>
+    
+    <h2>Data Collection</h2>
+    <p>This API provides cryptocurrency trading analysis services. We collect minimal data necessary for service operation:</p>
+    <ul>
+        <li>Trading symbols and timeframes requested</li>
+        <li>API request logs for performance monitoring</li>
+        <li>No personal information or trading account data is stored</li>
+    </ul>
+    
+    <h2>Data Usage</h2>
+    <p>Data is used solely for:</p>
+    <ul>
+        <li>Generating trading analysis and signals</li>
+        <li>API performance optimization</li>
+        <li>System monitoring and debugging</li>
+    </ul>
+    
+    <h2>Data Sharing</h2>
+    <p>We do not share, sell, or transfer any data to third parties. Market data is sourced from public APIs (OKX Exchange).</p>
+    
+    <h2>Data Security</h2>
+    <p>All data transmission uses HTTPS encryption. Server logs are automatically rotated and deleted after 30 days.</p>
+    
+    <h2>Contact</h2>
+    <p>For privacy questions, contact us through GitHub or the API documentation.</p>
+    
+    <h2>Changes</h2>
+    <p>This policy may be updated. Check this page periodically for changes.</p>
+</body>
+</html>"""
+        from flask import Response
+        return Response(privacy_html, mimetype='text/html')
+    
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
     return app
 
