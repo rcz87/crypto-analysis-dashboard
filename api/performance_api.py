@@ -73,7 +73,7 @@ def get_performance_metrics_from_db(symbol=None, days=30):
         # Use raw SQL to query existing table structure
         from sqlalchemy import text
         
-        # Build base query
+        # Build base query with parameterized placeholders
         base_query = """
         SELECT symbol, action, confidence, entry_price, execution_price, 
                pnl_percentage, outcome, created_at, closed_at
@@ -82,18 +82,22 @@ def get_performance_metrics_from_db(symbol=None, days=30):
         AND outcome IS NOT NULL
         """
         
+        params = {}
+        
         # Add symbol filter
         if symbol:
-            base_query += f" AND symbol = '{symbol}'"
+            base_query += " AND symbol = :symbol"
+            params['symbol'] = symbol
         
         # Add time filter
         if days:
             cutoff_date = datetime.utcnow() - timedelta(days=days)
-            base_query += f" AND created_at >= '{cutoff_date}'"
+            base_query += " AND created_at >= :cutoff_date"
+            params['cutoff_date'] = cutoff_date
         
         base_query += " ORDER BY created_at DESC"
         
-        result = session.execute(text(base_query))
+        result = session.execute(text(base_query), params)
         signals = result.fetchall()
         
         if not signals:
