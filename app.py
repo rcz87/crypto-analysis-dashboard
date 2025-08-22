@@ -227,6 +227,27 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register optimized_ai: {e}")
     
+    # 📌 Register API Versioning (v1, v2) with backward compatibility
+    try:
+        from api.api_versioning import api_v1, api_v2, setup_backward_compatibility
+        if "api_v1" not in app.blueprints:
+            app.register_blueprint(api_v1)
+        if "api_v2" not in app.blueprints:
+            app.register_blueprint(api_v2)
+        setup_backward_compatibility(app)
+        logger.info("✅ API Versioning: v1 (legacy), v2 (current) with backward compatibility")
+    except Exception as e:
+        logger.warning(f"Could not register API versioning: {e}")
+    
+    # 📚 Register Self-Service Documentation & SDK
+    try:
+        from api.self_service_docs import docs_bp
+        if "docs" not in app.blueprints:
+            app.register_blueprint(docs_bp)
+            logger.info("✅ Self-Service Docs: SDK examples for Python, JS, Go, cURL")
+    except Exception as e:
+        logger.warning(f"Could not register documentation: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
