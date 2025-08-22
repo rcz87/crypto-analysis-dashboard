@@ -8,17 +8,14 @@ from flask_cors import cross_origin
 import logging
 from datetime import datetime
 from typing import Dict, List, Optional
-from core.personalized_risk_profiles import PersonalizedRiskProfiles
-from core.advanced_ml_ensemble import AdvancedMLEnsemble
-import pandas as pd
+from core.shared_service_layer import get_shared_services
 
 # Blueprint initialization
 signal_top_bp = Blueprint("signal_top", __name__)
 logger = logging.getLogger(__name__)
 
-# Initialize integrated modules
-risk_profiler = PersonalizedRiskProfiles(profile='MODERATE', account_balance=10000)
-ml_ensemble = AdvancedMLEnsemble()
+# Initialize shared services
+shared_services = get_shared_services()
 
 @signal_top_bp.route("/api/signal/top", methods=["GET"])
 @cross_origin()
@@ -72,43 +69,35 @@ def get_top_signal():
         risk_profile = request.args.get('risk_profile', 'MODERATE').upper()
         account_balance = float(request.args.get('account_balance', 10000))
         
-        # Update risk profile if different
-        if risk_profile != risk_profiler.current_profile:
-            risk_profiler.change_profile(risk_profile)
-        if account_balance != risk_profiler.account_balance:
-            risk_profiler.account_balance = account_balance
-        
-        # Get all active signals
-        all_signals = get_all_active_signals()
-        
-        # Filter signals berdasarkan symbol dan timeframe
-        filtered_signals = _filter_signals(all_signals, symbol_filter, tf_filter)
-        
-        # Get top signal dengan prioritas
-        top_signal = _get_priority_signal(filtered_signals)
-        
-        # Apply personalized risk management to top signal
-        if top_signal:
-            # Create mock dataframe for risk calculation
-            mock_df = pd.DataFrame({
-                'close': [top_signal.get('entry_price', 0)] * 100,
-                'high': [top_signal.get('entry_price', 0) * 1.01] * 100,
-                'low': [top_signal.get('entry_price', 0) * 0.99] * 100,
-                'open': [top_signal.get('entry_price', 0)] * 100,
-                'volume': [1000000] * 100
-            })
-            
-            risk_params = risk_profiler.calculate_personalized_risk(
-                df=mock_df,
-                signal_type=top_signal.get('signal', 'BUY'),
-                confidence=top_signal.get('confidence', 70),
-                entry_price=top_signal.get('entry_price')
+        # Use shared services for unified signal generation
+        if symbol_filter:
+            # Generate unified signal using shared services
+            unified_signal = shared_services.generate_unified_signal(
+                symbol=symbol_filter,
+                timeframe=tf_filter or '1H',
+                risk_profile=risk_profile,
+                account_balance=account_balance,
+                use_ml_ensemble=True,
+                use_smc=True
             )
             
-            if risk_params.get('allowed'):
-                top_signal['risk_management'] = risk_params
-                top_signal['position_size'] = risk_params.get('position_sizing', {})
-                top_signal['risk_profile'] = risk_profile
+            top_signal = unified_signal
+            
+        else:
+            # Get all active signals (legacy behavior when no symbol specified)
+            all_signals = get_all_active_signals()
+            
+            # Filter signals berdasarkan symbol dan timeframe  
+            filtered_signals = _filter_signals(all_signals, symbol_filter, tf_filter)
+            
+            # Get top signal dengan prioritas
+            top_signal = _get_priority_signal(filtered_signals)
+            
+            # Apply shared risk management if signal found
+            if top_signal:
+                top_signal = shared_services.apply_risk_management(
+                    top_signal, risk_profile, account_balance
+                )
         
         # Prepare response
         response_data = {

@@ -11,9 +11,7 @@ import time
 from core.enhanced_sharp_signal_engine import EnhancedSharpSignalEngine
 from core.okx_fetcher import OKXFetcher
 from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
-from core.advanced_ml_ensemble import AdvancedMLEnsemble
-from core.personalized_risk_profiles import PersonalizedRiskProfiles
-import pandas as pd
+from core.shared_service_layer import get_shared_services
 
 logger = logging.getLogger(__name__)
 
@@ -24,8 +22,7 @@ enhanced_signals_bp = Blueprint('enhanced_signals', __name__, url_prefix='/api/e
 enhanced_engine = EnhancedSharpSignalEngine()
 okx_fetcher = OKXFetcher()
 smc_analyzer = ProfessionalSMCAnalyzer()
-ml_ensemble = AdvancedMLEnsemble()
-risk_profiler = PersonalizedRiskProfiles()
+shared_services = get_shared_services()
 
 def add_cors_headers(response):
     """Add CORS headers for GPT access"""
@@ -105,58 +102,23 @@ def get_enhanced_sharp_signal():
             position_size_usd=position_size_usd
         )
         
-        # Add ML Ensemble prediction if enabled
-        if use_ensemble and market_data and 'candles' in market_data:
+        # Apply ML Ensemble and Risk Management using Shared Services
+        if use_ensemble:
             try:
-                df = pd.DataFrame(market_data['candles'])
-                # Ensure numeric types
-                for col in ['open', 'high', 'low', 'close', 'volume']:
-                    if col in df.columns:
-                        df[col] = pd.to_numeric(df[col], errors='coerce')
-                
-                # Get ensemble prediction
-                ensemble_result = ml_ensemble.get_ensemble_prediction(df)
-                signal_result['ml_ensemble'] = ensemble_result
-                
-                # Merge ensemble confidence with existing confidence
-                if 'confidence' in signal_result and 'ensemble_prediction' in ensemble_result:
-                    original_conf = signal_result.get('confidence', 70)
-                    ensemble_conf = ensemble_result['ensemble_prediction'].get('confidence', 0.7) * 100
-                    signal_result['confidence'] = (original_conf + ensemble_conf) / 2
-                    signal_result['confidence_sources'] = {
-                        'original': original_conf,
-                        'ensemble': ensemble_conf,
-                        'combined': signal_result['confidence']
-                    }
+                signal_result = shared_services.apply_ml_ensemble(
+                    signal_result, market_data, use_ensemble
+                )
             except Exception as e:
-                logger.warning(f"ML Ensemble integration failed: {e}")
+                logger.warning(f"Shared ML Ensemble integration failed: {e}")
         
-        # Apply personalized risk management
+        # Apply personalized risk management via shared services
         if risk_profile and signal_result.get('signal'):
             try:
-                # Update risk profile
-                if risk_profile != risk_profiler.current_profile:
-                    risk_profiler.change_profile(risk_profile)
-                
-                # Create dataframe for risk calculation
-                df = pd.DataFrame(market_data.get('candles', []))
-                if not df.empty:
-                    for col in ['open', 'high', 'low', 'close', 'volume']:
-                        if col in df.columns:
-                            df[col] = pd.to_numeric(df[col], errors='coerce')
-                    
-                    risk_params = risk_profiler.calculate_personalized_risk(
-                        df=df,
-                        signal_type=signal_result.get('signal', 'BUY'),
-                        confidence=signal_result.get('confidence', 70),
-                        entry_price=signal_result.get('entry_price')
-                    )
-                    
-                    if risk_params.get('allowed'):
-                        signal_result['risk_management'] = risk_params
-                        signal_result['risk_profile'] = risk_profile
+                signal_result = shared_services.apply_risk_management(
+                    signal_result, risk_profile, position_size_usd, market_data
+                )
             except Exception as e:
-                logger.warning(f"Risk profile integration failed: {e}")
+                logger.warning(f"Shared Risk Management integration failed: {e}")
         
         return add_cors_headers(jsonify(signal_result))
         

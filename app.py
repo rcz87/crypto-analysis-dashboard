@@ -248,6 +248,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register documentation: {e}")
     
+    # 📊 Register Performance & Cache Management
+    try:
+        from api.performance_cache_endpoint import performance_bp
+        if "performance_cache" not in app.blueprints:
+            app.register_blueprint(performance_bp)
+            logger.info("✅ Performance Monitoring: Cache stats, optimization status, system metrics")
+    except Exception as e:
+        logger.warning(f"Could not register performance_cache: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():

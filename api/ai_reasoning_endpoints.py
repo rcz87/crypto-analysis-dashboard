@@ -20,7 +20,7 @@ from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
 from core.advanced_cache_manager import get_cache_manager
 from core.response_compression import compress_large_response, compress_json_response
 from core.enhanced_error_handler import get_error_handler, handle_api_error
-from core.ai_latency_optimizer import AILatencyOptimizer
+from core.universal_cache_system import get_universal_cache
 import asyncio
 
 # Setup logging
@@ -39,8 +39,8 @@ smc_analyzer = ProfessionalSMCAnalyzer()
 cache_manager = get_cache_manager()
 error_handler = get_error_handler()
 
-# Initialize AI Latency Optimizer
-latency_optimizer = AILatencyOptimizer(cache_ttl_minutes=30)
+# Initialize Universal Cache System
+universal_cache = get_universal_cache()
 loop = asyncio.new_event_loop()
 
 @ai_reasoning_bp.route('/status', methods=['GET'])
@@ -200,9 +200,9 @@ def analyze_trading_opportunity():
                     include_indicators=include_indicators
                 )
             
-            # Get optimized response
+            # Get optimized response using Universal Cache
             result = asyncio.run_coroutine_threadsafe(
-                latency_optimizer.get_optimized_response(
+                universal_cache.get_ai_optimized(
                     request_data,
                     ai_analysis_function,
                     use_preview=True
