@@ -901,11 +901,8 @@ def _send_signal_to_telegram(signal: Dict, custom_message: str = "") -> Dict:
     try:
         from core.telegram_bot import telegram_bot
         
-        # Format message
-        message = _format_telegram_message(signal, custom_message)
-        
-        # Send via telegram bot
-        result = telegram_bot.send_signal_alert(message)
+        # Send via telegram bot using signal data
+        result = telegram_bot.send_signal_alert(signal, custom_message)
         
         return {
             "success": True,

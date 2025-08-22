@@ -143,6 +143,39 @@ class TelegramBot:
         except Exception as e:
             logger.error(f"Error sending alert: {e}")
     
+    async def send_signal_alert(self, signal_data: Dict, custom_message: str = "") -> Dict:
+        """
+        Send signal alert - Alias method for send_signal to maintain compatibility
+        
+        Args:
+            signal_data: Signal data dictionary
+            custom_message: Optional custom message
+            
+        Returns:
+            Result dictionary
+        """
+        try:
+            # Add custom message to signal data if provided
+            if custom_message:
+                signal_data['custom_message'] = custom_message
+            
+            # Send signal using existing method
+            await self.send_signal(signal_data)
+            
+            return {
+                'status': 'success',
+                'message': f'Signal sent to {len(self.chat_ids)} chats',
+                'chat_count': len(self.chat_ids)
+            }
+            
+        except Exception as e:
+            logger.error(f"Signal alert error: {e}")
+            return {
+                'status': 'error', 
+                'message': str(e),
+                'chat_count': 0
+            }
+    
     def start_bot(self):
         """Start the telegram bot with handlers"""
         try:

@@ -213,6 +213,26 @@ class ProfessionalSMCAnalyzer:
             self.logger.error(f"Market bias calculation error: {e}")
             return 'neutral'
     
+    def analyze_smart_money_concept(self, candles: List, symbol: str, timeframe: str = '1H') -> Dict[str, Any]:
+        """
+        Alias method for analyze_market_structure to maintain compatibility
+        
+        Args:
+            candles: List of candle data
+            symbol: Trading symbol
+            timeframe: Timeframe string
+            
+        Returns:
+            SMC analysis results
+        """
+        try:
+            # Convert candles to market_data format
+            market_data = {'candles': candles, 'symbol': symbol, 'timeframe': timeframe}
+            return self.analyze_market_structure(market_data)
+        except Exception as e:
+            self.logger.error(f"SMC analysis error for {symbol}: {e}")
+            return self._get_fallback_smc_analysis()
+    
     def _calculate_confidence(self, df: pd.DataFrame) -> float:
         """Calculate analysis confidence"""
         try:
