@@ -26,8 +26,8 @@ def openapi_schema():
         "openapi": "3.1.0",
         "info": {
             "title": "Cryptocurrency Trading Analysis API",
-            "description": "Advanced cryptocurrency trading signals with Smart Money Concept (SMC) analysis, AI-powered insights, and real-time market data from OKX Exchange. Perfect for professional trading analysis and decision making.",
-            "version": "2.0.0",
+            "description": "Advanced cryptocurrency trading signals with Smart Money Concept (SMC) analysis, AI-powered insights, real-time market data from OKX Exchange. NEW: AI Latency Optimizer (<3s response), Personalized Risk Profiles, Advanced ML Ensemble (4 models). Perfect for professional trading analysis and decision making.",
+            "version": "4.0.0",
             "contact": {
                 "name": "Crypto Trading API Support",
                 "url": f"{base_url}/health"
@@ -94,6 +94,27 @@ def openapi_schema():
                                 "default": "1H"
                             },
                             "example": "1H"
+                        },
+                        {
+                            "name": "risk_profile",
+                            "in": "query",
+                            "required": false,
+                            "schema": {
+                                "type": "string",
+                                "enum": ["CONSERVATIVE", "MODERATE", "AGGRESSIVE"],
+                                "default": "MODERATE"
+                            },
+                            "description": "Risk management profile for personalized position sizing and risk management"
+                        },
+                        {
+                            "name": "account_balance",
+                            "in": "query", 
+                            "required": false,
+                            "schema": {
+                                "type": "number",
+                                "default": 10000
+                            },
+                            "description": "Account balance for position size calculation"
                         }
                     ],
                     "responses": {

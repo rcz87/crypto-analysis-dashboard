@@ -32,9 +32,9 @@ def get_ultra_complete_openapi_schema():
     schema = {
         "openapi": "3.1.0",
         "info": {
-            "title": "Cryptocurrency Trading Analysis API - Ultra Complete",
-            "description": "Advanced institutional-grade cryptocurrency trading analysis with AI, SMC patterns, real-time data, and comprehensive market insights. Features 30+ endpoints for complete trading workflow automation.",
-            "version": "3.0.0",
+            "title": "Cryptocurrency Trading Analysis API - Ultra Complete", 
+            "description": "Advanced institutional-grade cryptocurrency trading analysis with AI, SMC patterns, real-time data, and comprehensive market insights. Features AI Latency Optimizer (<3s response), Personalized Risk Profiles, Advanced ML Ensemble (4 models), and 35+ endpoints for complete trading workflow automation.",
+            "version": "4.0.0",
             "contact": {
                 "name": "GPTs Trading API",
                 "url": "https://gpts.guardiansofthetoken.id/openapi.json"
@@ -135,6 +135,18 @@ def get_ultra_complete_openapi_schema():
                             "in": "query",
                             "description": "Timeframe for analysis", 
                             "schema": {"type": "string", "default": "1H"}
+                        },
+                        {
+                            "name": "risk_profile",
+                            "in": "query",
+                            "description": "Risk management profile for personalized position sizing",
+                            "schema": {"type": "string", "enum": ["CONSERVATIVE", "MODERATE", "AGGRESSIVE"], "default": "MODERATE"}
+                        },
+                        {
+                            "name": "account_balance",
+                            "in": "query",
+                            "description": "Account balance for position sizing calculation",
+                            "schema": {"type": "number", "default": 10000}
                         }
                     ],
                     "responses": {
@@ -829,6 +841,120 @@ def get_ultra_complete_openapi_schema():
                             "content": {
                                 "application/json": {
                                     "schema": {"type": "object"}
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/v1/ai-reasoning/analyze": {
+                "get": {
+                    "operationId": "getAIReasoningAnalysis", 
+                    "summary": "AI Reasoning Analysis with Fast Mode",
+                    "description": "Comprehensive AI-powered trading analysis with <3s response time using latency optimization",
+                    "parameters": [
+                        {
+                            "name": "symbol",
+                            "in": "query",
+                            "description": "Trading pair symbol",
+                            "schema": {"type": "string", "default": "BTC-USDT"}
+                        },
+                        {
+                            "name": "timeframe", 
+                            "in": "query",
+                            "description": "Analysis timeframe",
+                            "schema": {"type": "string", "default": "1H"}
+                        },
+                        {
+                            "name": "use_fast_mode",
+                            "in": "query",
+                            "description": "Enable fast mode for <3s response time with AI caching",
+                            "schema": {"type": "boolean", "default": true}
+                        },
+                        {
+                            "name": "include_smc",
+                            "in": "query", 
+                            "description": "Include Smart Money Concept analysis",
+                            "schema": {"type": "boolean", "default": true}
+                        },
+                        {
+                            "name": "use_ai_enhancement",
+                            "in": "query",
+                            "description": "Enable AI enhancement features",
+                            "schema": {"type": "boolean", "default": true}
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "AI reasoning analysis completed", 
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "analysis": {"type": "object", "additionalProperties": True},
+                                            "performance": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "latency_ms": {"type": "number"},
+                                                    "fast_mode": {"type": "boolean"},
+                                                    "used_cache": {"type": "boolean"}
+                                                },
+                                                "additionalProperties": True
+                                            }
+                                        },
+                                        "additionalProperties": True
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "/api/enhanced/sharp-signal": {
+                "post": {
+                    "operationId": "postEnhancedSharpSignal",
+                    "summary": "Enhanced Sharp Signal with ML Ensemble",
+                    "description": "Advanced signal with ML ensemble (LSTM, XGBoost, Transformer, RL) and personalized risk management",
+                    "requestBody": {
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "symbol": {"type": "string", "default": "BTC-USDT"},
+                                        "timeframe": {"type": "string", "default": "1H"},
+                                        "use_ensemble": {"type": "boolean", "default": true, "description": "Enable ML ensemble prediction"},
+                                        "risk_profile": {"type": "string", "enum": ["CONSERVATIVE", "MODERATE", "AGGRESSIVE"], "default": "MODERATE"}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Enhanced signal generated",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object", 
+                                        "properties": {
+                                            "signal": {"type": "string"},
+                                            "confidence": {"type": "number"},
+                                            "ml_ensemble": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "ensemble_prediction": {"type": "object", "additionalProperties": True},
+                                                    "individual_models": {"type": "object", "additionalProperties": True}
+                                                },
+                                                "additionalProperties": True
+                                            },
+                                            "risk_management": {"type": "object", "additionalProperties": True},
+                                            "risk_profile": {"type": "string"}
+                                        },
+                                        "additionalProperties": True
+                                    }
                                 }
                             }
                         }
