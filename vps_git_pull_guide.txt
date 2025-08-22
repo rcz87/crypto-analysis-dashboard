@@ -1,0 +1,82 @@
+CARA PULL DARI GITHUB KE VPS HOSTINGER
+=====================================
+
+LANGKAH-LANGKAH PULL UPDATES KE VPS:
+
+1. MASUK KE DIRECTORY APLIKASI DI VPS:
+cd /root/crypto-analysis-dashboard
+
+2. CEK STATUS GIT REPOSITORY:
+git status
+git remote -v
+
+3. PULL LATEST CHANGES DARI GITHUB:
+git pull origin main
+
+4. JIKA ADA CONFLICT, RESOLVE DULU:
+git stash          # Simpan local changes
+git pull origin main
+git stash pop      # Apply local changes kembali
+
+5. RESTART SERVICE SETELAH PULL:
+sudo systemctl restart cryptoapi.service
+
+6. VERIFY APLIKASI BERJALAN:
+curl -s http://127.0.0.1:5050/health | jq
+
+TROUBLESHOOTING:
+================
+
+Jika pull gagal karena local changes:
+git stash
+git pull origin main
+git stash pop
+
+Jika ada file permission issues:
+sudo chown -R root:root /root/crypto-analysis-dashboard
+chmod +x /root/crypto-analysis-dashboard/venv/bin/*
+
+Jika perlu reset total ke GitHub version:
+git fetch origin
+git reset --hard origin/main
+
+WORKFLOW YANG DISARANKAN:
+========================
+
+1. Development di Replit → Push ke GitHub
+2. Production di VPS → Pull dari GitHub
+3. Restart service → Test functionality
+
+COMMANDS LENGKAP UNTUK VPS:
+===========================
+
+# Masuk ke directory
+cd /root/crypto-analysis-dashboard
+
+# Backup local changes (optional)
+git stash
+
+# Pull latest dari GitHub
+git pull origin main
+
+# Restore local changes jika ada (optional)
+git stash pop
+
+# Restart service
+sudo systemctl restart cryptoapi.service
+
+# Wait untuk startup
+sleep 5
+
+# Test health
+curl -s http://127.0.0.1:5050/health | jq
+
+# Check service status
+sudo systemctl status cryptoapi.service
+
+CATATAN PENTING:
+================
+- Selalu backup local changes dengan git stash sebelum pull
+- Restart service setelah pull untuk apply changes
+- Test health endpoint untuk verify aplikasi jalan
+- Monitor logs jika ada issues: sudo journalctl -u cryptoapi.service -f
