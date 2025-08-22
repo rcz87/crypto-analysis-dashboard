@@ -266,6 +266,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register enterprise_management: {e}")
     
+    # 🎯 Register TradingLite Integration (Gold Subscription)
+    try:
+        from api.tradinglite_endpoints import tradinglite_bp
+        if "tradinglite" not in app.blueprints:
+            app.register_blueprint(tradinglite_bp)
+            logger.info("✅ TradingLite Integration: Gold subscription features - Liquidity heatmaps, Order flow, LitScript")
+    except Exception as e:
+        logger.warning(f"Could not register tradinglite: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
