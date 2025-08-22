@@ -20,6 +20,8 @@ from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
 from core.advanced_cache_manager import get_cache_manager
 from core.response_compression import compress_large_response, compress_json_response
 from core.enhanced_error_handler import get_error_handler, handle_api_error
+from core.ai_latency_optimizer import AILatencyOptimizer
+import asyncio
 
 # Setup logging
 logger = logging.getLogger(__name__)
@@ -36,6 +38,10 @@ smc_analyzer = ProfessionalSMCAnalyzer()
 # Initialize enhanced systems
 cache_manager = get_cache_manager()
 error_handler = get_error_handler()
+
+# Initialize AI Latency Optimizer
+latency_optimizer = AILatencyOptimizer(cache_ttl_minutes=30)
+loop = asyncio.new_event_loop()
 
 @ai_reasoning_bp.route('/status', methods=['GET'])
 def ai_reasoning_status():
@@ -150,7 +156,8 @@ def analyze_trading_opportunity():
         "timeframe": "1H",
         "include_smc": true,
         "include_indicators": true,
-        "use_ai_enhancement": true
+        "use_ai_enhancement": true,
+        "use_fast_mode": true
     }
     """
     try:
@@ -166,8 +173,53 @@ def analyze_trading_opportunity():
         include_smc = data.get('include_smc', request.args.get('include_smc', 'true').lower() == 'true')
         include_indicators = data.get('include_indicators', request.args.get('include_indicators', 'true').lower() == 'true')
         use_ai_enhancement = data.get('use_ai_enhancement', request.args.get('use_ai_enhancement', 'true').lower() == 'true')
+        use_fast_mode = data.get('use_fast_mode', request.args.get('use_fast_mode', 'true').lower() == 'true')
         
-        logger.info(f"🔍 Starting AI reasoning analysis for {symbol} {timeframe}")
+        logger.info(f"🔍 Starting AI reasoning analysis for {symbol} {timeframe} (Fast mode: {use_fast_mode})")
+        
+        # Use AI Latency Optimizer for fast response
+        if use_fast_mode and use_ai_enhancement:
+            request_data = {
+                'symbol': symbol,
+                'timeframe': timeframe,
+                'type': 'trading_analysis'
+            }
+            
+            # Define AI analysis function
+            def ai_analysis_function(req_data):
+                # Get market data and perform full analysis
+                market_data = okx_fetcher.get_historical_data(req_data['symbol'], req_data['timeframe'], 100)
+                if not market_data:
+                    return {'error': 'Failed to fetch market data'}
+                
+                # Run the original analysis logic
+                return ai_integrator.analyze_trading_opportunity(
+                    symbol=req_data['symbol'],
+                    timeframe=req_data['timeframe'],
+                    include_smc=include_smc,
+                    include_indicators=include_indicators
+                )
+            
+            # Get optimized response
+            result = asyncio.run_coroutine_threadsafe(
+                latency_optimizer.get_optimized_response(
+                    request_data,
+                    ai_analysis_function,
+                    use_preview=True
+                ),
+                loop
+            ).result(timeout=5)
+            
+            response, latency_ms = result
+            
+            # Add latency info
+            response['performance'] = {
+                'latency_ms': latency_ms,
+                'used_cache': latency_ms < 100,
+                'fast_mode': True
+            }
+            
+            return jsonify(response)
         
         # 1. Check cache first for market data
         cache_key_params = {'symbol': symbol, 'timeframe': timeframe, 'limit': 100}
