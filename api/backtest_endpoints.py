@@ -51,6 +51,15 @@ def run_strategy_backtest():
         strategy = request.args.get('strategy', 'RSI_MACD')
         symbol = request.args.get('symbol', 'BTC-USDT')
         timeframe = request.args.get('timeframe', '1H')
+        
+        # Validate initial_balance to prevent NaN injection
+        initial_balance_str = str(request.args.get('initial_balance', 10000)).lower()
+        if 'nan' in initial_balance_str or 'inf' in initial_balance_str:
+            return jsonify({
+                "status": "error",
+                "error": "INVALID_PARAMETERS",
+                "message": "initial_balance must be a valid positive number"
+            }), 400
         initial_balance = float(request.args.get('initial_balance', 10000))
         
         # Date parameters
