@@ -224,7 +224,7 @@ Perfect for ChatGPT Custom GPT integration, algorithmic trading, and professiona
                 }
             },
 
-            "/api/gpts/sinyal/tajam": {
+            "/api/signal/sharp": {
                 "post": {
                     "operationId": "getSharpTradingSignal",
                     "summary": "Sharp Trading Signal (Enhanced)",
