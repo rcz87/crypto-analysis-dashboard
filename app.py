@@ -191,6 +191,23 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register gpts_sinyal: {e}")
     
+    # 🔧 Register Enhanced Signal endpoints
+    try:
+        from api.modular_endpoints import modular_bp
+        if "modular_endpoints" not in app.blueprints:
+            app.register_blueprint(modular_bp)
+            logger.info("✅ Enhanced Signals: modular endpoints registered with /api/v2/signal/enhanced")
+    except Exception as e:
+        logger.warning(f"Could not register modular_endpoints: {e}")
+    
+    try:
+        from api.enhanced_signal_endpoints import enhanced_signals_bp
+        if "enhanced_signals" not in app.blueprints:
+            app.register_blueprint(enhanced_signals_bp)
+            logger.info("✅ Enhanced Signals: enhanced signal endpoints registered with /api/enhanced/sharp-signal")
+    except Exception as e:
+        logger.warning(f"Could not register enhanced_signals: {e}")
+    
     # 🧠 Register SMC (Smart Money Concepts) endpoints
     try:
         from api.smc_endpoints import smc_context_bp

@@ -630,3 +630,32 @@ AttributeError: 'float' object has no attribute 'replace'
 2025-08-21 09:29:56 - core.audit_logger - ERROR - _cleanup_old_events:298 - Error cleaning up old audit events: cannot VACUUM from within a transaction
 2025-08-21 09:29:56 - core.audit_logger - ERROR - _cleanup_old_events:298 - Error cleaning up old audit events: cannot VACUUM from within a transaction
 2025-08-21 09:29:56 - core.audit_logger - ERROR - _cleanup_old_events:298 - Error cleaning up old audit events: cannot VACUUM from within a transaction
+2025-08-22 16:31:28 - root - ERROR - log_error:293 - Enhanced Signal failed | Context: {'symbol': 'BTCUSDT', 'error': "'OKXFetcher' object has no attribute 'get_kline_data'"}
+2025-08-22 16:32:18 - root - ERROR - log_error:293 - Enhanced Signal failed | Context: {'symbol': 'BTCUSDT', 'error': "'dict' object has no attribute 'empty'"}
+2025-08-22 16:32:19 - core.advanced_ml_ensemble.AdvancedMLEnsemble - ERROR - _get_rl_decision:442 - RL decision error: mat1 and mat2 shapes cannot be multiplied (1x200 and 20x128)
+2025-08-22 16:33:55 - root - ERROR - log_error:293 - Enhanced Signal failed | Context: {'symbol': 'BTCUSDT', 'error': "'ProfessionalSMCAnalyzer' object has no attribute 'analyze_comprehensive'"}
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_structure:93 - Structure analysis error: 'high'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_order_blocks:125 - Order block identification error: 'close'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_fvg:159 - FVG identification error: 'high'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_liquidity:193 - Liquidity analysis error: 'high'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _determine_market_bias:213 - Market bias calculation error: 'close'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _calculate_confidence:247 - Confidence calculation error: 'volume'
+2025-08-22 16:34:21 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_key_levels:263 - Key levels identification error: 'high'
+2025-08-22 16:34:21 - core.enhanced_signal_logic - ERROR - analyze_signal_with_reasoning:118 - Enhanced signal analysis error: 'list' object has no attribute 'get'
+2025-08-22 16:34:36 - core.advanced_ml_ensemble.AdvancedMLEnsemble - ERROR - _get_rl_decision:442 - RL decision error: mat1 and mat2 shapes cannot be multiplied (1x200 and 20x128)
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_structure:93 - Structure analysis error: 'high'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_order_blocks:125 - Order block identification error: 'close'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_fvg:159 - FVG identification error: 'high'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_liquidity:193 - Liquidity analysis error: 'high'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _determine_market_bias:213 - Market bias calculation error: 'close'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _calculate_confidence:247 - Confidence calculation error: 'volume'
+2025-08-22 16:34:37 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_key_levels:263 - Key levels identification error: 'high'
+2025-08-22 16:34:37 - core.enhanced_signal_logic - ERROR - analyze_signal_with_reasoning:118 - Enhanced signal analysis error: 'list' object has no attribute 'get'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_structure:93 - Structure analysis error: 'high'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_order_blocks:125 - Order block identification error: 'close'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_fvg:159 - FVG identification error: 'high'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _analyze_liquidity:193 - Liquidity analysis error: 'high'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _determine_market_bias:213 - Market bias calculation error: 'close'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _calculate_confidence:247 - Confidence calculation error: 'volume'
+2025-08-22 16:34:46 - core.professional_smc_analyzer.ProfessionalSMCAnalyzer - ERROR - _identify_key_levels:263 - Key levels identification error: 'high'
+2025-08-22 16:34:46 - core.enhanced_signal_logic - ERROR - analyze_signal_with_reasoning:118 - Enhanced signal analysis error: 'list' object has no attribute 'get'

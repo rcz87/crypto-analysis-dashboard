@@ -79,7 +79,14 @@ def smc_analysis():
         
         # Get market data
         okx_fetcher = OKXFetcher()
-        df = okx_fetcher.get_kline_data(symbol, timeframe, limit=200)
+        market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=200)
+        
+        if not market_data or not market_data.get('candles'):
+            df = None
+        else:
+            # Convert to DataFrame format
+            import pandas as pd
+            df = pd.DataFrame(market_data['candles'])
         
         if df is None or df.empty:
             return jsonify({
@@ -174,7 +181,7 @@ def trend_analysis():
         
         # Get market data
         okx_fetcher = OKXFetcher()
-        df = okx_fetcher.get_kline_data(symbol, timeframe, limit=100)
+        df = okx_fetcher.get_historical_data(symbol, timeframe, limit=100)
         
         if df is None or df.empty:
             return jsonify({
@@ -296,7 +303,7 @@ def risk_assessment():
         
         # Get market data
         okx_fetcher = OKXFetcher()
-        df = okx_fetcher.get_kline_data(symbol, timeframe, limit=100)
+        df = okx_fetcher.get_historical_data(symbol, timeframe, limit=100)
         
         if df is None or df.empty:
             return jsonify({
@@ -388,7 +395,14 @@ def enhanced_signal():
         
         # Get market data
         okx_fetcher = OKXFetcher()
-        df = okx_fetcher.get_kline_data(symbol, timeframe, limit=200)
+        market_data = okx_fetcher.get_historical_data(symbol, timeframe, limit=200)
+        
+        if not market_data or not market_data.get('candles'):
+            df = None
+        else:
+            # Convert to DataFrame format
+            import pandas as pd
+            df = pd.DataFrame(market_data['candles'])
         
         if df is None or df.empty:
             return jsonify({
@@ -400,8 +414,9 @@ def enhanced_signal():
         from gpts_api_minimal import analyze_technical_indicators_enhanced
         technical_data = analyze_technical_indicators_enhanced(df)
         
-        # SMC analysis
-        smc_data = smc_analyzer.analyze_comprehensive(df, symbol, timeframe)
+        # SMC analysis - convert DataFrame to candles list format
+        candles = df.values.tolist() if df is not None and not df.empty else []
+        smc_data = smc_analyzer.analyze_smart_money_concept(candles, symbol, timeframe)
         
         # Enhanced signal logic
         enhanced_result = enhanced_signal_logic.analyze_signal_with_reasoning(
