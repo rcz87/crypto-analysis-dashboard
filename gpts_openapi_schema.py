@@ -76,7 +76,7 @@ def openapi_schema():
                         {
                             "name": "symbol",
                             "in": "query",
-                            "required": true,
+                            "required": True,
                             "schema": {
                                 "type": "string",
                                 "enum": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "AVAX-USDT", "BNB-USDT", "ADA-USDT", "DOT-USDT", "MATIC-USDT"],
@@ -87,7 +87,7 @@ def openapi_schema():
                         {
                             "name": "timeframe",
                             "in": "query",
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "string",
                                 "enum": ["15m", "1H", "4H", "1D"],
@@ -98,7 +98,7 @@ def openapi_schema():
                         {
                             "name": "risk_profile",
                             "in": "query",
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "string",
                                 "enum": ["CONSERVATIVE", "MODERATE", "AGGRESSIVE"],
@@ -109,7 +109,7 @@ def openapi_schema():
                         {
                             "name": "account_balance",
                             "in": "query", 
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "number",
                                 "default": 10000
@@ -237,7 +237,7 @@ def openapi_schema():
                         {
                             "name": "symbol",
                             "in": "query",
-                            "required": true,
+                            "required": True,
                             "schema": {
                                 "type": "string",
                                 "enum": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "AVAX-USDT", "BNB-USDT", "ADA-USDT", "DOT-USDT", "MATIC-USDT"]
@@ -246,7 +246,7 @@ def openapi_schema():
                         {
                             "name": "timeframe",
                             "in": "query",
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "string",
                                 "enum": ["1m", "5m", "15m", "30m", "1H", "4H", "1D"],
@@ -256,7 +256,7 @@ def openapi_schema():
                         {
                             "name": "limit",
                             "in": "query",
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "integer",
                                 "minimum": 1,
@@ -309,7 +309,7 @@ def openapi_schema():
                         {
                             "name": "symbol",
                             "in": "query",
-                            "required": true,
+                            "required": True,
                             "schema": {
                                 "type": "string",
                                 "enum": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "AVAX-USDT", "BNB-USDT", "ADA-USDT", "DOT-USDT", "MATIC-USDT"]
@@ -318,7 +318,7 @@ def openapi_schema():
                         {
                             "name": "timeframe",
                             "in": "query",
-                            "required": false,
+                            "required": False,
                             "schema": {
                                 "type": "string",
                                 "enum": ["15m", "1H", "4H", "1D"],
@@ -361,7 +361,7 @@ def openapi_schema():
                         {
                             "name": "symbol",
                             "in": "path",
-                            "required": true,
+                            "required": True,
                             "schema": {
                                 "type": "string",
                                 "enum": ["BTC-USDT", "ETH-USDT", "SOL-USDT", "AVAX-USDT", "BNB-USDT", "ADA-USDT", "DOT-USDT", "MATIC-USDT"]
