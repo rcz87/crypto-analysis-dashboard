@@ -1,0 +1,163 @@
+root@srv795356:~/crypto-analysis-dashboard# curl -s http://127.0.0.1:5050/health | jq
+curl -s http://127.0.0.1:5050/api/gpts/status | jq
+{
+  "components": {
+    "database": {
+      "message": "Connection failed: (psycopg2.OperationalError) connection to server at \"localhost\" (::1), port 5432 failed: FATAL:  pas",
+      "status": "unhealthy"
+    },
+    "okx_api": {
+      "message": "OKX API connection successful",
+      "status": "healthy"
+    }
+  },
+  "status": "unhealthy",
+  "timestamp": "2025-08-22T03:50:26.931028",
+  "uptime": "N/A",
+  "version": "2.0.0"
+}
+{
+  "components": {
+    "database": "unavailable",
+    "okx_api": "connected",
+    "openai": "available",
+    "signal_generator": "available",
+    "smc_analyzer": "available"
+  },
+  "status": "active",
+  "timestamp": 1755834628,
+  "version": {
+    "api_version": "2.0.0",
+    "core_version": "1.2.3",
+    "supported_symbols": [
+      "BTC",
+      "ETH",
+      "SOL",
+      "ADA",
+      "DOT",
+      "AVAX"
+    ],
+    "supported_timeframes": [
+      "12H",
+      "15m",
+      "1D",
+      "1H",
+      "1M",
+      "1W",
+      "1m",
+      "2D",
+      "2H",
+      "30m",
+      "3D",
+      "3M",
+      "3m",
+      "4H",
+      "5m",
+      "6H"
+    ]
+  }
+}
+root@srv795356:~/crypto-analysis-dashboard# root@srv795356:~/crypto-analysis-dashboard# systemctl show cryptoapi.service -p Environment | sed 's/; /\n/g' | grep -E 'DATABASE_URL|SQLALCHEMY|PGHOST'
+Environment=PATH=/root/crypto-analysis-dashboard/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin PGHOST= PGPORT= PGUSER= PGPASSWORD= "DATABASE_URL=postgresql://neondb_owner:YOUR_ACTUAL_NEON_PASSWORD@ep-billowing-sunset-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require" "SQLALCHEMY_DATABASE_URI=postgresql://neondb_owner:YOUR_ACTUAL_NEON_PASSWORD@ep-billowing-sunset-xxxx.us-east-2.aws.neon.tech/neondb?sslmode=require"
+root@srv795356:~/crypto-analysis-dashboard#root@srv795356:~/crypto-analysis-dashboard# journalctl -u cryptoapi.service -n 100 --no-pager
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:api.performance_api:📊 Performance API initialized with comprehensive metrics
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:core.enhanced_openapi_schema:🚀 Enhanced OpenAPI Schema module loaded successfully
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:✅ Registered blueprint: openapi (prefix=/api/schema)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:🔒 Stable registry: 28/32 blueprints registered consistently
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - init_routes:310 - 🔒 Stable registry: 28/32 blueprints registered consistently
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:🚀 Routes initialized: CONSISTENT endpoint system active (28 active)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - init_routes:311 - 🚀 Routes initialized: CONSISTENT endpoint system active (28 active)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:routes:🎯 Application factory pattern successfully implemented
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - routes - INFO - init_routes:312 - 🎯 Application factory pattern successfully implemented
+Aug 22 03:12:53 srv795356 gunicorn[251190]: INFO:app:🚀 Flask app created successfully (config: development)
+Aug 22 03:12:53 srv795356 gunicorn[251190]: 2025-08-22 03:12:53 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:core.self_improvement_engine:Self-Improvement Engine initialized
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - core.self_improvement_engine - INFO - __init__:103 - Self-Improvement Engine initialized
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: improvement (prefix=/api/analysis/improvements)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:api.enhanced_gpts_endpoints:🚀 Enhanced GPTs Endpoints initialized
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - api.enhanced_gpts_endpoints - INFO - <module>:240 - 🚀 Enhanced GPTs Endpoints initialized
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: enhanced_gpts (prefix=/api/gpts/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: missing_gpts (prefix=/api/gpts/missing)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: gpts_coinglass (prefix=/api/gpts/coinglass)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: coinglass (prefix=/api/coinglass)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: promptbook (prefix=/api/promptbook)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: WARNING:api.performance_api:No SQLAlchemy Base found for performance tables initialization; skipping.
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - api.performance_api - WARNING - init_performance_tables:333 - No SQLAlchemy Base found for performance tables initialization; skipping.
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:api.performance_api:📊 Performance API initialized with comprehensive metrics
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - api.performance_api - INFO - <module>:340 - 📊 Performance API initialized with comprehensive metrics
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: performance_api (prefix=/api/performance/advanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:core.enhanced_openapi_schema:🚀 Enhanced OpenAPI Schema module loaded successfully
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - core.enhanced_openapi_schema - INFO - <module>:694 - 🚀 Enhanced OpenAPI Schema module loaded successfully
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: openapi_enhanced (prefix=/api/schema/enhanced)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:✅ Registered blueprint: openapi (prefix=/api/schema)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - _register_optional_blueprint:215 - ✅ Registered blueprint: openapi (prefix=/api/schema)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:🔒 Stable registry: 28/32 blueprints registered consistently
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - init_routes:310 - 🔒 Stable registry: 28/32 blueprints registered consistently
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:🚀 Routes initialized: CONSISTENT endpoint system active (28 active)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - init_routes:311 - 🚀 Routes initialized: CONSISTENT endpoint system active (28 active)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:routes:🎯 Application factory pattern successfully implemented
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - routes - INFO - init_routes:312 - 🎯 Application factory pattern successfully implemented
+Aug 22 03:12:53 srv795356 gunicorn[251191]: INFO:app:🚀 Flask app created successfully (config: development)
+Aug 22 03:12:53 srv795356 gunicorn[251191]: 2025-08-22 03:12:53 - app - INFO - create_app:148 - 🚀 Flask app created successfully (config: development)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: WARNING:routes:Database health check failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 03:50:26 srv795356 gunicorn[251189]: (Background on this error at: https://sqlalche.me/e/20/e3q8)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 2025-08-22 03:50:26 - routes - WARNING - health_check:153 - Database health check failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 03:50:26 srv795356 gunicorn[251189]: (Background on this error at: https://sqlalche.me/e/20/e3q8)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: INFO:core.okx_fetcher:OKX Fetcher initialized with authenticated API
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 2025-08-22 03:50:26 - core.okx_fetcher - INFO - __init__:43 - OKX Fetcher initialized with authenticated API
+Aug 22 03:50:26 srv795356 gunicorn[251189]: INFO:core.okx_fetcher:Fetching BTC-USDT 1H data from OKX (authenticated API)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 2025-08-22 03:50:26 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.okx.com:443
+Aug 22 03:50:26 srv795356 gunicorn[251189]: DEBUG:urllib3.connectionpool:https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+Aug 22 03:50:26 srv795356 gunicorn[251189]: INFO:core.okx_fetcher:Successfully fetched 2 candles for BTC-USDT
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 2025-08-22 03:50:26 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 127.0.0.1 - - [22/Aug/2025:03:50:26 +0000] "GET /health HTTP/1.1" 503 353 "-" "curl/7.81.0"
+Aug 22 03:50:26 srv795356 gunicorn[251189]: INFO:core.okx_fetcher:Fetching BTC-USDT 1H data from OKX (authenticated API)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: 2025-08-22 03:50:26 - core.okx_fetcher - INFO - get_historical_data:165 - Fetching BTC-USDT 1H data from OKX (authenticated API)
+Aug 22 03:50:26 srv795356 gunicorn[251189]: DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.okx.com:443
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:urllib3.connectionpool:https://www.okx.com:443 "GET /api/v5/market/candles?instId=BTC-USDT&bar=1H&limit=2 HTTP/1.1" 200 None
+Aug 22 03:50:27 srv795356 gunicorn[251189]: INFO:core.okx_fetcher:Successfully fetched 2 candles for BTC-USDT
+Aug 22 03:50:27 srv795356 gunicorn[251189]: 2025-08-22 03:50:27 - core.okx_fetcher - INFO - get_historical_data:217 - Successfully fetched 2 candles for BTC-USDT
+Aug 22 03:50:27 srv795356 gunicorn[251189]: INFO:core.ai_engine:AI Engine initialized with OpenAI GPT-4
+Aug 22 03:50:27 srv795356 gunicorn[251189]: 2025-08-22 03:50:27 - core.ai_engine - INFO - __init__:28 - AI Engine initialized with OpenAI GPT-4
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'idempotency_key': 'stainless-python-retry-197bf5e0-2763-4910-a716-6272d1a9c0c6', 'json_data': {'messages': [{'role': 'user', 'content': 'Test'}], 'model': 'gpt-4o-mini', 'max_tokens': 5}}
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:openai._base_client:Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.connection:connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=15.0 socket_options=None
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f6c3bdbf400>
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x7f6c4a4efa40> server_hostname='api.openai.com' timeout=15.0
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x7f6c3bdbf250>
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:send_request_headers.complete
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:send_request_body.complete
+Aug 22 03:50:27 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Fri, 22 Aug 2025 03:50:28 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'access-control-expose-headers', b'X-Request-ID'), (b'openai-organization', b'user-4ezgmzyis7nvjdocwlxbxkb1'), (b'openai-processing-ms', b'259'), (b'openai-project', b'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), (b'openai-version', b'2020-10-01'), (b'x-envoy-upstream-service-time', b'480'), (b'x-ratelimit-limit-requests', b'10000'), (b'x-ratelimit-limit-tokens', b'200000'), (b'x-ratelimit-remaining-requests', b'9999'), (b'x-ratelimit-remaining-tokens', b'199997'), (b'x-ratelimit-reset-requests', b'8.64s'), (b'x-ratelimit-reset-tokens', b'0s'), (b'x-request-id', b'req_89dd58b3ed6d4037aed78b32f7d84e1a'), (b'cf-cache-status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=iMBnQPZCWPOhJ5FD5k6G.TyPOfRErzqrXYDvDGoP8RA-1755834628-1.0.1.1-1Z.ZaOeJnerwXZIXkLS6gxXyFcA.AFW4V6uNMFP71Qfjf.WIZ2O932pFvZLfPGUjSbvsTRsm9uXuExrM0YI0_mwBgBa4zatkqPsKnGIDyko; path=/; expires=Fri, 22-Aug-25 04:20:28 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Strict-Transport-Security', b'max-age=31536000; includeSubDomains; preload'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'_cfuvid=KKQaB54ISofukXRENOWzrXfEoMLpQ1SWEyVelvPYqPg-1755834628748-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'972f67f49e7a4422-SIN'), (b'Content-Encoding', b'gzip'), (b'alt-svc', b'h3=":443"; ma=86400')])
+Aug 22 03:50:28 srv795356 gunicorn[251189]: INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Aug 22 03:50:28 srv795356 gunicorn[251189]: 2025-08-22 03:50:28 - httpx - INFO - _send_single_request:1025 - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:receive_response_body.complete
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:response_closed.started
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:httpcore.http11:response_closed.complete
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:openai._base_client:HTTP Response: POST https://api.openai.com/v1/chat/completions "200 OK" Headers([('date', 'Fri, 22 Aug 2025 03:50:28 GMT'), ('content-type', 'application/json'), ('transfer-encoding', 'chunked'), ('connection', 'keep-alive'), ('access-control-expose-headers', 'X-Request-ID'), ('openai-organization', 'user-4ezgmzyis7nvjdocwlxbxkb1'), ('openai-processing-ms', '259'), ('openai-project', 'proj_ecFy0V7sbeWz6LEZkYPFNK7W'), ('openai-version', '2020-10-01'), ('x-envoy-upstream-service-time', '480'), ('x-ratelimit-limit-requests', '10000'), ('x-ratelimit-limit-tokens', '200000'), ('x-ratelimit-remaining-requests', '9999'), ('x-ratelimit-remaining-tokens', '199997'), ('x-ratelimit-reset-requests', '8.64s'), ('x-ratelimit-reset-tokens', '0s'), ('x-request-id', 'req_89dd58b3ed6d4037aed78b32f7d84e1a'), ('cf-cache-status', 'DYNAMIC'), ('set-cookie', '__cf_bm=iMBnQPZCWPOhJ5FD5k6G.TyPOfRErzqrXYDvDGoP8RA-1755834628-1.0.1.1-1Z.ZaOeJnerwXZIXkLS6gxXyFcA.AFW4V6uNMFP71Qfjf.WIZ2O932pFvZLfPGUjSbvsTRsm9uXuExrM0YI0_mwBgBa4zatkqPsKnGIDyko; path=/; expires=Fri, 22-Aug-25 04:20:28 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('strict-transport-security', 'max-age=31536000; includeSubDomains; preload'), ('x-content-type-options', 'nosniff'), ('set-cookie', '_cfuvid=KKQaB54ISofukXRENOWzrXfEoMLpQ1SWEyVelvPYqPg-1755834628748-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None'), ('server', 'cloudflare'), ('cf-ray', '972f67f49e7a4422-SIN'), ('content-encoding', 'gzip'), ('alt-svc', 'h3=":443"; ma=86400')])
+Aug 22 03:50:28 srv795356 gunicorn[251189]: DEBUG:openai._base_client:request_id: req_89dd58b3ed6d4037aed78b32f7d84e1a
+Aug 22 03:50:28 srv795356 gunicorn[251189]: ERROR:gpts_routes:Database test failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 03:50:28 srv795356 gunicorn[251189]: (Background on this error at: https://sqlalche.me/e/20/e3q8)
+Aug 22 03:50:28 srv795356 gunicorn[251189]: 2025-08-22 03:50:28 - gpts_routes - ERROR - get_status:271 - Database test failed: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "trading_user"
+Aug 22 03:50:28 srv795356 gunicorn[251189]: (Background on this error at: https://sqlalche.me/e/20/e3q8)
+Aug 22 03:50:28 srv795356 gunicorn[251189]: 127.0.0.1 - - [22/Aug/2025:03:50:28 +0000] "GET /api/gpts/status HTTP/1.1" 200 408 "-" "curl/7.81.0"
+root@srv795356:~/crypto-analysis-dashboard#
