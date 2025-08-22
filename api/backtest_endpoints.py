@@ -53,14 +53,18 @@ def run_strategy_backtest():
         timeframe = request.args.get('timeframe', '1H')
         
         # Validate initial_balance to prevent NaN injection
-        initial_balance_str = str(request.args.get('initial_balance', 10000)).lower()
-        if 'nan' in initial_balance_str or 'inf' in initial_balance_str:
+        initial_balance_raw = request.args.get('initial_balance', 10000)
+        try:
+            initial_balance = float(initial_balance_raw)
+            # Check for NaN, infinity, or negative values
+            if not (initial_balance > 0 and initial_balance != float('inf')):
+                raise ValueError("Invalid balance value")
+        except (ValueError, TypeError):
             return jsonify({
                 "status": "error",
                 "error": "INVALID_PARAMETERS",
                 "message": "initial_balance must be a valid positive number"
             }), 400
-        initial_balance = float(request.args.get('initial_balance', 10000))
         
         # Date parameters
         end_date = request.args.get('end_date', datetime.now().strftime('%Y-%m-%d'))
