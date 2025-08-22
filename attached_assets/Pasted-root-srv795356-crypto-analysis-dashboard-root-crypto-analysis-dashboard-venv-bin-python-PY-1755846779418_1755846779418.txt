@@ -1,0 +1,102 @@
+root@srv795356:~/crypto-analysis-dashboard# /root/crypto-analysis-dashboard/.venv/bin/python - <<'PY'
+import os, sqlalchemy as sa
+url = os.getenv("DATABASE_URL")
+print("URL host =", sa.engine.make_url(url).host)
+try:
+    sa.create_engine(url, pool_pre_ping=True).connect()
+    print("✅ SQLAlchemy connect OK")
+except Exception as e:
+    print("❌ Connect FAIL:", e)
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+  File "/root/crypto-analysis-dashboard/.venv/lib/python3.10/site-packages/sqlalchemy/engine/url.py", line 860, in make_url
+    raise exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Expected string or URL object, got None
+root@srv795356:~/crypto-analysis-dashboard# python3 - <<'PY'
+from urllib.parse import quote_plus
+pw = input("Masukkan password Neon (plain): ")
+print("URL-encoded:", quote_plus(pw))
+PY
+Masukkan password Neon (plain): Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+EOFError: EOF when reading a line
+root@srv795356:~/crypto-analysis-dashboard# cat > /tmp/final_fix.sh << 'EOF'
+#!/bin/bash
+echo "🔧 SETTING CORRECT NEON CREDENTIALS"
+
+# CORRECT Neon database URL (password already URL-encoded)
+NEON_URL="postgresql://crypto_new_owner:WgOOUP9V5X9p@ep-gentle-boat-a10aawfh.ap-southeast-1.aws.neon.tech/crypto_dashboard_new?sslmode=require"
+
+# 1. Update .env
+cat > /root/crypto-analysis-dashboard/.env << ENV
+DATABASE_URL=${NEON_URL}
+SQLALCHEMY_DATABASE_URI=${NEON_URL}
+API_KEY_REQUIRED=true
+API_KEY=sk-2024-crypto-analysis-secret-key
+ENV
+
+# 2. Update systemd service
+cat > /etc/systemd/system/cryptoapi.service << SVC
+[Unit]
+Description=Crypto API
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/crypto-analysis-dashboard
+Environment="DATABASE_URL=${NEON_URL}"
+Environment="SQLALCHEMY_DATABASE_URI=${NEON_URL}"
+ExecStart=/usr/bin/python3 -m gunicorn --bind 0.0.0.0:5050 --workers 4 main:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+SVC
+
+# 3. Test connection directly
+echo ""
+echo "Testing Neon connection..."
+python3 << PY
+import sqlalchemy as sa
+url = "${NEON_URL}"
+try:
+    engine = sa.create_engine(url)
+    with engine.connect() as conn:
+        conn.execute(sa.text("SELECT 1"))
+    print("✅ Neon database connected successfully!")
+except Exception as e:
+    print(f"❌ Connection failed: {e}")
+PY
+
+# 4. Restart service
+systemctl daemon-reload
+systemctl restart cryptoapi
+sleep 5
+
+# 5. Test health
+bash /tmp/final_fix.sh.1:5050/health | jq
+🔧 SETTING CORRECT NEON CREDENTIALS
+
+Testing Neon connection...
+❌ Connection failed: No module named 'psycopg2'
+
+=== HEALTH CHECK ===
+{
+  "components": {
+    "database": {
+      "message": "Connection failed: (psycopg2.OperationalError) connection to server at \"ep-billowing-sunset-xxxx.us-east-2.aws.neon.tec",
+      "status": "unhealthy"
+    },
+    "okx_api": {
+      "message": "OKX API connection successful",
+      "status": "healthy"
+    }
+  },
+  "status": "unhealthy",
+  "timestamp": "2025-08-22T07:10:01.447765",
+  "uptime": "N/A",
+  "version": "2.0.0"
+}
+root@srv795356:~/crypto-analysis-dashboard# 
