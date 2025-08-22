@@ -228,6 +228,69 @@ def create_app(config_name='development'):
         from flask import Response
         return Response(privacy_html, mimetype='text/html')
     
+    # 🚀 Add essential endpoints for ChatGPT Custom GPT
+    @app.route('/api/signal', methods=['GET'])
+    def trading_signal():
+        """Basic trading signal endpoint for ChatGPT"""
+        try:
+            from flask import request, jsonify
+            symbol = request.args.get('symbol', 'BTC-USDT')
+            timeframe = request.args.get('timeframe', '1H')
+            
+            # Basic mock response for now
+            return jsonify({
+                "status": "success",
+                "signal": {
+                    "symbol": symbol,
+                    "timeframe": timeframe,
+                    "action": "HOLD",
+                    "confidence": 75,
+                    "current_price": 65000,
+                    "reasoning": "Market shows consolidation pattern. Technical indicators suggest wait for clear breakout."
+                },
+                "timestamp": "2025-08-22T08:00:00Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            return jsonify({"error": str(e)}), 500
+    
+    @app.route('/api/gpts/enhanced/analysis', methods=['POST', 'GET'])
+    def enhanced_analysis():
+        """Enhanced analysis endpoint for ChatGPT"""
+        try:
+            from flask import request, jsonify
+            
+            # Get data from request
+            if request.method == 'POST':
+                data = request.get_json() or {}
+            else:
+                data = {}
+            
+            symbol = data.get('symbol', request.args.get('symbol', 'BTC-USDT'))
+            
+            return jsonify({
+                "status": "success",
+                "analysis": {
+                    "symbol": symbol,
+                    "market_sentiment": "NEUTRAL",
+                    "trend": "SIDEWAYS",
+                    "key_levels": {
+                        "support": 63000,
+                        "resistance": 67000
+                    },
+                    "summary": f"Current analysis for {symbol} shows consolidation between key levels. Market sentiment remains neutral pending major news catalysts."
+                },
+                "market_data": {
+                    "price": 65000,
+                    "volume": "High",
+                    "volatility": "Medium"
+                },
+                "timestamp": "2025-08-22T08:00:00Z"
+            })
+        except Exception as e:
+            from flask import jsonify
+            return jsonify({"error": str(e)}), 500
+    
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
     return app
 
