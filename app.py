@@ -158,6 +158,25 @@ def create_app(config_name='development'):
             def basic_status():
                 return jsonify({"status": "active", "version": "2.0.0"})
     
+    # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
+    @app.route('/openapi.json', methods=['GET'])
+    def openapi_json():
+        """OpenAPI JSON schema endpoint for ChatGPT Custom GPT integration"""
+        try:
+            from core.enhanced_openapi_schema import get_enhanced_ultra_complete_openapi_schema
+            schema = get_enhanced_ultra_complete_openapi_schema()
+            from flask import jsonify
+            return jsonify(schema)
+        except Exception as e:
+            logger.error(f"Error generating OpenAPI schema: {e}")
+            from flask import jsonify
+            return jsonify({"error": "Failed to generate OpenAPI schema"}), 500
+
+    @app.route('/.well-known/openapi.json', methods=['GET'])
+    def wellknown_openapi_json():
+        """Standard discovery endpoint for OpenAPI schema"""
+        return openapi_json()
+    
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
     return app
 

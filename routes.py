@@ -176,6 +176,22 @@ def gpts_health():
     """GPTs Health check endpoint - standardized under /api prefix"""
     return health_check()
 
+@core_bp.route("/openapi.json", methods=["GET"])
+def openapi_json():
+    """OpenAPI JSON schema endpoint for ChatGPT Custom GPT integration"""
+    try:
+        from core.enhanced_openapi_schema import get_enhanced_ultra_complete_openapi_schema
+        schema = get_enhanced_ultra_complete_openapi_schema()
+        return jsonify(schema)
+    except Exception as e:
+        logger.error(f"Error generating OpenAPI schema: {e}")
+        return jsonify({"error": "Failed to generate OpenAPI schema"}), 500
+
+@core_bp.route("/.well-known/openapi.json", methods=["GET"])
+def wellknown_openapi_json():
+    """Standard discovery endpoint for OpenAPI schema"""
+    return openapi_json()
+
 def _register_optional_blueprint(app, import_path: str, attr: str, url_prefix: Optional[str] = None):
     """Safely import and register a blueprint once, preventing duplicates."""
     try:
