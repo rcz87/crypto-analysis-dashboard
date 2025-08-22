@@ -200,6 +200,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register smc_context: {e}")
     
+    # 🤖 Register AI Reasoning endpoints
+    try:
+        from api.ai_reasoning_endpoints import ai_reasoning_bp
+        if "ai_reasoning" not in app.blueprints:
+            app.register_blueprint(ai_reasoning_bp)
+            logger.info("✅ AI Reasoning: ai_reasoning blueprint registered with /api/v1/ai-reasoning routes")
+    except Exception as e:
+        logger.warning(f"Could not register ai_reasoning: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():

@@ -25,7 +25,7 @@ from core.enhanced_error_handler import get_error_handler, handle_api_error
 logger = logging.getLogger(__name__)
 
 # Create Blueprint
-ai_reasoning_bp = Blueprint('ai_reasoning', __name__, url_prefix='/api/v1/ai-reasoning')
+ai_reasoning_bp = Blueprint('ai_reasoning', __name__, url_prefix='/api/ai-reasoning')
 
 # Initialize components
 ai_integrator = get_ai_reasoning_integrator()
@@ -138,7 +138,7 @@ def calculate_basic_technical_indicators(candles: List[Dict[str, Any]]) -> Dict[
         logger.error(f"Error calculating basic indicators: {e}")
         return {}
 
-@ai_reasoning_bp.route('/analyze', methods=['POST'])
+@ai_reasoning_bp.route('/analyze', methods=['GET', 'POST'])
 @compress_large_response
 def analyze_trading_opportunity():
     """
@@ -154,16 +154,18 @@ def analyze_trading_opportunity():
     }
     """
     try:
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Request body required'}), 400
+        # Support both GET and POST
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = {}
         
-        # Extract parameters
-        symbol = data.get('symbol', 'BTC-USDT')
-        timeframe = data.get('timeframe', '1H')
-        include_smc = data.get('include_smc', True)
-        include_indicators = data.get('include_indicators', True)
-        use_ai_enhancement = data.get('use_ai_enhancement', True)
+        # Extract parameters (support both methods)
+        symbol = data.get('symbol', request.args.get('symbol', 'BTC-USDT'))
+        timeframe = data.get('timeframe', request.args.get('timeframe', '1H'))
+        include_smc = data.get('include_smc', request.args.get('include_smc', 'true').lower() == 'true')
+        include_indicators = data.get('include_indicators', request.args.get('include_indicators', 'true').lower() == 'true')
+        use_ai_enhancement = data.get('use_ai_enhancement', request.args.get('use_ai_enhancement', 'true').lower() == 'true')
         
         logger.info(f"🔍 Starting AI reasoning analysis for {symbol} {timeframe}")
         
@@ -281,7 +283,7 @@ def analyze_trading_opportunity():
             'timeframe': error_timeframe
         }), 500
 
-@ai_reasoning_bp.route('/quick-analysis', methods=['POST'])
+@ai_reasoning_bp.route('/quick-analysis', methods=['GET', 'POST'])
 @compress_large_response
 def quick_analysis():
     """
@@ -294,12 +296,14 @@ def quick_analysis():
     }
     """
     try:
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Request body required'}), 400
+        # Support both GET and POST
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = {}
         
-        symbol = data.get('symbol', 'BTC-USDT')
-        timeframe = data.get('timeframe', '1H')
+        symbol = data.get('symbol', request.args.get('symbol', 'BTC-USDT'))
+        timeframe = data.get('timeframe', request.args.get('timeframe', '1H'))
         
         logger.info(f"⚡ Starting quick analysis for {symbol} {timeframe}")
         
