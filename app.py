@@ -53,6 +53,9 @@ def create_app(config_name='development'):
     # Initialize extensions
     db.init_app(app)
     
+    # Import error handlers to ensure they are registered
+    from error_handlers import *  # memastikan handler terdaftar
+    
     # 🚦 RATE LIMITING CONFIGURATION
     # Handle environment variable mix-up (auto-correct if swapped)
     env_rate_limit = os.environ.get('RATE_LIMIT_DEFAULT', '120/minute')
