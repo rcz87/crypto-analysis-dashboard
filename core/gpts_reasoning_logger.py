@@ -84,7 +84,7 @@ class GPTReasoningLogger:
                 query_id=reasoning_data.get('query_id', ''),
                 endpoint=reasoning_data.get('endpoint', ''),
                 user_query=reasoning_data.get('user_query', ''),
-                gpt_model=reasoning_data.get('model', 'gpt-4o'),
+                gpt_model=reasoning_data.get('model', 'gpt-5'),
                 prompt_template=reasoning_data.get('prompt_template', ''),
                 reasoning_steps=reasoning_steps,
                 final_decision=reasoning_data.get('final_decision', {}),

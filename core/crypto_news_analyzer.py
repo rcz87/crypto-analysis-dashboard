@@ -1,7 +1,7 @@
 """
 Crypto News Analyzer Module for GPTS System
 - Ambil berita kripto dari CryptoPanic RSS
-- Lakukan analisis sentimen menggunakan GPT-4o
+- Lakukan analisis sentimen menggunakan GPT-5
 - Integrasi dengan self-improvement system
 - Output dalam format struktur GPTS
 """
@@ -167,7 +167,7 @@ class CryptoNewsAnalyzer:
     
     async def analyze_sentiment(self, title: str, summary: str, tags: Optional[List[str]] = None) -> Dict[str, Any]:
         """
-        Analyze sentiment menggunakan GPT-4o dengan enhanced prompt
+        Analyze sentiment menggunakan GPT-5 dengan enhanced prompt
         """
         try:
             if not self.openai_api_key:
@@ -208,7 +208,7 @@ class CryptoNewsAnalyzer:
             
             response = await asyncio.to_thread(
                 client.chat.completions.create,
-                model="gpt-4o",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": "You are a crypto market analyst expert."},
                     {"role": "user", "content": prompt}

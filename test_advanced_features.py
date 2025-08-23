@@ -62,7 +62,7 @@ def test_gpts_reasoning_logging():
         "query_id": "GPT_Q_001",
         "endpoint": "/api/gpts/sharp-signal",
         "user_query": "Analyze BTCUSDT 1H chart for trading signal",
-        "model": "gpt-4o",
+        "model": "gpt-5",
         "ai_reasoning": """
         1. Technical Analysis: RSI at 65 shows momentum but not overbought
         2. Trend Analysis: Higher highs and higher lows confirm uptrend  

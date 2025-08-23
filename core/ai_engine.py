@@ -25,7 +25,7 @@ class AIEngine:
                     timeout=15.0,  # Shorter timeout for VPS
                     max_retries=1   # Reduced retries for faster response
                 )
-                logger.info("AI Engine initialized with OpenAI GPT-4")
+                logger.info("AI Engine initialized with OpenAI GPT-5")
             except ImportError:
                 logger.warning("OpenAI library not available - using fallback narratives")
             except Exception as e:
@@ -42,7 +42,7 @@ class AIEngine:
         return {
             "available": self.is_available(),
             "status": "connected" if self.is_available() else "fallback",
-            "client": "OpenAI GPT-4" if self.is_available() else "Basic fallback"
+            "client": "OpenAI GPT-5" if self.is_available() else "Basic fallback"
         }
     
     def generate_ai_snapshot(self, symbol: str, timeframe: str, analysis_data: Dict[str, Any]) -> str:
@@ -61,7 +61,7 @@ Market Structure: {smc_analysis.get('market_bias', 'neutral')}
 Provide concise Indonesian analysis focusing on key trading insights."""
 
                 response = self.openai_client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model="gpt-5",
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=200,
                     temperature=0.7
@@ -136,7 +136,7 @@ Keep response under 200 words, professional tone."""
 
             if self.openai_client:
                 response = self.openai_client.chat.completions.create(
-                    model="gpt-4o-mini",  # Use mini for faster response
+                    model="gpt-5",  # Use GPT-5 for enhanced response
                     messages=[
                         {"role": "system", "content": "You are a professional cryptocurrency trader providing concise market analysis in Indonesian."},
                         {"role": "user", "content": prompt}
@@ -231,13 +231,13 @@ Gunakan position sizing yang sesuai dengan risk tolerance Anda. Selalu gunakan s
             if self.openai_client:
                 # Simple test
                 response = self.openai_client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model="gpt-5",
                     messages=[{"role": "user", "content": "Test"}],
                     max_tokens=5
                 )
                 return {
                     "available": True,
-                    "model": "gpt-4o-mini",
+                    "model": "gpt-5",
                     "status": "connected"
                 }
             else:

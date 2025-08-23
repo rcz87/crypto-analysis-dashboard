@@ -498,7 +498,7 @@ Provide JSON response:
                 return None  # Return None for consistency with function signature
                 
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": "You are a factual cryptocurrency trading analyst. Only analyze provided data, never make assumptions."},
                     {"role": "user", "content": prompt}
@@ -900,7 +900,7 @@ Provide JSON response:
         for attempt in range(1, max_attempts + 1):
             try:
                 return self.openai_client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model="gpt-5",
                     messages=messages,
                     max_tokens=600,  # Compact token usage
                     temperature=0.1,

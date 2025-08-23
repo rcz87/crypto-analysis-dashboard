@@ -39,7 +39,7 @@ class EnhancedAIEngine:
                     timeout=30.0,
                     max_retries=2
                 )
-                logger.info("Enhanced AI Engine initialized with OpenAI GPT-4o")
+                logger.info("Enhanced AI Engine initialized with OpenAI GPT-5")
             except Exception as e:
                 logger.error(f"Failed to initialize OpenAI client: {e}")
                 self.openai_client = None
@@ -52,13 +52,13 @@ class EnhancedAIEngine:
             if self.openai_client:
                 # Simple test request
                 response = self.openai_client.chat.completions.create(
-                    model="gpt-4o-mini",
+                    model="gpt-5",
                     messages=[{"role": "user", "content": "Test connection"}],
                     max_tokens=10
                 )
                 return {
                     'status': 'connected',
-                    'service': 'OpenAI GPT-4o',
+                    'service': 'OpenAI GPT-5',
                     'test_successful': True
                 }
             else:
@@ -105,9 +105,9 @@ class EnhancedAIEngine:
             max_tokens = 1000 if quick_mode else 2000
             system_prompt = self._get_enhanced_system_prompt(language)
             
-            # Generate analysis using OpenAI GPT-4o
+            # Generate analysis using OpenAI GPT-5
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": prompt}
@@ -441,7 +441,7 @@ Catatan: Analisis AI enhanced sementara tidak tersedia.
         try:
             # Test with simple request
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o",
+                model="gpt-5",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": "Say 'AI connection test successful'"}

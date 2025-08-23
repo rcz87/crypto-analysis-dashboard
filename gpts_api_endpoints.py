@@ -122,7 +122,7 @@ def get_status():
             "status": "operational",
             "components": {
                 "okx_api": {"status": okx_status, **okx_details},
-                "openai": {"status": openai_status, "model": "gpt-4o", "client_available": ai_engine.is_available()},
+                "openai": {"status": openai_status, "model": "gpt-5", "client_available": ai_engine.is_available()},
                 "database": {"status": db_status, **db_details}
             },
             "version": version_info,
