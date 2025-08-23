@@ -12,54 +12,16 @@ from core.ai_engine import get_ai_engine
 from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
 from core.signal_generator import SignalGenerator
 import time
+from auth import require_api_key
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 gpts_api = Blueprint('gpts_api', __name__, url_prefix='/api/gpts')
 logger = logging.getLogger(__name__)
 
-# Import API key protection from routes
-def _require_api_key():
-    """Check for required API key in production environment"""
-    from flask import request, jsonify
-    api_key_required = os.environ.get('API_KEY_REQUIRED', 'false').lower() == 'true'
-    expected_key = os.environ.get("API_KEY")
-    
-    if not api_key_required:
-        return None  # gate disabled
-    
-    if not expected_key:
-        logger.warning("API_KEY environment variable not set but API_KEY_REQUIRED=true")
-        return jsonify({
-            "success": False,
-            "error": "CONFIGURATION_ERROR", 
-            "message": "API key validation not properly configured",
-            "status_code": 500
-        }), 500
-    
-    provided_key = request.headers.get("X-API-KEY")
-    if not provided_key:
-        return jsonify({
-            "success": False,
-            "error": "UNAUTHORIZED",
-            "message": "API key required. Include X-API-KEY header.",
-            "status_code": 401
-        }), 401
-    
-    # Clean both keys for comparison (strip whitespace)
-    expected_clean = expected_key.strip()
-    provided_clean = provided_key.strip()
-    
-    # Debug logging (remove after fixing)
-    logger.debug(f"API key check: expected_len={len(expected_clean)}, provided_len={len(provided_clean)}")
-    
-    if provided_clean != expected_clean:
-        logger.warning(f"Invalid API key attempt from {request.remote_addr} - key mismatch")
-        return jsonify({
-            "success": False,
-            "error": "UNAUTHORIZED", 
-            "message": "Invalid API key provided",
-            "status_code": 401
-        }), 401
-    return None
+# Note: Limiter akan diinisialisasi di app.py karena membutuhkan app instance
+
+# Authentication now handled by @require_api_key decorator from auth.py
 
 # Initialize components with fixed versions
 smc_analyzer = ProfessionalSMCAnalyzer()
@@ -238,12 +200,11 @@ def error_response(status_code, message, details=None, error_type=None):
     return response
 
 @gpts_api.route('/status', methods=['GET'])
+@require_api_key
+# @limiter.limit("10 per minute")  # Will be applied via app.py limiter instance
 def get_status():
     """Status ringkas ketersediaan semua komponen sistem - PROTECTED by API key"""
-    # API key protection
-    gate = _require_api_key()
-    if gate: 
-        return gate
+
         
     try:
         # Test OKX API
@@ -299,12 +260,11 @@ def get_status():
         }), 500
 
 @gpts_api.route('/sinyal/tajam', methods=['POST'])
+@require_api_key
+# @limiter.limit("30 per minute")  # Will be applied via app.py limiter instance
 def get_sharp_signal():
     """Sharp signal analysis endpoint optimized for VPS deployment - PROTECTED by API key"""
-    # API key protection
-    gate = _require_api_key()
-    if gate: 
-        return gate
+
         
     try:
         data = request.get_json() or {}
@@ -380,6 +340,8 @@ def get_sharp_signal():
         }), 500
 
 @gpts_api.route('/market-data', methods=['GET', 'POST'])
+@require_api_key
+# @limiter.limit("30 per minute")  # Will be applied via app.py limiter instance
 def get_market_data():
     """Get current market data for a symbol - supports both GET and POST"""
     try:
@@ -429,6 +391,8 @@ def get_market_data():
         }), 500
 
 @gpts_api.route('/analysis', methods=['GET', 'POST'])
+@require_api_key
+# @limiter.limit("20 per minute")  # Will be applied via app.py limiter instance
 def get_market_analysis():
     """Get general market analysis - supports both GET and POST"""
     try:
@@ -520,6 +484,8 @@ def get_market_analysis():
         }), 500
 
 @gpts_api.route('/smc-analysis', methods=['GET', 'POST'])
+@require_api_key
+# @limiter.limit("20 per minute")  # Will be applied via app.py limiter instance
 def get_smc_analysis():
     """Get SMC analysis for market data"""
     try:
@@ -566,6 +532,8 @@ def get_smc_analysis():
         }), 500
 
 @gpts_api.route('/smc-zones/<symbol>', methods=['GET'])
+@require_api_key
+# @limiter.limit("25 per minute")  # Will be applied via app.py limiter instance
 def get_smc_zones_alias(symbol):
     """SMC Zones endpoint alias for GPTs compatibility"""
     try:
@@ -698,6 +666,8 @@ def health_check():
         }), 500
 
 @gpts_api.route('/ticker/<symbol>', methods=['GET'])
+@require_api_key
+# @limiter.limit("60 per minute")  # Will be applied via app.py limiter instance
 def get_ticker(symbol):
     """Get real-time ticker data for a symbol"""
     try:
@@ -724,6 +694,8 @@ def get_ticker(symbol):
         }), 500
 
 @gpts_api.route('/orderbook/<symbol>', methods=['GET'])
+@require_api_key
+# @limiter.limit("40 per minute")  # Will be applied via app.py limiter instance
 def get_orderbook(symbol):
     """Get order book data for a symbol"""
     try:
@@ -813,6 +785,8 @@ def get_analysis():
         }), 500
 
 @gpts_api.route('/signal', methods=['GET'])
+@require_api_key
+# @limiter.limit("30 per minute")  # Will be applied via app.py limiter instance
 def get_signal():
     """Get trading signal based on authentic OKX data"""
     try:
@@ -908,6 +882,8 @@ def get_signal():
         }), 500
 
 @gpts_api.route('/smc-zones', methods=['GET'])
+@require_api_key
+# @limiter.limit("25 per minute")  # Will be applied via app.py limiter instance
 def get_smc_zones():
     """Get Smart Money Concept zones with authentic OKX data"""
     try:

@@ -76,6 +76,7 @@ def news_latest():
         }), 500
 
 @news_api.route('/api/news/sentiment', methods=['GET'])
+@require_api_key(['news_read'])
 def get_news_sentiment():
     """
     Get crypto news dengan sentiment analysis
@@ -110,6 +111,7 @@ def get_news_sentiment():
         }), 500
 
 @news_api.route('/api/news/trending', methods=['GET'])
+@require_api_key(['news_read'])
 def get_trending_topics():
     """
     Get trending crypto topics dengan sentiment
