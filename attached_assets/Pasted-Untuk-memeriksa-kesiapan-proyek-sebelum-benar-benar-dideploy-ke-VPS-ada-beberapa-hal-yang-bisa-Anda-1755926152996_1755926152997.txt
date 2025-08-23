@@ -1,0 +1,37 @@
+Untuk memeriksa kesiapan proyek sebelum benar‑benar dideploy ke VPS, ada beberapa hal yang bisa Anda pastikan:
+
+Lingkungan dan variabel rahasia – Pastikan .env sudah dibuat dari .env.example dan diisi dengan kredensial nyata (database, SESSION_SECRET, API key OKX & OpenAI, DSN Sentry, dll.)
+GitHub
+. Jangan biarkan kunci default tetap di produksi.
+
+Struktur file deployment – Berkas‑berkas penting seperti wsgi.py, gunicorn.conf.py, deploy.sh, Dockerfile, docker-compose.yml, dan nginx.conf sudah disediakan untuk deployment. Sesuaikan workers dan parameter Gunicorn di gunicorn.conf.py serta buat direktori logs/ dan tmp/ agar tidak error saat membuat log dan pid file
+GitHub
+.
+
+Database dan cache – Pastikan database PostgreSQL siap dengan user, password, dan nama database yang sesuai. Jika menggunakan Redis untuk caching, pastikan servicenya berjalan.
+
+Build frontend – Jalankan npm ci --only=production lalu npm run build seperti panduan di README, kemudian pastikan hasil build disalin ke static/react-build/
+GitHub
+.
+
+Jalankan skrip deployment – Gunakan ./deploy.sh production atau docker-compose up -d sesuai cara deployment yang Anda pilih
+GitHub
+.
+
+Reverse proxy & SSL – Konfigurasikan Nginx sebagai reverse proxy dan pasang sertifikat SSL dengan Certbot untuk HTTPS
+GitHub
+. Jangan lupa mengonfigurasi firewall (UFW) untuk membuka port yang diperlukan
+GitHub
+.
+
+Monitoring dan logging – Pastikan integrasi Sentry dan Prometheus aktif, serta periksa file docs/MONITORING_SETUP_GUIDE.md untuk menyiapkan Prometheus dan Grafana jika diperlukan.
+
+Testing – Lakukan uji coba end‑to‑end di environment staging:
+
+Cek endpoint API dengan dan tanpa API key untuk memastikan autentikasi berfungsi.
+
+Verifikasi rate limiting dan logging.
+
+Pastikan React dashboard dapat diakses dan menampilkan data real‑time.
+
+Selama semua langkah ini Anda ikuti dan tidak ada error pada tahap uji coba, aplikasi seharusnya berjalan dengan baik di VPS. Jika terdapat file atau modul lain yang ingin dipastikan, berikan nama file tersebut agar saya dapat memeriksanya lebih detail.
