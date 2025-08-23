@@ -2,11 +2,18 @@ from flask import Blueprint, jsonify, request, current_app
 import logging
 import os
 from typing import Optional
+from auth import require_api_key
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 logger = logging.getLogger(__name__)
 
 # Core blueprint (no circular import, no global app)
 core_bp = Blueprint("core", __name__)
+
+# Inisialisasi limiter (bisa dipindah ke app.py)
+# limiter = Limiter(get_remote_address, app=app, default_limits=["60 per minute"])
+# Note: Limiter akan diinisialisasi di app.py karena membutuhkan app instance
 
 def _require_api_key() -> Optional[tuple]:
     """Return a Flask response tuple if unauthorized, else None."""
