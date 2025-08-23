@@ -1,0 +1,71 @@
+Untuk memastikan sistem crypto‑analysis‑dashboard berjalan sempurna di VPS dan seluruh endpoint berfungsi, sebaiknya lakukan kombinasi tes otomatis dan manual sebagai berikut:
+
+Jalankan skrip test_deployment.py sebelum deploy.
+Skrip ini ada di repositori dan memverifikasi keberadaan file inti (wsgi.py, gunicorn.conf.py, Dockerfile, docker-compose.yml, .env.example, nginx.conf, deploy.sh), memastikan fallback database SQLite disiapkan, memeriksa konfigurasi WSGI dan Gunicorn, dan memastikan konfigurasi Docker tidak tergantung pada Replit
+GitHub
+. Jalankan skrip tersebut pada VPS atau lingkungan lokal yang mirip VPS:
+
+python test_deployment.py
+
+
+Pastikan semua tes lulus; jika ada yang gagal, perbaiki sebelum melanjutkan.
+
+Uji konfigurasi environment dan file .env.
+
+Salin .env.example menjadi .env di VPS, isi semua kredensial (database, API key, session secret, Sentry DSN, dll.)
+GitHub
+.
+
+Pastikan aplikasi membaca environment variables dan tidak menggunakan nilai default.
+
+Uji health check dan endpoint monitoring.
+
+Setelah aplikasi berjalan di VPS (misal via docker-compose up -d), gunakan curl atau Postman untuk memanggil /health dan /metrics-custom. Anda harus mendapatkan 200 OK dan metrik JSON.
+
+Cek juga endpoint monitoring lain seperti /api/monitoring/system, /api/monitoring/trading, dan /api/monitoring/performance untuk memastikan observabilitas aktif.
+
+Verifikasi sistem autentikasi dan rate limiting.
+
+Kirim permintaan tanpa API key ke endpoint yang dilindungi seperti /api/signals; pastikan respons 401 Unauthorized.
+
+Kirim permintaan dengan X-API-KEY atau header Authorization: Bearer <api_key> dan pastikan mendapat 200 OK serta data yang benar.
+
+Lakukan beberapa permintaan beruntun (misal >30 permintaan per menit jika limit ditetapkan 30/mnt) untuk memastikan mekanisme rate limiting mengembalikan 429 Too Many Requests.
+
+Uji seluruh endpoint fungsional.
+
+Susun daftar endpoint yang valid (sekitar 142 route pada audit terakhir). Gunakan skrip sederhana atau Postman collection untuk mengirim request ke setiap endpoint dengan parameter minimal yang valid.
+
+Perhatikan terutama endpoint analisis: /api/signals, /api/metrics, /api/stats, /api/candles, /api/roi-analysis, /api/narrative/usage, serta endpoint modul OKX seperti /api/orderbook/<symbol>, /api/open-interest/<symbol>, dll.
+
+Untuk endpoint dinamis, berikan nilai parameter contoh (misal simbol BTC-USDT dan timeframe 1h). Pastikan respons status 200 dan struktur data sesuai harapan.
+
+Uji fitur real‑time dan WebSocket (jika digunakan).
+
+Pastikan integrasi WebSocket (di modul okx_websocket.py dan okx_hybrid_fetcher.py) berjalan dengan benar. Anda bisa menggunakan klien WebSocket (seperti websocat atau implementasi JS) untuk memastikan data streaming real‑time diterima.
+
+Tes integrasi AI dan indikator SMC.
+
+Endpoint seperti /api/enhanced-ai/test-connection atau /api/smc-analysis (jika ada) harus mengembalikan analisis SMC, misalnya deteksi CHoCH, BOS, FVG, order block dan narasi AI
+GitHub
+.
+
+Pastikan OpenAI API key valid dan tidak ada error 5xx yang mengindikasikan kegagalan integrasi.
+
+Lakukan tes beban dan concurrency ringan.
+
+Gunakan alat seperti ab (ApacheBench) atau wrk untuk mengirim ratusan permintaan simultan ke beberapa endpoint. Hal ini membantu mengidentifikasi bottleneck dan memastikan Gunicorn dan rate limiter berfungsi di bawah beban.
+
+Periksa logging dan monitoring setelah deploy.
+
+Pastikan log error ditulis ke file yang dikonfigurasi (lihat direktori logs/ di gunicorn.conf.py).
+
+Gunakan Sentry DSN (jika disediakan) untuk memantau error. Pastikan metrik Prometheus dapat dikumpulkan dan, bila perlu, hubungkan ke Grafana.
+
+Uji versi frontend (React).
+
+Pastikan Anda telah menjalankan npm run build dan menyajikan build React di /dashboard atau route statis yang sesuai.
+
+Buka dashboard melalui browser dan verifikasi visualisasi, data real‑time, serta kemampuan filter dan alert.
+
+Dengan menjalankan serangkaian tes ini—mulai dari skrip deployment, verifikasi endpoint satu per satu, sampai uji beban dan monitoring—Anda dapat memastikan sistem berjalan stabil di VPS dan semua endpoint berfungsi sebagaimana mestinya.
