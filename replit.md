@@ -1,57 +1,91 @@
-# Cryptocurrency Trading Analysis Platform
+# CryptoSage AI Trading Analysis Platform
 
 ## Overview
-This platform is a comprehensive AI-powered cryptocurrency trading analysis system designed for professional traders and institutions. It provides AI-powered trading signals, Smart Money Concept (SMC) analysis, and real-time market data integration. The system features multi-agent analysis, machine learning prediction engines, and automated signal generation with Telegram bot integration. It functions as both a web API and a ChatGPT Custom GPT, offering advanced technical analysis, market structure analysis, and institutional-grade trading intelligence across various timeframes and crypto pairs. The business vision is to provide a robust, production-ready system with institutional-grade features to professional traders.
+
+CryptoSage AI is an institutional-grade cryptocurrency trading analysis platform that provides advanced trading signals using Smart Money Concept (SMC) analysis, machine learning predictions, and real-time market data. The platform features a comprehensive API designed for ChatGPT Custom GPTs integration, Telegram bot notifications, and professional trading analysis with explainable AI reasoning.
+
+The system combines traditional technical analysis with modern SMC patterns (Change of Character, Fair Value Gaps, Order Blocks) and machine learning models to generate high-confidence trading signals. It includes comprehensive backtesting capabilities, risk management systems, and real-time market monitoring across multiple timeframes.
 
 ## User Preferences
-- Preferred communication style: Simple, everyday language
-- **CRITICAL REQUIREMENT**: "Jangan pernah merubah2 nama endpoint lagi" - Endpoint names must NEVER change again under any circumstances
-- User experienced frustration from constant endpoint name changes and requires absolute stability
+
+Preferred communication style: Simple, everyday language.
 
 ## System Architecture
-The platform is built on a Flask backend with a Blueprint architecture, served by Gunicorn. PostgreSQL is used for the database with SQLAlchemy ORM. Core architectural decisions include an API versioning strategy (v1 deprecated, v2 current) to ensure stability, multi-level caching (Redis optional) and database pooling for performance, and asynchronous operations.
 
-### Key Features:
-- **Enhanced SMC Analysis**: Includes CHoCH, FVG, liquidity sweeps, order blocks, breaker blocks, swing point analysis, and market structure (BOS) detection.
-- **Multi-Timeframe Analysis**: Analyzes 1H, 4H, and Daily timeframes for confluence, alignment detection, and key level identification.
-- **Risk Management System**: Features ATR-based SL/TP, account risk-based position sizing, Kelly Criterion, scaling strategies, volatility regime classification, trailing stops, and R:R optimization.
-- **AI-Powered Analysis**: Integrates with GPT-4 for advanced market reasoning, explainable AI, market narratives, confidence scoring, and comprehensive risk assessment.
-- **Machine Learning Models**: Utilizes LSTM Networks, XGBoost, and ensemble methods (LSTM, XGBoost, Transformer, RL) for price movement prediction and signal generation, with continuous self-learning and overfitting prevention.
-- **Real-Time Data Integration**: Connects to OKX Exchange via WebSocket for real-time price, order, funding, and liquidation data across multiple timeframes.
-- **Telegram Bot Integration**: Provides instant signal notifications, performance updates, custom alerts, and interactive commands.
+### Core Architecture Pattern
+The application follows the **Flask Application Factory Pattern** to prevent circular imports and enable modular development. The main app is created through `create_app()` function with environment-aware configuration that automatically falls back from PostgreSQL to SQLite for local development.
 
-### Backend Module Organization:
-- `core/`: Contains modules for enhanced SMC, multi-timeframe analysis, risk management, professional SMC analysis, OKX API integration, AI reasoning, core technical analysis, ML models, signal engine, multi-agent system, and Telegram integration.
-- `api/`: Organizes endpoints for advanced trading, AI reasoning, SMC context, signal generation, market data, and utility functions.
+### API Structure
+- **RESTful API Design**: Primary endpoints under `/api/` prefix with consistent HTTP methods
+- **Blueprint-based Modularization**: 25+ registered blueprints for different functional areas
+- **Versioned Endpoints**: Support for `/api/v1/` and `/api/v2/` with backward compatibility
+- **OpenAPI 3.1.0 Schema**: Complete schema documentation for ChatGPT Custom GPTs integration
 
-### UI/UX Decisions:
-The system primarily functions as a web API and ChatGPT Custom GPT, implying a focus on programmatic access and interaction rather than a dedicated graphical user interface. Documentation is self-service and interactive via `/api/docs/`, providing code examples for various languages.
+### Authentication & Security
+- **Optional API Key Protection**: Configurable via `API_KEY_REQUIRED` environment variable
+- **Multiple Authentication Methods**: Support for both `X-API-KEY` header and `Authorization: Bearer` token
+- **Rate Limiting**: Flask-Limiter integration with configurable limits per endpoint
+- **Security Headers**: ProxyFix middleware for proper proxy handling and security headers
+
+### Data Layer Architecture
+- **Dual Database Support**: Production PostgreSQL with SQLite fallback for development
+- **SQLAlchemy ORM**: With connection pooling, pre-ping health checks, and timeout management
+- **Data Validation Pipeline**: Comprehensive validation for OHLCV data, NaN detection, and data quality scoring
+- **Caching Strategy**: Multi-level caching with in-memory cache for frequently accessed data
+
+### Trading Engine Components
+- **Professional SMC Analyzer**: Advanced Smart Money Concept pattern recognition (CHoCH, FVG, Order Blocks)
+- **Multi-Timeframe Analysis**: Synchronized analysis across multiple timeframes for confirmation
+- **Machine Learning Engine**: Hybrid LSTM + XGBoost ensemble for price prediction
+- **Signal Generation Engine**: Rule-based and AI-driven signal generation with confidence scoring
+- **Risk Management System**: ATR-based position sizing and risk-reward optimization
+
+### Real-time Data Integration
+- **OKX API Integration**: Professional-grade market data fetching with rate limiting and error handling
+- **Enhanced Data Fetcher**: Support for liquidation data, funding rates, and institutional metrics
+- **Data Quality Assurance**: Real-time validation and fallback mechanisms for data integrity
+
+### AI & Machine Learning Stack
+- **Explainable AI Engine**: Transparent decision-making with detailed reasoning for each signal
+- **Self-Learning System**: Continuous improvement based on signal performance tracking
+- **Natural Language Generation**: Human-readable explanations and market narratives
+- **Sentiment Analysis**: Integration with crypto news sources for market sentiment scoring
+
+### Monitoring & Analytics
+- **Performance Tracking**: Comprehensive signal performance monitoring and analytics
+- **System Health Monitoring**: Real-time health checks for all system components
+- **Audit Logging**: Detailed logging for all critical operations and decisions
+- **Error Handling**: Graceful error handling with detailed error responses and fallback strategies
 
 ## External Dependencies
 
 ### Market Data Providers
-- **OKX Exchange API**: Primary source for all cryptocurrency market data.
+- **OKX Exchange API**: Primary source for real-time and historical cryptocurrency market data, order book depth, funding rates, and liquidation data
+- **Backup Data Sources**: Configurable fallback data sources for high availability
 
-### AI and Machine Learning
-- **OpenAI GPT-4**: For advanced reasoning and analysis.
-- **TensorFlow**: Used for LSTM neural networks.
-- **XGBoost**: For gradient boosting models.
-- **scikit-learn**: For various machine learning utilities and preprocessing.
+### Machine Learning & AI
+- **TensorFlow/Keras**: LSTM neural networks for time series prediction and pattern recognition
+- **XGBoost**: Gradient boosting for ensemble learning and feature importance analysis
+- **Pandas/NumPy**: Data manipulation and numerical computing for technical analysis
+- **Scikit-learn**: Additional machine learning utilities and preprocessing tools
 
-### Communication Services
-- **Telegram Bot API**: For real-time signal notifications and alerts.
-- **WebSocket**: For real-time data streaming from exchanges.
+### Communication & Notifications
+- **Telegram Bot API**: Real-time trading signal notifications and bot interactions
+- **Flask-CORS**: Cross-origin resource sharing for web frontend integration
 
-### Infrastructure
-- **PostgreSQL**: The primary relational database.
-- **Redis**: Optional caching layer for performance.
-- **Gunicorn**: Production WSGI server for the Flask application.
-- **Flask-CORS**: Handles Cross-Origin Resource Sharing.
+### Infrastructure & Deployment
+- **PostgreSQL**: Production database for signal tracking, performance analytics, and user data
+- **SQLite**: Development and fallback database for local development
+- **Gunicorn**: WSGI HTTP server for production deployment with optimized worker configuration
+- **Flask-Limiter**: API rate limiting and request throttling
+- **Redis** (Optional): Enhanced caching and session management for production scaling
 
-### Python Libraries
-- **pandas**: For data manipulation and analysis.
-- **numpy**: For numerical computing.
-- **requests**: For making HTTP requests.
-- **aiohttp**: For asynchronous HTTP client operations.
-- **SQLAlchemy**: As the Object Relational Mapper (ORM) for database interactions.
-- **python-dotenv**: For managing environment variables.
+### Development & Testing
+- **Pytest**: Comprehensive test suite for all API endpoints and core functionality
+- **Requests**: HTTP client library for external API integrations and testing
+- **Flask-SQLAlchemy**: Database ORM with migration support and connection management
+
+### Monitoring & Observability
+- **Python Logging**: Structured logging with configurable levels and formatters
+- **PSUtil**: System resource monitoring and performance metrics
+- **Custom Health Checks**: Endpoint availability monitoring and dependency health verification
