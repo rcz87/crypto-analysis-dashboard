@@ -43,8 +43,9 @@ def index():
             "timestamp": int(time.time())
         }), 500
 
-@health_bp.route("/api/gpts/status", methods=["GET"])
-def gpts_status():
+# Endpoint moved to gpts_routes.py with API key protection
+# @health_bp.route("/api/gpts/status", methods=["GET"])
+# def gpts_status():
     """Lightweight status check without database connection"""
     try:
         return jsonify({

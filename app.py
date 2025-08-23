@@ -155,9 +155,7 @@ def create_app(config_name='development'):
             def basic_health():
                 return jsonify({"status": "healthy", "message": "Basic health check"})
             
-            @app.route('/api/gpts/status')
-            def basic_status():
-                return jsonify({"status": "active", "version": "2.0.0"})
+# Basic status endpoint removed - using protected blueprint instead
     
     # 🎯 Register Core Trading endpoints explicitly
     try:
@@ -183,6 +181,15 @@ def create_app(config_name='development'):
             logger.info("✅ Core Trading: news_api blueprint registered")
     except Exception as e:
         logger.warning(f"Could not register news_api: {e}")
+    
+    # 🔐 Register GPTs API Blueprint with API key protection
+    try:
+        from gpts_routes import gpts_api
+        if "gpts_api" not in app.blueprints:
+            app.register_blueprint(gpts_api)
+            logger.info("✅ CRITICAL: gpts_api blueprint registered with API key protection")
+    except Exception as e:
+        logger.error(f"Failed to import gpts_api blueprint: {e}")
     
     try:
         from api.gpts_sinyal_tajam import gpts_sinyal_bp
