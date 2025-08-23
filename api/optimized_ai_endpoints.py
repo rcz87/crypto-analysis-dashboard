@@ -16,6 +16,7 @@ from core.ai_latency_optimizer import AILatencyOptimizer
 from core.advanced_ml_ensemble import AdvancedMLEnsemble
 from core.okx_fetcher import OKXFetcher
 from core.enhanced_reasoning_engine import EnhancedReasoningEngine
+from auth import require_api_key
 
 # Initialize components
 logger = logging.getLogger(__name__)
@@ -31,6 +32,7 @@ reasoning_engine = EnhancedReasoningEngine()
 loop = asyncio.new_event_loop()
 
 @optimized_ai_bp.route('/api/optimized/fast-analysis', methods=['GET', 'POST'])
+@require_api_key
 @cross_origin()
 def fast_ai_analysis():
     """
@@ -316,6 +318,7 @@ def batch_analysis():
         }), 500
 
 @optimized_ai_bp.route('/api/optimized/performance-metrics', methods=['GET'])
+@require_api_key
 @cross_origin()
 def performance_metrics():
     """

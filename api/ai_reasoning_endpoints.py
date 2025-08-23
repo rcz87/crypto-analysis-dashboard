@@ -21,6 +21,7 @@ from core.advanced_cache_manager import get_cache_manager
 from core.response_compression import compress_large_response, compress_json_response
 from core.enhanced_error_handler import get_error_handler, handle_api_error
 from core.universal_cache_system import get_universal_cache
+from auth import require_api_key
 import asyncio
 
 # Setup logging
@@ -44,6 +45,7 @@ universal_cache = get_universal_cache()
 loop = asyncio.new_event_loop()
 
 @ai_reasoning_bp.route('/status', methods=['GET'])
+@require_api_key
 def ai_reasoning_status():
     """AI Reasoning status - stub endpoint"""
     return jsonify({
@@ -145,6 +147,7 @@ def calculate_basic_technical_indicators(candles: List[Dict[str, Any]]) -> Dict[
         return {}
 
 @ai_reasoning_bp.route('/analyze', methods=['GET', 'POST'])
+@require_api_key
 @compress_large_response
 def analyze_trading_opportunity():
     """
@@ -437,6 +440,7 @@ def quick_analysis():
         )
 
 @ai_reasoning_bp.route('/reasoning-stats', methods=['GET'])
+@require_api_key
 def get_reasoning_statistics():
     """Get AI reasoning engine statistics"""
     try:

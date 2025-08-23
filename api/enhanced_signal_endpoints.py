@@ -12,6 +12,7 @@ from core.enhanced_sharp_signal_engine import EnhancedSharpSignalEngine
 from core.okx_fetcher import OKXFetcher
 from core.professional_smc_analyzer import ProfessionalSMCAnalyzer
 from core.shared_service_layer import get_shared_services
+from auth import require_api_key
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ def add_cors_headers(response):
     return response
 
 @enhanced_signals_bp.route('/status', methods=['GET'])
+@require_api_key
 @cross_origin()
 def enhanced_status():
     """Enhanced signals status - stub endpoint"""
@@ -46,6 +48,7 @@ def enhanced_status():
     })), 200
 
 @enhanced_signals_bp.route('/sharp-signal', methods=['POST'])
+@require_api_key
 @cross_origin()
 def get_enhanced_sharp_signal():
     """Get enhanced sharp signal with full quality pipeline"""

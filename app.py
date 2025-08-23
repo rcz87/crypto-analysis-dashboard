@@ -6,6 +6,7 @@ from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from auth import require_api_key
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -383,6 +384,7 @@ def create_app(config_name='development'):
     
     # 🚀 Add essential endpoints for ChatGPT Custom GPT
     @app.route('/api/signal', methods=['GET'])
+    @require_api_key
     def trading_signal():
         """Real-time trading signal endpoint for ChatGPT with OKX data"""
         try:
@@ -466,6 +468,7 @@ def create_app(config_name='development'):
             return jsonify({"error": str(e)}), 500
     
     @app.route('/api/gpts/enhanced/analysis', methods=['POST', 'GET'])
+    @require_api_key
     def enhanced_analysis():
         """Enhanced real-time analysis endpoint for ChatGPT with OKX data"""
         try:
@@ -603,6 +606,7 @@ def create_app(config_name='development'):
     
     # ⚡ WebSocket Management Endpoints
     @app.route('/api/websocket/status', methods=['GET'])
+    @require_api_key
     def websocket_status():
         """Get WebSocket connection status"""
         try:
@@ -623,6 +627,7 @@ def create_app(config_name='development'):
             return jsonify({"error": str(e)}), 500
     
     @app.route('/api/websocket/start', methods=['POST'])
+    @require_api_key
     def websocket_start():
         """Start WebSocket connection"""
         try:
@@ -658,6 +663,7 @@ def create_app(config_name='development'):
             return jsonify({"error": str(e)}), 500
     
     @app.route('/api/websocket/stop', methods=['POST'])
+    @require_api_key
     def websocket_stop():
         """Stop WebSocket connection"""
         try:
@@ -844,6 +850,7 @@ def create_app(config_name='development'):
     
     # 📊 Cache Status Endpoint
     @app.route('/api/cache/status', methods=['GET'])
+    @require_api_key
     def cache_status():
         """Get hybrid fetcher cache status"""
         try:
@@ -865,6 +872,7 @@ def create_app(config_name='development'):
             return jsonify({"error": str(e)}), 500
     
     @app.route('/api/cache/refresh', methods=['POST'])
+    @require_api_key
     def cache_refresh():
         """Force refresh all cached data"""
         try:
