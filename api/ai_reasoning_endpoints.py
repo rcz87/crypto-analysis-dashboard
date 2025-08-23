@@ -744,6 +744,7 @@ def get_error_statistics():
         )
 
 @ai_reasoning_bp.route('/system-performance', methods=['GET'])
+@require_api_key
 def get_system_performance():
     """Get comprehensive system performance metrics"""
     try:

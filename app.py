@@ -312,6 +312,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register tradinglite: {e}")
     
+    # 📊 Register Monitoring Routes
+    try:
+        from monitoring_routes import monitoring_bp
+        if "monitoring" not in app.blueprints:
+            app.register_blueprint(monitoring_bp)
+            logger.info("✅ Monitoring: System metrics, health status, performance monitoring")
+    except Exception as e:
+        logger.warning(f"Could not register monitoring: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():

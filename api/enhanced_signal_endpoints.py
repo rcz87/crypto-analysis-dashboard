@@ -133,6 +133,7 @@ def get_enhanced_sharp_signal():
         })), 500
 
 @enhanced_signals_bp.route('/system-status', methods=['GET'])
+@require_api_key
 @cross_origin()
 def get_system_status():
     """Get comprehensive system status"""
