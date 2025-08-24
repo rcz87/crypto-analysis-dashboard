@@ -173,6 +173,90 @@ def get_holly_status():
             'timestamp': datetime.now().isoformat()
         }), 500
 
+@holly_signals_bp.route('/api/holly/cache/status', methods=['GET'])
+@require_api_key
+def get_cache_status():
+    """Get Holly engine cache status for monitoring"""
+    try:
+        if not holly_engine:
+            return jsonify({
+                'error': 'ENGINE_NOT_INITIALIZED',
+                'message': 'Holly Signal Engine is not available'
+            }), 503
+        
+        cache_status = holly_engine.get_cache_status()
+        return jsonify({
+            'status': 'success',
+            'cache_status': cache_status,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Cache status error: {e}")
+        return jsonify({
+            'error': 'CACHE_STATUS_ERROR',
+            'message': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
+@holly_signals_bp.route('/api/holly/cache/clear', methods=['POST'])
+@require_api_key
+def clear_cache():
+    """Clear Holly engine cache"""
+    try:
+        data = request.get_json() or {}
+        symbol = data.get('symbol')
+        
+        if not holly_engine:
+            return jsonify({
+                'error': 'ENGINE_NOT_INITIALIZED',
+                'message': 'Holly Signal Engine is not available'
+            }), 503
+        
+        holly_engine.clear_cache(symbol)
+        
+        return jsonify({
+            'status': 'success',
+            'message': f'Cache cleared for {symbol}' if symbol else 'All cache cleared',
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"Cache clear error: {e}")
+        return jsonify({
+            'error': 'CACHE_CLEAR_ERROR',
+            'message': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
+@holly_signals_bp.route('/api/holly/optimize', methods=['POST'])
+@require_api_key
+def optimize_for_vps():
+    """Optimize Holly engine for VPS performance"""
+    try:
+        if not holly_engine:
+            return jsonify({
+                'error': 'ENGINE_NOT_INITIALIZED',
+                'message': 'Holly Signal Engine is not available'
+            }), 503
+        
+        optimization_result = holly_engine.optimize_for_vps()
+        
+        return jsonify({
+            'status': 'success',
+            'message': 'Holly engine optimized for VPS performance',
+            'optimization_settings': optimization_result,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"VPS optimization error: {e}")
+        return jsonify({
+            'error': 'OPTIMIZATION_ERROR',
+            'message': str(e),
+            'timestamp': datetime.now().isoformat()
+        }), 500
+
 @holly_signals_bp.route('/api/holly/backtest', methods=['POST'])
 @require_api_key
 def run_strategy_backtest():

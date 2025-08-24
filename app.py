@@ -831,9 +831,12 @@ def create_app(config_name='development'):
                 },
                 "holly_signals": {
                     "/api/holly/signal": "High probability signal generation",
-                    "/api/holly/strategies": "Strategy performance rankings",
+                    "/api/holly/strategies": "Strategy performance rankings", 
                     "/api/holly/status": "Holly engine status",
-                    "/api/holly/backtest": "Run strategy backtest"
+                    "/api/holly/backtest": "Run strategy backtest",
+                    "/api/holly/cache/status": "Cache monitoring",
+                    "/api/holly/cache/clear": "Clear signal cache",
+                    "/api/holly/optimize": "VPS performance optimization"
                 },
                 "system_endpoints": {
                     "/api/status": "Complete API status",

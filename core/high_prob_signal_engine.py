@@ -26,9 +26,14 @@ class HighProbSignalEngine:
         self.performance_cache = {}
         
         # Performance thresholds for signal selection
-        self.min_win_rate = 0.6  # 60% minimum win rate
-        self.min_risk_reward = 1.5  # 1:1.5 minimum risk-reward ratio
-        self.max_drawdown = 0.15  # 15% maximum drawdown
+        self.min_win_rate = 0.55  # 55% minimum win rate (more lenient)
+        self.min_risk_reward = 1.3  # 1:1.3 minimum risk-reward ratio
+        self.max_drawdown = 0.20  # 20% maximum drawdown
+        
+        # Caching for performance optimization
+        self.strategy_cache = {}
+        self.cache_timeout = 3600  # 1 hour cache
+        self.last_cache_time = {}
         
         # Load all available strategies
         self._load_strategies()
@@ -68,10 +73,24 @@ class HighProbSignalEngine:
     
     def generate_high_prob_signal(self, symbol: str, timeframe: str = "1H") -> Dict[str, Any]:
         """
-        Generate highest probability signal by backtesting all strategies
+        Generate highest probability signal by backtesting all strategies with caching
         """
         try:
-            logger.info(f"🔍 Generating high probability signal for {symbol} on {timeframe}")
+            cache_key = f"{symbol}_{timeframe}"
+            current_time = datetime.now().timestamp()
+            
+            # Check cache first
+            if (cache_key in self.strategy_cache and 
+                cache_key in self.last_cache_time and
+                current_time - self.last_cache_time[cache_key] < self.cache_timeout):
+                
+                logger.info(f"🎯 Using cached signal for {symbol}/{timeframe}")
+                cached_result = self.strategy_cache[cache_key].copy()
+                cached_result['cached'] = True
+                cached_result['cache_age'] = int(current_time - self.last_cache_time[cache_key])
+                return cached_result
+            
+            logger.info(f"🔍 Generating fresh high probability signal for {symbol} on {timeframe}")
             
             # Get historical data for backtesting
             historical_data = self._get_historical_data(symbol, timeframe)
@@ -101,6 +120,15 @@ class HighProbSignalEngine:
                 symbol, 
                 best_strategy
             )
+            
+            # Cache the result
+            current_signal['cached'] = False
+            self.strategy_cache[cache_key] = current_signal.copy()
+            self.last_cache_time[cache_key] = current_time
+            
+            # Send Telegram notification if signal is strong enough
+            if current_signal.get('signal', {}).get('confidence', 0) >= 75:
+                self._send_telegram_notification(current_signal)
             
             return current_signal
             
@@ -476,3 +504,107 @@ class HighProbSignalEngine:
         except Exception as e:
             logger.error(f"Strategy ranking error: {e}")
             return []
+    
+    def _send_telegram_notification(self, signal_data: Dict[str, Any]):
+        """Send Holly signal notification via Telegram"""
+        try:
+            # Try to import and use Telegram sender
+            from api.telegram_notification_endpoints import send_signal_notification
+            
+            signal = signal_data.get('signal', {})
+            action = signal.get('action', 'UNKNOWN')
+            confidence = signal.get('confidence', 0)
+            symbol = signal_data.get('symbol', 'UNKNOWN')
+            strategy = signal_data.get('strategy_used', 'Unknown')
+            
+            if action in ['BUY', 'SELL'] and confidence >= 75:
+                message = f"""
+🎯 **HOLLY HIGH-PROBABILITY SIGNAL**
+
+💱 **Pair**: {symbol}
+📊 **Strategy**: {strategy}
+🎪 **Action**: {action}
+📈 **Confidence**: {confidence}%
+
+💰 **Entry**: ${signal.get('entry_price', 0):,.2f}
+🛑 **Stop Loss**: ${signal.get('stop_loss', 0):,.2f}  
+🎯 **Take Profit**: ${signal.get('take_profit', 0):,.2f}
+📊 **Risk/Reward**: {signal.get('risk_reward_ratio', 0):.1f}:1
+
+📋 **Performance**:
+• Win Rate: {signal_data.get('strategy_performance', {}).get('win_rate', 'N/A')}
+• Total Trades: {signal_data.get('strategy_performance', {}).get('total_trades', 'N/A')}
+• Profit Factor: {signal_data.get('strategy_performance', {}).get('profit_factor', 'N/A')}
+
+💡 **Reasoning**: {signal_data.get('reasoning', 'High-probability signal based on backtesting')}
+
+⏰ Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} UTC
+"""
+                
+                # Send via Telegram API
+                send_signal_notification(message)
+                logger.info(f"📱 Holly signal sent via Telegram: {action} {symbol} @{confidence}%")
+                
+        except Exception as e:
+            logger.warning(f"Failed to send Telegram notification: {e}")
+    
+    def get_cache_status(self) -> Dict[str, Any]:
+        """Get caching statistics for monitoring"""
+        current_time = datetime.now().timestamp()
+        cache_stats = {
+            'total_cached_symbols': len(self.strategy_cache),
+            'cache_timeout_seconds': self.cache_timeout,
+            'active_caches': []
+        }
+        
+        for cache_key, cache_time in self.last_cache_time.items():
+            age = int(current_time - cache_time)
+            is_valid = age < self.cache_timeout
+            
+            cache_stats['active_caches'].append({
+                'key': cache_key,
+                'age_seconds': age,
+                'is_valid': is_valid,
+                'expires_in': max(0, self.cache_timeout - age) if is_valid else 0
+            })
+        
+        return cache_stats
+    
+    def clear_cache(self, symbol: str = None):
+        """Clear cache for specific symbol or all symbols"""
+        if symbol:
+            # Clear specific symbol cache
+            keys_to_remove = [k for k in self.strategy_cache.keys() if k.startswith(symbol)]
+            for key in keys_to_remove:
+                self.strategy_cache.pop(key, None)
+                self.last_cache_time.pop(key, None)
+            logger.info(f"🗑️ Cleared cache for {symbol}")
+        else:
+            # Clear all cache
+            self.strategy_cache.clear()
+            self.last_cache_time.clear()
+            logger.info("🗑️ Cleared all Holly signal cache")
+    
+    def optimize_for_vps(self):
+        """Optimize engine settings for VPS performance"""
+        # Increase cache timeout for VPS efficiency
+        self.cache_timeout = 7200  # 2 hours for VPS
+        
+        # More lenient thresholds to allow more strategies
+        self.min_win_rate = 0.50  # 50%
+        self.min_risk_reward = 1.2  # 1:1.2
+        self.max_drawdown = 0.25   # 25%
+        
+        # Reduce lookback for faster processing
+        if self.lookback_days > 14:
+            self.lookback_days = 14
+        
+        logger.info("⚡ Holly Engine optimized for VPS performance")
+        
+        return {
+            'cache_timeout': self.cache_timeout,
+            'min_win_rate': self.min_win_rate,
+            'min_risk_reward': self.min_risk_reward,
+            'max_drawdown': self.max_drawdown,
+            'lookback_days': self.lookback_days
+        }
