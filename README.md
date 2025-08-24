@@ -26,10 +26,32 @@ Enterprise-grade cryptocurrency trading analysis platform powered by artificial 
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   PostgreSQL    │    │   Redis Cache   │    │  Real-time Data │
-│   Database      │    │   (Optional)    │    │  (OKX API)      │
+│   PostgreSQL    │    │   Redis Cache   │    │  WebSocket OKX  │
+│   Database      │    │   (Optional)    │    │  (Real-time)    │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
+
+### 🔌 WebSocket Real-time Integration
+Platform features enterprise-grade WebSocket implementation for real-time market data:
+
+**Architecture:**
+- **Flask-SocketIO** with eventlet for handling multiple concurrent connections
+- **Message Batching** - Reduces overhead by batching updates (1s for prices, 0.5s for signals)
+- **Smart Throttling** - Only sends significant changes (>0.1% price movement)
+- **Binary Compression** - MessagePack encoding for efficient data transmission
+- **Async Workers** - Separate threads for heavy processing (AI/ML computations)
+
+**Integration Points:**
+- Holly Signal Engine receives real-time data for enhanced signal generation
+- SMC Analysis updates support/resistance levels based on live price action
+- AI Reasoning Engine analyzes market events in real-time
+- Automatic Telegram notifications for high-priority signals
+
+**Performance Optimizations:**
+- Event-driven architecture for instant market reaction
+- Dynamic stop-loss adjustment based on real volatility
+- Enhanced confidence scores using live orderbook data
+- Optimal entry/exit points from real-time price feeds
 
 ### Key Features
 - **AI-Powered Analysis**: GPT-5 integration for intelligent signal generation
@@ -37,7 +59,7 @@ Enterprise-grade cryptocurrency trading analysis platform powered by artificial 
 - **Machine Learning**: LSTM + XGBoost ensemble for price prediction
 - **Holly Signal Engine**: Multi-strategy backtesting with 8 trading strategies
 - **News Sentiment Analysis**: AI-powered news analysis with market impact assessment
-- **Real-time Data**: Live market data from OKX exchange
+- **Real-time WebSocket Integration**: OKX WebSocket with Flask-SocketIO for live data streaming
 - **Telegram Integration**: Automated trading signal notifications
 - **Auto-scaling**: Intelligent resource management and connection pooling
 
@@ -246,6 +268,14 @@ curl http://localhost:5050/api/gpts/telegram/status
 - `GET /api/gpts/telegram/status` - Telegram bot status
 - `POST /api/gpts/telegram/send` - Send trading signals
 - `GET /api/gpts/telegram/test` - Test message delivery
+
+#### WebSocket Real-time Integration
+- `GET /api/websocket/status` - WebSocket connection status
+- `POST /api/websocket/start` - Start WebSocket data streaming
+- `POST /api/websocket/stop` - Stop WebSocket connection
+- `GET /api/websocket/enhanced/status` - Full integration status with metrics
+- `POST /api/websocket/enhanced/trigger-analysis` - Manual trigger real-time analysis
+- `POST /api/websocket/enhanced/configure` - Configure thresholds and batching
 
 #### System Monitoring
 - `GET /health` - Application health check
