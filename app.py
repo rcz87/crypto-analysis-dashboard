@@ -351,6 +351,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register telegram: {e}")
     
+    # 📰 Register News Sentiment Analysis (TradeEasy-like)
+    try:
+        from api.news_sentiment_endpoints import news_sentiment_bp
+        if "news_sentiment_analysis" not in app.blueprints:
+            app.register_blueprint(news_sentiment_bp)
+            logger.info("✅ News Sentiment: AI-powered news analysis with impact assessment")
+    except Exception as e:
+        logger.warning(f"Could not register news sentiment: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
