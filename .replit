@@ -3,7 +3,7 @@ run = "node index.js"
 
 [nix]
 channel = "stable-25_05"
-packages = ["cargo", "glibcLocales", "libev", "libiconv", "libjpeg_turbo", "libpng", "libxcrypt", "nano", "opensshWithKerberos", "openssl", "pkg-config", "postgresql", "rustc", "which"]
+packages = ["borgbackup", "cargo", "glibcLocales", "iana-etc", "libev", "libiconv", "libjpeg_turbo", "libpng", "libxcrypt", "nano", "opensshWithKerberos", "openssl", "pkg-config", "postgresql", "rustc", "which"]
 
 [deployment]
 deploymentTarget = "autoscale"

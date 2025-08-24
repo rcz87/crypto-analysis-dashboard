@@ -40,6 +40,12 @@ dependencies = [
     "websocket-client>=1.8.0",
     "torchvision>=0.23.0",
     "torch>=2.8.0",
+    "flask-socketio>=5.5.1",
+    "eventlet>=0.40.2",
+    "python-socketio>=5.13.0",
+    "msgpack-python>=0.5.6",
+    "msgpack>=1.1.1",
+    "greenlet>=3.2.3",
 ]
 
 [[tool.uv.index]]

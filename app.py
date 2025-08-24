@@ -961,6 +961,28 @@ def create_app(config_name='development'):
             logger.error(f"Cache refresh error: {e}")
             return jsonify({"error": str(e)}), 500
     
+    # 🔌 WebSocket Integration with Signal Engines
+    try:
+        # Initialize WebSocket server with eventlet
+        from core.websocket_integration import OptimizedWebSocketServer
+        ws_server = OptimizedWebSocketServer(app)
+        
+        # Integrate with signal engines
+        from core.websocket_app_integration import integrate_websocket_with_app
+        integration_success = integrate_websocket_with_app(app, ws_server)
+        
+        if integration_success:
+            logger.info("🔌 WebSocket fully integrated with signal engines")
+        else:
+            logger.warning("⚠️ WebSocket integration incomplete")
+            
+        # Store WebSocket server instance for access
+        app.ws_server = ws_server
+        
+    except Exception as e:
+        logger.error(f"WebSocket integration failed: {e}")
+        logger.info("📌 Application will run without WebSocket features")
+    
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
     return app
 
