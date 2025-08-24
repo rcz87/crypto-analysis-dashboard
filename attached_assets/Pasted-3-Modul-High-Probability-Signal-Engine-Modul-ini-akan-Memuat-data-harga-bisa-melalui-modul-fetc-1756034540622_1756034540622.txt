@@ -1,0 +1,113 @@
+3. Modul High Probability Signal Engine
+
+Modul ini akan:
+
+Memuat data harga (bisa melalui modul fetcher yang sudah ada).
+
+Menjalankan backtest untuk setiap strategi.
+
+Menghitung metrik performa (win rate, risk‑reward ratio).
+
+Mengurutkan strategi berdasarkan performa dan memilih sinyal terbaik.
+
+# core/high_prob_signal_engine.py
+import importlib
+import os
+from typing import List, Dict
+import pandas as pd
+from datetime import datetime
+from core.performance_metrics_tracker import performance_tracker
+# Anda bisa menggunakan fetcher OKX atau sumber lain:
+from core.okx_fetcher import OKXFetcher
+
+class HighProbSignalEngine:
+    def __init__(self, symbol: str, interval: str, lookback: str = "1M"):
+        self.symbol = symbol
+        self.interval = interval
+        self.lookback = lookback
+        self.strategies_dir = os.path.join(os.path.dirname(__file__), "strategies")
+        self.fetcher = OKXFetcher()
+
+    def _load_strategies(self) -> Dict[str, object]:
+        """Dynamically import semua modul strategi dari folder strategies."""
+        strategies = {}
+        for fname in os.listdir(self.strategies_dir):
+            if fname.endswith(".py") and not fname.startswith("_"):
+                module_name = f"core.strategies.{fname[:-3]}"
+                module = importlib.import_module(module_name)
+                strategies[fname[:-3]] = module
+        return strategies
+
+    def _backtest(self, df: pd.DataFrame, signals: pd.Series) -> Dict[str, float]:
+        """
+        Backtest sederhana: hitung win rate dan risk-reward ratio.
+        Asumsi: open posisi pada awal candle dan keluar saat sinyal berubah.
+        """
+        entries = signals.shift(1).fillna(0)  # masuk di candle berikutnya
+        positions = entries.diff().fillna(entries)  # 1 = buka buy, -1 = buka sell
+
+        wins = 0
+        losses = 0
+        total_risk_reward = 0.0
+
+        for i in range(len(df)):
+            pos = positions.iloc[i]
+            if pos != 0:
+                entry_price = df['open'].iloc[i]
+                exit_index = signals.iloc[i:].ne(signals.iloc[i]).idxmax()
+                if exit_index is None or exit_index == i:
+                    continue  # tidak ada exit
+
+                exit_price = df['close'].loc[exit_index]
+                pnl = (exit_price - entry_price) * pos
+                rr = abs(pnl) / (df['high'][i:exit_index].max() - entry_price) if pos == 1 \
+                     else abs(pnl) / (entry_price - df['low'][i:exit_index].min())
+                total_risk_reward += rr
+
+                if pnl > 0:
+                    wins += 1
+                else:
+                    losses += 1
+
+        total_trades = wins + losses
+        win_rate = wins / total_trades if total_trades else 0
+        avg_rr = total_risk_reward / total_trades if total_trades else 0
+        return {"win_rate": win_rate, "avg_rr": avg_rr}
+
+    def generate_top_signal(self, top_n: int = 3) -> Dict[str, Dict]:
+        """Ambil data, jalankan backtest untuk setiap strategi, pilih beberapa terbaik."""
+        strategies = self._load_strategies()
+        # ambil data OHLC (lihat modul OKXFetcher untuk detail)
+        df = self.fetcher.get_historical_data(self.symbol, self.interval, self.lookback)
+        results = {}
+
+        for name, module in strategies.items():
+            try:
+                signals = module.generate_signals(df)
+                metrics = self._backtest(df, signals)
+                results[name] = metrics
+            except Exception as e:
+                print(f"[{name}] error: {e}")
+
+        # urutkan strategi berdasarkan win_rate dan risk‑reward
+        ranked = sorted(results.items(), key=lambda x: (x[1]['win_rate'], x[1]['avg_rr']), reverse=True)
+        top_strategies = dict(ranked[:top_n])
+
+        # siapkan rekomendasi sinyal dari strategi terbaik
+        recommendations = {}
+        for strat, metrics in top_strategies.items():
+            sig = strategies[strat].generate_signals(df).iloc[-1]
+            action = "BUY" if sig > 0 else "SELL" if sig < 0 else "HOLD"
+            recommendations[strat] = {
+                "action": action,
+                "win_rate": metrics["win_rate"],
+                "avg_rr": metrics["avg_rr"]
+            }
+        return recommendations
+
+
+Catatan:
+
+Fungsi _backtest di atas sangat sederhana untuk contoh. Anda bisa mengganti dengan modul backtesting yang lebih canggih (misalnya menggunakan core/backtesting_engine.py dari project Anda).
+
+Fungsi generate_top_signal() mengembalikan sinyal terakhir (BUY/SELL/HOLD) dari masing‑masing strategi terbaik, disertai metrik performanya.
