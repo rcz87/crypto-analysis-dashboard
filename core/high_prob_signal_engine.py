@@ -31,6 +31,10 @@ except ImportError:
         CACHE_TTL_SECONDS = 300
         STRATEGY_TIMEOUT_SECONDS = 30
         MAX_CONCURRENT_BACKTESTS = 5
+        WEIGHT_WIN_RATE = 0.3
+        WEIGHT_RISK_REWARD = 0.25
+        WEIGHT_PROFIT_FACTOR = 0.25
+        WEIGHT_SHARPE_RATIO = 0.2
         
         @classmethod
         def validate_signal(cls, signal):
@@ -49,7 +53,7 @@ class HighProbSignalEngine:
     Holly-like engine that backtests multiple strategies and selects highest probability signals
     """
     
-    def __init__(self, okx_fetcher=None, lookback_days: int = None):
+    def __init__(self, okx_fetcher=None, lookback_days: Optional[int] = None):
         self.okx_fetcher = okx_fetcher
         self.config = HollyConfig()
         self.lookback_days = lookback_days or self.config.DEFAULT_LOOKBACK_DAYS
@@ -414,7 +418,7 @@ class HighProbSignalEngine:
                 'profit_factor': 0.0
             }
     
-    def _select_best_strategy(self, strategy_results: List[Dict]) -> Dict:
+    def _select_best_strategy(self, strategy_results: List[Dict]) -> Optional[Dict]:
         """Select the best performing strategy based on composite score with configurable weights"""
         try:
             best_strategy = None
@@ -587,7 +591,12 @@ class HighProbSignalEngine:
         """Send Holly signal notification via Telegram"""
         try:
             # Try to import and use Telegram sender
-            from api.telegram_notification_endpoints import send_signal_notification
+            try:
+                from api.telegram_notification_endpoints import send_signal_notification
+            except ImportError:
+                # Telegram module not available, skip notification
+                logger.debug("Telegram notification module not available")
+                return
             
             signal = signal_data.get('signal', {})
             action = signal.get('action', 'UNKNOWN')
@@ -620,7 +629,10 @@ class HighProbSignalEngine:
 """
                 
                 # Send via Telegram API
-                send_signal_notification(message)
+                try:
+                    send_signal_notification(message)
+                except NameError:
+                    pass  # Function not available
                 logger.info(f"📱 Holly signal sent via Telegram: {action} {symbol} @{confidence}%")
                 
         except Exception as e:
