@@ -11,6 +11,36 @@ import logging
 import importlib
 import os
 from pathlib import Path
+import asyncio
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
+
+# Import configuration
+try:
+    from core.config.holly_config import HollyConfig
+except ImportError:
+    # Fallback if config not available
+    class HollyConfig:
+        MIN_WIN_RATE = 0.55
+        MIN_RISK_REWARD = 1.5
+        MAX_DRAWDOWN = 0.15
+        MIN_PROFIT_FACTOR = 1.3
+        MIN_TRADES_FOR_VALIDATION = 10
+        DEFAULT_LOOKBACK_DAYS = 30
+        DEFAULT_INITIAL_CAPITAL = 10000
+        DEFAULT_POSITION_SIZE = 0.02
+        CACHE_TTL_SECONDS = 300
+        STRATEGY_TIMEOUT_SECONDS = 30
+        MAX_CONCURRENT_BACKTESTS = 5
+        
+        @classmethod
+        def validate_signal(cls, signal):
+            if not signal or 'action' not in signal:
+                return False, "Invalid signal format"
+            return True, "Valid"
+        
+        @classmethod
+        def normalize_signal(cls, signal):
+            return signal
 
 logger = logging.getLogger(__name__)
 
@@ -19,21 +49,26 @@ class HighProbSignalEngine:
     Holly-like engine that backtests multiple strategies and selects highest probability signals
     """
     
-    def __init__(self, okx_fetcher=None, lookback_days: int = 30):
+    def __init__(self, okx_fetcher=None, lookback_days: int = None):
         self.okx_fetcher = okx_fetcher
-        self.lookback_days = lookback_days
+        self.config = HollyConfig()
+        self.lookback_days = lookback_days or self.config.DEFAULT_LOOKBACK_DAYS
         self.strategies = {}
         self.performance_cache = {}
         
-        # Performance thresholds for signal selection
-        self.min_win_rate = 0.55  # 55% minimum win rate (more lenient)
-        self.min_risk_reward = 1.3  # 1:1.3 minimum risk-reward ratio
-        self.max_drawdown = 0.20  # 20% maximum drawdown
+        # Performance thresholds from configuration
+        self.min_win_rate = self.config.MIN_WIN_RATE
+        self.min_risk_reward = self.config.MIN_RISK_REWARD
+        self.max_drawdown = self.config.MAX_DRAWDOWN
+        self.min_profit_factor = self.config.MIN_PROFIT_FACTOR
         
         # Caching for performance optimization
         self.strategy_cache = {}
-        self.cache_timeout = 3600  # 1 hour cache
+        self.cache_timeout = self.config.CACHE_TTL_SECONDS
         self.last_cache_time = {}
+        
+        # Thread pool for concurrent backtesting
+        self.executor = ThreadPoolExecutor(max_workers=self.config.MAX_CONCURRENT_BACKTESTS)
         
         # Load all available strategies
         self._load_strategies()
@@ -97,13 +132,25 @@ class HighProbSignalEngine:
             if historical_data.empty:
                 return self._get_fallback_signal(symbol)
             
-            # Backtest all strategies
+            # Backtest all strategies with concurrent execution
             strategy_results = []
+            futures = []
+            
             for strategy_name, strategy in self.strategies.items():
+                future = self.executor.submit(
+                    self._backtest_strategy_with_timeout,
+                    strategy, historical_data, symbol, strategy_name
+                )
+                futures.append((strategy_name, future))
+            
+            # Collect results with timeout
+            for strategy_name, future in futures:
                 try:
-                    result = self._backtest_strategy(strategy, historical_data, symbol, strategy_name)
+                    result = future.result(timeout=HollyConfig.STRATEGY_TIMEOUT_SECONDS)
                     if result:
                         strategy_results.append(result)
+                except TimeoutError:
+                    logger.warning(f"Strategy {strategy_name} timed out")
                 except Exception as e:
                     logger.error(f"Backtest failed for {strategy_name}: {e}")
             
@@ -216,19 +263,39 @@ class HighProbSignalEngine:
         
         return pd.DataFrame(data)
     
+    def _backtest_strategy_with_timeout(self, strategy, data: pd.DataFrame, symbol: str, strategy_name: str) -> Optional[Dict]:
+        """Wrapper for backtest with timeout handling"""
+        return self._backtest_strategy(strategy, data, symbol, strategy_name)
+    
     def _backtest_strategy(self, strategy, data: pd.DataFrame, symbol: str, strategy_name: str) -> Optional[Dict]:
-        """Backtest a single strategy"""
+        """Backtest a single strategy with signal validation"""
         try:
             # Generate signals from strategy
-            signals = strategy.generate_signals(data)
+            raw_signals = strategy.generate_signals(data)
+            
+            # Validate and normalize signals
+            signals = []
+            for signal in raw_signals:
+                is_valid, error_msg = HollyConfig.validate_signal(signal)
+                if is_valid:
+                    normalized_signal = HollyConfig.normalize_signal(signal)
+                    signals.append(normalized_signal)
+                else:
+                    logger.warning(f"Invalid signal from {strategy_name}: {error_msg}")
+            
+            if not signals:
+                logger.warning(f"No valid signals from {strategy_name}")
+                return None
             
             # Calculate performance metrics
             performance = self._calculate_performance(data, signals, symbol, strategy_name)
             
-            # Only return if strategy meets minimum criteria
+            # Check against all thresholds including profit factor
             if (performance['win_rate'] >= self.min_win_rate and 
                 performance['risk_reward_ratio'] >= self.min_risk_reward and
-                performance['max_drawdown'] <= self.max_drawdown):
+                performance['max_drawdown'] <= self.max_drawdown and
+                performance.get('profit_factor', 0) >= self.min_profit_factor and
+                performance.get('total_trades', 0) >= HollyConfig.MIN_TRADES_FOR_VALIDATION):
                 
                 return {
                     'name': strategy_name,
@@ -239,6 +306,9 @@ class HighProbSignalEngine:
             
             return None
             
+        except TimeoutError:
+            logger.error(f"Strategy {strategy_name} timed out after {HollyConfig.STRATEGY_TIMEOUT_SECONDS}s")
+            return None
         except Exception as e:
             logger.error(f"Backtest error for {strategy_name}: {e}")
             return None
@@ -345,7 +415,7 @@ class HighProbSignalEngine:
             }
     
     def _select_best_strategy(self, strategy_results: List[Dict]) -> Dict:
-        """Select the best performing strategy based on composite score"""
+        """Select the best performing strategy based on composite score with configurable weights"""
         try:
             best_strategy = None
             best_score = -1
@@ -353,13 +423,12 @@ class HighProbSignalEngine:
             for result in strategy_results:
                 perf = result['performance']
                 
-                # Composite score calculation
+                # Composite score calculation using config weights
                 score = (
-                    perf['win_rate'] * 0.3 +
-                    min(perf['risk_reward_ratio'] / 3.0, 1.0) * 0.25 +  # Cap at 3.0
-                    (1 - perf['max_drawdown']) * 0.2 +
-                    min(perf['profit_factor'] / 2.0, 1.0) * 0.15 +  # Cap at 2.0
-                    min(perf['total_return'], 0.5) * 0.1  # Cap at 50%
+                    perf['win_rate'] * HollyConfig.WEIGHT_WIN_RATE +
+                    min(perf['risk_reward_ratio'] / 3.0, 1.0) * HollyConfig.WEIGHT_RISK_REWARD +  # Cap at 3.0
+                    min(perf['profit_factor'] / 2.0, 1.0) * HollyConfig.WEIGHT_PROFIT_FACTOR +  # Cap at 2.0
+                    (1 - perf['max_drawdown']) * HollyConfig.WEIGHT_SHARPE_RATIO  # Using for drawdown weight
                 )
                 
                 logger.info(f"Strategy {result['name']}: Score={score:.3f}, WinRate={perf['win_rate']:.2f}, RR={perf['risk_reward_ratio']:.2f}")
@@ -387,8 +456,17 @@ class HighProbSignalEngine:
             if not current_signals:
                 return self._get_fallback_signal(symbol)
             
-            # Get the latest signal
-            latest_signal = current_signals[-1]
+            # Validate and normalize the latest signal
+            latest_signal = None
+            for signal in reversed(current_signals):
+                is_valid, error_msg = HollyConfig.validate_signal(signal)
+                if is_valid:
+                    latest_signal = HollyConfig.normalize_signal(signal)
+                    break
+            
+            if not latest_signal:
+                logger.warning(f"No valid current signal from {best_strategy['name']}")
+                return self._get_fallback_signal(symbol)
             current_price = float(data['close'].iloc[-1])
             
             # Calculate confidence based on strategy performance
