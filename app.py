@@ -328,6 +328,15 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register monitoring: {e}")
     
+    # 📱 Register Telegram Integration
+    try:
+        from api.telegram_endpoints import telegram_bp
+        if "telegram" not in app.blueprints:
+            app.register_blueprint(telegram_bp)
+            logger.info("✅ Telegram: Signal notifications, status monitoring, test endpoints")
+    except Exception as e:
+        logger.warning(f"Could not register telegram: {e}")
+    
     # 📋 Add OpenAPI schema endpoints for ChatGPT Custom GPT integration
     @app.route('/openapi.json', methods=['GET'])
     def openapi_json():
