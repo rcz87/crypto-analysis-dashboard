@@ -6,6 +6,21 @@ CryptoSage AI is an institutional-grade cryptocurrency trading analysis platform
 
 The system combines traditional technical analysis with modern SMC patterns (Change of Character, Fair Value Gaps, Order Blocks) and machine learning models to generate high-confidence trading signals. It includes comprehensive backtesting capabilities, risk management systems, and real-time market monitoring across multiple timeframes.
 
+## Recent Changes
+
+### August 24, 2025 - Telegram Integration Completed ✅
+- **Status**: Fully operational and production-ready
+- **Telegram Bot Integration**: Complete with professional signal delivery
+- **API Endpoints**: `/api/gpts/telegram/status`, `/api/gpts/telegram/test`, `/api/gpts/telegram/send` all active
+- **Features Verified**: 
+  - Real-time trading signal notifications with confidence scores and AI narratives
+  - Rich message formatting with professional styling and Indonesian localization
+  - Multi-chat support for subscriber management
+  - Automatic failover and error handling
+  - Integration with AI reasoning engine for intelligent signal analysis
+- **Security**: Bot token and chat credentials secured in environment variables
+- **Testing Results**: All core functions tested and confirmed working (Message IDs: 44, 45, 48)
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
