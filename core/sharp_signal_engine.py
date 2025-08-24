@@ -1014,3 +1014,53 @@ class SharpSignalEngine:
             elif 'sell' in ai_result.lower() and raw_score < 40:
                 return 'SELL'
         return 'NEUTRAL'
+    
+    def _ai_enhanced_signal_processing_v2(self, df: pd.DataFrame, symbol: str, timeframe: str,
+                                       enhanced_result: Dict, smc_data: Dict, risk_data: Dict) -> Dict[str, Any]:
+        """
+        Enhanced AI signal processing v2 - Enhanced version with additional parameters
+        """
+        try:
+            # Use the existing _ai_enhanced_signal_processing method with compatible parameters
+            return self._ai_enhanced_signal_processing(df, symbol, timeframe, enhanced_result, smc_data)
+        except Exception as e:
+            logger.error(f"AI enhanced signal processing v2 error: {e}")
+            return {
+                'ai_signal': 'NEUTRAL',
+                'ai_confidence': 50,
+                'ai_reasoning': f"AI processing error: {e}",
+                'risk_assessment': 'moderate'
+            }
+    
+    def _generate_enhanced_final_signal(self, enhanced_result: Dict, ai_analysis: Dict, risk_data: Dict,
+                                      df: pd.DataFrame, smc_data: Dict, mtf_analysis: Dict = None, 
+                                      volume_profile: Dict = None) -> Dict[str, Any]:
+        """
+        Generate enhanced final signal with additional parameters
+        """
+        try:
+            # Extract base score from enhanced_result 
+            base_score = enhanced_result.get('combined_score', 50)
+            
+            # Use existing _generate_final_sharp_signal with compatible parameters
+            final_signal = self._generate_final_sharp_signal(base_score, ai_analysis, smc_data, df, risk_data)
+            
+            # Add enhanced features if available
+            if mtf_analysis:
+                final_signal['mtf_confirmation'] = mtf_analysis.get('confirmation', False)
+            if volume_profile:
+                final_signal['volume_profile_support'] = volume_profile.get('support_level', False)
+                
+            return final_signal
+        except Exception as e:
+            logger.error(f"Enhanced final signal generation error: {e}")
+            # Fallback to basic signal
+            return {
+                'action': 'NEUTRAL',
+                'confidence': 50,
+                'entry_price': float(df['close'].iloc[-1]) if not df.empty else 0,
+                'stop_loss': 0,
+                'take_profit': 0,
+                'risk_reward_ratio': 1.0,
+                'reasoning': f"Signal generation error: {e}"
+            }

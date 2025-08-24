@@ -61,6 +61,28 @@ class ProfessionalSMCAnalyzer:
             self.logger.error(f"SMC analysis error: {e}")
             return self._get_fallback_smc_analysis()
     
+    def analyze_comprehensive(self, df: pd.DataFrame, symbol: str, timeframe: str = '1H') -> Dict[str, Any]:
+        """
+        Comprehensive SMC analysis - alias for analyze_smart_money_concept with DataFrame input
+        """
+        try:
+            # Convert DataFrame to candles format for compatibility
+            candles = []
+            for index, row in df.iterrows():
+                candles.append({
+                    'open': row.get('open', 0),
+                    'high': row.get('high', 0), 
+                    'low': row.get('low', 0),
+                    'close': row.get('close', 0),
+                    'volume': row.get('volume', 0),
+                    'timestamp': row.get('timestamp', index)
+                })
+            
+            return self.analyze_smart_money_concept(candles, symbol, timeframe)
+        except Exception as e:
+            self.logger.error(f"Comprehensive SMC analysis error: {e}")
+            return self._get_fallback_smc_analysis()
+    
     def _analyze_structure(self, df: pd.DataFrame) -> Dict[str, Any]:
         """Analyze market structure for CHoCH and BOS"""
         try:
