@@ -182,6 +182,20 @@ def create_app(config_name='development'):
     except Exception as e:
         logger.warning(f"Could not register news_api: {e}")
     
+    # 🎯 Register Holly-like High Probability Signal Engine
+    try:
+        from api.holly_signal_endpoints import holly_signals_bp, init_holly_engine
+        if "holly_signals" not in app.blueprints:
+            app.register_blueprint(holly_signals_bp)
+            
+            # Initialize Holly engine with OKX fetcher
+            okx_fetcher = getattr(app, '_okx_fetcher', None)
+            init_holly_engine(okx_fetcher)
+            
+            logger.info("✅ Holly Signals: Multi-strategy backtesting, high-probability signal generation")
+    except Exception as e:
+        logger.warning(f"Could not register Holly Signal endpoints: {e}")
+    
     # 🔐 Register GPTs API Blueprint with API key protection
     try:
         from gpts_routes import gpts_api
@@ -814,6 +828,12 @@ def create_app(config_name='development'):
                     "/api/chart/data": "Chart data",
                     "/api/chart/symbols": "Available symbols",
                     "/api/chart/health": "Chart service health"
+                },
+                "holly_signals": {
+                    "/api/holly/signal": "High probability signal generation",
+                    "/api/holly/strategies": "Strategy performance rankings",
+                    "/api/holly/status": "Holly engine status",
+                    "/api/holly/backtest": "Run strategy backtest"
                 },
                 "system_endpoints": {
                     "/api/status": "Complete API status",
