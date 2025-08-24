@@ -1,0 +1,33 @@
+Pada jawaban sebelumnya saya menyinggung bahwa “endpoint lain (AI reasoning, performance monitoring, backtesting, berita, dll.) memerlukan API key.” Maksudnya adalah:
+
+Beberapa blueprint di folder api/ menggunakan dekorator require_api_key dari modul auth.py. Dekorator ini memeriksa apakah variabel lingkungan API_KEY_REQUIRED di‑set ke true; bila iya, maka setiap request ke endpoint tersebut harus menyertakan header X‑API‑KEY atau Authorization: Bearer <your_key> yang cocok dengan API_KEY di environment. Jika header tidak ada atau key tidak cocok, server akan merespons dengan status 401 Unauthorized
+raw.githubusercontent.com
+. Jadi endpoint‑endpoint seperti /api/ai-reasoning/analyze, /api/performance/*, atau yang lainnya tidak bisa diakses bebas tanpa API key.
+
+Setiap file di folder api/ mendefinisikan blueprint dan path‑path khusus—misalnya:
+
+gpts_sinyal_tajam.py membuat endpoint /api/gpts/sinyal/tajam untuk sinyal trading real‑time
+raw.githubusercontent.com
+.
+
+ai_reasoning_endpoints.py menyediakan /api/ai-reasoning/status dan /api/ai-reasoning/analyze untuk analisis berbasis reasoning AI
+raw.githubusercontent.com
+.
+
+performance_endpoints.py membuat berbagai endpoint seperti /api/performance/status, /cache/stats, /cache/clear, dan /metrics/summary
+raw.githubusercontent.com
+.
+
+Maka dari itu, untuk menggunakan endpoint‑endpoint lanjutan tersebut Anda perlu:
+
+Menyiapkan API key dan mengonfigurasi variabel lingkungan API_KEY_REQUIRED=true serta API_KEY=<your-secret-key> pada server Flask Anda.
+
+Mengirimkan key tersebut di header saat memanggil endpoint:
+
+GET /api/ai-reasoning/status
+X-API-KEY: your-secret-key
+
+
+Membaca masing‑masing file di folder api/ agar mengetahui parameter apa saja yang harus dikirim (melalui query string atau body JSON) dan bagaimana struktur responsnya.
+
+Itulah maksudnya: sebagian besar endpoint publik (seperti / atau /health) tidak memerlukan API key, tetapi endpoint lanjutan untuk AI, performa, backtesting, dan fitur lainnya dilindungi agar hanya dapat diakses oleh pengguna yang memiliki kunci API yang valid.
