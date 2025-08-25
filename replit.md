@@ -45,7 +45,14 @@ The system combines traditional technical analysis with modern SMC patterns (Cha
 
 ## User Preferences
 
-Preferred communication style: Simple, everyday language.
+**Communication:** Simple, everyday language.
+
+**Deployment Workflow:** When fixing issues for VPS deployment:
+1. 🔄 **Push fix** dari Replit → GitHub  
+2. 🔄 **Pull fix** dari GitHub → VPS
+3. 🔄 **Rebuild container** dengan perubahan terbaru
+
+Always follow this sequence to ensure VPS gets the latest fixes.
 
 ## System Architecture
 
