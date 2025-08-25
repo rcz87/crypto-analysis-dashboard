@@ -51,6 +51,9 @@ COPY models.py .
 COPY core/ ./core/
 COPY api/ ./api/
 
+# Beri hak eksekusi pada skrip startup
+RUN chmod +x start-production.sh
+
 # Verify no heavy directories were copied (debug step)
 RUN echo "=== Verifying .dockerignore exclusions ===" \
     && echo "Checking if heavy directories were excluded..." \
