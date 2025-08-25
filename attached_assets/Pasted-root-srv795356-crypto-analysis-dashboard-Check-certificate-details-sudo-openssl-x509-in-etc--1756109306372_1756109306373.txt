@@ -1,0 +1,55 @@
+root@srv795356:~/crypto-analysis-dashboard# # Check certificate details
+sudo openssl x509 -in /etc/letsencrypt/live/guardiansofthetoken.id/fullchain.pem -text -noout | grep -A1 "Subject Alternative Name"
+
+# Verify certificate domains
+sudo certbot certificates
+            X509v3 Subject Alternative Name: 
+                DNS:guardiansofthetoken.id, DNS:www.guardiansofthetoken.id
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Found the following certs:
+  Certificate Name: cakrapamungkas.org-0001
+    Serial Number: 6d11eed7afab421bff95c345fdc60934fed
+    Key Type: RSA
+    Domains: cakrapamungkas.org www.cakrapamungkas.org
+    Expiry Date: 2025-10-02 08:31:47+00:00 (VALID: 38 days)
+    Certificate Path: /etc/letsencrypt/live/cakrapamungkas.org-0001/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/cakrapamungkas.org-0001/privkey.pem
+  Certificate Name: cakrapamungkas.org
+    Serial Number: 50c9cbcc9f098092e8a242137b80972df58
+    Key Type: RSA
+    Domains: cakrapamungkas.org dashboard.cakrapamungkas.org webhook.cakrapamungkas.org www.cakrapamungkas.org
+    Expiry Date: 2025-10-03 11:01:45+00:00 (VALID: 39 days)
+    Certificate Path: /etc/letsencrypt/live/cakrapamungkas.org/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/cakrapamungkas.org/privkey.pem
+  Certificate Name: dashboard.cakrapamungkas.org
+    Serial Number: 5f758011bc953b8665d0c3ec75e76c88fac
+    Key Type: RSA
+    Domains: dashboard.cakrapamungkas.org
+    Expiry Date: 2025-09-25 10:48:03+00:00 (VALID: 31 days)
+    Certificate Path: /etc/letsencrypt/live/dashboard.cakrapamungkas.org/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/dashboard.cakrapamungkas.org/privkey.pem
+  Certificate Name: gpts.guardiansofthetoken.id
+    Serial Number: 59c67e4af92b69b627ae3c328bd38762518
+    Key Type: RSA
+    Domains: gpts.guardiansofthetoken.id
+    Expiry Date: 2025-11-01 06:15:20+00:00 (VALID: 67 days)
+    Certificate Path: /etc/letsencrypt/live/gpts.guardiansofthetoken.id/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/gpts.guardiansofthetoken.id/privkey.pem
+  Certificate Name: guardiansofthetoken.id
+    Serial Number: 588f8a2ba64029bb93d3cbd289cfe09edff
+    Key Type: RSA
+    Domains: guardiansofthetoken.id www.guardiansofthetoken.id
+    Expiry Date: 2025-11-23 06:50:48+00:00 (VALID: 89 days)
+    Certificate Path: /etc/letsencrypt/live/guardiansofthetoken.id/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/guardiansofthetoken.id/privkey.pem
+  Certificate Name: webhook.cakrapamungkas.org
+    Serial Number: 5d76a0a65f3884595f7f9f4de76113e5385
+    Key Type: RSA
+    Domains: webhook.cakrapamungkas.org
+    Expiry Date: 2025-09-22 01:52:56+00:00 (VALID: 27 days)
+    Certificate Path: /etc/letsencrypt/live/webhook.cakrapamungkas.org/fullchain.pem
+    Private Key Path: /etc/letsencrypt/live/webhook.cakrapamungkas.org/privkey.pem
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+root@srv795356:~/crypto-analysis-dashboard# 
