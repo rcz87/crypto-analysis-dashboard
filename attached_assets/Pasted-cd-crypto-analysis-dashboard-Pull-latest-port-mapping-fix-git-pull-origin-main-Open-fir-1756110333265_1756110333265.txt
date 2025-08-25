@@ -1,0 +1,86 @@
+cd ~/crypto-analysis-dashboard
+
+# Pull latest port mapping fix
+git pull origin main
+
+# Open firewall untuk standard HTTP/HTTPS ports
+sudo ufw allow 80
+sudo ufw allow 443
+
+# Show firewall status
+sudo ufw status
+remote: Enumerating objects: 29, done.
+remote: Counting objects: 100% (29/29), done.
+remote: Compressing objects: 100% (7/7), done.
+remote: Total 26 (delta 19), reused 26 (delta 19), pack-reused 0 (from 0)
+Unpacking objects: 100% (26/26), 8.18 KiB | 698.00 KiB/s, done.
+From github.com:rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+   7ac2319..766dc11  main       -> origin/main
+Updating 7ac2319..766dc11
+Fast-forward
+ attached_assets/Pasted-Masalah-no-alternative-certificate-subject-name-matches-target-host-name-yang-masih-muncul-setelah-1756110070679_1756110070679.txt | 33 +++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-remote-Enumerating-objects-14-done-remote-Countin-1756108567936_1756108567937.txt       | 24 ++++++++++++++++++++++++
+ attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-total-28-drwxr-xr-x-2-root-root-4096-Aug-25--1756109598224_1756109598225.txt            | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-grep-A-5-B-5-ssl-docker-compose-vps-yml-total-20-drwxr-xr-x-2-root-root-4096-Aug-25--1756109798067_1756109798068.txt               | 47 +++++++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Check-certificate-details-sudo-openssl-x509-in-etc--1756109306372_1756109306373.txt       | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Full-restart-untuk-clear-any-cached-certificates-dock-1756109946831_1756109946831.txt     | 35 +++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Restart-nginx-dengan-SSL-configuration-docker-compose-1756109135600_1756109135601.txt     | 55 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ docker-compose-vps.yml                                                                                                                                    |  4 ++--
+ 8 files changed, 306 insertions(+), 2 deletions(-)
+ create mode 100644 attached_assets/Pasted-Masalah-no-alternative-certificate-subject-name-matches-target-host-name-yang-masih-muncul-setelah-1756110070679_1756110070679.txt
+ create mode 100644 attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-remote-Enumerating-objects-14-done-remote-Countin-1756108567936_1756108567937.txt
+ create mode 100644 attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-total-28-drwxr-xr-x-2-root-root-4096-Aug-25--1756109598224_1756109598225.txt
+ create mode 100644 attached_assets/Pasted-grep-A-5-B-5-ssl-docker-compose-vps-yml-total-20-drwxr-xr-x-2-root-root-4096-Aug-25--1756109798067_1756109798068.txt
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Check-certificate-details-sudo-openssl-x509-in-etc--1756109306372_1756109306373.txt
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Full-restart-untuk-clear-any-cached-certificates-dock-1756109946831_1756109946831.txt
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Restart-nginx-dengan-SSL-configuration-docker-compose-1756109135600_1756109135601.txt
+Skipping adding existing rule
+Skipping adding existing rule (v6)
+Skipping adding existing rule
+Skipping adding existing rule (v6)
+Status: active
+
+To                         Action      From
+--                         ------      ----
+80                         ALLOW       Anywhere                  
+443                        ALLOW       Anywhere                  
+80/tcp                     ALLOW       Anywhere                  
+443/tcp                    ALLOW       Anywhere                  
+22/tcp                     ALLOW       Anywhere                  
+8001/tcp                   ALLOW       Anywhere                  
+5050                       ALLOW       Anywhere                  
+5050/tcp                   ALLOW       Anywhere                  
+80 (v6)                    ALLOW       Anywhere (v6)             
+443 (v6)                   ALLOW       Anywhere (v6)             
+80/tcp (v6)                ALLOW       Anywhere (v6)             
+443/tcp (v6)               ALLOW       Anywhere (v6)             
+22/tcp (v6)                ALLOW       Anywhere (v6)             
+8001/tcp (v6)              ALLOW       Anywhere (v6)             
+5050 (v6)                  ALLOW       Anywhere (v6)             
+5050/tcp (v6)              ALLOW       Anywhere (v6)             
+
+root@srv795356:~/crypto-analysis-dashboard# # Restart containers dengan new port configuration
+docker-compose -f docker-compose-vps.yml down
+docker-compose -f docker-compose-vps.yml up -d
+
+# Monitor containers startup
+docker-compose -f docker-compose-vps.yml ps
+
+# Wait untuk containers fully ready
+sleep 30
+[+] Running 4/4
+ ✔ Container crypto_nginx                            Removed                                                                                                                                                                             0.4s 
+ ✔ Container crypto_trading_app                      Removed                                                                                                                                                                             4.2s 
+ ✔ Container crypto_postgres                         Removed                                                                                                                                                                             0.3s 
+ ✔ Network crypto-analysis-dashboard_crypto_network  Removed                                                                                                                                                                             0.3s 
+[+] Running 3/4
+ ✔ Network crypto-analysis-dashboard_crypto_network  Created                                                                                                                                                                             0.1s 
+ ✔ Container crypto_postgres                         Started                                                                                                                                                                             0.3s 
+ ✔ Container crypto_trading_app                      Healthy                                                                                                                                                                            31.6s 
+ ⠹ Container crypto_nginx                            Starting                                                                                                                                                                           31.7s 
+Error response from daemon: driver failed programming external connectivity on endpoint crypto_nginx (1f70e258b8dda69342ac61aa926445056f212440eb33b9099e2daf2cdf95e676): failed to bind port 0.0.0.0:80/tcp: Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     31 seconds ago   Up 31 seconds             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   31 seconds ago   Up 31 seconds (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# 
