@@ -988,3 +988,7 @@ def create_app(config_name='development'):
 
 # Create app instance for compatibility (avoid using this in production)
 app = create_app()
+# Buat instance aplikasi untuk WSGI server (production)
+if __name__ != "__main__":
+    from os import environ
+    app = create_app(environ.get("FLASK_ENV", "production"))
