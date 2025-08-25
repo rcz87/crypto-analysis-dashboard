@@ -1,0 +1,33 @@
+Masalah “no alternative certificate subject name matches target host name” yang masih muncul setelah restart menandakan bahwa klien mencoba terhubung ke port dan sertifikat yang salah. Dari nginx.conf yang terakhir di‑pull
+GitHub
+, Nginx Anda melakukan redirect semua permintaan HTTP ke https://$server_name$request_uri 
+GitHub
+ dan melayani HTTPS di port 443
+GitHub
+ dengan sertifikat yang disimpan di /etc/nginx/ssl/fullchain.pem
+GitHub
+. Dua hal penting perlu disesuaikan:
+
+Port host untuk HTTPS
+Di docker-compose-vps.yml Anda masih memetakan 443 kontainer ke port host 8443 ("8443:443"). Akibatnya, saat klien diarahkan ke https://guardiansofthetoken.id/…, koneksi diarahkan ke port 443, padahal di host port tersebut tidak dibuka. Ini menjelaskan error yang Anda dapatkan.
+Solusi: ubah mapping Nginx di compose menjadi:
+
+ports:
+  - "80:80"    # HTTP (tetap redirect ke HTTPS)
+  - "443:443"  # buka port 443 host untuk HTTPS
+
+
+Setelah mengubah mapping, buka port 443 di firewall (misal sudo ufw allow 443), lalu lakukan docker-compose -f docker-compose-vps.yml up -d.
+
+Pastikan sertifikat berada di volume
+Pastikan dua file yang diterbitkan Certbot (fullchain.pem dan privkey.pem) benar‑benar berada di folder nginx/ssl pada host, karena folder itu dipetakan ke /etc/nginx/ssl di dalam kontainer. Perintah yang Anda jalankan sudah benar (sudo cp /etc/letsencrypt/live/guardiansofthetoken.id/*.pem ~/crypto-analysis-dashboard/nginx/ssl/), tapi jika file belum ada, salin ulang lalu lakukan restart Nginx.
+
+Dengan dua penyesuaian tersebut:
+
+Permintaan http://guardiansofthetoken.id/… akan diarahkan ke https://guardiansofthetoken.id/….
+
+Permintaan https://guardiansofthetoken.id/health akan sampai ke Nginx pada port 443 host, Nginx akan memuat sertifikat Let’s Encrypt yang valid, dan reverse‑proxy ke aplikasi. Untuk sementara Anda bisa memverifikasi dengan curl -k https://guardiansofthetoken.id/health.
+
+Jika Anda memilih tetap memakai port 8443 di host, maka jangan lupa mengubah baris redirect menjadi return 301 https://$host:8443$request_uri; di nginx.conf dan mengakses endpoint dengan https://guardiansofthetoken.id:8443/health.
+
+Lakukan perubahan tersebut, restart stack, dan tes kembali. Setelah port dan sertifikat selaras, error SSL akan hilang dan klien akan melihat sertifikat Let’s Encrypt yang sesuai dengan nama domain.

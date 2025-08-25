@@ -1,0 +1,35 @@
+root@srv795356:~/crypto-analysis-dashboard# # Full restart untuk clear any cached certificates
+docker-compose -f docker-compose-vps.yml down
+
+# Wait 5 seconds
+sleep 5
+
+# Start semua containers fresh
+docker-compose -f docker-compose-vps.yml up -d
+
+# Check containers status
+docker-compose -f docker-compose-vps.yml ps
+
+# Test HTTPS setelah full restart
+curl https://guardiansofthetoken.id/health
+[+] Running 4/4
+ ✔ Container crypto_nginx                            Removed                                                                                                                                                                             0.3s 
+ ✔ Container crypto_trading_app                      Removed                                                                                                                                                                            10.3s 
+ ✔ Container crypto_postgres                         Removed                                                                                                                                                                             0.4s 
+ ✔ Network crypto-analysis-dashboard_crypto_network  Removed                                                                                                                                                                             0.3s 
+[+] Running 4/4
+ ✔ Network crypto-analysis-dashboard_crypto_network  Created                                                                                                                                                                             0.1s 
+ ✔ Container crypto_postgres                         Started                                                                                                                                                                             0.4s 
+ ✔ Container crypto_trading_app                      Healthy                                                                                                                                                                            31.7s 
+ ✔ Container crypto_nginx                            Started                                                                                                                                                                            32.1s 
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        33 seconds ago   Up Less than a second     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     33 seconds ago   Up 32 seconds             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   33 seconds ago   Up 31 seconds (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+curl: (60) SSL: no alternative certificate subject name matches target host name 'guardiansofthetoken.id'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+root@srv795356:~/crypto-analysis-dashboard# 
