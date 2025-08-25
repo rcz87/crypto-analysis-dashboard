@@ -42,7 +42,8 @@ The system combines traditional technical analysis with modern SMC patterns (Cha
   - crypto_nginx: Stable with domain configuration
   - crypto_postgres: Connected and operational
 - **Health Check Optimization**: Extended timeout to 20s for heavy AI computations
-- **SSL Ready**: HTTPS server configuration prepared for SSL certificate installation
+- **SSL Configured**: HTTPS server enabled with Let's Encrypt SSL certificates
+- **Security**: HTTP automatically redirects to HTTPS for secure connections
 
 ### August 24, 2025 - Telegram Integration Completed ✅
 - **Status**: Fully operational and production-ready

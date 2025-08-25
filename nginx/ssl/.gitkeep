@@ -1,0 +1,4 @@
+# Placeholder for SSL certificates
+# In VPS, copy certificates using:
+# sudo cp /etc/letsencrypt/live/guardiansofthetoken.id/fullchain.pem ~/crypto-analysis-dashboard/nginx/ssl/
+# sudo cp /etc/letsencrypt/live/guardiansofthetoken.id/privkey.pem ~/crypto-analysis-dashboard/nginx/ssl/

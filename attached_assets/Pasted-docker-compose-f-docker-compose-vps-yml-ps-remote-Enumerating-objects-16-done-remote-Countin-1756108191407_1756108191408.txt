@@ -1,0 +1,46 @@
+docker-compose -f docker-compose-vps.yml ps
+remote: Enumerating objects: 16, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 11 (delta 7), reused 11 (delta 7), pack-reused 0 (from 0)
+Unpacking objects: 100% (11/11), 412.41 KiB | 615.00 KiB/s, done.
+From github.com:rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+   81267c3..73435f4  main       -> origin/main
+Updating 81267c3..73435f4
+Fast-forward
+ attached_assets/image_1756107447033.png | Bin 0 -> 189379 bytes
+ attached_assets/image_1756107892092.png | Bin 0 -> 277912 bytes
+ nginx/nginx.conf                        |   4 ++--
+ replit.md                               |  14 ++++++++++++++
+ 4 files changed, 16 insertions(+), 2 deletions(-)
+ create mode 100644 attached_assets/image_1756107447033.png
+ create mode 100644 attached_assets/image_1756107892092.png
+no such service: crypto-nginx
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                      PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        34 minutes ago   Up 22 minutes               0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     34 minutes ago   Up 34 minutes               0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   14 minutes ago   Up 14 minutes (unhealthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# # Di VPS, install SSL:
+sudo certbot certonly --webroot -w /var/www/html -d guardiansofthetoken.id -d www.guardiansofthetoken.id
+
+# Copy ke nginx container
+sudo cp /etc/letsencrypt/live/guardiansofthetoken.id/*.pem ~/crypto-analysis-dashboard/nginx/ssl/
+
+# Enable HTTPS di nginx.conf (uncomment HTTPS server block)
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Requesting a certificate for guardiansofthetoken.id and www.guardiansofthetoken.id
+
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/guardiansofthetoken.id/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/guardiansofthetoken.id/privkey.pem
+This certificate expires on 2025-11-23.
+These files will be updated when the certificate renews.
+Certbot has set up a scheduled task to automatically renew this certificate in the background.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+If you like Certbot, please consider supporting our work by:
+ * Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+ * Donating to EFF:                    https://eff.org/donate-le
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+root@srv795356:~/crypto-analysis-dashboard# 
