@@ -1,0 +1,43 @@
+Terlihat dari output curl dan log bahwa layanan Flask Anda sebenarnya sudah merespons /health dengan status “healthy”, tetapi docker-compose ps masih menandai crypto_trading_app sebagai unhealthy dan crypto_nginx terus restart. Hal ini biasanya disebabkan oleh konfigurasi healthcheck yang terlalu ketat atau tidak berhasil mendeteksi status “siap” tepat waktu sehingga kontainer dianggap gagal.
+
+Ada beberapa pendekatan yang bisa Anda ambil:
+
+1. Sesuaikan healthcheck di docker-compose-vps.yml
+
+Anda bisa menambah waktu start_period supaya healthcheck pertama kali dijalankan setelah aplikasi benar‑benar siap, dan gunakan CMD-SHELL agar ada kontrol lebih terhadap perintah curl. Contoh:
+
+crypto-app:
+  # ...
+  healthcheck:
+    test: ["CMD-SHELL", "curl -fs http://localhost:5000/health || exit 1"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 60s  # beri waktu 60 detik sebelum healthcheck pertama
+
+
+Dengan -fs (fail-silent), perintah curl keluar dengan kode non-zero jika respons bukan 2xx. start_period lebih panjang memberi kesempatan aplikasi untuk memuat modul AI/WebSocket sebelum healthcheck dilakukan.
+
+2. Menjalankan Nginx setelah service sehat
+
+Compose versi 3.9 ke atas mendukung depends_on dengan kondisi service_healthy. Anda bisa mengubah versi file dan menambahkan:
+
+version: "3.9"
+
+services:
+  crypto-app:
+    # konfigurasi seperti semula, termasuk healthcheck
+  nginx:
+    depends_on:
+      crypto-app:
+        condition: service_healthy
+    # konfigurasi nginx seperti semula
+
+
+Dengan begitu, Nginx baru akan start jika crypto-app berstatus healthy.
+
+3. Menonaktifkan healthcheck sementara
+
+Jika Anda masih dalam tahap pengembangan dan ingin memastikan aplikasi tersedia tanpa mempedulikan status “unhealthy”, Anda bisa menghapus atau mengomentari blok healthcheck pada service crypto-app di docker-compose-vps.yml. Ini akan mencegah Compose menandai service sebagai unhealthy sehingga crypto_nginx tidak restart karena dependensi.
+
+Langkah berikutnya: pilih salah satu pendekatan di atas, perbarui docker-compose-vps.yml, lalu rebuild atau jalankan ulang kontainer. Contohnya untuk pendekatan pertama:
