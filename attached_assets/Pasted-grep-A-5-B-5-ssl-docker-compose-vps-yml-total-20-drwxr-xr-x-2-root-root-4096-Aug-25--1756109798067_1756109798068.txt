@@ -1,0 +1,47 @@
+grep -A 5 -B 5 "ssl" docker-compose-vps.yml
+total 20
+drwxr-xr-x 2 root      root      4096 Aug 25 08:13 .
+drwxr-xr-x 4 cryptoapp cryptoapp 4096 Aug 25 07:53 ..
+-rw-r--r-- 1 root      root       283 Aug 25 07:53 .gitkeep
+-rw-r--r-- 1 root      root      3647 Aug 25 08:13 fullchain.pem
+-rw------- 1 root      root      1704 Aug 25 08:13 privkey.pem
+crypto_nginx  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+crypto_nginx  | /docker-entrypoint.sh: Configuration complete; ready for start up
+crypto_nginx  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+crypto_nginx  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+crypto_nginx  | 10-listen-on-ipv6-by-default.sh: info: IPv6 listen already enabled
+crypto_nginx  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+crypto_nginx  | /docker-entrypoint.sh: Configuration complete; ready for start up
+crypto_nginx  | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+crypto_nginx  | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+crypto_nginx  | 10-listen-on-ipv6-by-default.sh: info: IPv6 listen already enabled
+crypto_nginx  | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+crypto_nginx  | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+crypto_nginx  | /docker-entrypoint.sh: Configuration complete; ready for start up
+total 24
+drwxr-xr-x    2 root     root          4096 Aug 25 08:13 .
+drwxr-xr-x    1 root     root          4096 Aug 25 07:14 ..
+-rw-r--r--    1 root     root           283 Aug 25 07:53 .gitkeep
+-rw-r--r--    1 root     root          3647 Aug 25 08:13 fullchain.pem
+-rw-------    1 root     root          1704 Aug 25 08:13 privkey.pem
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+    ports:
+      - "8080:80"   # host port 8080 -> container port 80
+      - "8443:443"  # host port 8443 -> container port 443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ./nginx/certbot:/var/www/certbot:ro
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - crypto_network
+
+root@srv795356:~/crypto-analysis-dashboard# 
