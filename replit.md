@@ -30,6 +30,20 @@ The system combines traditional technical analysis with modern SMC patterns (Cha
 - **Performance Metrics**: Built-in monitoring tracks messages/s, batch sizes, processing time
 - **Benefits**: Better entry/exit timing, dynamic stop loss, enhanced confidence scores
 
+### August 25, 2025 - VPS Production Deployment Completed ✅
+- **Status**: Fully deployed and operational on Hostinger VPS
+- **Domain Configuration**: guardiansofthetoken.id configured with nginx reverse proxy
+- **Production URLs**:
+  - Primary API: `http://212.85.26.253:5001`
+  - Nginx Proxy: `http://212.85.26.253:8080`  
+  - Domain Ready: `http://guardiansofthetoken.id` (when DNS pointed)
+- **Container Status**: All containers healthy and stable
+  - crypto_trading_app: Healthy with 20s timeout for AI processing
+  - crypto_nginx: Stable with domain configuration
+  - crypto_postgres: Connected and operational
+- **Health Check Optimization**: Extended timeout to 20s for heavy AI computations
+- **SSL Ready**: HTTPS server configuration prepared for SSL certificate installation
+
 ### August 24, 2025 - Telegram Integration Completed ✅
 - **Status**: Fully operational and production-ready
 - **Telegram Bot Integration**: Complete with professional signal delivery
