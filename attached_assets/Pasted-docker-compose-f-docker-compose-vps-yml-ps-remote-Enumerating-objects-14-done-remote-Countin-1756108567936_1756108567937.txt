@@ -1,0 +1,24 @@
+docker-compose -f docker-compose-vps.yml ps
+remote: Enumerating objects: 14, done.
+remote: Counting objects: 100% (14/14), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 9 (delta 4), reused 9 (delta 4), pack-reused 0 (from 0)
+Unpacking objects: 100% (9/9), 2.59 KiB | 884.00 KiB/s, done.
+From github.com:rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+   73435f4..7ac2319  main       -> origin/main
+Updating 73435f4..7ac2319
+Fast-forward
+ attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-remote-Enumerating-objects-16-done-remote-Countin-1756108191407_1756108191408.txt | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ nginx/nginx.conf                                                                                                                                    | 48 ++++++++++++++++++++++++------------------------
+ nginx/ssl/.gitkeep                                                                                                                                  |  4 ++++
+ replit.md                                                                                                                                           |  3 ++-
+ 4 files changed, 76 insertions(+), 25 deletions(-)
+ create mode 100644 attached_assets/Pasted-docker-compose-f-docker-compose-vps-yml-ps-remote-Enumerating-objects-16-done-remote-Countin-1756108191407_1756108191408.txt
+ create mode 100644 nginx/ssl/.gitkeep
+no such service: crypto-nginx
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        39 minutes ago   Up 27 minutes             0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     39 minutes ago   Up 39 minutes             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   19 minutes ago   Up 19 minutes (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# 
