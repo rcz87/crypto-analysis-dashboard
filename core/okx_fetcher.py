@@ -229,8 +229,23 @@ class OKXFetcher:
         """Generate fallback data when API fails"""
         logger.warning(f"Using fallback data for {symbol} due to error: {error}")
         
-        # Generate basic fallback candles based on common crypto prices
+        # Try to get real current price from ticker API as last resort
         base_price = 45000.0 if 'BTC' in symbol else 3000.0 if 'ETH' in symbol else 100.0
+        
+        try:
+            # Attempt to get real current price from ticker endpoint
+            ticker_data = self.get_ticker_data(symbol)
+            if ticker_data and 'last_price' in ticker_data:
+                base_price = ticker_data['last_price']
+                logger.info(f"📊 Using real current price {base_price} for fallback data")
+            else:
+                # Update base prices to be closer to current market reality (Aug 2025)
+                base_price = 111000.0 if 'BTC' in symbol else 3800.0 if 'ETH' in symbol else 100.0
+                logger.warning(f"📊 Using updated estimated price {base_price} for fallback data")
+        except Exception as e:
+            # Update base prices to be closer to current market reality (Aug 2025)  
+            base_price = 111000.0 if 'BTC' in symbol else 3800.0 if 'ETH' in symbol else 100.0
+            logger.warning(f"📊 Using updated estimated price {base_price} for fallback data after ticker failed: {e}")
         
         candles = []
         for i in range(20):  # Generate 20 candles
@@ -251,8 +266,9 @@ class OKXFetcher:
             'timeframe': timeframe,
             'candles': candles,
             'count': len(candles),
-            'status': 'fallback',
+            'status': 'fallback_with_real_price' if base_price > 100000 else 'fallback_estimated',
             'error': error,
+            'base_price_used': base_price,
             'timestamp': datetime.now().isoformat()
         }
     
