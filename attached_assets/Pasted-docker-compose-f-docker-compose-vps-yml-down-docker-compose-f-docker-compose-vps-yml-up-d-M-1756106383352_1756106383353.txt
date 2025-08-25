@@ -1,0 +1,37 @@
+docker-compose -f docker-compose-vps.yml down
+docker-compose -f docker-compose-vps.yml up -d
+
+# Monitor hasil (tidak akan ada error lagi):
+docker-compose -f docker-compose-vps.yml ps
+remote: Enumerating objects: 16, done.
+remote: Counting objects: 100% (16/16), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 11 (delta 8), reused 11 (delta 8), pack-reused 0 (from 0)
+Unpacking objects: 100% (11/11), 3.19 KiB | 816.00 KiB/s, done.
+From github.com:rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+   0995c96..78bf6a6  main       -> origin/main
+Updating 0995c96..78bf6a6
+Fast-forward
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Di-VPS-terminal-cd-crypto-analysis-dashboard-git--1756105516039_1756105516040.txt | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-curl-http-212-85-26-253-5001-health-message-Basic-1756105897360_1756105897360.txt | 43 +++++++++++++++++++++++++++++++++++++++++++
+ docker-compose-vps.yml                                                                                                                            |  2 --
+ nginx/nginx.conf                                                                                                                                  |  5 +++--
+ 4 files changed, 90 insertions(+), 4 deletions(-)
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-Di-VPS-terminal-cd-crypto-analysis-dashboard-git--1756105516039_1756105516040.txt
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-curl-http-212-85-26-253-5001-health-message-Basic-1756105897360_1756105897360.txt
+[+] Running 4/4
+ ✔ Container crypto_nginx                            Removed                                                                                                                                                                             0.0s 
+ ✔ Container crypto_trading_app                      Removed                                                                                                                                                                            10.3s 
+ ✔ Container crypto_postgres                         Removed                                                                                                                                                                             0.3s 
+ ✔ Network crypto-analysis-dashboard_crypto_network  Removed                                                                                                                                                                             0.3s 
+[+] Running 4/4
+ ✔ Network crypto-analysis-dashboard_crypto_network  Created                                                                                                                                                                             0.1s 
+ ✔ Container crypto_postgres                         Started                                                                                                                                                                             0.3s 
+ ✔ Container crypto_trading_app                      Healthy                                                                                                                                                                            30.6s 
+ ✔ Container crypto_nginx                            Started                                                                                                                                                                            31.1s 
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        31 seconds ago   Up Less than a second     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     31 seconds ago   Up 31 seconds             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   31 seconds ago   Up 30 seconds (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# 
