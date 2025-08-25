@@ -19,7 +19,7 @@ services:
 
   # Main Application
   crypto-app:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: crypto_trading_app
@@ -47,9 +47,11 @@ services:
       PRODUCTION_ONLY: "1"
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
-      ports:
-    - "5001:5000"
-    
+
+    # Mapping port 5000 in container to port 5001 on host
+    ports:
+      - "5001:5000"
+
     volumes:
       - ./logs:/app/logs
     networks:
