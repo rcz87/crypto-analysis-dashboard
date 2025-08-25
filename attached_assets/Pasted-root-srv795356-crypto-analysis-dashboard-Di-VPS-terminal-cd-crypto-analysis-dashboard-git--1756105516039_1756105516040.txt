@@ -1,0 +1,44 @@
+root@srv795356:~/crypto-analysis-dashboard# # Di VPS terminal:
+cd ~/crypto-analysis-dashboard
+git pull origin main
+docker-compose -f docker-compose-vps.yml down
+docker-compose -f docker-compose-vps.yml up -d
+
+# Monitor hasil:
+docker-compose -f docker-compose-vps.yml ps
+remote: Enumerating objects: 13, done.
+remote: Counting objects: 100% (13/13), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 10 (delta 6), reused 10 (delta 6), pack-reused 0 (from 0)
+Unpacking objects: 100% (10/10), 219.83 KiB | 311.00 KiB/s, done.
+From github.com:rcz87/crypto-analysis-dashboard
+ * branch            main       -> FETCH_HEAD
+   d0eb43c..0995c96  main       -> origin/main
+Updating d0eb43c..0995c96
+Fast-forward
+ attached_assets/Pasted-Terlihat-dari-output-curl-dan-log-bahwa-layanan-Flask-Anda-sebenarnya-sudah-merespons-health-dengan-1756105127271_1756105127271.txt |  43 +++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-1-Check-logs-aplikasi-untuk-lihat-apa-yang-terjadi-d-1756104848819_1756104848819.txt       |  64 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ attached_assets/image_1756105011297.png                                                                                                                    | Bin 0 -> 242668 bytes
+ docker-compose-vps.yml                                                                                                                                     |   9 +++++----
+ 4 files changed, 112 insertions(+), 4 deletions(-)
+ create mode 100644 attached_assets/Pasted-Terlihat-dari-output-curl-dan-log-bahwa-layanan-Flask-Anda-sebenarnya-sudah-merespons-health-dengan-1756105127271_1756105127271.txt
+ create mode 100644 attached_assets/Pasted-root-srv795356-crypto-analysis-dashboard-1-Check-logs-aplikasi-untuk-lihat-apa-yang-terjadi-d-1756104848819_1756104848819.txt
+ create mode 100644 attached_assets/image_1756105011297.png
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Running 4/4
+ ✔ Container crypto_nginx                            Removed                                                                                                                                                                             0.0s 
+ ✔ Container crypto_trading_app                      Removed                                                                                                                                                                            10.4s 
+ ✔ Container crypto_postgres                         Removed                                                                                                                                                                             0.3s 
+ ✔ Network crypto-analysis-dashboard_crypto_network  Removed                                                                                                                                                                             0.3s 
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+[+] Running 4/4
+ ✔ Network crypto-analysis-dashboard_crypto_network  Created                                                                                                                                                                             0.1s 
+ ✔ Container crypto_postgres                         Started                                                                                                                                                                             0.6s 
+ ✔ Container crypto_trading_app                      Healthy                                                                                                                                                                            51.4s 
+ ✔ Container crypto_nginx                            Started                                                                                                                                                                            51.6s 
+WARN[0000] /root/crypto-analysis-dashboard/docker-compose-vps.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        52 seconds ago   Up Less than a second     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     52 seconds ago   Up 51 seconds             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   52 seconds ago   Up 51 seconds (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# 
