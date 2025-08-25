@@ -42,6 +42,7 @@ WORKDIR /app
 
 # Copy only essential application files (minimal set)
 # Exclude heavy directories via .dockerignore: .pythonlibs/, .cache/, .local/
+COPY app.py .
 COPY wsgi_production.py .
 COPY main.py .
 COPY gpts_api_simple.py .
