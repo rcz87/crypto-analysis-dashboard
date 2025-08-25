@@ -1,0 +1,48 @@
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:app:✅ Core Trading: signal_top blueprint registered
+INFO:app:✅ Core Trading: missing_endpoints blueprint registered
+INFO:app:✅ Core Trading: news_api blueprint registered
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: macd_crossover
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: ema_momentum
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: rsi_breakout
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: macd_divergence
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: stochastic_momentum
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: bollinger_squeeze
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: sma_crossover
+WARNING:core.high_prob_signal_engine:⚠️ Strategy base_strategy missing Strategy class
+INFO:core.high_prob_signal_engine:✅ Loaded strategy: bollinger_breakout
+INFO:core.high_prob_signal_engine:🎯 High Probability Signal Engine initialized with 8 strategies
+INFO:api.holly_signal_endpoints:🎯 Holly Signal Engine initialized successfully
+INFO:app:✅ Holly Signals: Multi-strategy backtesting, high-probability signal generation
+ERROR:app:Failed to import gpts_api blueprint: No module named 'gpts_routes'
+INFO:app:✅ Core Trading: gpts_sinyal blueprint registered
+WARNING:app:Could not register modular_endpoints: [Errno 13] Permission denied: '/app/logs/system_debug.log'
+INFO:app:✅ Enhanced Signals: enhanced signal endpoints registered with /api/enhanced/sharp-signal
+INFO:app:✅ SMC: smc_context blueprint registered with /api/smc/analysis, /api/smc/orderblocks, /api/smc/patterns/recognize
+INFO:app:✅ AI Reasoning: ai_reasoning blueprint registered with /api/ai-reasoning routes
+INFO:app:✅ CRITICAL: Sharp Signal blueprint registered with /api/signal/sharp routes
+WARNING:app:Could not register openapi schema: The name 'openapi_enhanced' is already registered for this blueprint. Use 'name=' to provide a unique name.
+INFO:app:✅ Advanced Trading: Enhanced SMC, Multi-Timeframe, Risk Management registered
+INFO:app:✅ Optimized AI: Latency <3s, Transformer + RL ensemble registered
+INFO:api.api_versioning:✅ Backward compatibility setup for 7 endpoints
+INFO:app:✅ API Versioning: v1 (legacy), v2 (current) with backward compatibility
+INFO:app:✅ Self-Service Docs: SDK examples for Python, JS, Go, cURL
+INFO:app:✅ Performance Monitoring: Cache stats, optimization status, system metrics
+INFO:app:✅ Enterprise Management: 50+ endpoints, real-time analytics, intelligent scaling
+INFO:app:✅ TradingLite Integration: Gold subscription features - Liquidity heatmaps, Order flow, LitScript
+WARNING:app:Could not register monitoring: No module named 'monitoring_routes'
+INFO:app:✅ Telegram: Signal notifications, status monitoring, test endpoints
+INFO:app:✅ News Sentiment: AI-powered news analysis with impact assessment
+INFO:core.websocket_integration:🚀 Started WebSocket worker threads
+INFO:core.websocket_data_manager:📡 Subscribed to price_update
+INFO:core.websocket_data_manager:📡 Subscribed to orderbook_imbalance
+INFO:core.websocket_data_manager:📡 Subscribed to liquidation_event
+WARNING:core.websocket_app_integration:Holly Signal Engine not found
+WARNING:core.websocket_app_integration:SMC Analyzer not found
+WARNING:core.websocket_app_integration:AI Reasoning Engine not found
+INFO:core.websocket_data_manager:🚀 WebSocket Data Manager started with full integration
+INFO:core.websocket_app_integration:🚀 WebSocket fully integrated with trading systems
+INFO:app:🔌 WebSocket fully integrated with signal engines
+INFO:app:🚀 Flask app created successfully (config: production)
+172.18.0.4 - - [25/Aug/2025:09:43:49 +0000] "GET /health HTTP/1.1" 200 52 "-" "curl/8.14.1"
+root@srv795356:~/crypto-analysis-dashboard# 
