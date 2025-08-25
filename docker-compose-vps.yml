@@ -47,8 +47,9 @@ services:
       PRODUCTION_ONLY: "1"
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
-    ports:
-      - "5050:5000"  # Main production port
+      ports:
+    - "5001:5000"
+    
     volumes:
       - ./logs:/app/logs
     networks:
