@@ -1,0 +1,55 @@
+root@srv795356:~/crypto-analysis-dashboard# # Restart nginx dengan SSL configuration
+docker-compose -f docker-compose-vps.yml restart nginx
+
+# Check status - semuanya harus healthy
+docker-compose -f docker-compose-vps.yml ps
+[+] Restarting 1/1
+ ✔ Container crypto_nginx  Started                                                                                                                                                                                                       0.6s 
+NAME                 IMAGE                                  COMMAND                  SERVICE      CREATED          STATUS                    PORTS
+crypto_nginx         nginx:alpine                           "/docker-entrypoint.…"   nginx        50 minutes ago   Up Less than a second     0.0.0.0:8080->80/tcp, [::]:8080->80/tcp, 0.0.0.0:8443->443/tcp, [::]:8443->443/tcp
+crypto_postgres      postgres:16-alpine                     "docker-entrypoint.s…"   postgres     50 minutes ago   Up 50 minutes             0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+crypto_trading_app   crypto-analysis-dashboard-crypto-app   "./start-production.…"   crypto-app   30 minutes ago   Up 30 minutes (healthy)   0.0.0.0:5001->5000/tcp, [::]:5001->5000/tcp
+root@srv795356:~/crypto-analysis-dashboard# # Test 1: HTTP redirect ke HTTPS  
+curl -I http://guardiansofthetoken.id/health
+# Expected: HTTP/1.1 301 Moved Permanently
+
+# Test 2: HTTPS access (NEW!)
+curl https://guardiansofthetoken.id/health
+curl https://www.guardiansofthetoken.id/health
+
+# Test 3: HTTPS API endpoints  
+curl "https://guardiansofthetoken.id/api/gpts/status"
+curl "https://guardiansofthetoken.id/api/gpts/sinyal/tajam?symbol=BTC-USDT&timeframe=1H"
+HTTP/1.1 301 Moved Permanently
+Server: nginx
+Date: Mon, 25 Aug 2025 08:05:09 GMT
+Content-Type: text/html
+Content-Length: 162
+Connection: keep-alive
+Location: https://guardiansofthetoken.id/health
+
+curl: (60) SSL: no alternative certificate subject name matches target host name 'guardiansofthetoken.id'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+curl: (60) SSL: no alternative certificate subject name matches target host name 'www.guardiansofthetoken.id'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+curl: (60) SSL: no alternative certificate subject name matches target host name 'guardiansofthetoken.id'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+curl: (60) SSL: no alternative certificate subject name matches target host name 'guardiansofthetoken.id'
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+root@srv795356:~/crypto-analysis-dashboard# 
