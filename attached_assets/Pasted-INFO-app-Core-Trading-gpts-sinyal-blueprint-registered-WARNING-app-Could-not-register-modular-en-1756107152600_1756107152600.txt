@@ -1,0 +1,76 @@
+INFO:app:✅ Core Trading: gpts_sinyal blueprint registered
+WARNING:app:Could not register modular_endpoints: [Errno 13] Permission denied: '/app/logs/system_debug.log'
+INFO:app:✅ Enhanced Signals: enhanced signal endpoints registered with /api/enhanced/sharp-signal
+INFO:app:✅ SMC: smc_context blueprint registered with /api/smc/analysis, /api/smc/orderblocks, /api/smc/patterns/recognize
+INFO:app:✅ AI Reasoning: ai_reasoning blueprint registered with /api/ai-reasoning routes
+INFO:app:✅ CRITICAL: Sharp Signal blueprint registered with /api/signal/sharp routes
+WARNING:app:Could not register openapi schema: The name 'openapi_enhanced' is already registered for this blueprint. Use 'name=' to provide a unique name.
+INFO:app:✅ Advanced Trading: Enhanced SMC, Multi-Timeframe, Risk Management registered
+INFO:app:✅ Optimized AI: Latency <3s, Transformer + RL ensemble registered
+INFO:api.api_versioning:✅ Backward compatibility setup for 7 endpoints
+INFO:app:✅ API Versioning: v1 (legacy), v2 (current) with backward compatibility
+INFO:app:✅ Self-Service Docs: SDK examples for Python, JS, Go, cURL
+INFO:app:✅ Performance Monitoring: Cache stats, optimization status, system metrics
+INFO:app:✅ Enterprise Management: 50+ endpoints, real-time analytics, intelligent scaling
+INFO:app:✅ TradingLite Integration: Gold subscription features - Liquidity heatmaps, Order flow, LitScript
+WARNING:app:Could not register monitoring: No module named 'monitoring_routes'
+INFO:app:✅ Telegram: Signal notifications, status monitoring, test endpoints
+INFO:app:✅ News Sentiment: AI-powered news analysis with impact assessment
+INFO:core.websocket_integration:🚀 Started WebSocket worker threads
+INFO:core.websocket_data_manager:📡 Subscribed to price_update
+INFO:core.websocket_data_manager:📡 Subscribed to orderbook_imbalance
+INFO:core.websocket_data_manager:📡 Subscribed to liquidation_event
+WARNING:core.websocket_app_integration:Holly Signal Engine not found
+WARNING:core.websocket_app_integration:SMC Analyzer not found
+WARNING:core.websocket_app_integration:AI Reasoning Engine not found
+INFO:core.websocket_data_manager:🚀 WebSocket Data Manager started with full integration
+INFO:core.websocket_app_integration:🚀 WebSocket fully integrated with trading systems
+INFO:app:🔌 WebSocket fully integrated with signal engines
+INFO:app:🚀 Flask app created successfully (config: production)
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-08-25T07:29:38.780667648Z",
+                        "End": "2025-08-25T07:29:48.818185528Z",
+                        "ExitCode": -1,
+                        "Output": "Health check exceeded timeout (10s)"
+                    },
+                    {
+                        "Start": "2025-08-25T07:30:18.819248069Z",
+                        "End": "2025-08-25T07:30:18.871595276Z",
+                        "ExitCode": 0,
+                        "Output": "{\"message\":\"Basic health check\",\"status\":\"healthy\"}\n"
+                    },
+                    {
+                        "Start": "2025-08-25T07:30:48.872291518Z",
+                        "End": "2025-08-25T07:30:48.925852873Z",
+--
+                        "Output": "Health check exceeded timeout (10s)"
+                    },
+                    {
+                        "Start": "2025-08-25T07:31:58.97218128Z",
+                        "End": "2025-08-25T07:31:59.021242202Z",
+                        "ExitCode": 0,
+                        "Output": "{\"message\":\"Basic health check\",\"status\":\"healthy\"}\n"
+                    }
+                ]
+            }
+        },
+--
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "curl -fs http://localhost:5000/health || exit 1"
+                ],
+                "Interval": 30000000000,
+                "Timeout": 10000000000,
+                "StartPeriod": 90000000000,
+                "Retries": 3
+            },
+            "Image": "crypto-analysis-dashboard-crypto-app",
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0
