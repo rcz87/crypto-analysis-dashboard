@@ -276,7 +276,7 @@ class IntelligentResourcePool:
         
         # Configuration
         self.max_queue_size = 1000
-        self.auto_scaling_enabled = True
+        self.auto_scaling_enabled = False  # DISABLED: Preventing infinite scaling loop
         self.memory_threshold_percent = 85
         self.cpu_threshold_percent = 80
         
@@ -493,6 +493,8 @@ class IntelligentResourcePool:
     
     def _scale_up_resources(self):
         """Scale up resources"""
+        if not self.auto_scaling_enabled:
+            return  # Skip scaling when disabled
         self.logger.info("🚀 Auto-scaling UP: Increasing resource capacity")
         
         # Increase thread pool sizes (if not at max)
