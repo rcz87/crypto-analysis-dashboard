@@ -1,0 +1,64 @@
+root@srv795356:~/crypto-analysis-dashboard# # 1. Check logs aplikasi untuk lihat apa yang terjadi
+docker logs crypto_trading_app --tail 50
+
+# 2. Test manual health check 
+curl -f http://localhost:5001/health
+
+# 3. Check semua endpoints yang tersedia
+curl http://localhost:5001/
+
+# 4. Check specific health endpoint
+curl -v http://localhost:5001/health
+
+# 5. Jika perlu restart nginx setelah app ready
+docker restart crypto_nginx
+INFO:core.websocket_data_manager:📡 Subscribed to price_update
+INFO:core.websocket_data_manager:📡 Subscribed to orderbook_imbalance
+INFO:core.websocket_data_manager:📡 Subscribed to liquidation_event
+WARNING:core.websocket_app_integration:Holly Signal Engine not found
+WARNING:core.websocket_app_integration:SMC Analyzer not found
+WARNING:core.websocket_app_integration:AI Reasoning Engine not found
+INFO:core.websocket_data_manager:🚀 WebSocket Data Manager started with full integration
+INFO:core.websocket_app_integration:🚀 WebSocket fully integrated with trading systems
+INFO:app:🔌 WebSocket fully integrated with signal engines
+INFO:app:🚀 Flask app created successfully (config: production)
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased database connection pool to 45
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased external_api connection pool to 25
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased cache connection pool to 15
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased internal_api connection pool to 35
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased database connection pool to 40
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased external_api connection pool to 20
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased cache connection pool to 10
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased internal_api connection pool to 30
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+127.0.0.1 - - [25/Aug/2025:06:53:38 +0000] "GET /health HTTP/1.1" 200 52 "-" "curl/7.88.1"
+127.0.0.1 - - [25/Aug/2025:06:53:40 +0000] "GET /health HTTP/1.1" 200 52 "-" "curl/7.88.1"
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:🎯 Auto-scaling DOWN: Optimizing resource usage
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased database connection pool to 35
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased external_api connection pool to 15
+INFO:core.intelligent_resource_pool.IntelligentResourcePool:Decreased internal_api connection pool to 25
