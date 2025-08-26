@@ -31,13 +31,13 @@ The system combines traditional technical analysis with modern SMC patterns (Cha
 - **Benefits**: Better entry/exit timing, dynamic stop loss, enhanced confidence scores
 
 ### August 26, 2025 - DOMAIN INTEGRATION COMPLETED ✅
-- **Status**: 🌍 **GUARDIANSOFTHEGREENTOKEN.COM DOMAIN FULLY INTEGRATED**
+- **Status**: 🌍 **GUARDIANSOFTHETOKEN.ID DOMAIN FULLY INTEGRATED**
 - **GPT-5 Ready**: ✅ All endpoints accessible from domain with CORS configuration
 - **Domain Configuration**: 
-  - ✅ Primary: `https://guardiansofthegreentoken.com`
-  - ✅ Secondary: `https://www.guardiansofthegreentoken.com`
+  - ✅ Primary: `https://guardiansofthetoken.id`
+  - ✅ Secondary: `https://www.guardiansofthetoken.id`
   - ✅ GPT-5 Access: `https://chat.openai.com`, `https://api.openai.com`
-  - ✅ Backup: `https://guardiansofthetoken.id`
+  - ✅ Backup: `https://guardiansofthegreentoken.com`
 - **New GPT-5 Endpoints**: 
   - ✅ `/api/gpt5/domain-info` - Domain integration info (no API key required)
   - ✅ `/api/gpt5/endpoints` - Complete endpoint listing for GPT-5
@@ -49,7 +49,7 @@ The system combines traditional technical analysis with modern SMC patterns (Cha
   - ✅ Methods: GET, POST, PUT, DELETE, OPTIONS
   - ✅ Credentials support enabled
 - **Authentication**: API Key `zpG8dClHMYO89MSVl2DUj3t6vHJcznY2` (both X-API-KEY and Authorization Bearer supported)
-- **Total Endpoints**: 91+ endpoints all accessible from guardiansofthegreentoken.com domain
+- **Total Endpoints**: 91+ endpoints all accessible from guardiansofthetoken.id domain
 - **Achievement**: 🚀 **COMPLETE DOMAIN INTEGRATION - GPT-5 CAN ACCESS ALL TRADING DATA**
 
 ### August 25, 2025 - PRODUCTION DEPLOYMENT FULLY OPERATIONAL ✅

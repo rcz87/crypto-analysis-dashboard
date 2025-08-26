@@ -21,13 +21,13 @@ def domain_info():
     """
     return jsonify({
         "success": True,
-        "domain": "guardiansofthegreentoken.com",
+        "domain": "guardiansofthetoken.id",
         "api_version": "2.0.0",
         "gpt5_ready": True,
         "cors_enabled": True,
         "supported_domains": [
-            "https://guardiansofthegreentoken.com",
-            "https://www.guardiansofthegreentoken.com",
+            "https://guardiansofthetoken.id",
+            "https://www.guardiansofthetoken.id",
             "https://chat.openai.com",
             "https://api.openai.com"
         ],
@@ -37,7 +37,7 @@ def domain_info():
             "contact": "Provide API key in headers"
         },
         "endpoints_available": 91,
-        "message": "🚀 Ready for GPT-5 integration from guardiansofthegreentoken.com"
+        "message": "🚀 Ready for GPT-5 integration from guardiansofthetoken.id"
     })
 
 @gpt5_bp.route('/endpoints', methods=['GET'])
@@ -81,7 +81,7 @@ def list_gpt5_endpoints():
     
     return jsonify({
         "success": True,
-        "domain": "guardiansofthegreentoken.com",
+        "domain": "guardiansofthetoken.id",
         "total_endpoints": 91,
         "gpt5_optimized": True,
         "categories": endpoints,
@@ -91,7 +91,7 @@ def list_gpt5_endpoints():
             "check_system_status": "GET /api/status"
         },
         "authentication_header": "X-API-KEY: {your_api_key}",
-        "message": "🎯 All endpoints accessible from guardiansofthegreentoken.com"
+        "message": "🎯 All endpoints accessible from guardiansofthetoken.id"
     })
 
 @gpt5_bp.route('/quick-signal', methods=['GET'])
@@ -123,7 +123,7 @@ def quick_signal_for_gpt5():
         if signal_data and signal_data.get('success'):
             return jsonify({
                 "success": True,
-                "domain": "guardiansofthegreentoken.com",
+                "domain": "guardiansofthetoken.id",
                 "symbol": symbol,
                 "signal": signal_data.get('signal', {}),
                 "confidence": signal_data.get('confidence', 0),
@@ -136,7 +136,7 @@ def quick_signal_for_gpt5():
         else:
             return jsonify({
                 "success": False,
-                "domain": "guardiansofthegreentoken.com", 
+                "domain": "guardiansofthetoken.id", 
                 "error": "SIGNAL_GENERATION_FAILED",
                 "message": "Could not generate signal at this time"
             }), 500
@@ -145,7 +145,7 @@ def quick_signal_for_gpt5():
         logger.error(f"GPT-5 quick signal error: {e}")
         return jsonify({
             "success": False,
-            "domain": "guardiansofthegreentoken.com",
+            "domain": "guardiansofthetoken.id",
             "error": "SIGNAL_ERROR", 
             "message": f"Signal generation error: {str(e)[:100]}"
         }), 500
@@ -154,11 +154,11 @@ def quick_signal_for_gpt5():
 @require_api_key  
 def test_gpt5_connection():
     """
-    Test endpoint for GPT-5 to verify connection to guardiansofthegreentoken.com
+    Test endpoint for GPT-5 to verify connection to guardiansofthetoken.id
     """
     return jsonify({
         "success": True,
-        "domain": "guardiansofthegreentoken.com",
+        "domain": "guardiansofthetoken.id",
         "connection_status": "ESTABLISHED",
         "gpt5_ready": True,
         "api_accessible": True,
@@ -166,5 +166,5 @@ def test_gpt5_connection():
         "authentication": "VALID",
         "endpoints_available": 91,
         "timestamp": "2025-08-26",
-        "message": "🚀 GPT-5 connection successful to guardiansofthegreentoken.com!"
+        "message": "🚀 GPT-5 connection successful to guardiansofthetoken.id!"
     })

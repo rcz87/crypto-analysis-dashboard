@@ -39,17 +39,17 @@ def create_app(config_name='development'):
         x_for=1  # Add x_for for better IP handling
     )
     
-    # 🌍 CORS CONFIGURATION for guardiansofthegreentoken.com domain
+    # 🌍 CORS CONFIGURATION for guardiansofthetoken.id domain
     # Allow GPT-5 and other services to access our API from the production domain
     CORS(app, 
          origins=[
-             "https://guardiansofthegreentoken.com",
-             "https://www.guardiansofthegreentoken.com", 
-             "https://chat.openai.com",
-             "https://openai.com",
-             "https://api.openai.com",
              "https://guardiansofthetoken.id",
              "https://www.guardiansofthetoken.id",
+             "https://chat.openai.com",
+             "https://openai.com", 
+             "https://api.openai.com",
+             "https://guardiansofthegreentoken.com",  # Backup domain
+             "https://www.guardiansofthegreentoken.com",
              "http://localhost:*",  # Development
              "http://127.0.0.1:*"   # Local testing
          ],
@@ -181,7 +181,7 @@ def create_app(config_name='development'):
                 "status": "/api/gpts/status", 
                 "documentation": "See development_workflow_explained.md"
             },
-            "domain_ready": "guardiansofthegreentoken.com",
+            "domain_ready": "guardiansofthetoken.id",
             "gpt5_integration": True,
             "timestamp": int(datetime.datetime.utcnow().timestamp())
         })
