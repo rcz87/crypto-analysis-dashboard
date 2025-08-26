@@ -6,8 +6,8 @@ import multiprocessing
 bind = "0.0.0.0:5000"
 backlog = 1024
 
-# Worker processes - Production optimized
-workers = (multiprocessing.cpu_count() * 2) + 1  # Optimal: (CPU * 2) + 1
+# Worker processes - Optimized to prevent repeated initialization
+workers = 2  # Use fewer workers to reduce memory and initialization overhead
 worker_class = "gthread"  # Use gthread for better concurrency
 worker_connections = 1000
 threads = 4  # 2-4 threads per worker as specified
@@ -37,8 +37,8 @@ tmp_upload_dir = None
 keyfile = None
 certfile = None
 
-# Memory optimization
-preload_app = False  # Don't preload to save memory
+# Memory optimization - Avoid preload_app due to eventlet monkey patching conflicts  
+preload_app = False  # EventLet monkey patch conflicts with preload
 lazy_apps = True
 
 # Environment variables

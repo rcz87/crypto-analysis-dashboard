@@ -1,5 +1,6 @@
 import os
 import logging
+import datetime
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
@@ -986,9 +987,5 @@ def create_app(config_name='development'):
     logger.info(f"🚀 Flask app created successfully (config: {config_name})")
     return app
 
-# Create app instance for compatibility (avoid using this in production)
-app = create_app()
-# Buat instance aplikasi untuk WSGI server (production)
-if __name__ != "__main__":
-    from os import environ
-    app = create_app(environ.get("FLASK_ENV", "production"))
+# Application factory is defined above
+# App instance will be created by main.py or the WSGI server
