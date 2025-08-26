@@ -1,7 +1,7 @@
 import os
 import logging
 import datetime
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -43,7 +43,17 @@ def create_app(config_name='development'):
     app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False  # Disable pretty print for performance
     
     # 🗄️ DATABASE CONFIGURATION
-    app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///dev.db")
+    database_url = os.getenv("DATABASE_URL", "sqlite:///dev.db")
+    # Fallback to SQLite if PostgreSQL connection fails
+    if database_url.startswith("postgres"):
+        try:
+            import psycopg2
+            app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+        except ImportError:
+            logger.warning("PostgreSQL driver not available, falling back to SQLite")
+            app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///dev.db"
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = database_url
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
         "pool_recycle": 300,
         "pool_pre_ping": True,
@@ -649,7 +659,6 @@ def create_app(config_name='development'):
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"Enhanced analysis endpoint error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -659,9 +668,14 @@ def create_app(config_name='development'):
     def websocket_status():
         """Get WebSocket connection status"""
         try:
-            from core.okx_websocket import ws_manager
+            from core.okx_websocket_simple import ws_manager_simple
             
-            status = ws_manager.get_status()
+            status = {
+                "manager_running": ws_manager_simple.is_started,
+                "client_status": {
+                    "last_prices": getattr(ws_manager_simple, 'latest_prices', {}) if hasattr(ws_manager_simple, 'latest_prices') else {}
+                }
+            }
             
             return jsonify({
                 "status": "success",
@@ -671,7 +685,6 @@ def create_app(config_name='development'):
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"WebSocket status error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -680,8 +693,6 @@ def create_app(config_name='development'):
     def websocket_start():
         """Start WebSocket connection"""
         try:
-            from flask import request, jsonify
-            import datetime
             from core.okx_websocket_simple import ws_manager_simple
             
             data = request.get_json() or {}
@@ -703,11 +714,10 @@ def create_app(config_name='development'):
                 "status": "success",
                 "message": message,
                 "symbols": symbols,
-                "websocket_running": ws_manager.is_running,
+                "websocket_running": ws_manager_simple.is_started,
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"WebSocket start error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -716,20 +726,18 @@ def create_app(config_name='development'):
     def websocket_stop():
         """Stop WebSocket connection"""
         try:
-            from flask import jsonify
-            from core.okx_websocket import ws_manager
+            from core.okx_websocket_simple import ws_manager_simple
             
-            ws_manager.stop()
+            ws_manager_simple.stop()
             logger.info("⏹️ WebSocket stopped via API")
             
             return jsonify({
                 "status": "success",
                 "message": "WebSocket stopped",
-                "websocket_running": ws_manager.is_running,
+                "websocket_running": ws_manager_simple.is_started,
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"WebSocket stop error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -738,8 +746,6 @@ def create_app(config_name='development'):
     def api_status():
         """Get comprehensive API status and available endpoints"""
         try:
-            from flask import jsonify
-            import datetime
             from core.okx_hybrid_fetcher import hybrid_fetcher
             
             # Get cache status
@@ -897,7 +903,6 @@ def create_app(config_name='development'):
             })
             
         except Exception as e:
-            from flask import jsonify
             logger.error(f"API status error: {e}")
             return jsonify({
                 "status": "degraded",
@@ -912,8 +917,6 @@ def create_app(config_name='development'):
     def cache_status():
         """Get hybrid fetcher cache status"""
         try:
-            from flask import jsonify
-            import datetime
             from core.okx_hybrid_fetcher import hybrid_fetcher
             
             cache_info = hybrid_fetcher.get_cache_status()
@@ -925,7 +928,6 @@ def create_app(config_name='development'):
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"Cache status error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -934,8 +936,6 @@ def create_app(config_name='development'):
     def cache_refresh():
         """Force refresh all cached data"""
         try:
-            from flask import request, jsonify
-            import datetime
             from core.okx_hybrid_fetcher import hybrid_fetcher
             
             data = request.get_json() or {}
@@ -958,7 +958,6 @@ def create_app(config_name='development'):
                 "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             })
         except Exception as e:
-            from flask import jsonify
             logger.error(f"Cache refresh error: {e}")
             return jsonify({"error": str(e)}), 500
     
@@ -977,8 +976,8 @@ def create_app(config_name='development'):
         else:
             logger.warning("⚠️ WebSocket integration incomplete")
             
-        # Store WebSocket server instance for access
-        app.ws_server = ws_server
+        # Store WebSocket server instance for access in app config
+        app.config['ws_server'] = ws_server
         
     except Exception as e:
         logger.error(f"WebSocket integration failed: {e}")

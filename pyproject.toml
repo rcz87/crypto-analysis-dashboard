@@ -45,7 +45,7 @@ dependencies = [
     "msgpack-python>=0.5.6",
     "msgpack>=1.1.1",
     "greenlet>=3.2.3",
-    "psycopg2-binary==2.9.9",
+    "psycopg2-binary>=2.9.10",
 ]
 
 [[tool.uv.index]]
