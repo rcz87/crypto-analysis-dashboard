@@ -7,6 +7,7 @@ from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask_cors import CORS
 from auth import require_api_key
 
 # Set up logging
@@ -36,6 +37,25 @@ def create_app(config_name='development'):
         x_proto=1, 
         x_host=1, 
         x_for=1  # Add x_for for better IP handling
+    )
+    
+    # 🌍 CORS CONFIGURATION for guardiansofthegreentoken.com domain
+    # Allow GPT-5 and other services to access our API from the production domain
+    CORS(app, 
+         origins=[
+             "https://guardiansofthegreentoken.com",
+             "https://www.guardiansofthegreentoken.com", 
+             "https://chat.openai.com",
+             "https://openai.com",
+             "https://api.openai.com",
+             "https://guardiansofthetoken.id",
+             "https://www.guardiansofthetoken.id",
+             "http://localhost:*",  # Development
+             "http://127.0.0.1:*"   # Local testing
+         ],
+         allow_headers=["Content-Type", "Authorization", "X-API-KEY", "Accept"],
+         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+         supports_credentials=True
     )
     
     # 🔒 SECURITY CONFIGURATION
@@ -223,6 +243,15 @@ def create_app(config_name='development'):
             logger.info("✅ Core Trading: gpts_sinyal blueprint registered")
     except Exception as e:
         logger.warning(f"Could not register gpts_sinyal: {e}")
+    
+    # 🤖 GPT-5 Integration for guardiansofthegreentoken.com
+    try:
+        from api.gpt5_integration import gpt5_bp
+        if "gpt5_integration" not in app.blueprints:
+            app.register_blueprint(gpt5_bp)
+            logger.info("✅ GPT-5: Integration endpoints registered for guardiansofthegreentoken.com")
+    except Exception as e:
+        logger.warning(f"Could not register GPT-5 integration: {e}")
     
     # 🔧 Register Enhanced Signal endpoints
     try:
