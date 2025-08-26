@@ -6,7 +6,7 @@ channel = "stable-25_05"
 packages = ["borgbackup", "cargo", "glibcLocales", "iana-etc", "libev", "libiconv", "libjpeg_turbo", "libpng", "libxcrypt", "nano", "opensshWithKerberos", "openssl", "pkg-config", "postgresql", "rustc", "which"]
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "gce"
 run = ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
 build = ["sh", "-c", "pip install -r requirements-prod.txt"]
 
