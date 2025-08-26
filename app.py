@@ -156,6 +156,49 @@ def create_app(config_name='development'):
             "status_code": 400
         }), 400
     
+    # 🏠 Basic Root Endpoint for External Access
+    @app.route('/', methods=['GET'])
+    def root_endpoint():
+        """Root endpoint untuk external access dan testing"""
+        return jsonify({
+            "service": "crypto-trading-suite",
+            "status": "active",
+            "message": "Advanced Cryptocurrency Trading Analysis Platform",
+            "description": "AI-powered cryptocurrency trading signals with Smart Money Concept analysis",
+            "version": "2.0.0",
+            "features": [
+                "Real-time trading signals",
+                "Smart Money Concept analysis", 
+                "AI-powered market analysis",
+                "Multi-timeframe analysis",
+                "Institutional trading intelligence"
+            ],
+            "supported_symbols": ["BTC", "ETH", "SOL", "ADA", "DOT", "AVAX"],
+            "supported_timeframes": ["1m", "5m", "15m", "1H", "4H", "1D"],
+            "endpoints": {
+                "health_check": "/health",
+                "trading_signals": "/api/gpts/sinyal/tajam",
+                "status": "/api/gpts/status", 
+                "documentation": "See development_workflow_explained.md"
+            },
+            "domain_ready": "guardiansofthegreentoken.com",
+            "gpt5_integration": True,
+            "timestamp": int(datetime.datetime.utcnow().timestamp())
+        })
+
+    # 🩺 Simple Health Check Endpoint
+    @app.route('/health', methods=['GET'])
+    def simple_health():
+        """Simple health check for external testing"""
+        return jsonify({
+            "status": "healthy",
+            "message": "Crypto Trading API is operational",
+            "service": "crypto-analysis-dashboard",
+            "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+            "version": "2.0.0",
+            "endpoints_available": 91
+        })
+
     # 📊 Initialize database tables
     with app.app_context():
         try:
