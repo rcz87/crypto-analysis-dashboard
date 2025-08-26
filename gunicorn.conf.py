@@ -6,8 +6,8 @@ import multiprocessing
 bind = "0.0.0.0:5000"
 backlog = 1024
 
-# Worker processes - Optimized to prevent repeated initialization
-workers = 2  # Use fewer workers to reduce memory and initialization overhead
+# Worker processes - Use single worker to eliminate duplicate initialization logs
+workers = 1  # Single worker eliminates duplicate initialization messages
 worker_class = "gthread"  # Use gthread for better concurrency
 worker_connections = 1000
 threads = 4  # 2-4 threads per worker as specified
